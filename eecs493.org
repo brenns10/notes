@@ -1,4 +1,5 @@
-#+TITLE EECS 477 Notes
+#+TITLE: EECS 477 Notes
+#+AUTHOR: Stephen Brennan
 
 * 2015-08-24
 
@@ -7,3 +8,83 @@
   - Project - 40%.
   - "Try" to get 8-10 quizzes.
   - Drop 2 lowest quizzes.
+
+** Software Engineering
+
+   Multiple meanings:
+
+   - Application of engineering principles to software development.  Whatever
+     those "engineering principles" are.
+     - NATO stuff - many NATO countries had to do military software dev.
+     - They held a conference to solve their problems by applying engineering
+       practices.
+     - Specification documents, etc.
+   - Name of the software engineering practice.
+   - Something else
+
+***   Goals of Saftware Engineering
+
+      To produce, as quickly and inexpensively as possible, software that is:
+
+      - Easy to use
+      - Reliable
+      - Something
+      - Straightforward to maintain, adapt, and enhance
+      - Secure (lol)
+
+      Generally most of software engineering is actually maintaining, adapting,
+      and enhancing.  Not constructing.
+
+*** Aspects of Software Engineering
+
+**** Technical
+
+       - Specification - creating a document that says exactly what a software or
+         subsystem will do.
+       - Design - taking a specification and coming up with a "design" that will
+         do what the spec says.  Design is high level (not code), like UML, etc.
+       - Programming - taking the design and putting it into code.
+       - Inspection and Testing
+       - Static & dynamic analysis
+       - Debugging
+       - Maintenance
+       - Configuration management
+
+**** Non-Technical
+
+     - Project management
+     - Psychology
+       - cognitive, behavioral, organization
+     - Law
+       - contracts, liability, intellectual property
+
+*** Software Complexity
+
+    Primary issue for software dev: complexity:
+
+    - problem complexity
+    - design/implementation complexity
+    - platform complexity
+
+    Large systems are among the most complex things produced by humans.
+    (e.g. Windows 8.1 - 80 million lines of code).
+
+    - Complex systems are difficult to understand, produce, and maintain.
+    - They rarely satisfy every need, and the needs often are a moving target.
+    - They always contain "residual defects" that you don't know about.
+    - Many SD projects are late and over budget.
+      - Some just never complete.
+
+*** Software Engineering Methodology
+
+    - Broad collection of techniques and tools addressing each phase of software
+      development.
+    - Continually evolving
+    - Specialized for subfields:
+      - Web
+      - Real-time
+      - Health
+    - Influential methods:
+      - OO
+      - TDD
+      - Agile
