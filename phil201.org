@@ -1,0 +1,55 @@
+#+TITLE: PHIL 201 Notes
+#+AUTHOR: Stephen Brennan
+
+* 2015-08-24 Monday
+
+  Context:
+
+  - Socrates - dies 399 BC
+  - Plato - writes 15 years after that
+  - Aristotle - even younger than that
+
+  What did Socrates write?  We know because of comedies written about him, and
+  ideas attributed here.  He would say he couldn't teach you anything, only talk
+  about stuff.  He talked about the "good life, not a teacher."  He was the
+  enemy of the "sophist," who takes money for teaching.
+
+  What did Plato do?  Dialogues about Socrates, and other stuff.  People copied
+  his works for 1500 years, so we have crystal clear knowledge of what he did.
+  He also ran the Academy in Athens (where the "right people"--young men--could
+  get together and learn).  He coined the term Academy in Greek.  He wrote about
+  "The Good".
+
+  Aristotle went to Plato's Academy.  He created Formal Logic, all by himself.
+  Here's some of his stuff.
+
+  - All Greeks are mortal.  Socrates is a greek.  Therefore, Socrates is mortal.
+  - Some snakes are poisonous.  There's a snake right next to your shoe.
+    Therefore, you should move away slowly.
+
+  Differences between the two:
+
+  - The first is a "Universal" and the second is a "Particular" (all/some).
+  - The first is "deductively valid".  That means that every argument of this
+    form is valid, so long as each of the propositions are true.
+
+  Modern logic came about because of von Neuman, Alonzo Church, and Alan Turing.
+  The same guys who created computers.
+
+  This class is about new ways of organizing arguments, not new and clever
+  arguments.  We will also learn how to evaluate arguments:
+
+  - Soundness: no false positives.  A sound method could be as simple as never
+    answering.
+  - Completeness: all correct positives.  A complete method would always say
+    yes.
+  - Effective: always gives you an answer.
+
+  This logic is:
+
+  1. Utterly precise
+  2. Artificial
+  3. Simple (but not necessarily easy)
+  4. Limited
+
+  The textbook: "The Logic Book" by Merrie Bergman.
