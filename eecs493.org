@@ -1,1 +1,9 @@
 #+TITLE EECS 477 Notes
+
+* 2015-08-24
+
+  - I'm definitely going to switch to undergrad version of this class.
+  - Quizzes - 60%
+  - Project - 40%.
+  - "Try" to get 8-10 quizzes.
+  - Drop 2 lowest quizzes.
