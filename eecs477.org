@@ -1,4 +1,4 @@
-#+TITLE EECS 477 Notes
+#+TITLE: EECS 477 Notes
 
 * 2015-08-24 Monday
 
