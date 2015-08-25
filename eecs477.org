@@ -1,4 +1,7 @@
 #+TITLE: EECS 477 Notes
+#+AUTHOR: Stephen Brennan
+#+OPTIONS: tex:t
+#+STARTUP: entitiespretty
 
 * 2015-08-24 Monday
 
@@ -13,39 +16,40 @@
 
    Measure time complexity.  Focus is on large inputs.
 
-   - $f(n) \in O(g(n))$ means "f(n) \leq g(n)"
+   - f(n) \in O(g(n)) means "f(n) \leq g(n)"
 
-     $\exists c > g, n_0 > 0 \: \forall n \geq n_0 : f(n) \leq c g(n)$
+     \exists c > g, n_0 > 0 s.t. \forall n \geq n_0 : f(n) \leq c g(n)
 
-   - $f(n) = \Omega(g(n))$ defined: $g(n) \in O(f(n))$
+   - f(n) = \Omega(g(n)) defined: g(n) \in O(f(n))
 
-   - $f(n) \in \Theta(g(n))$ defined: $f(n) \in O(g(n))$ and $f(n) \in \Omega(g(n))$
+   - f(n) \in \Theta(g(n)) defined: f(n) \in O(g(n)) and f(n) \in \Omega(g(n))
 
-   - $f(n) \in o(g(n))$ defined: $\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0$
+   - f(n) \in o(g(n)) defined: \(\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0\)
 
-   - $f(n) @in \omega(g(n))$ defined $\lim{n\to\infty} \frac{f(n)}{g(n)} =\infty$
+   - f(n) \in \omega(g(n)) defined: \(\lim{n\to\infty} \frac{f(n)}{g(n)}
+     =\infty\)
 
    What is $n$?  Input size.  Sometimes it's a number of elements, or it could
    be multiple parameters (number of nodes, number of edges).
 
    Sometimes we use the number of bits of the input.  For example, an algorithm
-   with input integer $k$.  The number of bits is $n=Theta(\log k)$.  If the
+   with input integer $k$.  The number of bits is $n=\Theta(\log k)$.  If the
    runtime is $O(k)$, it looks like it's linear time.  But in the number of
    bits, it's exponential ($O(2^n)$).  It looks polynomial, but it's
    exponential.  It's called pseudo-polynomial.
 
    Formula:
 
-   $(1 - frac{x}{k})^k$, where $x \in R$, $k \in N^+$.  We have that quantity $<
-   e^{-k}$, and $\geq (1-x)$.  This will be used a lot apparently.
+   $(1-\frac{x}{k})^k$, where \(x \in R\), \(k \in N^+\).  We have that quantity
+   \(< e^{-k}\), and \(\geq (1-x)\).  This will be used a lot apparently.
 
 ** Optimization Problems
 
-   **Definition:** An instance of an optimization problem is a pair $(X, f)$,
+   **Definition:** An instance of an optimization problem is a pair $(X,f)$,
      where $X$ is a set of feasible solutions, and $f$ is an objective function.
      $f$ maps from $X$ to the real numbers.  An /optimal solution/ $x^*$ is an
-     element of $X$ with the property that $f(x^*) \leq f(x) \: \forall x \in
-     X$.
+     element of $X$ with the property that \(f(x^*) \leq f(x) \: \forall x \in
+     X\).
 
    For instance, if you have a graph and you're talking about the minimum
    spanning tree problem, $X$ is the set of all MSTs, and $f$ maps each to the
