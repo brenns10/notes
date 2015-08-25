@@ -1,5 +1,7 @@
-#+TITLE: EECS 477 Notes
+#+TITLE: EECS 493 Notes
 #+AUTHOR: Stephen Brennan
+#+OPTIONS: tex:t
+#+STARTUP: entitiespretty
 
 * 2015-08-24
 

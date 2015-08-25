@@ -1,5 +1,7 @@
 #+TITLE: PHIL 201 Notes
 #+AUTHOR: Stephen Brennan
+#+OPTIONS: tex:t
+#+STARTUP: entitiespretty
 
 * 2015-08-24 Monday
 
