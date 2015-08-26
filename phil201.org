@@ -55,3 +55,43 @@
   4. Limited
 
   The textbook: "The Logic Book" by Merrie Bergman.
+* 2015-08-24 Wednesday
+
+** Chapter 1 - Deductive Logic
+
+   "There is no inductive logic."
+
+   A *sentence* is a statement which is True or False.  What is /not/ a sentence
+   in our terminology?
+   - Interrogatives (questions)
+   - Imperatives (commands)
+   - (/Future tense, predictions/) - in logic class, these are true or false,
+     but there could be lots of lively debate.  Apparently Aristotle wrote about
+     this and our instructor says it is a "long and confusing" section.
+   - Opinionated statements (e.g. "France is a beautiful country.").  For logic
+     textbook purposes, we can treet these as declarative sentences, but we
+     don't typically think of them that way in the real world.
+
+   An *argument* is a list of sentences, one of which is called a *conclusion*,
+   the others are called *premises*.  There can be discussion about how many
+   sentences are required, but really you only need one to have an argument.
+   Additionally, the book says in older editions that the premises should be
+   "intended to support the conclusion."  But that really shouldn't matter.
+   This is missing several parts from normal definitions of arguments:
+   - Opposing viewpoints.
+   - Reasoning (why a premise supports a conclusion).
+
+   A (Deductively) *valid* argument is an argument where there is no way for the
+   premises to be True while the conclusion is False.  Correspondingly, an
+   *invalid* argument is one where there is some way for the premises to be True
+   and the conclusion False (which is called a *counterexmple*, CE).
+
+   Example Arguments:
+
+   - Today is Wednesday and is not Wednesday.  \therefore, the temperature is 80\deg{}F.
+     - Valid.  The premise is never true.  There is no way for the premise to be
+       true while the conclusion is false.  *An argument with inconsistent
+       premises is trivially valid.*
+   - Columbus is capital of Ohio.  \therefore Columbus is in Ohio.
+     - Doesn't matter.  This is where the "no way" becomes vague.
+
