@@ -3,7 +3,7 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
-* 2015-08-24
+* 2015-08-24 Monday
 
   - I'm definitely going to switch to undergrad version of this class.
   - Quizzes - 60%
@@ -121,7 +121,7 @@
 
 *** Basic Waterfall Model
 
-    - Phases:
+    - Phases: (this is kinda a combination of multiple slides)
       - Requirements
         - Elicitation and analysis: determine what it should do.  This is a good
           time to meet with a client and help them describe exactly what their
@@ -132,9 +132,50 @@
         the structure and behavior in a way that satisfies the requirements, but
         doesn't actually implement it.
       - Implementation: coding yo.
-      - Validation:
+      - Validation: the set of activities that you do to make sure you deliver
+        the right product.
+        - Testing!!
+        - Previews for customer to make sure they're satisfied.
         - Integration - combining the components into a working system.
         - Deployment - send out teh binaries
       - Maintenance: repair, adapt, or enhance the system as needed.
-      - Pretty much all software development models will contain some variation
-        of these phases, but not necessarily in the same order, or linearly.
+    - Pretty much all software development models will contain some variation of
+      these phases, but not necessarily in the same order, or linearly.
+    - Stage called "Verification" is for formal reasoning and proofs of
+      correction.
+
+**** Waterfall Augmented With Iteration
+
+     - Basically adds a whole bunch of transitions, to make maintenance more
+       nice.
+
+**** Waterfall  Advantages
+
+     - It is disciplined, if you do it right.  Which is much better than just
+       "build and fix."
+     - If you're careful, the analysis+docs can prevent costly problems later.
+     - Documentation typically fall out of date, so it takes a ton of effort to
+       "be careful".
+
+**** Waterfall Disadvantages
+
+     - Difficult to convey dynamics of a system in a document.
+     - Customers often can't tell what they want/don't want until they see it.
+     - Requirements can also change for reasons other than shifting wants.
+     - Sometimes you only really understand the requirements when you try to
+       implement them.
+     - Diffcult to assess your progress until some things are implemented.
+
+*** Incentive Mismatch
+
+    - Schrage claims requirements create perverse incentives for clients to:
+      - Avoid rigorous thinking about cost, change, priorities, and risk.
+      - Delegate hard design decisions to software developers.
+    - It's easy and inexpensive to come up with many requirements.  They're
+      "wishes".  It's easy.
+    - Developers are rewarded for building to requirements.
+    - Not rewarded for finding and removing requirements.
+    - Schrage argues for quick prototypes based on few requirements.
+      - "Never go to a client meeting without a prototype."
+      - This fosters ongoing client interaction in development.
+      - Clients are also less likely to reject their own work.
