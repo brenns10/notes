@@ -90,3 +90,51 @@
       - OO
       - TDD
       - Agile
+
+* 2015-08-26 Wednesday
+
+** Software Process Models
+
+   - Graphical models of the software development process.
+   - Characterize workflow
+   - Have descriptive and prescriptive purposes
+     - Some people advocate models that will help you make better software.
+
+*** Anti-model: Build & Fix
+
+    - Build first version
+    - Modify until client is satisfied
+
+    Problems with this:
+
+    - Product is implemented without specification or design documents. (!)
+      - Lack of planning... it sucks.
+    - Reworked until the client is satisfied.
+      - This is a moving target.
+    - Works poorly for large products.
+    - Maintenance is likely to be very difficult.
+
+    Ways to improve:
+
+    - Add a requirements document.
+    - Add a planning stage.
+
+*** Basic Waterfall Model
+
+    - Phases:
+      - Requirements
+        - Elicitation and analysis: determine what it should do.  This is a good
+          time to meet with a client and help them describe exactly what their
+          software should do.
+        - Specification: after your analysis, you write a specification of what
+          the software should do.  Called SRS
+      - Design: intermediate between requirements and implementation.  Describes
+        the structure and behavior in a way that satisfies the requirements, but
+        doesn't actually implement it.
+      - Implementation: coding yo.
+      - Validation:
+        - Integration - combining the components into a working system.
+        - Deployment - send out teh binaries
+      - Maintenance: repair, adapt, or enhance the system as needed.
+      - Pretty much all software development models will contain some variation
+        of these phases, but not necessarily in the same order, or linearly.
