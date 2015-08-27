@@ -1,0 +1,257 @@
+#+TITLE: EECS 440 Notes
+#+AUTHOR: Stephen Brennan
+#+OPTIONS: tex:t
+#+STARTUP: entitiespretty
+
+* 2015-08-27 Thursday
+
+** Optimization
+
+*** What is it?
+
+    Find the extreme points of an objective function.
+
+*** Types of Optimization Problems
+
+    - Discrete vs Continuous - objective function is defined on discrete or
+      continuous space.
+    - Unconstrained vs constrained - whether there are additional constraints
+      defining the feasible region.
+    - In this class, we are interested in continuous problems, constrained and
+      unconstrained.  We use tools from calculus and linear algebra.
+
+*** Unconstrained Optimization
+
+    - Function of one variable, eg minimum of x^2.  Typical method for solving
+      this is to compute first and second derivative, find zeros of first
+      derivative where second derivative is positive.
+    - Fuctions of two variables, you find the same things, but in matrix form:
+      - Jacobian \(J = (\frac{\delta{}f}{\delta{}x_i}) = 0\)
+      - Hessian \(H = [\frac{\delta^{2}f}{\delta{}x_{i}\delta{}x_j}] > 0\) must be
+        positive definite.
+    - Can't always do this, due to computational constrains, and due to weird or
+      unknown function.
+
+*** Gradient Ascent
+
+    A way of maximizing/minimizing a function.  From your current position
+    $\vec{x}$, go in th edirection that maximizes the increase.
+
+    \(\vec{x}_{new} = \vec{x}_{old} - \alpha \Delta f_{\vec{x}_old}(\vec{x})\)
+
+    Here, \alpha is the step size, and \Delta f is the function gradient
+    evaluated at x_{old}.
+
+    Downside of this is that the convergence rate is not very good.  Also, this
+    procedure assumes linearity, where a quadratic function may be a better
+    approximation.
+
+*** Newton-Raphson Method
+
+    In this, we use a quadratic approximation of f.  Then, instead of taking a
+    linear step, we take a "Newton step".
+
+    \(f(\vec{x}_{old} + u) = f(\vec{x}_{old}) + u^T \Delta f_{\vec{x}_{old}}(\vec{x}) + \frac{1}{2} u^T \Delta^2f_{\vec{x}_{old}}(\vec{x})u = g(u)\)
+
+    More math, see slides.
+
+    Properties:
+    - Fast convergence close to solution.
+    - Not guaranteed to converge if started far from solution, may cycle or
+      diverge in this case.
+
+*** Quasi-Newton Methods
+
+    - Often, constructing the Hessian for a multivariate function is
+      computationally difficult, because it takes O(n^2) space and time and has
+      to be done over and over.
+    - So, a number of methods exist that approximate the Hessian by using the
+      Jacobian at nearby points.
+
+*** Local and Global Optima
+
+    - A *global minimum* for a function is a point x where f(x) \leq f(x+u) for
+      all u.
+    - A *local minimum* is an x where f(x) \leq f(x+u) for all |u|<\epsilon, for
+      some positive \epsilon.
+    - Every global minimum is a local min, but not the other way around.
+    - There is no algorithm that is guaranteed to find the global maximum of an
+      arbitrary function.
+
+*** Convex Sets
+
+    Take two points x_1 and x_2.  A point on the line segment between them is
+    defined by \lambda x_1 + (1-\lambda) x_2, for 0 \leq \lambda \leq 1.
+
+    A Convex Set is a set of points such that for any two points in the set,
+    \lambda x_1 + (1-\lambda) x_2 is also in the set (for 0 \leq \lambda \leq
+    1).  Basically, you can visualize these sets on the plane as "shapes that
+    don't have holes in them".
+
+*** Convex Functions
+
+    If you look at all the points that are "above" a function - {(x,y)|y \geq
+    f(x)}, if that set is convex, then f is a convex function.
+
+    JENSEN'S INEQUALITY (yaaaaaaas)!
+
+    f(\lambda x_1 + (1-\lambda) x_2) \leq \lambda f(x_1) + (1-\lambda) f(x_2)
+
+    Jensen's inequality seems to apply for any convex function.  It just says
+    that the points on the segment between f(x_1) and f(x_2) have to be above
+    the the function itself.  Pretty cool.
+
+    For a convex function, every local optimum is also a global optimum!  That's
+    a pretty nice property to have.
+
+*** Constrained Optimization
+
+    - Minimize a function of x such that some constraints on x are satisfied.
+      The constraints define a feasible region on of in which the solution must
+      lie.
+
+*** Linear Programming
+
+    Linear Programming is a *special case* of *constrained optimization*, in
+    which both the objective function and the constraints are linear!
+    Typically, we write all the constraints and objective function as functions
+    of matrices and vectors, for compactness.
+
+    When you apply all these linear constraints, you have a feasible region that
+    is a "polyhedron" (because it is bounded by a bunch of "hyperplanes").  It's
+    possible that one side of the feasible region is open, (so not completely
+    bounded).
+
+    If you have a linear objective function, you can say for certain that an
+    optimal point is on one of the vertices.
+
+*** Simplex Algorithm
+
+    - Around the polyhedron we go.
+    - From any feasible vertex, walk along the edges of the polyhedron,
+      following the vertices.
+    - Once you are at a vertex where the neighboring vertices have higher f
+      values, stop.
+    - You've found a local optimum, which happens to be a global optimum since
+      the linear function is convex.
+
+    Properties of this algorithm:
+
+    - Very simple, and easy to implement, and works well in practice.
+    - It works by traversing vertices, and there may be exponentially many
+      vertices for n constraints.  So, in the worst case, runtime is
+      exponential.
+      - Average case under various distributions has been shown to be
+        polynomial, which is useful.
+    - Other algorithms exist, such as "interior point methods", which have
+      polynomial bounds*
+
+*** Duality in Linear Programming
+
+    From any "primal" LP, we can derive a "dual" LP.  Say we have a primal LP:
+
+    - min_x c^T x, such that
+    - A x \geq b
+    - x \geq 0
+
+    We could create a dual like this:
+
+    - max_u b^T u, such that
+    - A^T u \leq c
+    - u \geq 0
+
+    The nice properties of this are:
+
+    - The primal has a solution iff the dual has a solution.
+    - Further, the dual LP is a lower bound on the primal LP.
+      - That is, if we pick any feasible x and any feasible u, we always havve
+        c^T x \geq b^T u.
+    - From the relationship between primal and dual LPs, we can derive a set of
+      conditions that characterize the solutions for a primal/dual pair, called
+      the Karush-Kuhn-Tucker conditions.
+    - Essentially, the conditions are that at the optimal solution, x and u are
+      feasible and the objective functions c^T x and b^T u are equal (and some
+      other stuff).
+    - Soumya says if this doesn't make sense now, that's ok.  Which is good,
+      because he lost me at the dual being a lower bound on the primal.
+
+*** Summary of Optimization
+
+    - Types of optimization problems.
+    - Unconstrained optimization - gradient ascent/descent, Newton Raphson
+      methods.
+    - Convex sets and functions
+    - Constrained optimization:
+      - Linear programming
+      - Simplex method
+      - Duality
+      - KKT conditions
+
+** The Simplex Algorithm
+
+   He says we should know how it works.
+
+   Let us consider the following linear program:
+
+   - minimize (with respect to x_1, x_2) f(x) = 3x_1 - 6x_2, such that
+   - x_1 + 2x_2 \geq -1
+   - 2x_1 + x_2 \geq 0
+   - -x_2 + x_1 \geq -1
+   - -4x_2 + x_1 \geq -15
+   - -4x_1 + x_2 \geq -23
+   - x1, x_2 \geq 0
+
+   Steps:
+   1. Standardize so everything is in [variables] \geq [constant] form.
+   2. Introduce "slack variables".  Essentially, these are the gap in the
+      conditions.  These have to be greater than or equal to 0:
+      1. x_3 = x_1 + 2x_2 + 1
+      2. x_4 = 2x_1 + x_2
+      3. x_5 = -x2 + x_1 + 1
+      4. x_6 = -4x_2 + x_1 + 15
+      5. x_7 = -4x_1 + x_2 + 23
+   3. We can put this stuff into tableu form:
+
+      |     | x_1 | x_2 |    |
+      | x_3 |   1 |   2 |  1 |
+      | x_4 |   2 |   1 |  0 |
+      | x_5 |   1 |  -1 |  1 |
+      | x_6 |   1 |  -4 | 13 |
+      | x_7 |  -4 |   1 | 23 |
+      | 2   |   3 |  -6 |  0 |
+
+   4. Assume that zero is feasible.  Pick the variable that will decrease the
+      objective function (the most?), and change it accordingly.  In this case,
+      we choose x_2.  Then, we write out the constraints, holding x_1 to be 0.
+      We find the smallest positive constraint value for x_2, and choose that.
+      Whatever variable caused that constraint, we swap it with x_2, and make a
+      new tableau.
+
+      In this case, x_5 is the blocking constraint, so we pick it.
+
+      |     | x_1 | x_5 |  1 |
+      | x_3 |   3 |  -2 |  3 |
+      | x_4 |   3 |  -1 |  1 |
+      | x_2 |   1 |  -1 |  1 |
+      | x_6 |  -3 |   4 |  9 |
+      | x_7 |  -3 |   1 | 24 |
+      | z   |  -3 |   6 | -6 |
+
+   5. The value of the function is now -6.  We can see that the right variable
+      to decrease now is x_1.  So, we do the constraints again.  Here, the
+      blocking constraint is x_6, so then we get this tableau:
+
+      |     |  x_6 | x_5 |   1 |
+      | x_3 |   -1 |   2 |  12 |
+      | x_4 |   -1 |   3 |  10 |
+      | x_2 |  1/3 | 1/3 |   4 |
+      | x_1 | -1/3 | 1/3 |   3 |
+      | x_7 |    1 |  -5 |  15 |
+      | z   |    2 |   1 | -15 |
+
+      The stopping condition is when both variables on top of the columns have
+      coefficients that are positive, so you can't improve the function value.
+
+   If you have more than one variable that will decrease the function, you can
+   choose any variable to decrease, and you will always get to the correct
+   solution.  However, some choices will be faster than others.
