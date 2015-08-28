@@ -55,7 +55,7 @@
   4. Limited
 
   The textbook: "The Logic Book" by Merrie Bergman.
-* 2015-08-24 Wednesday
+* 2015-08-26 Wednesday
 
 ** Chapter 1 - Deductive Logic
 
@@ -95,3 +95,54 @@
    - Columbus is capital of Ohio.  \therefore Columbus is in Ohio.
      - Doesn't matter.  This is where the "no way" becomes vague.
 
+* 2015-08-28 Friday
+
+  Sentences $p$ and $q$ are *logically equivalent* if there is no way to make
+  one True and the other False.
+
+  EG:
+  - It is either not Wednesday or not raining.  (or both)
+  - It is not Wednesday and raining.
+  - (FYI, DeMorgan's Law)
+
+  Quiz on Wednesday.  What will be on the quiz?  Definitions mostly.
+  Definitions we covered up till the quiz.  Which may include chapter 2.
+
+  A list of sentences is *consistent* if there is Some Way for all to be True at
+  once.  Satisfiability!!  EG:
+
+  - If today is Wednesday, then it's not raining.
+  - Today is Wednesday.
+  - It is raining.
+
+  No matter how you did it, you couldn't make all of these true.  So this list
+  of sentences is not consistent.
+
+  P_1, P_2, ..., P_n \therefore C is Logically Valid iff the list {P_1, P_2, ..., P_n,
+  \not{}C} is inconsistent.
+
+** Chapter 2
+
+   An *atomic* sentence is a sentence with no smaller sentence as part.  A
+   *connective* is a word (or words) that applies to one or more sentences to
+   form a sentence.  EG:
+   - "not" - applies to any sentence, and creates a new sentence.
+   - "and" - can go between sentences, and creates a new one
+   - "don't say" - is NOT a connective, because it forms an imperative, not a
+     sentence.
+   - "I don't believe" - is a connective.
+
+   A *Truth Functional Connective* is a connective such that the truth value of
+   the sentence it forms is wholly determined by the truth value of the parts.
+
+   - NOT + (Bornite is a Cu ore): this is TFC, because Not always reverses the
+     truth value.
+   - My Brother Knows + (Bornite is a Cu ore): this is a connective, but not
+     TFC, because the sentence alone doesn't tell you whether the whole thing is
+     true.
+
+   In other words, TFCs are connectives that have truth tables!!!  EG, for not:
+
+   | P | \not{}P |
+   | T | F  |
+   | F | T  |
