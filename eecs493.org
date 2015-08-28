@@ -179,3 +179,76 @@
       - "Never go to a client meeting without a prototype."
       - This fosters ongoing client interaction in development.
       - Clients are also less likely to reject their own work.
+* 2015-08-28 Friday
+
+** Incentive Mismatch
+
+   - Schrage claims that requirements create perverse incentives.
+   - It's easy for a client to build a "wish list" of requirements.
+   - Developers are paid to implement requirements, so they do it.
+   - He advocated for "prototyping", and for small requirements.
+   - He says that it makes clients more likely to accept the result (if it's
+     perceived as partly their work as well).
+
+** Prototyping
+
+   - A prototype is an incomplete model (typically executable, not just a
+     storyboard) of a system.  It's made rapidly based on your initial
+     requirements and provided to users for evaluation and feedback.
+   - Makes it easier to refine and validate the requirements, especially with
+     look and feel / UI.
+   - Also can be good to validate internal design, like performance.
+   - Focus on the areas of greatest risk for the project.
+   - To rapidly prototype:
+     - Omit functionality.
+     - Ignore non-functional constraints (like efficiency)
+     - Reuse existing components, use rapid prototyping languages like Python!
+
+***   Types of prototyping
+
+      - Throwaway - not built upon later.  It might be pretty awful, but it
+        works.
+        - Goal is to build the poorly understood parts first to clarify the
+       requirements.
+      - Evolutionary - will be refined iteratively to create the final product.
+        (IT'S SO AGILE!)
+        - Usually needs refactoring
+        - Goal is to build the well understood parts first, and uncover any
+          unkown requirements as you go, evolving to fit the requirements.
+
+*** Operational Prototyping
+
+      - Combines thrawaway and evolutionary prototyping.
+      - An evolutionary prototype is constructed and made into a baseline using
+        conventional methods.
+      - Copies of he baseline are sent to multiple customer sites with a trained
+        prototyper.
+      - At each site, the prototyper observes the use of the system and tracks
+        feature requests/issues/etc.
+      - After the observation period, prototyper adds a throwaway prototype on
+        top of the baseline, and the user evaluates them.
+        - If they're ineffective, they are removed.
+        - If the users like the new prototype, the prototyper submits a change
+          request to the development team, and the development team works on the
+          evolutionary prototype.
+
+*** Drawbacks of Prototyping
+
+    - You neglect up-front analysis by relying on the customer to provide
+      feedback.  There's a bit of a tradeoff here.
+    - Users might misunderstood the purpose of the prototype:
+      - Maybe they'll like it too much and keep it, and not finish the contract.
+      - Maybe they'll think it's bad and lose confidence in the developer.
+    - Can lead to feature creep when you accomodate every feature request.
+    - Wasted effort prototyping (when you could have drawn on paper, or verbally
+      asked, etc...).
+
+** Incremental Delivery
+
+   This is a "tweak" to evolutionary prototyping.  It's the basis for AGILE.
+
+   - Built + delivered in increments/builds.
+   - Each increment provides a subset of the system's functionality.
+   - Services are allocated to increments based on customer's priorities.
+   - Conventional development process is applied to each increment.  (AGILE
+     methods sometimes skimp on this).
