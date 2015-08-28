@@ -54,3 +54,91 @@
    For instance, if you have a graph and you're talking about the minimum
    spanning tree problem, $X$ is the set of all MSTs, and $f$ maps each to the
    sum of the edge weights in the tree.
+* TODO 2015-08-26 Wednesday
+
+  Need to copy over notes from paper.
+
+* 2015-08-28 Friday
+
+** Last Time:
+
+   Approximation algorithms have approximation ratio:
+
+   apx ratio = \(max_{I\in{}\mathscr{I}} {\frac{c(I)}{c^*(I)}}\)
+
+   A c-approximation algorithm has cost \leq c \times optimal cost on all instances I of
+   the problem $\mathscr{I}$.  One example is the vertex cover problem.  We
+   covered a 2-approximation algorithm (called =VCapx=) that operates by
+   repeatedly choosing an edge, adding its endpoints to the VC, and removing all
+   incident edges from the graph.
+
+   We left off saying that today we would cover the proof that it is a 2-apx
+   algorithm.
+
+** Proof
+
+   *Theorem* =VCapx= is a 2-approximation algorithm.
+
+   *Proof* Every edge is covered by =VCapx= at termination.  For every one of
+   these edges, the algorithm adds at most two vertices to $V'$.  The optimal
+   solution contains at least one of these two.  =VCapx= never considers the
+   same vertex twice (since it deletes incident edges).  So, this is a 2
+   approximation algorithm.
+
+   Here's the actual text of his proof:
+
+   - Every edge is covered by =VCapx= at terminates.
+   - \forall edge chosen by =VCapx=
+     - =VCapx= adds 2 vertices to $V'$
+     - Opt contains at least one of the two vertices
+   - =VCapx= never considers same vertex twice. (by deleting incident edges)
+     - \to edges are disjoint, \to $V'$ can be partitioned by edges added by =VCapx=
+   - \rightarrow 2-apx algorithm
+
+** Reduction
+
+   The pipeline of reduction:
+
+   (X, c) \in *I* \to (X', c') \in *I' \to* x'^* \to x^*
+
+   If the time to translate (X,c) to (X', c') is T_1, and the time to translate
+   x'^* to x^* is T_2, then problem *I* reduces to *I^'* in time T_1 + T_2.
+
+   EG: Any maximization problem reduces to a minimization problem in O(1) time.
+
+***  Optimal Message Passing
+
+     Given a graph G=(V,E) with probability p_e (0 < p_e < 1) associated to each e
+     \in E.  Find a spanning tree of G that minimizes the probability of failure.
+     (The probabilities are of failure, and independent).
+
+     So, the probability of survival for the whole tree is \Pi_{e\in T} (1-p_e).
+
+     We can reduce teh OMP to Minimum Spanning Tree problem in linear time.  We
+     define the weight of an edge to be w_e = -\log (1-p_e).  The cost of an MST
+     is c(T) = \sum_{e\in T} w_e = \sum_{e\in T} \log 1/(1-p_e) = \log \Pi_{e\in T} 1/(1-p_e) =
+     \log 1/(\Pi_{e\in T}(1-p_e)).  Since we're trying to minimize that logarithm, and
+     logarithms are strictly increasing functions, we also are minimizing the
+     inside of the logarithm.  This is the same as maximizing the denominator,
+     which happens to be the probability of survival of the tree.
+
+*** Choosing your reduction
+
+    This isn't necessarily like EECS 343 reductions, where you find the easiest
+    reduction to do.  There are entire families of problems that are special
+    cases of each other.  A problem might be able to be reduced to the simplest
+    of these, or the most general of these.  The reduction to the most general
+    problem is usually easiest, and the reduction to the simpler problem is more
+    difficult.  The advantage of doing the harder reduction is generally a
+    faster algorithm to solve the simpler problem.  It's just a wonderful world
+    of tradeoffs here in computer science land.
+
+** GNU Octave
+
+   - Download it via your package manager, or from the GNU website if you're a
+     Win/Mac user.
+   - There is a good deal of documentation on the GNU site about how to use
+     Octave.  It looks like a less powerful Python+NumPy+Matplotlib, or maybe a
+     less powerful (open source) Mathematica.
+   - =glpk= function for linear programming.
+   - First homework this afternoon, due in two weeks!
