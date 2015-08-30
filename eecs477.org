@@ -114,7 +114,7 @@
 
      So, the probability of survival for the whole tree is \Pi_{e\in T} (1-p_e).
 
-     We can reduce teh OMP to Minimum Spanning Tree problem in linear time.  We
+     We can reduce the OMP to Minimum Spanning Tree problem in linear time.  We
      define the weight of an edge to be w_e = -\log (1-p_e).  The cost of an MST
      is c(T) = \sum_{e\in T} w_e = \sum_{e\in T} \log 1/(1-p_e) = \log \Pi_{e\in T} 1/(1-p_e) =
      \log 1/(\Pi_{e\in T}(1-p_e)).  Since we're trying to minimize that logarithm, and
