@@ -146,3 +146,36 @@
    | P | \not{}P |
    | T | F  |
    | F | T  |
+* 2015-08-31 Monday
+
+  - A = it is raining
+  - B = it is wednesday
+  - \not{}B = not - it is raining
+
+  | A | B | \not{}A | \not\not{}A | A\land{}B | A\lor{}B | A\to{}B | A\equiv{}B |
+  | T | T | F  | T   | T   | T   | T   | T   |
+  | T | F | F  | T   | F   | T   | F   | F   |
+  | F | T | T  | F   | F   | T   | T   | F   |
+  | F | F | T  | F   | F   | F   | T   | T   |
+
+  In "King George's English", you may repeat "not" several times to emphasize
+  just how much "not" you mean.  EG "I will not not not not not go to class!".
+  Also, in English, "or" can mean "one or the other, but not both" (exclusive
+  or).  It can also mean "one or the other or both" (inclusive or).  The only
+  way you can tell is by context.  In logic, we define or to be inclusive, when
+  we use the \lor symbol.
+
+  For if/then, we say A \to B, where A is the *antecedent*, and B is the
+  *consequent*.  If has a lot of meanings in English, but in logic, we use
+  implication.  It's like a promise.  When you tell your friend "if I finish the
+  paper, then I'll come over to your place", the only thing that would offend
+  them is if you finished the paper, but did not come over.  Any other situation
+  is pretty much fine.
+
+  He says to use plus for exclusive or (if you ever use it), but I prefer \oplus.
+  And we don't really use exclusive or.
+
+  - Tomorrow will Rain unless it Snows
+    - This is R \lor S.
+    - Unless \equiv Or
+
