@@ -142,3 +142,83 @@
      less powerful (open source) Mathematica.
    - =glpk= function for linear programming.
    - First homework this afternoon, due in two weeks!
+* 2015-08-31 Monday
+
+** Linear Programming (LP)
+
+   An instance of LP:
+
+   - min \sum_{j=1}^q c_j x_j, subject to:
+   - \sum_{j=1}^q a_{ij} x_j \leq b_i, for i = 1, 2, ..., p, and j=1, 2, ..., q
+   - x_j > 0
+
+   The constraints define X, the feasible region.  You can switch a minimization
+   problem to a maximization problem by negating the objective function.
+   Minimization is the "standard form".  You can also define the "slack
+   variables" in the constraints, which were covered a bit more in the EECS 440
+   lecture on LP.  EG, diet problem:
+
+   | i | Food          | Energy | Protein | Calcium | Price | Max |   |   |   |   |   |   |   |
+   | 1 | Oatmeal       |    110 |       4 |       2 |     3 |   4 |   |   |   |   |   |   |   |
+   | 2 | Chicken       |    205 |      32 |      12 |    24 |   3 |   |   |   |   |   |   |   |
+   | 3 | Eggs          |    160 |      13 |      54 |    13 |   2 |   |   |   |   |   |   |   |
+   | 4 | Milk          |    160 |       8 |     285 |     9 |   8 |   |   |   |   |   |   |   |
+   | 5 | Pie           |    420 |       4 |      22 |    20 |   2 |   |   |   |   |   |   |   |
+   | 6 | Pork w/ beans |    260 |      14 |      80 |    19 |   2 |   |   |   |   |   |   |   |
+   |   | GOALS         |   2000 |      55 |     800 |   min |     |   |   |   |   |   |   |   |
+
+   Decision variable is x_1, so here is the problem:
+
+   - minimize, 3x_1 + 24x_2 + 13x_3 + 9x_4 + 20x_5 + 19x_6, subject to:
+   - 110x_1 + 205x_2 + 160x_3 + 160x_4 + 420x_5 + 260x_6 \geq 2000
+   - 4x_1 + 32x_2 + 13x_3 + 8x_4 + 4x_5 + 14x_6 \geq 55
+   - 2x_1 + 12x_2 + 54x_3 + 285x_4 + 22x_5 + 80x_6 \geq 800
+   - 0 \leq x_1 \leq 4
+   - 0 \leq x_2 \leq 3
+   - 0 \leq x_3 \leq 2
+   - 0 \leq x_4 \leq 8
+   - 0 \leq x_5 \leq 2
+   - 0 \leq x_6 \leq 2
+
+   This isn't in standard form due to the greater than or equal to in the top 3
+   constraints, and the less than or equal to in the variable bounds.  I guess.
+
+   What to do to get decision variables unrestricted in sign (not in std form):
+   If you want x to be negative (or just allowed to be negative) replace it with
+   two variables (say, y and z).  Substitute x with y-z, and add the condition
+   that y,z \geq 0.  This allows x (aka y-z) to be positive or negative, but you
+   could add more conditions on y-z to make it how you'd like.
+
+   The graphical representation of these problems is pretty simple (when you
+   have two variables).  The constraints create a nice shaded polygon that
+   represents your feasible region, and then you pick the vertex that maximizes
+   the objective function.
+
+   **Claim:** There is always an optimal solution in an extreme point.  That's
+   worded weird.  I prefer "an optimal solution is always an extreme point."
+
+   You can represent a LP instance in matrix form like this:
+   - min C^T x
+   - s.t. Ax=b
+   - x \geq 0
+
+   Where, x = (x_1, x_2, ..., x_q)^T, c = (c_1, c_2, ..., c_q)^T, A=(a_11, a_12, ..., a_1q;
+   ...; a_p1, a_p2, ..., a_pq), b=(b_1, b_2, ..., b_p)^T.
+
+** Integer Linear Programming
+
+   Same as ^, except that the x's must be integers.  Since this is a more
+   restricted problem, the solutions are no better than the LP solutions.
+
+** Mixed Integer Linear Programming
+
+   MILP.  Really?
+
+   > Matrix I'd Like to Program - Andrew Mason
+
+   Only some of the decision variables need to be integral, others can be
+   continuous.
+
+** Next Time, on Advanced Algorithms:
+
+   Vertex cover, formulated as ILP.
