@@ -252,3 +252,41 @@
    - Services are allocated to increments based on customer's priorities.
    - Conventional development process is applied to each increment.  (AGILE
      methods sometimes skimp on this).
+* 2015-08-31-Monday
+  *GUEST SPEAKER ON INPSECTIONS*
+
+  Why inspect?  To hold your company's code to a standard of excellence by
+  finding defects in code before it's shipped.  It also makes developers more
+  disciplined in creating code that satisfies your standards.
+
+** Objectives
+   - Promote completeness and correctness in the product.
+   - Promote adherence to project style and rules of construction.
+   - Compliance with the technology practices of the organization.
+   - Examination of the product from the user's viewpoint as well as the
+     producer's.
+
+** Inspection Roles
+
+   - Author - developer responsible for work product.
+   - Inspectors - inspect work product
+   - Scribe/Recorder - records the issues
+   - Moderator - directs preparation and inspection meeting; reports results to
+     manager.
+   - Manager - schedules inspection, assigns moderator and team, manages
+     follow-up.
+
+** Rules
+
+   - Manager is not present.
+   - Inspectors take turns presenting issues.
+   - Inspectors are tactful.
+   - Author does not defend work.
+   - Problems are not solved at the meeting.
+
+** Checklists
+
+   - PEP8
+   - Useful for reminding inspector of important issues.
+   - May inhibit them from discovering other issues.
+   - Perhaps best consulted after first read of work product.
