@@ -35,7 +35,7 @@
 *** Gradient Ascent
 
     A way of maximizing/minimizing a function.  From your current position
-    $\vec{x}$, go in th edirection that maximizes the increase.
+    $\vec{x}$, go in the direction that maximizes the increase.
 
     \(\vec{x}_{new} = \vec{x}_{old} - \alpha \Delta f_{\vec{x}_old}(\vec{x})\)
 
