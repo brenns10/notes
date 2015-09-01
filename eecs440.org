@@ -255,3 +255,144 @@
    If you have more than one variable that will decrease the function, you can
    choose any variable to decrease, and you will always get to the correct
    solution.  However, some choices will be faster than others.
+* 2015-09-01 Tuesday
+
+  HW1 due tonight at midnight.  HW 2 out today.  Read Ch. 3 in Mitchell.
+
+** What is "Machine Learning?"
+
+   - Machine = autonomous system, with no (or limited) human intervention.
+   - Learning?
+     - System changes after an experience, so that it can work more effectively
+       next time it does the task.
+     - We want the system to learn how to do /related/ tasks better too.
+   - Specification for a learning system:
+     - Given: Task goal, performance measure P, and examples E
+     - Produce a *concept* that is good wih respect to P on /all/ examples of
+       the task.
+   - Example: learn to play chess
+     - Perforance measure = games won/lost
+     - Examples = games played
+     - Concept?  Probably a function mapping a current board state to a move to
+       play next.
+   - Two phases: learning/training, and evaluation/testing
+     - (In the evaluation phase, you want to evaluate on new examples that you
+       haven't trained on).
+   - Batch learning: one learning phase, with a large set of examples, followed
+     by a testing phase.
+   - Online learning: examples arrive one at a time (or in small groups);
+     learning and evaluation phases iterate.
+   - Learning systems need to have some sort of constraint.  Memorizing all the
+     examples is probably the best strategy, but we know that this doesn't
+     represent learning the underlying concept.
+
+*** Inductive Generalization
+
+    - In all learning problems, need to reason from specific examples to a
+      general case.
+    - (this is the reverse of deductive reasoning, where you reason from the
+      general case to the specific case)
+    - Target concept = the underlying concept that the system is trying to
+      learn.  EG, Gary kasparov's head.
+    - Typically, the performance measure quantifies the difference between
+      current and target concepts.
+    - Hypothesis space - all concepts the learning system will consider
+      (e.g. all possible combinations of animal properties)
+    - Hopefully, target concept is in the hypothesis space.
+      - But can't include every possible hypothesis in your space.
+      - The size would be huge.
+      - You would end up memorizing, not learning.
+    - This is the idea behind "No Tabula Rasa" (blank slate) learning.  There
+      has to be some sort of restriction on hypothesis spaces.
+    - Inductive Bias
+      - Assumptions used to limit the hypothesis space are the inductive bias.
+      - The more assumptions, the stronger the bias.
+      - It can even be quantified (later)
+
+*** Learning Settings
+
+**** Supervised Learning
+
+     - Examples are annotated by a teacheer or oracle.
+     - Learning system just finds the concept to match the annotations.
+
+**** Unsupervised Learning
+
+     - No annotations
+     - Goal is to find interesting patterns in the examples
+     - System defines what is interesting.
+     - Example: grouping images by content.
+
+**** Semi-Supervised Learning
+
+     - "*normal learning*" is really a combination of the two
+     - You do unsupervised learning, and you occasionally get your
+       "parent"/oracle to come in and teach you some labels.
+     - You use those new concepts to help you organize your thoughts better.
+
+**** Active Learning
+
+     - A few examples are annotated with the target concept.
+     - Learning system can "ask" the oracle to label something.
+     - There is a cost of labelling that the system must optimize.
+
+**** Transductive Learning
+
+     - Learning system has some knowledge of possible examples it will be
+       evaluated on.
+     - Adjusts the system to do better on those examples.
+     - EG - learn to play chess against Kasparov.
+
+**** Reinforcement Learning
+
+     - This is "sequential" learning.
+     - Your environment provides feedback.
+     - You take actions and use the consequences to learn.
+
+**** Transfer Learning
+
+     - Human learning is cumulative.
+       - When we encounter a new problem, we don't just start from scratch.
+       - We use prior knowledge and reasoning.
+     - Transfer learning attempts to apply concepts learned in other problems to
+       bias your search.
+
+** When to use ML?
+
+   - Shouldn't use ML to recognize geometric shapes.
+   - In general, you don't need to learn if you have these things:
+     - The concept is already accurately known.
+     - It can be easily (and compactly) described
+     - Unlikely to change
+   - Learning is not free, requires computation and storage, and real world
+     effort in labeling, etc.
+
+** Example Representations
+
+   - Internal representation of examples effects how you learn.
+   - EG: When you recognize objects, you don't do it at the level of signals on
+     your optic nerve.  You do it at the level of smaller parts that you've
+     learned.  A chair has four legs, a flat surface, and usually a back.
+   - In the same way, pixels aren't useful in object recognition.
+   - This is an open area of research: we don't always know the best
+     representation of examples.
+
+*** Feature Vector Representation
+
+    - Examples are vectors of values for a set of attributes.
+    - Can be an n-by-m matrix
+
+      |      | Attr 1 | Attr 2 | Attr 3 |
+      | EG 1 | v_11    | v_12    | v_13    |
+      | EG 2 | V_21    | V_22    | v_23    |
+      | EG 3 | v_31    | v_32    | v_33    |
+
+    - This is also called "propositional representation", because each example
+      can be a logical conjunction.
+    - Can represent all the examples as logic formula.
+
+*** Relational Representation
+    - Can use first order logic.
+
+*** Multiple Instance Representation
+    - Examples are represented by arbitrary sized sets of attribute-value pairs.
