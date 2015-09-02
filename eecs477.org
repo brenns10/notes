@@ -222,3 +222,132 @@
 ** Next Time, on Advanced Algorithms:
 
    Vertex cover, formulated as ILP.
+* 2015-09-02 Wednesday
+
+** Review of LP
+
+   - min C^T x, st.
+   - Ax = b
+   - x \geq 0
+
+   Integer LP is same, except require that x is an integer.
+
+*** Example
+
+    Vertex Cover Problem - given a undirected graph G, find a vertex cover of
+    minimum size.  (vc = a set of vertices that cover every edge).
+
+    We are going to convert a VC problem into ILP.  The graph we have is (no
+    diagrams, sorry): V={1, 2, 3, 4}, E={(1,2), (1,3), (1,4), (2,3), (3,4)}
+    (undirected).
+
+    Decision variables are x_i= 1, if i \in VC, 0 otherwise.  We minimize the
+    function x_1 + x_2 + x_3 + x_4, s.t.:
+
+    - x_1 + x_2 \geq 1
+    - x_1 + x_3 \geq 1
+    - x_1 + x_4 \geq 1
+    - x_2 + x_3 \geq 1
+    - x_3 + x_4 \geq 1
+    - x_1, x_2, x_3, x_4 \in {0, 1}
+
+    In case you can't tell, there is a constraint for each edge, which basically
+    says that at least one of the vertices on the edge needs to be 1.
+
+** Reducing Vertex Cover to ILP
+
+   More generally, the vertex cover of G=(V,E) can be transformed to ILP like this:
+
+   - Min \sum_{i\in{}V} x_i, s.t.
+   - x_i + x_j \geq 1 \forall (i,j) \in E
+   - x_i \in {0, 1} \forall i \in V
+
+   When you remove the integrality constraint from an ILP, you get the *linear
+   relaxation* of the problem.  In the case of this problem, we get an
+   assignment of fractional weights to vertices such that each edge has sum \geq
+   1, while minimizing the total vertex weights.  It's an entirely different
+   problem, and not really something we want.
+
+   According to the Liberator, the difference between a lot of the problems
+   dealt with in other fields and in computer science is the addition of these
+   "integrality constraints," which makes problems much more difficult than
+   their continuous relatives.
+
+** "Slicing" Linear Programs
+
+   When you have the constraints Ax = b, you can think of it as a_i^T x = b_i,
+   where a_i^T is a row vector of A.  This is totally linear algebra, and I'm sure
+   it'll come in useful later in the course.
+
+** Semi Definite Programming
+
+   - *Def:* A real matrix A is positive (semi) definite iff \forall x \geq 0, x^T A x > 0
+     (x^T A x \geq 0).
+
+   - *Thm:* A is positive semidefinite iff all its eigenvalues are \geq 0.
+
+   (note to self - go over linear algebra!)
+
+   - *Def:* A is symmetric, positive, semidefinite -> A \succeq 0.
+
+   - *Thm:* A \succeq 0 iff \exists B s.t. A = B^T B.  Given A, B can be found in polynomial
+     time.  B is not necessarily square, but of course B^T B will be.
+
+   - Given two matrices C, X (n by m), C \cdot X = \sum_{i=1}^n \sum_{j=1}^m c_ij x_ij.
+
+   The problem of Semi Definite Programming is:
+
+   - minimize C \cdot X, st:
+   - A_i \cdot X = b_i
+   - X \succeq 0
+
+** LP reduces to SDP
+
+   - *Claim:* Linear programming is a special case of (i.e. reduces to) Semi
+     Definite Programming.
+
+     \begin{equation}
+     X = \begin{bmatrix} x_1 & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & x_q \end{bmatrix}
+     \end{equation}
+
+     \begin{equation}
+     C = \begin{bmatrix} c_1 & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & c_q \end{bmatrix}
+     \end{equation}
+
+     \begin{equation}
+     A_i = \begin{bmatrix} a_{i1} & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & a_{iq} \end{bmatrix}
+     \end{equation}
+
+   - We wouldn't want to do this in practice, since we have more efficient
+     algorithms to LP.  But it exists.
+
+** Quadratically Constrained Quadratic Programming (QCQP)
+
+   - min x^T Q x + q^T x
+   - s.t. x^T Q_i x + q_i^T x \leq b_i, i=1,2,..,p
+
+   Both the objective function and the constraints may be quadratic.
+
+   - It seems that you can reduce QCQP also to SDP.
+   - I guess the way to think about it is that in SDP, X = B^T B, so in the
+     decision variables you get quadratic terms.  Or something.
+
+** Back to Linear Programming
+
+   Like you could slice LP constraint matrices by rows, you can also do it by
+   columns.  Split A into columns A_1, A_2, ..., A_q.  Then, you can break the
+   constraints into: A_1 x_1 + A_2 x_2 + ... + A_q x_q = b.
+
+   Back when we were looking at LP the first time, we saw the feasible region as
+   a polygon (or polyhedron), and the vertices were the extreme points, which
+   are the candidate solutions.  These extreme points cannot be expressed as
+   convex combination of other feasible solutions.  Even more exciting, *Thm:*
+   All feasible solutions are convex combinations of extreme points.
+
+   Each constraint point corresponds in some way to the column breakdown shown
+   above, which allows us to do LP is a Linear Algebra way.
+
+   *Thm:* A feasible solution is an extreme point iff:
+   - A_i corresponding to x_i > 0 are independent.  That is, given a point x, look
+     at its coordinates x_i, find the ones greater than 0, and check if the A_i
+     corresponding to them are independent.
