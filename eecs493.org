@@ -290,3 +290,22 @@
    - Useful for reminding inspector of important issues.
    - May inhibit them from discovering other issues.
    - Perhaps best consulted after first read of work product.
+* 2015-09-02 Wednesday
+
+** Incremental Delivery
+
+   - Series of builds, each provides a subset of functionality.
+   - Each increment follows a pretty standard waterfall design process.
+   - Very similar to an evolutionary prototype, but with waterfall in each
+     increment.
+
+   Advantages:
+
+   - Client can exploint product functionality sooner.
+   - Client can adapt gradually.
+   - Developer gets earlier feedback.
+
+** Spiral Model
+   - For mega defense stuff.
+   - Four phases:
+     - 
