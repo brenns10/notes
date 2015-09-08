@@ -396,3 +396,102 @@
 
 *** Multiple Instance Representation
     - Examples are represented by arbitrary sized sets of attribute-value pairs.
+* 2015-09-08 Tuesday
+
+** Review:
+
+   - Decision trees: trees where internal nodes are tests on attributes, and
+     leaves are class labels.
+   - Construct them by choosing attributes which give the most information.
+   - Measure this information with entropy, mutual information ("information
+     gain").
+   - ID3 algorithm is the formal algorithm for applying mutual information to
+     constructing decision trees.
+
+** Generalizing ID3
+
+   - What about multiple valued attributes (more than 2-valued)?
+     - Mutual information still applies to $v$-valued finite, discrete
+       variables.
+     - You simply have the internal node for that attribute have $v$ children
+       instead of 2.
+     - However, the maximum mutual information for a $k$ valued variable is
+       $\log{k}$, so the IG function is biased towards attributes with many
+       values.
+     - Can normalize by dividing by $H(X)$, the entropy of the attribute itself.
+       - *Question:* why is this better than dividing by $\log{|X|}$, e.g., the
+         maximum overall entropy of $H(X)$?
+       - In essence, this division gives you a quantity that answers the
+         question "what fraction of this variable's entropy contributes
+         information about the class label?"
+   - Continuous Attributes
+     - Continuous variables have entropy defined on them, but it's useless for
+       making a decision in a tree.
+     - Need to "bin" the attribute ($X \le v$ or $X \ge v$).
+     - You only need to consider values for $v$ that separate different class
+       labels in the training set.
+       - This is still problematic for large training sets, as we'll see on our
+         programming assignment.
+
+   Example
+
+   | Color | Area | Shape    | Class Label |
+   | red   |  0.1 | circle   |           1 |
+   | red   |  0.7 | square   |           0 |
+   | red   |  0.4 | triangle |           1 |
+   | blue  |  0.2 | triangle |           1 |
+   | blue  |  0.6 | circle   |           0 |
+   | blue  |  0.8 | square   |           0 |
+   | green |  0.4 | square   |           0 |
+   | green |  0.3 | triangle |           0 |
+   | green |  0.3 | circle   |           0 |
+
+   1. First, compute H(Y), which is $H(\frac{1}{3})$ (as a shorthand).
+   2. Then, compute H(Y|Color):
+
+      \begin{equation}
+      H(Y|Color) = p(Color=red)H(Y|Color=red) + p(Color=blue)H(Y|color=blue) + p(Color=green)H(Y|Color=green)
+      \end{equation}
+
+      \begin{equation}
+      H(Y|Color) = \frac{1}{3}H(\frac{1}{3}) + \frac{1}{3}H(\frac{1}{3}) + \frac{1}{3}\times 0
+      \end{equation}
+
+      \begin{equation}
+      H(Y|Color) = \frac{2}{3}H(\frac{1}{3})
+      \end{equation}
+
+   3. We can use this to compute the information gain of Color.
+
+      \begin{equation}
+      IG(Color) = H(Y) - H(Y|Color) = \frac{1}{3} H(\frac{1}{3})
+      \end{equation}
+
+   4. Conveniently, this is the same as the information gain of Shape.
+
+   5. For area, if we sort the training set by Area, we find the cutoffs 0.25,
+      0.35, and 0.5.  Then we can compute H(Y|Area,v) for each cutoff v.
+
+      $H(Y|Area\le0.25) = \frac{2}{9}\times 0 + \frac{7}{9} H(\frac{1}{7})$, so IG(Area\leq 0.25) = 0.4583
+
+      etc for each cutoff
+
+   6. You choose the best IG, and use that for the root node.  Then continue to
+      do this for each child node.
+
+** Overfitting
+
+   - Given enough features, ID3 will create a tree that fits your data perfectly.
+     - Enough features = enough that there are no contradictory examples.
+   - Overfitting is an issue.
+
+   - What is overfitting?  Making your model too specific to your training
+     examples, and not general enough to be applied well to new data.
+
+   - Strictly, if a concept $h$ has:
+
+     - Higher performance on the training examples, but
+     - Lower performance on the whole dataset
+
+   - Than some other concept $h'$, then we say that $h$ has overfit the training
+     data.
