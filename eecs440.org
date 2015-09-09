@@ -495,3 +495,18 @@
 
    - Than some other concept $h'$, then we say that $h$ has overfit the training
      data.
+
+*** Controlling Overfitting
+
+    - Can introduce a restriction on the hypothesis space, to prevent overly
+      complex hypotheses from being learned.
+    - Early Stopping
+      - Standard ID3 algorithm stops when IG(X)=0 for all X.
+      - Instead, stop when IG(X) \leq \epsilon, for some chosen \epsilon.
+      - This is sensitive to your parameter choice for \epsilon.
+      - It's easy to implement, but doesn't work well in practice.
+    - Greedy post-pruning
+      - Hold aside some training examples at the start.
+      - Do your training procedure on the remainder (allowing it to overfit if
+        it wants).
+      - Then, do a /greedy pruning/ algorithm on your model.
