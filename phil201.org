@@ -179,3 +179,4 @@
     - This is R \lor S.
     - Unless \equiv Or
 
+* 2015-09-04 Friday
