@@ -351,3 +351,112 @@
    - A_i corresponding to x_i > 0 are independent.  That is, given a point x, look
      at its coordinates x_i, find the ones greater than 0, and check if the A_i
      corresponding to them are independent.
+* 2015-09-09 Wednesday
+
+** Linear Programming
+
+   min c^T x, s.t. Ax = b, x \geq 0
+   - A p \times q matrix.
+   - Rank(A) = p
+   - A = (A_1, A_2, A_3, ..., A_q)
+
+   Let $\bar{x}$ be a feasible solution.  Let $A(\bar{x}) = \{A_i: \bar{x}_i >
+   0\}$.  *Thm:* $\bar{x}$ is an extreme point iff $A(\bar{x})$ is a set of
+   linearly independent vectors.
+
+   *Def:* (B,L) is a basis structure iff:
+   - (B,L) partition of {1, 2, ..., q}.
+   - {A_I: i \in B} is a basis for R^p
+
+   A = (B, L), x = (x_B, x_L), c = (c_B, c_L)
+
+   EG: min x_1+x_2+x_3+x_4 s.
+   - x_1 + 2x_2 + 3x_4 = 1
+   - 4x_2 + x_3 + 2x_4 = 2
+   - All x \geq 0
+
+   Rename variables x_1 to y_1, x_2 to y_3, x_3 to y_2, x_4 to y_4:
+
+   min y_1 + y_2 + y_3 + y_4, s.t.
+   - y_1 + 2y_3 + 3y_4 = 1
+   - y_2 + 4y_3 + 2y_4 = 2
+   - All y \geq 0
+
+   \begin{equation}
+   A = \begin{bmatrix} 1 & 0 & 2 & 3 \\ 0 & 1 & 4 & 2 \end{bmatrix}
+   \end{equation}
+
+   The left half of A is B, and the right half is L.
+
+   \begin{equation}
+   y = \begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4 \end{bmatrix}
+   \end{equation}
+   \begin{equation}
+   c = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}
+   \end{equation}
+
+   The top halves of these are $y_B$ and $c_B$ respectively.
+
+   \begin{align*}
+     B x_B + L x_L &= b \\
+     x_B + B^{-1} L x_L &= B^{-1} b \\
+     x_B + \bar{A} x_L &= \bar{b}
+   \end{align*}
+
+   Here we're letting $\bar{A} = B^{-1} L$ and $\bar{b} = B^{-1} b$.
+
+   A basic solution is one where $\bar{x_B} = \bar{b}$, or $\bar{x_L} = 0$.  A
+   feasible basic solution is one where $\bar{x_B} \geq 0$ as well.
+
+   *Def:* Simplex multipliers corresponding to $(B,L)$:
+
+   \begin{equation}
+     \pi^T = c_B^T B^{-1}
+   \end{equation}
+
+   Let $\bar{x} = \begin{bmatrix}\bar{x_B} \\ \bar{x_L} \end{bmatrix}$ be BFS
+   corresponding to (B, L).  The objective function at $\bar{x}$ is:
+
+   \begin{align*}
+     \begin{bmatrix} c_B^T & c_L^T \end{bmatrix}
+     \begin{bmatrix} \bar{x_B} \\ \bar{x_L} \end{bmatrix}
+     &= c_B^T \bar{x_B} + c_L^T x_L \\
+     &= (\pi^T B) (B^{-1} b) + c_L^T (0) \\
+     &= \pi^T b
+   \end{align*}
+
+   *Def:* Reduced costs corresponding to (B,L) = A
+
+   \begin{equation}
+     c^{\pi}  = c - A^T \pi
+   \end{equation}
+
+   \begin{equation}
+     c^{\pi} = \begin{bmatrix} c_B^{\pi} \\ c_L^{\pi} \end{bmatrix}
+     = \begin{bmatrix} c_B \\ c_L \end{bmatrix} - \begin{bmatrix} B^T & L^T \end{bmatrix} \pi
+     = \begin{bmatrix} c_B - B^T \pi \\ c_L - L^T \pi \end{bmatrix}
+     = \begin{bmatrix} 0 \\ c_L - L^T \pi \end{bmatrix}
+   \end{equation}
+
+   I guess you can also rewrite it to $c = c^{\pi} + A^T \pi$, but I'm not writing
+   out the vectors and matrices again.  Now he's doing more stuff with the
+   objective function.
+
+   \begin{equation}
+     c^T x = (c^{\pi}_L)^T x_L + \pi^T b
+   \end{equation}
+
+   Once we find the basic feasible solution, the $\pi^T b$ is pretty much fixed,
+   and so we just need to minimize (C_L^{\pi})^T x_L.  Now, say we look at a non-basic
+   (i.e. in L, not B) variable x_i, and look at its reduced costs.
+
+   - If c_i^{\pi} \geq 0, we would be happy to set x_i = 0 (if it's feasible).
+   - If c_i^{\pi} \lt 0, we would be happy to set x_i = +\infty (if it's feasible).
+
+   We can see that if \forall i c_i^{\pi} \geq 0, then the BFS is optimal.  In fact, it's
+   also true the other way around.
+
+   *Thm:* BFS $\bar{x}$ is optimal iff \forall i c_i^{\pi} \geq 0.
+   - Proof \leftarrow: (basically what we've been talking about)
+   - Proof \to: is a really difficult, multi-lecture proof.  We'll sketch out the
+     non-degenerate case only, \theta > 0.  Next time.
