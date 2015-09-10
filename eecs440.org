@@ -624,3 +624,10 @@
       - plot precision, recall as you change threshold.
     - ROC graphs
       - plot FPR x , TPR y as you change threshold.
+      - Random guessing is a diagonal line.
+        - Also majority class classifier.
+        - Good classifier mst be above the diagonal.
+      - Monotonically increasing.
+      - Can be misleading if class distribution is too skewed.
+        - Use PR instead.
+      - Frequently use AUC as statistic.
