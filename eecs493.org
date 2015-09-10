@@ -309,3 +309,54 @@
    - For mega defense stuff.
    - Four phases:
      - 
+* 2015-09-09 Wednesday
+
+  QUIZ TODAY.  Starts at 12:10.  Studying.  Two slide decks from previous
+  lectures: Software Process Models and Agile Methods
+
+** Software Process Models
+
+   There are graphics to depict how software is made.
+
+   Models:
+   - Build & Fix (anti): Build first version, modify until client is fixed, and
+     maintain.
+     - No spec, design document.
+     - Bad for large projects.
+   - Basic Waterfall: Requirements -> Design -> Implementation -> Validation ->
+     Maintenance.
+     - Requirements: what it should do.
+     - Design: how it will be structured to do it
+   - Waterfall Augmented with Iteration: replace the validation stage with
+     "integration", and from maintenance you can update requirements and go back
+     to specification, design, implementation, etc.
+     - Criticisms of Waterfall + Requirements are that they encourage lots of
+       bulk and extra features.
+   - Prototyping:
+     - Throwaway - quick and dirty, focus on the risky stuff first, just to see
+       whether the client likes it.
+       - Prototyping done after outlining requirements, but before specification
+         of the actual system.
+     - Evolutionary - basics first to see what the client wants out of it.
+     - Operational - observer goes to clients with evolutionary prototype.
+       Watches clients and develops new throwaway prototypes.  If clients like
+       it, he sends the requirements back to the team to create a new
+       evolutionary prototype.
+   - Incremental Delivery: basically iterated waterfall
+     - Get sooner feedback, most important features get most testing.
+     - Can respond to changing requirements better.
+   - Spiral Model: for high risk projects.  Four stages: objectives, risk
+     analysis, development+validation, planning.
+     - Best when you have high risk, lots of time, and clients in the same
+       organization.
+
+** Agile Methods
+
+   - Aim to respond better to frequent changes, with less emphasis on planning,
+     design, and documentation.
+   - Extreme Programming
+     - Principles
+       - Rapid feedback
+       - Simplicity
+       - Embracing changes
+       - Quality work
