@@ -510,3 +510,117 @@
       - Do your training procedure on the remainder (allowing it to overfit if
         it wants).
       - Then, do a /greedy pruning/ algorithm on your model.
+* 2015-09-10 Thursday
+
+** Evaluation Methods and Metrics
+
+   How do you figure out if your algorithm is "good"?
+
+   Goal: find a measure *expected future performance* of the learning algorithm
+   for some problem.  How?
+
+   Idea:
+   - Separate available data into sets for training and evaluation.
+   - The examples for evaluation will be new to the learned classifier.
+   - Do this lots of times to get reliable estimates.
+   - The sets should be "separate" at least in the sense of independently
+     chosen, if not disjoint examples.
+
+*** n-fold Cross Validation
+
+    - Generally, the number of examples is limited.
+    - Want to train on sets that are as large as possible.
+    - Divide set into $n$ separate sets.
+      - For each set, withhold it for testing, and train on the remaining sets.
+      - Then evaluate the classifier on the testing sets.
+    - Special case of $n$-fold cross validation: Leave-one-out
+      - $n$ examples, $n$ folds.
+      - Only really useful if you have a few examples.
+      - Called "jackknife" in statistics literature.
+    - Stratified cross validation
+      - Same as $n$-fold cross validation, but you sample folds such that the
+        proportions of class labels is preserved in each fold.
+      - More stable performance estimates.
+      - Implementation:
+        - Put $pos$ positive examples in one list, and $neg$ negative examples
+          in another.
+        - Randomly shuffle the lists.
+        - Put the first $pos/n$ positives in fold 1, the next into fold 2, etc.
+        - Repeat for negatives.
+        - Assign leftover examples randomly.
+
+*** Metrics for Classification
+
+    Contingency Table
+
+    |              | Positive (TC)                | Negative (TC)                |
+    | Positive (C) | True Positive (TP)           | False Positives (FP, Type I) |
+    | Negative (C) | False Negative (FN, Type II) | True Negative (TN)           |
+
+    Can compute all metrics from the contingency table.
+
+    - Accuracy: most commonly used measure for comparing algorithms.
+      \begin{equation}
+        \text{Accuracy} = \frac{TP + TN}{TP + FP + TN + FN}
+      \end{equation}
+      - Simply the fraction of examples that are correctly classified.
+      - There are many problems with accuracy.
+        - Skewed class distribution: eg, if 99% animals aren't lions, a
+          classifier with 99% accuracy would just predict "not lion".  And it
+          would kill you next time you see a lion.
+        - Differential misclassification costs: some types of errors (FP or FN)
+          are more serious for an application than others (eg screening for a
+          disease).  Accuracy treats them equally.
+    - Weighted Accuracy
+      \begin{equation}
+        \text{WAcc} = \frac{1}{2}\left(\frac{TP}{Allpos} + \frac{TN}{Allneg}\right)
+                    = \frac{1}{2}\left(\frac{TP}{TP + FN} + \frac{TN}{TN + FP}\right)
+      \end{equation}
+      - First part is the "true positive rate" (how many positives are correctly
+        identified)
+      - Second part is the "true negative rate" (how many negatives are
+        correctly identified)
+    - Precision
+      \begin{equation}
+        \text{Precision} = \frac{TP}{TP + FP}
+      \end{equation}
+      - Sometimes, the "positive" case is all you're interested in.
+      - This measures "of all the examples classified positive, how many were
+        actually positive?"
+    - Recall / True Positive Rate / Sensitivity
+      \begin{equation}
+        \text{Recall} = \frac{TP}{TP + FN}
+      \end{equation}
+      - This quantifies "of all the positive examples, how many were correctly
+        classified?"
+    - Specificity
+      \begin{equation}
+        \text{Specificity} = \frac{TN}{TN + FP}
+      \end{equation}
+      - Conterpart of recall for the negative class.
+    - F1
+      \begin{equation}
+        \frac{1}{F1} = \frac{1}{2} \left( \frac{1}{Precision} + \frac{1}{Recall}\right)
+      \end{equation}
+      \begin{equation}
+        F1 = \frac{2}{\left( \frac{1}{Precision} + \frac{1}{Recall}\right)}
+      \end{equation}
+      - Combines precision and recall into single measure.
+      - Not necessarily a good idea, but widely used.
+
+*** Learning Curves
+
+    - Frequently it's useful to plot metrics as a function of sample size.
+    - Provides insight into how many examples the algorithm needs to be
+      effective.
+
+*** Metrics with Confidence Measures
+
+    - Many learning algorithms produce classifiers or models that provide
+      estimates of how confident they are.
+    - Can use this to create Precision/Recall curves or Receiver Operator
+      Characteristic curves.
+    - Precision/Recall curves:
+      - plot precision, recall as you change threshold.
+    - ROC graphs
+      - plot FPR x , TPR y as you change threshold.
