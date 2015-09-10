@@ -360,3 +360,10 @@
        - Simplicity
        - Embracing changes
        - Quality work
+     - Practices
+       - Planning - user stories, cards, prioritize, etc.
+       - Small releases, working system after just a few releases.  (every few
+         days/weeks)
+       - Metaphors
+       - Simple design - remove complexity
+       - TDD
