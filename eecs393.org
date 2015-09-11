@@ -3,94 +3,194 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
-* 2015-08-24 Monday
+* 2015-09-09 Wednesday
 
-  - I'm definitely going to switch to undergrad version of this class.
-  - Quizzes - 60%
-  - Project - 40%.
-  - "Try" to get 8-10 quizzes.
-  - Drop 2 lowest quizzes.
+  QUIZ TODAY.  Starts at 12:10.  Studying.  Two slide decks from previous
+  lectures: Software Process Models and Agile Methods
 
-** Software Engineering
+** Software Process Models
 
-   Multiple meanings:
+   There are graphics to depict how software is made.
 
-   - Application of engineering principles to software development.  Whatever
-     those "engineering principles" are.
-     - NATO stuff - many NATO countries had to do military software dev.
-     - They held a conference to solve their problems by applying engineering
-       practices.
-     - Specification documents, etc.
-   - Name of the software engineering practice.
-   - Something else
+   Models:
+   - Build & Fix (anti): Build first version, modify until client is fixed, and
+     maintain.
+     - No spec, design document.
+     - Bad for large projects.
+   - Basic Waterfall: Requirements -> Design -> Implementation -> Validation ->
+     Maintenance.
+     - Requirements: what it should do.
+     - Design: how it will be structured to do it
+   - Waterfall Augmented with Iteration: replace the validation stage with
+     "integration", and from maintenance you can update requirements and go back
+     to specification, design, implementation, etc.
+     - Criticisms of Waterfall + Requirements are that they encourage lots of
+       bulk and extra features.
+   - Prototyping:
+     - Throwaway - quick and dirty, focus on the risky stuff first, just to see
+       whether the client likes it.
+       - Prototyping done after outlining requirements, but before specification
+         of the actual system.
+     - Evolutionary - basics first to see what the client wants out of it.
+     - Operational - observer goes to clients with evolutionary prototype.
+       Watches clients and develops new throwaway prototypes.  If clients like
+       it, he sends the requirements back to the team to create a new
+       evolutionary prototype.
+   - Incremental Delivery: basically iterated waterfall
+     - Get sooner feedback, most important features get most testing.
+     - Can respond to changing requirements better.
+   - Spiral Model: for high risk projects.  Four stages: objectives, risk
+     analysis, development+validation, planning.
+     - Best when you have high risk, lots of time, and clients in the same
+       organization.
 
-***   Goals of Saftware Engineering
+** Agile Methods
 
-      To produce, as quickly and inexpensively as possible, software that is:
+   - Aim to respond better to frequent changes, with less emphasis on planning,
+     design, and documentation.
+   - Extreme Programming
+     - Principles
+       - Rapid feedback
+       - Simplicity
+       - Embracing changes
+       - Quality work
+     - Practices
+       - Planning - user stories, cards, prioritize, etc.
+       - Small releases, working system after just a few releases.  (every few
+         days/weeks)
+       - Metaphors
+       - Simple design - remove complexity
+       - TDD
+* 2015-09-02 Wednesday
 
-      - Easy to use
-      - Reliable
-      - Something
-      - Straightforward to maintain, adapt, and enhance
-      - Secure (lol)
+** Incremental Delivery
 
-      Generally most of software engineering is actually maintaining, adapting,
-      and enhancing.  Not constructing.
+   - Series of builds, each provides a subset of functionality.
+   - Each increment follows a pretty standard waterfall design process.
+   - Very similar to an evolutionary prototype, but with waterfall in each
+     increment.
 
-*** Aspects of Software Engineering
+   Advantages:
 
-**** Technical
+   - Client can exploint product functionality sooner.
+   - Client can adapt gradually.
+   - Developer gets earlier feedback.
 
-       - Specification - creating a document that says exactly what a software or
-         subsystem will do.
-       - Design - taking a specification and coming up with a "design" that will
-         do what the spec says.  Design is high level (not code), like UML, etc.
-       - Programming - taking the design and putting it into code.
-       - Inspection and Testing
-       - Static & dynamic analysis
-       - Debugging
-       - Maintenance
-       - Configuration management
+** Spiral Model
+   - For mega defense stuff.
+   - Four phases:
+     - 
+* 2015-08-31-Monday
+  *GUEST SPEAKER ON INPSECTIONS*
 
-**** Non-Technical
+  Why inspect?  To hold your company's code to a standard of excellence by
+  finding defects in code before it's shipped.  It also makes developers more
+  disciplined in creating code that satisfies your standards.
 
-     - Project management
-     - Psychology
-       - cognitive, behavioral, organization
-     - Law
-       - contracts, liability, intellectual property
+** Objectives
+   - Promote completeness and correctness in the product.
+   - Promote adherence to project style and rules of construction.
+   - Compliance with the technology practices of the organization.
+   - Examination of the product from the user's viewpoint as well as the
+     producer's.
 
-*** Software Complexity
+** Inspection Roles
 
-    Primary issue for software dev: complexity:
+   - Author - developer responsible for work product.
+   - Inspectors - inspect work product
+   - Scribe/Recorder - records the issues
+   - Moderator - directs preparation and inspection meeting; reports results to
+     manager.
+   - Manager - schedules inspection, assigns moderator and team, manages
+     follow-up.
 
-    - problem complexity
-    - design/implementation complexity
-    - platform complexity
+** Rules
 
-    Large systems are among the most complex things produced by humans.
-    (e.g. Windows 8.1 - 80 million lines of code).
+   - Manager is not present.
+   - Inspectors take turns presenting issues.
+   - Inspectors are tactful.
+   - Author does not defend work.
+   - Problems are not solved at the meeting.
 
-    - Complex systems are difficult to understand, produce, and maintain.
-    - They rarely satisfy every need, and the needs often are a moving target.
-    - They always contain "residual defects" that you don't know about.
-    - Many SD projects are late and over budget.
-      - Some just never complete.
+** Checklists
 
-*** Software Engineering Methodology
+   - PEP8
+   - Useful for reminding inspector of important issues.
+   - May inhibit them from discovering other issues.
+   - Perhaps best consulted after first read of work product.
+* 2015-08-28 Friday
 
-    - Broad collection of techniques and tools addressing each phase of software
-      development.
-    - Continually evolving
-    - Specialized for subfields:
-      - Web
-      - Real-time
-      - Health
-    - Influential methods:
-      - OO
-      - TDD
-      - Agile
+** Incentive Mismatch
 
+   - Schrage claims that requirements create perverse incentives.
+   - It's easy for a client to build a "wish list" of requirements.
+   - Developers are paid to implement requirements, so they do it.
+   - He advocated for "prototyping", and for small requirements.
+   - He says that it makes clients more likely to accept the result (if it's
+     perceived as partly their work as well).
+
+** Prototyping
+
+   - A prototype is an incomplete model (typically executable, not just a
+     storyboard) of a system.  It's made rapidly based on your initial
+     requirements and provided to users for evaluation and feedback.
+   - Makes it easier to refine and validate the requirements, especially with
+     look and feel / UI.
+   - Also can be good to validate internal design, like performance.
+   - Focus on the areas of greatest risk for the project.
+   - To rapidly prototype:
+     - Omit functionality.
+     - Ignore non-functional constraints (like efficiency)
+     - Reuse existing components, use rapid prototyping languages like Python!
+
+***   Types of prototyping
+
+      - Throwaway - not built upon later.  It might be pretty awful, but it
+        works.
+        - Goal is to build the poorly understood parts first to clarify the
+       requirements.
+      - Evolutionary - will be refined iteratively to create the final product.
+        (IT'S SO AGILE!)
+        - Usually needs refactoring
+        - Goal is to build the well understood parts first, and uncover any
+          unkown requirements as you go, evolving to fit the requirements.
+
+*** Operational Prototyping
+
+      - Combines thrawaway and evolutionary prototyping.
+      - An evolutionary prototype is constructed and made into a baseline using
+        conventional methods.
+      - Copies of he baseline are sent to multiple customer sites with a trained
+        prototyper.
+      - At each site, the prototyper observes the use of the system and tracks
+        feature requests/issues/etc.
+      - After the observation period, prototyper adds a throwaway prototype on
+        top of the baseline, and the user evaluates them.
+        - If they're ineffective, they are removed.
+        - If the users like the new prototype, the prototyper submits a change
+          request to the development team, and the development team works on the
+          evolutionary prototype.
+
+*** Drawbacks of Prototyping
+
+    - You neglect up-front analysis by relying on the customer to provide
+      feedback.  There's a bit of a tradeoff here.
+    - Users might misunderstood the purpose of the prototype:
+      - Maybe they'll like it too much and keep it, and not finish the contract.
+      - Maybe they'll think it's bad and lose confidence in the developer.
+    - Can lead to feature creep when you accomodate every feature request.
+    - Wasted effort prototyping (when you could have drawn on paper, or verbally
+      asked, etc...).
+
+** Incremental Delivery
+
+   This is a "tweak" to evolutionary prototyping.  It's the basis for AGILE.
+
+   - Built + delivered in increments/builds.
+   - Each increment provides a subset of the system's functionality.
+   - Services are allocated to increments based on customer's priorities.
+   - Conventional development process is applied to each increment.  (AGILE
+     methods sometimes skimp on this).
 * 2015-08-26 Wednesday
 
 ** Software Process Models
@@ -179,191 +279,90 @@
       - "Never go to a client meeting without a prototype."
       - This fosters ongoing client interaction in development.
       - Clients are also less likely to reject their own work.
-* 2015-08-28 Friday
+* 2015-08-24 Monday
 
-** Incentive Mismatch
+  - I'm definitely going to switch to undergrad version of this class.
+  - Quizzes - 60%
+  - Project - 40%.
+  - "Try" to get 8-10 quizzes.
+  - Drop 2 lowest quizzes.
 
-   - Schrage claims that requirements create perverse incentives.
-   - It's easy for a client to build a "wish list" of requirements.
-   - Developers are paid to implement requirements, so they do it.
-   - He advocated for "prototyping", and for small requirements.
-   - He says that it makes clients more likely to accept the result (if it's
-     perceived as partly their work as well).
+** Software Engineering
 
-** Prototyping
+   Multiple meanings:
 
-   - A prototype is an incomplete model (typically executable, not just a
-     storyboard) of a system.  It's made rapidly based on your initial
-     requirements and provided to users for evaluation and feedback.
-   - Makes it easier to refine and validate the requirements, especially with
-     look and feel / UI.
-   - Also can be good to validate internal design, like performance.
-   - Focus on the areas of greatest risk for the project.
-   - To rapidly prototype:
-     - Omit functionality.
-     - Ignore non-functional constraints (like efficiency)
-     - Reuse existing components, use rapid prototyping languages like Python!
+   - Application of engineering principles to software development.  Whatever
+     those "engineering principles" are.
+     - NATO stuff - many NATO countries had to do military software dev.
+     - They held a conference to solve their problems by applying engineering
+       practices.
+     - Specification documents, etc.
+   - Name of the software engineering practice.
+   - Something else
 
-***   Types of prototyping
+***   Goals of Saftware Engineering
 
-      - Throwaway - not built upon later.  It might be pretty awful, but it
-        works.
-        - Goal is to build the poorly understood parts first to clarify the
-       requirements.
-      - Evolutionary - will be refined iteratively to create the final product.
-        (IT'S SO AGILE!)
-        - Usually needs refactoring
-        - Goal is to build the well understood parts first, and uncover any
-          unkown requirements as you go, evolving to fit the requirements.
+      To produce, as quickly and inexpensively as possible, software that is:
 
-*** Operational Prototyping
+      - Easy to use
+      - Reliable
+      - Something
+      - Straightforward to maintain, adapt, and enhance
+      - Secure (lol)
 
-      - Combines thrawaway and evolutionary prototyping.
-      - An evolutionary prototype is constructed and made into a baseline using
-        conventional methods.
-      - Copies of he baseline are sent to multiple customer sites with a trained
-        prototyper.
-      - At each site, the prototyper observes the use of the system and tracks
-        feature requests/issues/etc.
-      - After the observation period, prototyper adds a throwaway prototype on
-        top of the baseline, and the user evaluates them.
-        - If they're ineffective, they are removed.
-        - If the users like the new prototype, the prototyper submits a change
-          request to the development team, and the development team works on the
-          evolutionary prototype.
+      Generally most of software engineering is actually maintaining, adapting,
+      and enhancing.  Not constructing.
 
-*** Drawbacks of Prototyping
+*** Aspects of Software Engineering
 
-    - You neglect up-front analysis by relying on the customer to provide
-      feedback.  There's a bit of a tradeoff here.
-    - Users might misunderstood the purpose of the prototype:
-      - Maybe they'll like it too much and keep it, and not finish the contract.
-      - Maybe they'll think it's bad and lose confidence in the developer.
-    - Can lead to feature creep when you accomodate every feature request.
-    - Wasted effort prototyping (when you could have drawn on paper, or verbally
-      asked, etc...).
+**** Technical
 
-** Incremental Delivery
+       - Specification - creating a document that says exactly what a software or
+         subsystem will do.
+       - Design - taking a specification and coming up with a "design" that will
+         do what the spec says.  Design is high level (not code), like UML, etc.
+       - Programming - taking the design and putting it into code.
+       - Inspection and Testing
+       - Static & dynamic analysis
+       - Debugging
+       - Maintenance
+       - Configuration management
 
-   This is a "tweak" to evolutionary prototyping.  It's the basis for AGILE.
+**** Non-Technical
 
-   - Built + delivered in increments/builds.
-   - Each increment provides a subset of the system's functionality.
-   - Services are allocated to increments based on customer's priorities.
-   - Conventional development process is applied to each increment.  (AGILE
-     methods sometimes skimp on this).
-* 2015-08-31-Monday
-  *GUEST SPEAKER ON INPSECTIONS*
+     - Project management
+     - Psychology
+       - cognitive, behavioral, organization
+     - Law
+       - contracts, liability, intellectual property
 
-  Why inspect?  To hold your company's code to a standard of excellence by
-  finding defects in code before it's shipped.  It also makes developers more
-  disciplined in creating code that satisfies your standards.
+*** Software Complexity
 
-** Objectives
-   - Promote completeness and correctness in the product.
-   - Promote adherence to project style and rules of construction.
-   - Compliance with the technology practices of the organization.
-   - Examination of the product from the user's viewpoint as well as the
-     producer's.
+    Primary issue for software dev: complexity:
 
-** Inspection Roles
+    - problem complexity
+    - design/implementation complexity
+    - platform complexity
 
-   - Author - developer responsible for work product.
-   - Inspectors - inspect work product
-   - Scribe/Recorder - records the issues
-   - Moderator - directs preparation and inspection meeting; reports results to
-     manager.
-   - Manager - schedules inspection, assigns moderator and team, manages
-     follow-up.
+    Large systems are among the most complex things produced by humans.
+    (e.g. Windows 8.1 - 80 million lines of code).
 
-** Rules
+    - Complex systems are difficult to understand, produce, and maintain.
+    - They rarely satisfy every need, and the needs often are a moving target.
+    - They always contain "residual defects" that you don't know about.
+    - Many SD projects are late and over budget.
+      - Some just never complete.
 
-   - Manager is not present.
-   - Inspectors take turns presenting issues.
-   - Inspectors are tactful.
-   - Author does not defend work.
-   - Problems are not solved at the meeting.
+*** Software Engineering Methodology
 
-** Checklists
-
-   - PEP8
-   - Useful for reminding inspector of important issues.
-   - May inhibit them from discovering other issues.
-   - Perhaps best consulted after first read of work product.
-* 2015-09-02 Wednesday
-
-** Incremental Delivery
-
-   - Series of builds, each provides a subset of functionality.
-   - Each increment follows a pretty standard waterfall design process.
-   - Very similar to an evolutionary prototype, but with waterfall in each
-     increment.
-
-   Advantages:
-
-   - Client can exploint product functionality sooner.
-   - Client can adapt gradually.
-   - Developer gets earlier feedback.
-
-** Spiral Model
-   - For mega defense stuff.
-   - Four phases:
-     - 
-* 2015-09-09 Wednesday
-
-  QUIZ TODAY.  Starts at 12:10.  Studying.  Two slide decks from previous
-  lectures: Software Process Models and Agile Methods
-
-** Software Process Models
-
-   There are graphics to depict how software is made.
-
-   Models:
-   - Build & Fix (anti): Build first version, modify until client is fixed, and
-     maintain.
-     - No spec, design document.
-     - Bad for large projects.
-   - Basic Waterfall: Requirements -> Design -> Implementation -> Validation ->
-     Maintenance.
-     - Requirements: what it should do.
-     - Design: how it will be structured to do it
-   - Waterfall Augmented with Iteration: replace the validation stage with
-     "integration", and from maintenance you can update requirements and go back
-     to specification, design, implementation, etc.
-     - Criticisms of Waterfall + Requirements are that they encourage lots of
-       bulk and extra features.
-   - Prototyping:
-     - Throwaway - quick and dirty, focus on the risky stuff first, just to see
-       whether the client likes it.
-       - Prototyping done after outlining requirements, but before specification
-         of the actual system.
-     - Evolutionary - basics first to see what the client wants out of it.
-     - Operational - observer goes to clients with evolutionary prototype.
-       Watches clients and develops new throwaway prototypes.  If clients like
-       it, he sends the requirements back to the team to create a new
-       evolutionary prototype.
-   - Incremental Delivery: basically iterated waterfall
-     - Get sooner feedback, most important features get most testing.
-     - Can respond to changing requirements better.
-   - Spiral Model: for high risk projects.  Four stages: objectives, risk
-     analysis, development+validation, planning.
-     - Best when you have high risk, lots of time, and clients in the same
-       organization.
-
-** Agile Methods
-
-   - Aim to respond better to frequent changes, with less emphasis on planning,
-     design, and documentation.
-   - Extreme Programming
-     - Principles
-       - Rapid feedback
-       - Simplicity
-       - Embracing changes
-       - Quality work
-     - Practices
-       - Planning - user stories, cards, prioritize, etc.
-       - Small releases, working system after just a few releases.  (every few
-         days/weeks)
-       - Metaphors
-       - Simple design - remove complexity
-       - TDD
+    - Broad collection of techniques and tools addressing each phase of software
+      development.
+    - Continually evolving
+    - Specialized for subfields:
+      - Web
+      - Real-time
+      - Health
+    - Influential methods:
+      - OO
+      - TDD
+      - Agile
