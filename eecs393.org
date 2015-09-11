@@ -3,6 +3,36 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-11 Friday
+
+** Software Requirements
+
+   - Properties a software product must exhibit to meet the needs of users.
+   - Described in a softare requirements specification (SRS) document.
+   - Should be derived and specified collaboratively w/ customer & devs.
+   - Process of developing reqirements is called requirements engineering.
+
+   Consumers of Requirements:
+   - Project sponsors
+   - Managers
+   - Users
+   - Designers
+   - Programmers
+   - Testers
+   - Maintainers
+   - Trainees
+   - Documentation writers
+   - Lawyers ("at the bottom")
+
+   Functional Requirements
+   - Describe functionality a product must provide.
+   - Written primarily in natural language.
+     - Shouldn't use any "technical language".  If any jargon is used, it should
+       be the "product domain" jargon, not the software development jargon.
+   - Open to interpretation, can be ambiguous, this should be resolved before
+     design.
+   - For a complex system, could be hundreds or thousands of requirements.
+
 * 2015-09-09 Wednesday
 
   QUIZ TODAY.  Starts at 12:10.  Studying.  Two slide decks from previous
