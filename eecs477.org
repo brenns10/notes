@@ -460,3 +460,59 @@
    - Proof \leftarrow: (basically what we've been talking about)
    - Proof \to: is a really difficult, multi-lecture proof.  We'll sketch out the
      non-degenerate case only, \theta > 0.  Next time.
+* 2015-09-11 Friday
+
+  LP *canonical* form.
+
+  \begin{align*}
+    \min (c_L^{\pi})^T x_L + \pi^T b &\\
+    \text{s.t. } x_B + \bar{A} x_L &= \bar{b} \\
+    x_B, x_L &\geq 0 \\
+    \text{where } \pi^T B &= c_B^T \\
+    c^pi &= c - A^T \pi \\
+  \end{align*}
+
+  EG:
+
+  \begin{align*}
+    \min x_3 + x_4 + 7 &\\
+    \text{s.t. } x_1 + 2x_3 + 3x_4 &= 1 \\
+    x_2 + x_3 + 7x_4 &= 2 \\
+    x_1, x_2, x_3, x_4 &\geq 0 \\
+  \end{align*}
+
+  - The basic variables are x_1 and x_2.  You can come up with a BFS by setting x_3
+    and x_4 equal to 0, and reading off the values for the basic variables.
+
+  *Thm:* BFS $\bar{x}$ is optimal iff c^\pi \geq 0.
+  - *Proof:* \leftarrow last time
+  - *Proof:* \to (only the non-degenerate case)
+
+    \exists s . c_s^T < 0 \to $\bar{x}$ is not optimal.
+
+    Look at the $s$th column of $\bar{A}$, or $\bar{A}_s$.
+
+    The ith constraint is $x_1 + \bar{a}_{is} x_s + \mathcal{L} \text{ terms } =
+    \bar{b}_i$.
+
+    If $\bar{A}_{is} \leq 0 \: \forall i$ then x_s can be increased arbitrarily to.
+
+    Assume \exists i s.t. $\bar{a}_{is} > 0
+
+    \begin{equation}
+      \theta = \min_{i: \bar{a}_{is} > 0} \frac{\bar{b}_i}{\bar{a}_{is}}
+    \end{equation}
+
+    Since $\bar{b}_i \ge 0$ and $\bar{a}_{is} > 0$, we can claim $\theta \ge 0$.
+    However, we'll be doing the non-degenerate case, and assuming $\theta > 0$.
+
+    More proof stuff that I really need to read about.
+
+** Duality
+
+   - Primal: min C^T x s.t. Ax \ge b, x \ge 0.
+   - Dual: max b^T \pi s.t. A^T \pi \le c, \pi \ge 0
+
+   Claim: dual of dual is primal.
+
+   Theorem (Weak Duality): \forall feasible x, \pi, b^T \pi \le c^t x.
