@@ -179,4 +179,59 @@
     - This is R \lor S.
     - Unless \equiv Or
 
+* 2015-09-02 Wednesday
+
+  Quiz.
+
 * 2015-09-04 Friday
+
+  No class, professor absent.
+
+* 2015-09-07 Monday
+
+  No class, labor day.
+
+* 2015-09-09 Wednesday
+
+  I skipped.  We went over the quiz.
+
+* 2015-09-11 Friday
+
+  John will sing and Don dance unless Alice reads.
+  - Sentential logic: J & D \lor A.  But which?
+    - (J & D) \lor A
+    - J & (D \lor A)
+    - They are both valid, and different.
+    - To see this, let J=F, D=T, A=T.  The first one is True, and the second is
+      False.
+    - Now we're getting side tracked on unless, vs logical implication, etc.
+    - Unless = inclusive or.  We get it.  Really.  Please stop.
+  - You need to rely on the grammar of the sentence.  "Don dance" depends on
+    "John will sing" for a verb, so you would expect that those two are closer
+    than the Alice part.
+  - In general, showing your work (e.g. by parenthesizing the original
+    sentence), leads to partial credit, but more commonly, it just leads to
+    getting the answer correct more frequently.
+
+  If I buy Apples then if I get Bananas I'll get Cherries.
+  - A \to (B \to C)
+  - Or is it (A \to B) \to C?
+  - You can tell that they're different because the first is T when A=T, and you
+    can make the second false by then making B=T and C=F.
+  - It's easy to resolve this one.
+
+  If I buy Apples and Bananas, then I'll buy Cherries.
+  - (A & B) \to C
+
+  Are those last two sentences the same?
+  - ~(A & B) \lor C
+  - ~A \lor ~B \lor C
+  - ~A \lor (B \to C)
+  - A \to (B \to C)
+  - Yaas!
+  - Or you could do
+
+  Al dislikes bananas, passionately.  Al detests bananas.
+  - Are they equivalent?
+  - Ch. 1: maaaybe?
+  - Ch. 2: no.  A \equiv B!!
