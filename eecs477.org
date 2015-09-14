@@ -516,3 +516,103 @@
    Claim: dual of dual is primal.
 
    Theorem (Weak Duality): \forall feasible x, \pi, b^T \pi \le c^t x.
+* 2015-09-14 Monday
+
+** Homework Stuff
+
+   Problem 3 had no solution.
+
+   In problem 7, you could find many examples of optimal solutions that are
+   actually convex combinations of two optimal basic solutions, which are not
+   themselves basic solutions.  This is not what the question asked for.  It
+   seems like the basic feasible solutions are always integer for this problem.
+
+** Duality
+
+   Strong Duality Theorem: I have a program of the form:
+
+   - min c^T x, st
+   - Ax \geq b
+   - x \geq 0
+
+   We also have its dual:
+
+   - max b^T \pi, s.t.
+   - A^T \pi \leq c
+   - \pi \geq 0
+
+   The differences between these are:
+   - min/max
+   - A becomes A^T
+   - c and b are swapped
+   - x becomes \pi
+
+   We have weak duality, that b^T \pi \leq \pi^T A x \leq c^T x.
+
+   *Strong Duality Theorem:* Suppose that the primal (or dual) has a finite,
+   optimal solution.  Then, so does the dual (primal), and they have the same
+   optimal objective value.
+
+   *Proof:* WLOG, assume that the primal has a finite, optimal solution x^* (the
+   primal and dual can be swapped and the proof is the same).  Also assume WLOG
+   x^* is a BFS.  First, we'll take the primal and put it into standard form:
+
+   - min c^T x, s.t.
+   - Ax - Is = b
+   - x, s \geq 0
+
+   Let $\tilde{x}=(x,s)$, $\tilde{c}=(c,0)$, and $\tilde{A}=(A,-I)$.  Then we can put this in
+   even nicer looking standard form:
+
+   - \(\min \tilde{c}^T \tilde{x}\), s.t.
+   - \(\tilde{A} \tilde{x} = b\)
+   - \(\tilde{x} \geq 0\)
+
+   When we write this in "canonical form" (I seriously need to study this part
+   of the stuff):
+
+   - \(\min (c_L^{\tilde{\pi}})^T \tilde{x}_L + \tilde{\pi}^T b\), s.t.
+   - \(\tilde{x}_B + \tilde{A}\tilde{x}_L = \tilde{b}\)
+   - \(\tilde{x}_B, \tilde{x}_L \geq 0\)
+
+   We'll call the objective function z, so we're minimizing $z(\tilde{x})$.
+   \(z(x^*)=\tilde{\pi}^T b\).  The next thing is to look at the reduced costs.  First,
+   we know that \(c^{\tilde{\pi}} \geq 0\), because x^* is optimal.  Next, we know
+   that \(c^{\tilde{\pi}} = \tilde{c} - \tilde{A}^T \tilde{\pi} =\):
+
+   \begin{align*}
+   c^{\tilde{\pi}} &= \tilde{c} - \tilde{A}^T \tilde{\pi} \\
+      &= \begin{bmatrix} c \\ 0 \end{bmatrix} - \begin{bmatrix} A^T \\ -I \end{bmatrix} \\
+      &= \begin{bmatrix} c - A^T \tilde{\pi} \\ \tilde{\pi} \end{bmatrix}
+   \end{align*}
+
+   This gives us that \(c \geq A^T \tilde{\pi}\), and \(\tilde{\pi} \geq 0\).  This
+   tells us that the \(\tilde{\pi}\) is feasible in the dual.  And then, we know that
+   the objective value of \(\tilde{\pi}\) in the dual is \(b^T \tilde{\pi}\), which is
+   z(x^*).  We know by the weak duality theorem that no \pi can have an objective
+   value greater than this, so it is an optimal solution for the dual!
+
+** Complementary Slackness
+
+   Let x, \pi be feasible solutions.  x, \pi satisfy complementary slackness (p+q
+   equalities).
+
+   \begin{equation}
+     \pi_i \left(\sum_{j=1}^q a_{ij} x_{j} - b_i \right) = 0
+   \end{equation}
+   for i=1, 2, \dots, p
+
+   \begin{equation}
+     x_j \left(\sum_{i=1}^p a_{ij} \pi_i - c_j \right) = 0
+   \end{equation}
+   for j=1, 2, \dots, q
+
+   Essentially, each of these are the slack variables.  So, if you look at the
+   slackness in a constraint in one problem, and multiply it by the
+   corresponding variable in its dual, you'll find that quantity is zero.
+
+   If the slackness $s_i > 0$, then $\pi_i = 0$.  You can look at the $\pi_i$ as a
+   "price" for how much you'd be willing to "get rid" of the constraint.  If
+   your constraint is not even constraining you, you wouldn't care to get rid of
+   it, and $\pi_i$ is 0.  On the flip side, if your slackness is 0, the $\pi_i$ will
+   tell you /kinda/ how much you'd like to get rid of your constraint.
