@@ -10,6 +10,137 @@
    - George Boole - father of Boolean algebra.
    - Someone else - neuroscience.
    - Frank Rosenblatt (may not be dead) - artificial neurons.
+
+** History
+
+   - We want "artificial intelligence."
+   - Human brain is intelligent.
+   - Try to simulate the structure of the brain to achieve intelligence
+
+** Perceptron / Linear Threshold Unit
+
+   - Has weighted ($w_i$) inputs ($x_i$).
+   - Has Activation Threshold $\sigma$
+   - Activation function is:
+
+     \begin{equation}
+       h(\vec{x}; \vec{w}, \sigma) = \left\{
+       \begin{array}{ll}
+         +1 & \text{if } \vec{w} \cdot \vec{x} \ge \sigma \\
+         -1 & \text{else} \\
+       \end{array}
+       \right.
+     \end{equation}
+
+   - The parameters of the perceptron are $\vec{w}$ and $\sigma$.
+     - There aren't really parameters of the decision tree algorithm, just the
+       structure of the tree.
+
+   - Example evaluation for perceptron $\vec{w}=(1,2)$, $\sigma=0.5$:
+
+     | $x_1$ | $x_2$ |  h |
+     |    0 |    0 | -1 |
+     |    0 |    1 |  1 |
+
+   - So, the question remains, how do we train them?
+
+*** Training a Perceptron
+
+    - Loss function: $L(\vec{w},\sigma)$
+    - Measures the difference between the current estimates of $y$ ($\hat{y}$),
+      and the true $y$ (which is known), over all training examples.
+    - Our goal is to minimize the loss function with respect to $(\vec{w}, \sigma)$.
+    - Notations:
+      - Training data: (he changed the slide too quick)
+    - Common loss function is "squared loss":
+      \begin{equation}
+        L(\vec{w}) = \frac{1}{2} \sum_{i=1}^m (y_i - \hat{y}_i)^2
+                   = \frac{1}{2} \sum_{i=1}^m (y_i - sign(\vec{w}\cdot\vec{x}_i))^2
+      \end{equation}
+    - Sign function is not differentiable, so we'll replace it by dot product.
+      \begin{equation}
+        L(\vec{w}) = \frac{1}{2} \sum_{i=1}^m (y_i - \vec{w}\cdot\vec{x}_i)^2
+      \end{equation}
+    - Calculate gradient wrt $\vec{w}$
+      \begin{equation}
+        \frac{dL}{d\vec{w}} = \sum_{i=1}^m (y_i - \vec{w} \cdot \vec{x}_i)(-\vec{x}_i)
+      \end{equation}
+    - Parameter Update:
+      \begin{equation}
+        \vec{w} \gets \vec{w} - \eta \frac{dL}{d\vec{w}}
+      \end{equation}
+    - We can use gradient descent
+      - Loss function is differentiable.
+      - Loss function is bounded below by 0.
+      - Loss function is convex (proof???)
+      - This means there is a well-defined minimum for the loss function.
+      - And, gradient descent will find it!
+    - However, just cause the gradient descent converges, doesn't mean that it
+      will converge to 0, since the true concept is not necessarily linear.
+    - Stochastic G.D:
+      \begin{array}{l}
+        \frac{dL}{d\vec{w}} = (y_i - \vec{w} \cdot \vec{x}_i)(-\vec{x}_i) \\
+        \vec{w} \gets \vec{w} - \eta \frac{dL}{d\vec{w}}
+      \end{array}
+      - This is done for each example instead of as a group.
+      - Since the loss function is convex, it will converge to the same thing in
+        the limit.
+      - But the stochastic procedure will procede differently and maybe converge
+        at a different speed.
+      - Stochastic seems to give initial examples more "weight" in the direction
+        of the search.
+      - Stochastic is better for "online" learning, and for very large datasets.
+
+*** More on Perceptrons
+
+    - Geometry of the perceptron:
+      - In one dimension, it is a step function.
+      - In two dimensions, the separating surface is a line.
+      - In three dimensions, the separating surface is a plane.
+      - So, in general, the decision surface is a hyperplane.
+    - Loss function is 0 when the surface completely separates the examples with
+      no errors.  It is non-0 when there are some wrong ones.
+    - Linear separability is whether or not a dataset can be separated by a
+      linear function without error.
+    - The perceptron is not nearly as powerful as a decision tree (can't
+      separate things like exclusive or).
+    - So, it is more resistant to overfitting.  (which we will quantify later)
+    - It can do some logic:
+      - Conjunctions:
+        \begin{array}{l}
+          x_1 \land x_2 \land x_3 \leftrightarrow y \\
+          1 \cdot x_1 + 1 \cdot x_2 + 1 \cdot x_3 \ge 3
+        \end{array}
+      - At least $m$-of-$n$:
+        \begin{array}{l}
+          (x_1 \land x_2) \lor (x_1 \land x_3) \lor (x_2 \land x_3) \leftrightarrow y \\
+          1 \cdot x_1 + 1 \cdot x_2 + 1 \cdot x_3 \ge 2
+        \end{array}
+    - But not all:
+      - Complex disjunctions
+      - Exclusive or!!
+    - Can fix this by using more perceptrons hooked up to each other.
+    - The neural network for exclusive or looks remarkably similar to the logic
+      gate circuit for XOR :D
+    - It involves a "hidden" layer that isn't part of the output.
+
+*** Feedforward Network Topology
+
+    - Essentially, a directed acyclic graph of perceptrons.
+    - But, it may be that you have to follow the layer structure.
+    - Representation ability
+      - Every boolean function can be represented by a network w/ one hidden
+        layer.
+      - Every bounded continuous function can be represented by a network with
+        one hidden layer.
+      - Every function in R^n can be represented by a network with two hidden
+        layers.
+      - Woah.
+    - This gives you a tradeoff...
+      - You end up with the possibility for a lot of overfitting (many degrees
+        of freedom and high representation ability).
+      - It also takes a long time to train these networks if they are complex.
+
 * 2015-09-10 Thursday
 
 ** Evaluation Methods and Metrics
