@@ -3,6 +3,155 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-16 Wednesday
+
+  Intro: we're getting to the core of the class.  :D
+
+** Problem Setup
+
+   Problem setup:
+
+   - min c^T x, s.t.
+   - Ax \ge b
+   - x \ge 0
+
+   Dual:
+
+   - min b^T \pi, s.t.
+   - A^T \pi \leq c
+   - \pi \ge 0
+
+** Complementary Slackness Proof
+
+   *Definition:* x, \pi feasible are said to satisfy complementary slackness iff:
+
+   - \(\pi_i \left( \sum_{i=1}^q a_{ij}x_{j} - b_i \right) = 0\), i=1,2,...,p, (1)
+   - \(x_j \left( \sum_{i=1}^p a_{ij}x_i - c_j \right) = 0\), j=1,2,...,q, (2)
+
+   *Theorem:* x, \pi feasible satisfy c.s. iff x, \pi are optimal.
+
+   *Proof:* x, \pi feasible \to weak duality.
+   - b^T \pi \le \pi^T A x \le c^T x
+   - First, prove cs \to optimal
+     - Assume x, \pi satisfy cs.
+     - Sum up equation (1):
+     - You actually get \(\pi^T A x - \pi^T b = 0\), or \(\pi^T A x = \pi^T b\)
+     - Sum up equation (2):
+     - You similarly get \(\pi^T A x = c^T x\).
+     - So, you have \(\pi^T b = c^T x\).
+     - This means that x and \pi are optimal.
+   - Next, the other way around.
+     - It's basically the same proof in reverse.
+     - \(c^T x = b^T \pi\) (by strong duality)
+     - Due to the weak duality inequalities, we know \(c^T x = \pi^T A x = b^T \pi\).
+     - Then we can take the left and right side of the above, and take them make
+       to summations:
+     - \(\sum_{i=1}^p \pi_i \left(\sum_{j=1}^q a_{ij}x_j - b_i \right) = 0\)
+     - (and similarly for the left side)
+     - Since \pi_i \ge 0 and the inner summation also \ge 0, we know that each term
+       must be equal to 0.
+     - So, this proves (1), and WLOG the other half of the equation proves (2).
+
+** Lagrangian Relaxation
+
+   z^* = min c^T x, s.t. constraints
+
+   - L(\pi) = min c^T x + \pi^T (b - Ax), s.t.
+     - x \ge 0
+
+   Assume \pi \ge 0.  z* \ge min c^T x + \pi^T (b - Ax), s.t. Ax\ge b, x\ge 0.  This makes
+   sense because the feasible region is the same, the c^T x part is the same, and
+   \pi^T (b - Ax) will be \le 0.  We can then further expand this to say that the
+   right side is \ge L(\pi), since L(\pi) expands the feasible region, meaning that
+   the optimum value is \le the more constrained one.
+
+** Easily Finding the Dual
+
+   We want to find the dual of every linear program, not just the form with
+   minimization, Ax\ge{}b. and x\ge{}0.  We could switch the problem into this form.
+   Let's call that plan B.  Let's do this instead:
+
+   min c^T x s.t.
+   - a_i^T x = b_i, (i\in{}M)
+   - a_i^T x \ge b_i, (i\not\in{}M)
+   - x_j \ge 0, (j\in{}N)
+   - x_j unconstrained, (j\not\in{}N)
+
+   Dual:
+
+   max b^T \pi, s.t.
+   - \pi_i unconstrained
+   - \pi_i \ge 0
+   - A_j^T \pi \le c_j
+   - A_j^T \pi = c_j
+
+   | Primal           | Dual             |
+   | min              | max              |
+   | c^T x             | b^T \pi             |
+   | a_i^T x = b_i       | \pi_i unconstrained |
+   | a_i^T x \ge b_i       | \pi_i \ge 0           |
+   | x_j \ge 0           | a_j^T \pi \le c_j       |
+   | x_J unconstrained | A_j^T \pi = c_j       |
+
+
+   EG: min x_1 + x_2, s.t.
+   - x_1 - 2x_2 = 3
+   - x_1, x_2, \ge 0
+
+   Originally, we would have transformed it into this problem: min x_1 + x_2, s.t.
+   - x_1 - 2x_2 \ge 3
+   - -x_1 + 2x_2 \ge -3
+   - x_1, x_2 \ge 0
+
+   Then, we get the dual from the constraints: max 3\pi_1 - 3\pi_2, s.t.
+   - \pi_1 - \pi_2 \le 1
+   - -2\pi_1 + 2\pi_2 \le 1
+   - \pi_1, \pi_2 \ge 0
+
+   Finally, simplify to max 3y, s.t.
+   - y \le 1
+   - -2y \le 1
+
+** More Examples
+
+   min 2x_1 + x_2, s.t.
+   - x_1 + 3x_2 \ge 4   (\pi_1)
+   - -x_1 + x_2 = 7   (\pi)
+
+   Dual: max 4\pi_1 + 7\pi_2, s.t.
+   - \pi_1 - \pi_2 \le 2 (x_1)
+   - 3\pi_1 + \pi_2 = 1 (x_2)
+   - \pi_1 \ge 0
+
+  min x_1 + 2x_2 - 3x_3, s.t.
+  - x_1 +  + x_3 = 4 (\pi_1)
+  - 2x_1 - x_2 + 2x_3 \le 5
+    - -2x_1 + x_2 - 2x_3 \ge -5 (\pi_2)
+  - 3x_1 - 2x_2 + 3x_3 \ge 7, (\pi_3)
+  - x_1, x_3 \ge 0
+
+  \pi_1 is unconstrained, due to the equality.  \pi_2 and \pi_3 are \ge 0, due to the
+  inequality.  The dual: max 4\pi_1 - 5\pi_2 + 7\pi_3, s.t.
+  - \pi_1 - 2\pi_2 + 3\pi_3 \le 1 (x_1)
+  - \pi_2 - 2\pi_3 = 2 (x_2)
+  - \pi_1 - 2\pi_2 + 3\pi3 \le -3 (x_3)
+  - \pi_2, \pi_3 \ge 0
+
+  We'll do one with the knapsack problem, where we don't have a definite number
+  of constraints/variables.
+
+  max \sum_{j=1}^q c_j x_J, s.t.
+  - \sum_{j=1}^q w_j x_j \le W
+  - x_j \le 1, j=1...q
+  - x_j \ge 0, j=1...q
+
+  For the dual, we'll take the one constraint, call it \alpha, and the rest and call
+  the others \pi_i
+
+  - min W \alpha, s.t.
+  - w_j \alpha + \pi_i \ge c_j
+  - \alpha, \pi_i \ge 0
+
 * 2015-09-14 Monday
 
 ** Homework Stuff
