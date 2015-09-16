@@ -235,3 +235,46 @@
   - Are they equivalent?
   - Ch. 1: maaaybe?
   - Ch. 2: no.  A \equiv B!!
+* 2015-09-13 Monday
+
+  I missed.
+
+* 2015-09-15 Wednesday
+
+  ~(A&B), ~(B&C), \therefore ~A \to C
+
+  Not a valid argument.  A, B, and C could all be false.  Then, you have both
+  premises true, but the conclusion is false.
+
+  They're talking about a "tree" method.  I missed that.  So he's going to do a
+  tree here.  I'll take notes.
+
+  Set of sentences (not argument, we negated conclusion).
+  - ~(A&B)
+  - ~(B&C)
+  - ~(~A\to{}C)
+
+  Now we try to satisfy all 3 with an tree.
+  - ~A will make ~(A&B) true
+    - ~B will make ~(B&C) true
+      - ~A and ~C will make ~(~A\to{}C) true
+    - ~C will make ~(B&C) true
+      - ~A and ~C will make ~(~A\to{}C) true
+  - ~B will make ~(A&B) true
+    - No need to go further.
+
+  We can see that in the first branch, we have ~A, ~B, ~C as a way to make all
+  sentences true.  Which means it's a counterexample.  Yay.
+
+  (A \to (B & C)) \to (A \to C)
+
+  Is it true?
+
+  We can try to make the opposite true.
+
+  ~((A \to (B & C)) \to (A \to C))
+
+  - To make the not true, we make the inside false.
+    - To make the inside false, we make the antecedent true and the consequent
+      false.  That is, (A \to (B & C)) and (A \to C).
+      - Not sure where we go from here.
