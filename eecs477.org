@@ -3,225 +3,271 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
-* 2015-08-24 Monday
+* 2015-09-14 Monday
 
-  - 5 books, get sections from library
-  - 2 tests:
-    - Final exam, possibly oral.
-    - Midterm
-  - 6 homeworks:
-    - Need to know octave
+** Homework Stuff
 
-** Asymptotics
+   Problem 3 had no solution.
 
-   Measure time complexity.  Focus is on large inputs.
+   In problem 7, you could find many examples of optimal solutions that are
+   actually convex combinations of two optimal basic solutions, which are not
+   themselves basic solutions.  This is not what the question asked for.  It
+   seems like the basic feasible solutions are always integer for this problem.
 
-   - f(n) \in O(g(n)) means "f(n) \leq g(n)"
+** Duality
 
-     \exists c > g, n_0 > 0 s.t. \forall n \geq n_0 : f(n) \leq c g(n)
+   Strong Duality Theorem: I have a program of the form:
 
-   - f(n) = \Omega(g(n)) defined: g(n) \in O(f(n))
-
-   - f(n) \in \Theta(g(n)) defined: f(n) \in O(g(n)) and f(n) \in \Omega(g(n))
-
-   - f(n) \in o(g(n)) defined: \(\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0\)
-
-   - f(n) \in \omega(g(n)) defined: \(\lim{n\to\infty} \frac{f(n)}{g(n)}
-     =\infty\)
-
-   What is $n$?  Input size.  Sometimes it's a number of elements, or it could
-   be multiple parameters (number of nodes, number of edges).
-
-   Sometimes we use the number of bits of the input.  For example, an algorithm
-   with input integer $k$.  The number of bits is $n=\Theta(\log k)$.  If the
-   runtime is $O(k)$, it looks like it's linear time.  But in the number of
-   bits, it's exponential ($O(2^n)$).  It looks polynomial, but it's
-   exponential.  It's called pseudo-polynomial.
-
-   Formula:
-
-   $(1-\frac{x}{k})^k$, where \(x \in R\), \(k \in N^+\).  We have that quantity
-   \(< e^{-k}\), and \(\geq (1-x)\).  This will be used a lot apparently.
-
-** Optimization Problems
-
-   **Definition:** An instance of an optimization problem is a pair $(X,f)$,
-     where $X$ is a set of feasible solutions, and $f$ is an objective function.
-     $f$ maps from $X$ to the real numbers.  An /optimal solution/ $x^*$ is an
-     element of $X$ with the property that \(f(x^*) \leq f(x) \: \forall x \in
-     X\).
-
-   For instance, if you have a graph and you're talking about the minimum
-   spanning tree problem, $X$ is the set of all MSTs, and $f$ maps each to the
-   sum of the edge weights in the tree.
-* TODO 2015-08-26 Wednesday
-
-  Need to copy over notes from paper.
-
-* 2015-08-28 Friday
-
-** Last Time:
-
-   Approximation algorithms have approximation ratio:
-
-   apx ratio = \(max_{I\in{}\mathscr{I}} {\frac{c(I)}{c^*(I)}}\)
-
-   A c-approximation algorithm has cost \leq c \times optimal cost on all instances I of
-   the problem $\mathscr{I}$.  One example is the vertex cover problem.  We
-   covered a 2-approximation algorithm (called =VCapx=) that operates by
-   repeatedly choosing an edge, adding its endpoints to the VC, and removing all
-   incident edges from the graph.
-
-   We left off saying that today we would cover the proof that it is a 2-apx
-   algorithm.
-
-** Proof
-
-   *Theorem* =VCapx= is a 2-approximation algorithm.
-
-   *Proof* Every edge is covered by =VCapx= at termination.  For every one of
-   these edges, the algorithm adds at most two vertices to $V'$.  The optimal
-   solution contains at least one of these two.  =VCapx= never considers the
-   same vertex twice (since it deletes incident edges).  So, this is a 2
-   approximation algorithm.
-
-   Here's the actual text of his proof:
-
-   - Every edge is covered by =VCapx= at terminates.
-   - \forall edge chosen by =VCapx=
-     - =VCapx= adds 2 vertices to $V'$
-     - Opt contains at least one of the two vertices
-   - =VCapx= never considers same vertex twice. (by deleting incident edges)
-     - \to edges are disjoint, \to $V'$ can be partitioned by edges added by =VCapx=
-   - \rightarrow 2-apx algorithm
-
-** Reduction
-
-   The pipeline of reduction:
-
-   (X, c) \in *I* \to (X', c') \in *I' \to* x'^* \to x^*
-
-   If the time to translate (X,c) to (X', c') is T_1, and the time to translate
-   x'^* to x^* is T_2, then problem *I* reduces to *I^'* in time T_1 + T_2.
-
-   EG: Any maximization problem reduces to a minimization problem in O(1) time.
-
-***  Optimal Message Passing
-
-     Given a graph G=(V,E) with probability p_e (0 < p_e < 1) associated to each e
-     \in E.  Find a spanning tree of G that minimizes the probability of failure.
-     (The probabilities are of failure, and independent).
-
-     So, the probability of survival for the whole tree is \Pi_{e\in T} (1-p_e).
-
-     We can reduce the OMP to Minimum Spanning Tree problem in linear time.  We
-     define the weight of an edge to be w_e = -\log (1-p_e).  The cost of an MST
-     is c(T) = \sum_{e\in T} w_e = \sum_{e\in T} \log 1/(1-p_e) = \log \Pi_{e\in T} 1/(1-p_e) =
-     \log 1/(\Pi_{e\in T}(1-p_e)).  Since we're trying to minimize that logarithm, and
-     logarithms are strictly increasing functions, we also are minimizing the
-     inside of the logarithm.  This is the same as maximizing the denominator,
-     which happens to be the probability of survival of the tree.
-
-*** Choosing your reduction
-
-    This isn't necessarily like EECS 343 reductions, where you find the easiest
-    reduction to do.  There are entire families of problems that are special
-    cases of each other.  A problem might be able to be reduced to the simplest
-    of these, or the most general of these.  The reduction to the most general
-    problem is usually easiest, and the reduction to the simpler problem is more
-    difficult.  The advantage of doing the harder reduction is generally a
-    faster algorithm to solve the simpler problem.  It's just a wonderful world
-    of tradeoffs here in computer science land.
-
-** GNU Octave
-
-   - Download it via your package manager, or from the GNU website if you're a
-     Win/Mac user.
-   - There is a good deal of documentation on the GNU site about how to use
-     Octave.  It looks like a less powerful Python+NumPy+Matplotlib, or maybe a
-     less powerful (open source) Mathematica.
-   - =glpk= function for linear programming.
-   - First homework this afternoon, due in two weeks!
-* 2015-08-31 Monday
-
-** Linear Programming (LP)
-
-   An instance of LP:
-
-   - min \sum_{j=1}^q c_j x_j, subject to:
-   - \sum_{j=1}^q a_{ij} x_j \leq b_i, for i = 1, 2, ..., p, and j=1, 2, ..., q
-   - x_j > 0
-
-   The constraints define X, the feasible region.  You can switch a minimization
-   problem to a maximization problem by negating the objective function.
-   Minimization is the "standard form".  You can also define the "slack
-   variables" in the constraints, which were covered a bit more in the EECS 440
-   lecture on LP.  EG, diet problem:
-
-   | i | Food          | Energy | Protein | Calcium | Price | Max |   |   |   |   |   |   |   |
-   | 1 | Oatmeal       |    110 |       4 |       2 |     3 |   4 |   |   |   |   |   |   |   |
-   | 2 | Chicken       |    205 |      32 |      12 |    24 |   3 |   |   |   |   |   |   |   |
-   | 3 | Eggs          |    160 |      13 |      54 |    13 |   2 |   |   |   |   |   |   |   |
-   | 4 | Milk          |    160 |       8 |     285 |     9 |   8 |   |   |   |   |   |   |   |
-   | 5 | Pie           |    420 |       4 |      22 |    20 |   2 |   |   |   |   |   |   |   |
-   | 6 | Pork w/ beans |    260 |      14 |      80 |    19 |   2 |   |   |   |   |   |   |   |
-   |   | GOALS         |   2000 |      55 |     800 |   min |     |   |   |   |   |   |   |   |
-
-   Decision variable is x_1, so here is the problem:
-
-   - minimize, 3x_1 + 24x_2 + 13x_3 + 9x_4 + 20x_5 + 19x_6, subject to:
-   - 110x_1 + 205x_2 + 160x_3 + 160x_4 + 420x_5 + 260x_6 \geq 2000
-   - 4x_1 + 32x_2 + 13x_3 + 8x_4 + 4x_5 + 14x_6 \geq 55
-   - 2x_1 + 12x_2 + 54x_3 + 285x_4 + 22x_5 + 80x_6 \geq 800
-   - 0 \leq x_1 \leq 4
-   - 0 \leq x_2 \leq 3
-   - 0 \leq x_3 \leq 2
-   - 0 \leq x_4 \leq 8
-   - 0 \leq x_5 \leq 2
-   - 0 \leq x_6 \leq 2
-
-   This isn't in standard form due to the greater than or equal to in the top 3
-   constraints, and the less than or equal to in the variable bounds.  I guess.
-
-   What to do to get decision variables unrestricted in sign (not in std form):
-   If you want x to be negative (or just allowed to be negative) replace it with
-   two variables (say, y and z).  Substitute x with y-z, and add the condition
-   that y,z \geq 0.  This allows x (aka y-z) to be positive or negative, but you
-   could add more conditions on y-z to make it how you'd like.
-
-   The graphical representation of these problems is pretty simple (when you
-   have two variables).  The constraints create a nice shaded polygon that
-   represents your feasible region, and then you pick the vertex that maximizes
-   the objective function.
-
-   **Claim:** There is always an optimal solution in an extreme point.  That's
-   worded weird.  I prefer "an optimal solution is always an extreme point."
-
-   You can represent a LP instance in matrix form like this:
-   - min C^T x
-   - s.t. Ax=b
+   - min c^T x, st
+   - Ax \geq b
    - x \geq 0
 
-   Where, x = (x_1, x_2, ..., x_q)^T, c = (c_1, c_2, ..., c_q)^T, A=(a_11, a_12, ..., a_1q;
-   ...; a_p1, a_p2, ..., a_pq), b=(b_1, b_2, ..., b_p)^T.
+   We also have its dual:
 
-** Integer Linear Programming
+   - max b^T \pi, s.t.
+   - A^T \pi \leq c
+   - \pi \geq 0
 
-   Same as ^, except that the x's must be integers.  Since this is a more
-   restricted problem, the solutions are no better than the LP solutions.
+   The differences between these are:
+   - min/max
+   - A becomes A^T
+   - c and b are swapped
+   - x becomes \pi
 
-** Mixed Integer Linear Programming
+   We have weak duality, that b^T \pi \leq \pi^T A x \leq c^T x.
 
-   MILP.  Really?
+   *Strong Duality Theorem:* Suppose that the primal (or dual) has a finite,
+   optimal solution.  Then, so does the dual (primal), and they have the same
+   optimal objective value.
 
-   > Matrix I'd Like to Program - Andrew Mason
+   *Proof:* WLOG, assume that the primal has a finite, optimal solution x^* (the
+   primal and dual can be swapped and the proof is the same).  Also assume WLOG
+   x^* is a BFS.  First, we'll take the primal and put it into standard form:
 
-   Only some of the decision variables need to be integral, others can be
-   continuous.
+   - min c^T x, s.t.
+   - Ax - Is = b
+   - x, s \geq 0
 
-** Next Time, on Advanced Algorithms:
+   Let $\tilde{x}=(x,s)$, $\tilde{c}=(c,0)$, and $\tilde{A}=(A,-I)$.  Then we can put this in
+   even nicer looking standard form:
 
-   Vertex cover, formulated as ILP.
+   - \(\min \tilde{c}^T \tilde{x}\), s.t.
+   - \(\tilde{A} \tilde{x} = b\)
+   - \(\tilde{x} \geq 0\)
+
+   When we write this in "canonical form" (I seriously need to study this part
+   of the stuff):
+
+   - \(\min (c_L^{\tilde{\pi}})^T \tilde{x}_L + \tilde{\pi}^T b\), s.t.
+   - \(\tilde{x}_B + \tilde{A}\tilde{x}_L = \tilde{b}\)
+   - \(\tilde{x}_B, \tilde{x}_L \geq 0\)
+
+   We'll call the objective function z, so we're minimizing $z(\tilde{x})$.
+   \(z(x^*)=\tilde{\pi}^T b\).  The next thing is to look at the reduced costs.  First,
+   we know that \(c^{\tilde{\pi}} \geq 0\), because x^* is optimal.  Next, we know
+   that \(c^{\tilde{\pi}} = \tilde{c} - \tilde{A}^T \tilde{\pi} =\):
+
+   \begin{align*}
+   c^{\tilde{\pi}} &= \tilde{c} - \tilde{A}^T \tilde{\pi} \\
+      &= \begin{bmatrix} c \\ 0 \end{bmatrix} - \begin{bmatrix} A^T \\ -I \end{bmatrix} \\
+      &= \begin{bmatrix} c - A^T \tilde{\pi} \\ \tilde{\pi} \end{bmatrix}
+   \end{align*}
+
+   This gives us that \(c \geq A^T \tilde{\pi}\), and \(\tilde{\pi} \geq 0\).  This
+   tells us that the \(\tilde{\pi}\) is feasible in the dual.  And then, we know that
+   the objective value of \(\tilde{\pi}\) in the dual is \(b^T \tilde{\pi}\), which is
+   z(x^*).  We know by the weak duality theorem that no \pi can have an objective
+   value greater than this, so it is an optimal solution for the dual!
+
+** Complementary Slackness
+
+   Let x, \pi be feasible solutions.  x, \pi satisfy complementary slackness (p+q
+   equalities).
+
+   \begin{equation}
+     \pi_i \left(\sum_{j=1}^q a_{ij} x_{j} - b_i \right) = 0
+   \end{equation}
+   for i=1, 2, \dots, p
+
+   \begin{equation}
+     x_j \left(\sum_{i=1}^p a_{ij} \pi_i - c_j \right) = 0
+   \end{equation}
+   for j=1, 2, \dots, q
+
+   Essentially, each of these are the slack variables.  So, if you look at the
+   slackness in a constraint in one problem, and multiply it by the
+   corresponding variable in its dual, you'll find that quantity is zero.
+
+   If the slackness $s_i > 0$, then $\pi_i = 0$.  You can look at the $\pi_i$ as a
+   "price" for how much you'd be willing to "get rid" of the constraint.  If
+   your constraint is not even constraining you, you wouldn't care to get rid of
+   it, and $\pi_i$ is 0.  On the flip side, if your slackness is 0, the $\pi_i$ will
+   tell you /kinda/ how much you'd like to get rid of your constraint.
+* 2015-09-11 Friday
+
+  LP *canonical* form.
+
+  \begin{align*}
+    \min (c_L^{\pi})^T x_L + \pi^T b &\\
+    \text{s.t. } x_B + \bar{A} x_L &= \bar{b} \\
+    x_B, x_L &\geq 0 \\
+    \text{where } \pi^T B &= c_B^T \\
+    c^pi &= c - A^T \pi \\
+  \end{align*}
+
+  EG:
+
+  \begin{align*}
+    \min x_3 + x_4 + 7 &\\
+    \text{s.t. } x_1 + 2x_3 + 3x_4 &= 1 \\
+    x_2 + x_3 + 7x_4 &= 2 \\
+    x_1, x_2, x_3, x_4 &\geq 0 \\
+  \end{align*}
+
+  - The basic variables are x_1 and x_2.  You can come up with a BFS by setting x_3
+    and x_4 equal to 0, and reading off the values for the basic variables.
+
+  *Thm:* BFS $\bar{x}$ is optimal iff c^\pi \geq 0.
+  - *Proof:* \leftarrow last time
+  - *Proof:* \to (only the non-degenerate case)
+
+    \exists s . c_s^T < 0 \to $\bar{x}$ is not optimal.
+
+    Look at the $s$th column of $\bar{A}$, or $\bar{A}_s$.
+
+    The ith constraint is $x_1 + \bar{a}_{is} x_s + \mathcal{L} \text{ terms } =
+    \bar{b}_i$.
+
+    If $\bar{A}_{is} \leq 0 \: \forall i$ then x_s can be increased arbitrarily to.
+
+    Assume \exists i s.t. $\bar{a}_{is} > 0
+
+    \begin{equation}
+      \theta = \min_{i: \bar{a}_{is} > 0} \frac{\bar{b}_i}{\bar{a}_{is}}
+    \end{equation}
+
+    Since $\bar{b}_i \ge 0$ and $\bar{a}_{is} > 0$, we can claim $\theta \ge 0$.
+    However, we'll be doing the non-degenerate case, and assuming $\theta > 0$.
+
+    More proof stuff that I really need to read about.
+
+** Duality
+
+   - Primal: min C^T x s.t. Ax \ge b, x \ge 0.
+   - Dual: max b^T \pi s.t. A^T \pi \le c, \pi \ge 0
+
+   Claim: dual of dual is primal.
+
+   Theorem (Weak Duality): \forall feasible x, \pi, b^T \pi \le c^t x.
+* 2015-09-09 Wednesday
+
+** Linear Programming
+
+   min c^T x, s.t. Ax = b, x \geq 0
+   - A p \times q matrix.
+   - Rank(A) = p
+   - A = (A_1, A_2, A_3, ..., A_q)
+
+   Let $\bar{x}$ be a feasible solution.  Let $A(\bar{x}) = \{A_i: \bar{x}_i >
+   0\}$.  *Thm:* $\bar{x}$ is an extreme point iff $A(\bar{x})$ is a set of
+   linearly independent vectors.
+
+   *Def:* (B,L) is a basis structure iff:
+   - (B,L) partition of {1, 2, ..., q}.
+   - {A_I: i \in B} is a basis for R^p
+
+   A = (B, L), x = (x_B, x_L), c = (c_B, c_L)
+
+   EG: min x_1+x_2+x_3+x_4 s.
+   - x_1 + 2x_2 + 3x_4 = 1
+   - 4x_2 + x_3 + 2x_4 = 2
+   - All x \geq 0
+
+   Rename variables x_1 to y_1, x_2 to y_3, x_3 to y_2, x_4 to y_4:
+
+   min y_1 + y_2 + y_3 + y_4, s.t.
+   - y_1 + 2y_3 + 3y_4 = 1
+   - y_2 + 4y_3 + 2y_4 = 2
+   - All y \geq 0
+
+   \begin{equation}
+   A = \begin{bmatrix} 1 & 0 & 2 & 3 \\ 0 & 1 & 4 & 2 \end{bmatrix}
+   \end{equation}
+
+   The left half of A is B, and the right half is L.
+
+   \begin{equation}
+   y = \begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4 \end{bmatrix}
+   \end{equation}
+   \begin{equation}
+   c = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}
+   \end{equation}
+
+   The top halves of these are $y_B$ and $c_B$ respectively.
+
+   \begin{align*}
+     B x_B + L x_L &= b \\
+     x_B + B^{-1} L x_L &= B^{-1} b \\
+     x_B + \bar{A} x_L &= \bar{b}
+   \end{align*}
+
+   Here we're letting $\bar{A} = B^{-1} L$ and $\bar{b} = B^{-1} b$.
+
+   A basic solution is one where $\bar{x_B} = \bar{b}$, or $\bar{x_L} = 0$.  A
+   feasible basic solution is one where $\bar{x_B} \geq 0$ as well.
+
+   *Def:* Simplex multipliers corresponding to $(B,L)$:
+
+   \begin{equation}
+     \pi^T = c_B^T B^{-1}
+   \end{equation}
+
+   Let $\bar{x} = \begin{bmatrix}\bar{x_B} \\ \bar{x_L} \end{bmatrix}$ be BFS
+   corresponding to (B, L).  The objective function at $\bar{x}$ is:
+
+   \begin{align*}
+     \begin{bmatrix} c_B^T & c_L^T \end{bmatrix}
+     \begin{bmatrix} \bar{x_B} \\ \bar{x_L} \end{bmatrix}
+     &= c_B^T \bar{x_B} + c_L^T x_L \\
+     &= (\pi^T B) (B^{-1} b) + c_L^T (0) \\
+     &= \pi^T b
+   \end{align*}
+
+   *Def:* Reduced costs corresponding to (B,L) = A
+
+   \begin{equation}
+     c^{\pi}  = c - A^T \pi
+   \end{equation}
+
+   \begin{equation}
+     c^{\pi} = \begin{bmatrix} c_B^{\pi} \\ c_L^{\pi} \end{bmatrix}
+     = \begin{bmatrix} c_B \\ c_L \end{bmatrix} - \begin{bmatrix} B^T & L^T \end{bmatrix} \pi
+     = \begin{bmatrix} c_B - B^T \pi \\ c_L - L^T \pi \end{bmatrix}
+     = \begin{bmatrix} 0 \\ c_L - L^T \pi \end{bmatrix}
+   \end{equation}
+
+   I guess you can also rewrite it to $c = c^{\pi} + A^T \pi$, but I'm not writing
+   out the vectors and matrices again.  Now he's doing more stuff with the
+   objective function.
+
+   \begin{equation}
+     c^T x = (c^{\pi}_L)^T x_L + \pi^T b
+   \end{equation}
+
+   Once we find the basic feasible solution, the $\pi^T b$ is pretty much fixed,
+   and so we just need to minimize (C_L^{\pi})^T x_L.  Now, say we look at a non-basic
+   (i.e. in L, not B) variable x_i, and look at its reduced costs.
+
+   - If c_i^{\pi} \geq 0, we would be happy to set x_i = 0 (if it's feasible).
+   - If c_i^{\pi} \lt 0, we would be happy to set x_i = +\infty (if it's feasible).
+
+   We can see that if \forall i c_i^{\pi} \geq 0, then the BFS is optimal.  In fact, it's
+   also true the other way around.
+
+   *Thm:* BFS $\bar{x}$ is optimal iff \forall i c_i^{\pi} \geq 0.
+   - Proof \leftarrow: (basically what we've been talking about)
+   - Proof \to: is a really difficult, multi-lecture proof.  We'll sketch out the
+     non-degenerate case only, \theta > 0.  Next time.
 * 2015-09-02 Wednesday
 
 ** Review of LP
@@ -351,268 +397,222 @@
    - A_i corresponding to x_i > 0 are independent.  That is, given a point x, look
      at its coordinates x_i, find the ones greater than 0, and check if the A_i
      corresponding to them are independent.
-* 2015-09-09 Wednesday
+* 2015-08-31 Monday
 
-** Linear Programming
+** Linear Programming (LP)
 
-   min c^T x, s.t. Ax = b, x \geq 0
-   - A p \times q matrix.
-   - Rank(A) = p
-   - A = (A_1, A_2, A_3, ..., A_q)
+   An instance of LP:
 
-   Let $\bar{x}$ be a feasible solution.  Let $A(\bar{x}) = \{A_i: \bar{x}_i >
-   0\}$.  *Thm:* $\bar{x}$ is an extreme point iff $A(\bar{x})$ is a set of
-   linearly independent vectors.
+   - min \sum_{j=1}^q c_j x_j, subject to:
+   - \sum_{j=1}^q a_{ij} x_j \leq b_i, for i = 1, 2, ..., p, and j=1, 2, ..., q
+   - x_j > 0
 
-   *Def:* (B,L) is a basis structure iff:
-   - (B,L) partition of {1, 2, ..., q}.
-   - {A_I: i \in B} is a basis for R^p
+   The constraints define X, the feasible region.  You can switch a minimization
+   problem to a maximization problem by negating the objective function.
+   Minimization is the "standard form".  You can also define the "slack
+   variables" in the constraints, which were covered a bit more in the EECS 440
+   lecture on LP.  EG, diet problem:
 
-   A = (B, L), x = (x_B, x_L), c = (c_B, c_L)
+   | i | Food          | Energy | Protein | Calcium | Price | Max |   |   |   |   |   |   |   |
+   | 1 | Oatmeal       |    110 |       4 |       2 |     3 |   4 |   |   |   |   |   |   |   |
+   | 2 | Chicken       |    205 |      32 |      12 |    24 |   3 |   |   |   |   |   |   |   |
+   | 3 | Eggs          |    160 |      13 |      54 |    13 |   2 |   |   |   |   |   |   |   |
+   | 4 | Milk          |    160 |       8 |     285 |     9 |   8 |   |   |   |   |   |   |   |
+   | 5 | Pie           |    420 |       4 |      22 |    20 |   2 |   |   |   |   |   |   |   |
+   | 6 | Pork w/ beans |    260 |      14 |      80 |    19 |   2 |   |   |   |   |   |   |   |
+   |   | GOALS         |   2000 |      55 |     800 |   min |     |   |   |   |   |   |   |   |
 
-   EG: min x_1+x_2+x_3+x_4 s.
-   - x_1 + 2x_2 + 3x_4 = 1
-   - 4x_2 + x_3 + 2x_4 = 2
-   - All x \geq 0
+   Decision variable is x_1, so here is the problem:
 
-   Rename variables x_1 to y_1, x_2 to y_3, x_3 to y_2, x_4 to y_4:
+   - minimize, 3x_1 + 24x_2 + 13x_3 + 9x_4 + 20x_5 + 19x_6, subject to:
+   - 110x_1 + 205x_2 + 160x_3 + 160x_4 + 420x_5 + 260x_6 \geq 2000
+   - 4x_1 + 32x_2 + 13x_3 + 8x_4 + 4x_5 + 14x_6 \geq 55
+   - 2x_1 + 12x_2 + 54x_3 + 285x_4 + 22x_5 + 80x_6 \geq 800
+   - 0 \leq x_1 \leq 4
+   - 0 \leq x_2 \leq 3
+   - 0 \leq x_3 \leq 2
+   - 0 \leq x_4 \leq 8
+   - 0 \leq x_5 \leq 2
+   - 0 \leq x_6 \leq 2
 
-   min y_1 + y_2 + y_3 + y_4, s.t.
-   - y_1 + 2y_3 + 3y_4 = 1
-   - y_2 + 4y_3 + 2y_4 = 2
-   - All y \geq 0
+   This isn't in standard form due to the greater than or equal to in the top 3
+   constraints, and the less than or equal to in the variable bounds.  I guess.
 
-   \begin{equation}
-   A = \begin{bmatrix} 1 & 0 & 2 & 3 \\ 0 & 1 & 4 & 2 \end{bmatrix}
-   \end{equation}
+   What to do to get decision variables unrestricted in sign (not in std form):
+   If you want x to be negative (or just allowed to be negative) replace it with
+   two variables (say, y and z).  Substitute x with y-z, and add the condition
+   that y,z \geq 0.  This allows x (aka y-z) to be positive or negative, but you
+   could add more conditions on y-z to make it how you'd like.
 
-   The left half of A is B, and the right half is L.
+   The graphical representation of these problems is pretty simple (when you
+   have two variables).  The constraints create a nice shaded polygon that
+   represents your feasible region, and then you pick the vertex that maximizes
+   the objective function.
 
-   \begin{equation}
-   y = \begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4 \end{bmatrix}
-   \end{equation}
-   \begin{equation}
-   c = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}
-   \end{equation}
+   **Claim:** There is always an optimal solution in an extreme point.  That's
+   worded weird.  I prefer "an optimal solution is always an extreme point."
 
-   The top halves of these are $y_B$ and $c_B$ respectively.
-
-   \begin{align*}
-     B x_B + L x_L &= b \\
-     x_B + B^{-1} L x_L &= B^{-1} b \\
-     x_B + \bar{A} x_L &= \bar{b}
-   \end{align*}
-
-   Here we're letting $\bar{A} = B^{-1} L$ and $\bar{b} = B^{-1} b$.
-
-   A basic solution is one where $\bar{x_B} = \bar{b}$, or $\bar{x_L} = 0$.  A
-   feasible basic solution is one where $\bar{x_B} \geq 0$ as well.
-
-   *Def:* Simplex multipliers corresponding to $(B,L)$:
-
-   \begin{equation}
-     \pi^T = c_B^T B^{-1}
-   \end{equation}
-
-   Let $\bar{x} = \begin{bmatrix}\bar{x_B} \\ \bar{x_L} \end{bmatrix}$ be BFS
-   corresponding to (B, L).  The objective function at $\bar{x}$ is:
-
-   \begin{align*}
-     \begin{bmatrix} c_B^T & c_L^T \end{bmatrix}
-     \begin{bmatrix} \bar{x_B} \\ \bar{x_L} \end{bmatrix}
-     &= c_B^T \bar{x_B} + c_L^T x_L \\
-     &= (\pi^T B) (B^{-1} b) + c_L^T (0) \\
-     &= \pi^T b
-   \end{align*}
-
-   *Def:* Reduced costs corresponding to (B,L) = A
-
-   \begin{equation}
-     c^{\pi}  = c - A^T \pi
-   \end{equation}
-
-   \begin{equation}
-     c^{\pi} = \begin{bmatrix} c_B^{\pi} \\ c_L^{\pi} \end{bmatrix}
-     = \begin{bmatrix} c_B \\ c_L \end{bmatrix} - \begin{bmatrix} B^T & L^T \end{bmatrix} \pi
-     = \begin{bmatrix} c_B - B^T \pi \\ c_L - L^T \pi \end{bmatrix}
-     = \begin{bmatrix} 0 \\ c_L - L^T \pi \end{bmatrix}
-   \end{equation}
-
-   I guess you can also rewrite it to $c = c^{\pi} + A^T \pi$, but I'm not writing
-   out the vectors and matrices again.  Now he's doing more stuff with the
-   objective function.
-
-   \begin{equation}
-     c^T x = (c^{\pi}_L)^T x_L + \pi^T b
-   \end{equation}
-
-   Once we find the basic feasible solution, the $\pi^T b$ is pretty much fixed,
-   and so we just need to minimize (C_L^{\pi})^T x_L.  Now, say we look at a non-basic
-   (i.e. in L, not B) variable x_i, and look at its reduced costs.
-
-   - If c_i^{\pi} \geq 0, we would be happy to set x_i = 0 (if it's feasible).
-   - If c_i^{\pi} \lt 0, we would be happy to set x_i = +\infty (if it's feasible).
-
-   We can see that if \forall i c_i^{\pi} \geq 0, then the BFS is optimal.  In fact, it's
-   also true the other way around.
-
-   *Thm:* BFS $\bar{x}$ is optimal iff \forall i c_i^{\pi} \geq 0.
-   - Proof \leftarrow: (basically what we've been talking about)
-   - Proof \to: is a really difficult, multi-lecture proof.  We'll sketch out the
-     non-degenerate case only, \theta > 0.  Next time.
-* 2015-09-11 Friday
-
-  LP *canonical* form.
-
-  \begin{align*}
-    \min (c_L^{\pi})^T x_L + \pi^T b &\\
-    \text{s.t. } x_B + \bar{A} x_L &= \bar{b} \\
-    x_B, x_L &\geq 0 \\
-    \text{where } \pi^T B &= c_B^T \\
-    c^pi &= c - A^T \pi \\
-  \end{align*}
-
-  EG:
-
-  \begin{align*}
-    \min x_3 + x_4 + 7 &\\
-    \text{s.t. } x_1 + 2x_3 + 3x_4 &= 1 \\
-    x_2 + x_3 + 7x_4 &= 2 \\
-    x_1, x_2, x_3, x_4 &\geq 0 \\
-  \end{align*}
-
-  - The basic variables are x_1 and x_2.  You can come up with a BFS by setting x_3
-    and x_4 equal to 0, and reading off the values for the basic variables.
-
-  *Thm:* BFS $\bar{x}$ is optimal iff c^\pi \geq 0.
-  - *Proof:* \leftarrow last time
-  - *Proof:* \to (only the non-degenerate case)
-
-    \exists s . c_s^T < 0 \to $\bar{x}$ is not optimal.
-
-    Look at the $s$th column of $\bar{A}$, or $\bar{A}_s$.
-
-    The ith constraint is $x_1 + \bar{a}_{is} x_s + \mathcal{L} \text{ terms } =
-    \bar{b}_i$.
-
-    If $\bar{A}_{is} \leq 0 \: \forall i$ then x_s can be increased arbitrarily to.
-
-    Assume \exists i s.t. $\bar{a}_{is} > 0
-
-    \begin{equation}
-      \theta = \min_{i: \bar{a}_{is} > 0} \frac{\bar{b}_i}{\bar{a}_{is}}
-    \end{equation}
-
-    Since $\bar{b}_i \ge 0$ and $\bar{a}_{is} > 0$, we can claim $\theta \ge 0$.
-    However, we'll be doing the non-degenerate case, and assuming $\theta > 0$.
-
-    More proof stuff that I really need to read about.
-
-** Duality
-
-   - Primal: min C^T x s.t. Ax \ge b, x \ge 0.
-   - Dual: max b^T \pi s.t. A^T \pi \le c, \pi \ge 0
-
-   Claim: dual of dual is primal.
-
-   Theorem (Weak Duality): \forall feasible x, \pi, b^T \pi \le c^t x.
-* 2015-09-14 Monday
-
-** Homework Stuff
-
-   Problem 3 had no solution.
-
-   In problem 7, you could find many examples of optimal solutions that are
-   actually convex combinations of two optimal basic solutions, which are not
-   themselves basic solutions.  This is not what the question asked for.  It
-   seems like the basic feasible solutions are always integer for this problem.
-
-** Duality
-
-   Strong Duality Theorem: I have a program of the form:
-
-   - min c^T x, st
-   - Ax \geq b
+   You can represent a LP instance in matrix form like this:
+   - min C^T x
+   - s.t. Ax=b
    - x \geq 0
 
-   We also have its dual:
+   Where, x = (x_1, x_2, ..., x_q)^T, c = (c_1, c_2, ..., c_q)^T, A=(a_11, a_12, ..., a_1q;
+   ...; a_p1, a_p2, ..., a_pq), b=(b_1, b_2, ..., b_p)^T.
 
-   - max b^T \pi, s.t.
-   - A^T \pi \leq c
-   - \pi \geq 0
+** Integer Linear Programming
 
-   The differences between these are:
-   - min/max
-   - A becomes A^T
-   - c and b are swapped
-   - x becomes \pi
+   Same as ^, except that the x's must be integers.  Since this is a more
+   restricted problem, the solutions are no better than the LP solutions.
 
-   We have weak duality, that b^T \pi \leq \pi^T A x \leq c^T x.
+** Mixed Integer Linear Programming
 
-   *Strong Duality Theorem:* Suppose that the primal (or dual) has a finite,
-   optimal solution.  Then, so does the dual (primal), and they have the same
-   optimal objective value.
+   MILP.  Really?
 
-   *Proof:* WLOG, assume that the primal has a finite, optimal solution x^* (the
-   primal and dual can be swapped and the proof is the same).  Also assume WLOG
-   x^* is a BFS.  First, we'll take the primal and put it into standard form:
+   > Matrix I'd Like to Program - Andrew Mason
 
-   - min c^T x, s.t.
-   - Ax - Is = b
-   - x, s \geq 0
+   Only some of the decision variables need to be integral, others can be
+   continuous.
 
-   Let $\tilde{x}=(x,s)$, $\tilde{c}=(c,0)$, and $\tilde{A}=(A,-I)$.  Then we can put this in
-   even nicer looking standard form:
+** Next Time, on Advanced Algorithms:
 
-   - \(\min \tilde{c}^T \tilde{x}\), s.t.
-   - \(\tilde{A} \tilde{x} = b\)
-   - \(\tilde{x} \geq 0\)
+   Vertex cover, formulated as ILP.
 
-   When we write this in "canonical form" (I seriously need to study this part
-   of the stuff):
+* 2015-08-28 Friday
 
-   - \(\min (c_L^{\tilde{\pi}})^T \tilde{x}_L + \tilde{\pi}^T b\), s.t.
-   - \(\tilde{x}_B + \tilde{A}\tilde{x}_L = \tilde{b}\)
-   - \(\tilde{x}_B, \tilde{x}_L \geq 0\)
+** Last Time:
 
-   We'll call the objective function z, so we're minimizing $z(\tilde{x})$.
-   \(z(x^*)=\tilde{\pi}^T b\).  The next thing is to look at the reduced costs.  First,
-   we know that \(c^{\tilde{\pi}} \geq 0\), because x^* is optimal.  Next, we know
-   that \(c^{\tilde{\pi}} = \tilde{c} - \tilde{A}^T \tilde{\pi} =\):
+   Approximation algorithms have approximation ratio:
 
-   \begin{align*}
-   c^{\tilde{\pi}} &= \tilde{c} - \tilde{A}^T \tilde{\pi} \\
-      &= \begin{bmatrix} c \\ 0 \end{bmatrix} - \begin{bmatrix} A^T \\ -I \end{bmatrix} \\
-      &= \begin{bmatrix} c - A^T \tilde{\pi} \\ \tilde{\pi} \end{bmatrix}
-   \end{align*}
+   apx ratio = \(max_{I\in{}\mathscr{I}} {\frac{c(I)}{c^*(I)}}\)
 
-   This gives us that \(c \geq A^T \tilde{\pi}\), and \(\tilde{\pi} \geq 0\).  This
-   tells us that the \(\tilde{\pi}\) is feasible in the dual.  And then, we know that
-   the objective value of \(\tilde{\pi}\) in the dual is \(b^T \tilde{\pi}\), which is
-   z(x^*).  We know by the weak duality theorem that no \pi can have an objective
-   value greater than this, so it is an optimal solution for the dual!
+   A c-approximation algorithm has cost \leq c \times optimal cost on all instances I of
+   the problem $\mathscr{I}$.  One example is the vertex cover problem.  We
+   covered a 2-approximation algorithm (called =VCapx=) that operates by
+   repeatedly choosing an edge, adding its endpoints to the VC, and removing all
+   incident edges from the graph.
 
-** Complementary Slackness
+   We left off saying that today we would cover the proof that it is a 2-apx
+   algorithm.
 
-   Let x, \pi be feasible solutions.  x, \pi satisfy complementary slackness (p+q
-   equalities).
+** Proof
 
-   \begin{equation}
-     \pi_i \left(\sum_{j=1}^q a_{ij} x_{j} - b_i \right) = 0
-   \end{equation}
-   for i=1, 2, \dots, p
+   *Theorem* =VCapx= is a 2-approximation algorithm.
 
-   \begin{equation}
-     x_j \left(\sum_{i=1}^p a_{ij} \pi_i - c_j \right) = 0
-   \end{equation}
-   for j=1, 2, \dots, q
+   *Proof* Every edge is covered by =VCapx= at termination.  For every one of
+   these edges, the algorithm adds at most two vertices to $V'$.  The optimal
+   solution contains at least one of these two.  =VCapx= never considers the
+   same vertex twice (since it deletes incident edges).  So, this is a 2
+   approximation algorithm.
 
-   Essentially, each of these are the slack variables.  So, if you look at the
-   slackness in a constraint in one problem, and multiply it by the
-   corresponding variable in its dual, you'll find that quantity is zero.
+   Here's the actual text of his proof:
 
-   If the slackness $s_i > 0$, then $\pi_i = 0$.  You can look at the $\pi_i$ as a
-   "price" for how much you'd be willing to "get rid" of the constraint.  If
-   your constraint is not even constraining you, you wouldn't care to get rid of
-   it, and $\pi_i$ is 0.  On the flip side, if your slackness is 0, the $\pi_i$ will
-   tell you /kinda/ how much you'd like to get rid of your constraint.
+   - Every edge is covered by =VCapx= at terminates.
+   - \forall edge chosen by =VCapx=
+     - =VCapx= adds 2 vertices to $V'$
+     - Opt contains at least one of the two vertices
+   - =VCapx= never considers same vertex twice. (by deleting incident edges)
+     - \to edges are disjoint, \to $V'$ can be partitioned by edges added by =VCapx=
+   - \rightarrow 2-apx algorithm
+
+** Reduction
+
+   The pipeline of reduction:
+
+   (X, c) \in *I* \to (X', c') \in *I' \to* x'^* \to x^*
+
+   If the time to translate (X,c) to (X', c') is T_1, and the time to translate
+   x'^* to x^* is T_2, then problem *I* reduces to *I^'* in time T_1 + T_2.
+
+   EG: Any maximization problem reduces to a minimization problem in O(1) time.
+
+***  Optimal Message Passing
+
+     Given a graph G=(V,E) with probability p_e (0 < p_e < 1) associated to each e
+     \in E.  Find a spanning tree of G that minimizes the probability of failure.
+     (The probabilities are of failure, and independent).
+
+     So, the probability of survival for the whole tree is \Pi_{e\in T} (1-p_e).
+
+     We can reduce the OMP to Minimum Spanning Tree problem in linear time.  We
+     define the weight of an edge to be w_e = -\log (1-p_e).  The cost of an MST
+     is c(T) = \sum_{e\in T} w_e = \sum_{e\in T} \log 1/(1-p_e) = \log \Pi_{e\in T} 1/(1-p_e) =
+     \log 1/(\Pi_{e\in T}(1-p_e)).  Since we're trying to minimize that logarithm, and
+     logarithms are strictly increasing functions, we also are minimizing the
+     inside of the logarithm.  This is the same as maximizing the denominator,
+     which happens to be the probability of survival of the tree.
+
+*** Choosing your reduction
+
+    This isn't necessarily like EECS 343 reductions, where you find the easiest
+    reduction to do.  There are entire families of problems that are special
+    cases of each other.  A problem might be able to be reduced to the simplest
+    of these, or the most general of these.  The reduction to the most general
+    problem is usually easiest, and the reduction to the simpler problem is more
+    difficult.  The advantage of doing the harder reduction is generally a
+    faster algorithm to solve the simpler problem.  It's just a wonderful world
+    of tradeoffs here in computer science land.
+
+** GNU Octave
+
+   - Download it via your package manager, or from the GNU website if you're a
+     Win/Mac user.
+   - There is a good deal of documentation on the GNU site about how to use
+     Octave.  It looks like a less powerful Python+NumPy+Matplotlib, or maybe a
+     less powerful (open source) Mathematica.
+   - =glpk= function for linear programming.
+   - First homework this afternoon, due in two weeks!
+* TODO 2015-08-26 Wednesday
+
+  Need to copy over notes from paper.
+* 2015-08-24 Monday
+
+  - 5 books, get sections from library
+  - 2 tests:
+    - Final exam, possibly oral.
+    - Midterm
+  - 6 homeworks:
+    - Need to know octave
+
+** Asymptotics
+
+   Measure time complexity.  Focus is on large inputs.
+
+   - f(n) \in O(g(n)) means "f(n) \leq g(n)"
+
+     \exists c > g, n_0 > 0 s.t. \forall n \geq n_0 : f(n) \leq c g(n)
+
+   - f(n) = \Omega(g(n)) defined: g(n) \in O(f(n))
+
+   - f(n) \in \Theta(g(n)) defined: f(n) \in O(g(n)) and f(n) \in \Omega(g(n))
+
+   - f(n) \in o(g(n)) defined: \(\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0\)
+
+   - f(n) \in \omega(g(n)) defined: \(\lim{n\to\infty} \frac{f(n)}{g(n)}
+     =\infty\)
+
+   What is $n$?  Input size.  Sometimes it's a number of elements, or it could
+   be multiple parameters (number of nodes, number of edges).
+
+   Sometimes we use the number of bits of the input.  For example, an algorithm
+   with input integer $k$.  The number of bits is $n=\Theta(\log k)$.  If the
+   runtime is $O(k)$, it looks like it's linear time.  But in the number of
+   bits, it's exponential ($O(2^n)$).  It looks polynomial, but it's
+   exponential.  It's called pseudo-polynomial.
+
+   Formula:
+
+   $(1-\frac{x}{k})^k$, where \(x \in R\), \(k \in N^+\).  We have that quantity
+   \(< e^{-k}\), and \(\geq (1-x)\).  This will be used a lot apparently.
+
+** Optimization Problems
+
+   **Definition:** An instance of an optimization problem is a pair $(X,f)$,
+     where $X$ is a set of feasible solutions, and $f$ is an objective function.
+     $f$ maps from $X$ to the real numbers.  An /optimal solution/ $x^*$ is an
+     element of $X$ with the property that \(f(x^*) \leq f(x) \: \forall x \in
+     X\).
+
+   For instance, if you have a graph and you're talking about the minimum
+   spanning tree problem, $X$ is the set of all MSTs, and $f$ maps each to the
+   sum of the edge weights in the tree.
