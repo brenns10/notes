@@ -3,6 +3,112 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-17 Thursday
+
+** Tradeoffs of Neural Networks
+
+   - Lots of DoF!
+     - Topology
+     - Parameters
+   - Easy to overfit.
+
+** Training ANN
+
+   We'll pretend that the network topology is already decided.  Here is the
+   setup:
+
+   \begin{equation}
+     D = \left( \begin{array}{ccccc}
+           x_{11} & \cdots & x_{1n} & -1 & y_1 \\
+           \vdots & & \vdots & \vdots & \vdots \\
+           x_{m1} & \cdots & x_{mn} & -1 & y_m
+         \end{array} \right)
+   \end{equation}
+
+   - Want to find parameters $\vec{w} = (w_1, w_2, \cdots, \sigma)$.
+   - Such that we minimize the "loss" function $L(\vec{w})$.
+   - We can't use the sign function because it's not differentiable.
+   - We can't use the dot product approximation.
+   - Instead we use a sigmoid function $y = (1 - e^{x})$ I think.
+
+   To train, we use Backpropagation!  This is gonna be fun.
+   - Feed examples forward through the network.
+   - Do layer-wise gradient descent starting at the output layer.
+
+*** Backpropagation
+
+    - Let $x_{ji}$ be the ith input to unit j.
+    - Let $w_{ji}$ be the parameter associated with $x_{ji}$.
+    - Let $n_j = \sum_i something$
+    - Next up is the derivation of the derivative of the loss function for the
+      output layer.  It's easy to follow, and I can't keep up with typing the
+      math.  Check the slides!
+
+    Backpropagation for hidden layers.
+    - A perceptron $j$ only can affect the output from its downstream
+      perceptrons, which we denote as $Downstream(j)$.
+    - We can compute the derivative of the loss function with respect to the
+      inputs of this perceptron, $\frac{dL}{dn_j}$, by computing the sum of
+      $\frac{dL}{dn_k} \frac{dn_k}{dn_j}$ for all the $k\in{}Downstream(j)$.
+      Excitingly, we already have $\frac{dL}{dn_k}$, since $k$ is dowstream of
+      $j$,
+    - The math is on the slides again, cause I'm not typing this stuff.  Still
+      pretty easy to follow.
+
+*** Example
+
+    Consider a neural network with 2 input units, 2 hidden units, and 1 output
+    unit, and all weights initialized to 1, with the bias set to zero.  Using
+    squared loss, show the weights after the first backpropagation update with
+    these examples.
+
+    We have the inputs labelled 1 and 2, and then the two internal nodes labeled
+    3 and 4, and the output node labeled 5.  Weights and x's are labeled
+    accordingly.
+
+    | x_1 | x_2 | f | $\hat{f}$ |
+    | 0  | 0  | 0 | 0.731     |
+    | 0  | 1  | 1 | 0.812     |
+
+    Now that we have the initial outputs of the network, we can compute the
+    derivatives for each example, and once we have all the derivatives we add up
+    all the derivatives and compute the next step.
+
+    Example 1:
+    - Output layer: \(\frac{dL}{dw_{53}} = (0.731) (1 - 0.731) (0.5) (0.731 - 0) = 0.0719\)
+
+    Example 2:
+    - Output Layer: \(\frac{dL}{dw_{53}} = (0.812) (1 - 0.812) (0.731) (0.812 - 1) = -0.021\)
+
+    Update:
+    - \(w_{53}' = 1 - \eta (0.0719 - 0.021) = 0.949\) (assuming $\eta = 1$ for example).
+
+** Overfitting in ANNs
+
+   - They are very prone to overfitting, due to the large amount of parameters.
+   - Can create very nonlinear decision surfaces.
+   - You can impose a simple structure on the network, but then the network may
+     not be capable of representing the true decision boundary.
+   - Some strategies for controlling overfitting:
+
+*** Weight Decay
+
+    Add a "weight decay term" to keep the weights from growing:
+
+    \(L_{OC}(\vec{y}, \hat{\vec{y}}, \vec{w}) = L(\vec{y}, \hat{\vec{y}}, \vec{w}) + \gamma \sum_i \sum_j w_{ji}^2\)
+
+    If you have a large $\gamma$, your solution will tend to $w_{ji}$'s will tend toward
+    zero, to minimize the effect of $\gamma$.  So it seems careful choice of $\gamma$ is
+    pretty important.
+
+** Implementation Issues
+
+   You should standardize your inputs to zero mean, unit variance, so that your
+   units don't have a massive effect on the network.
+
+   Nominal features: you need to re-encode it.  You could do 1 of N input units.
+   Or you could do logarithmic encoding, where each input is a binary code.
+
 * 2015-09-15 Tuesday
 
 ** Famous Dead People
