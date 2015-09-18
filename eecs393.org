@@ -1,7 +1,16 @@
-#+TITLE: EECS 493 Notes
+#+TITLE: EECS 393 Notes
 #+AUTHOR: Stephen Brennan
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
+
+* 2015-09-15 Wednesday
+
+** Moar Requirements
+
+   Levels of Detail in Requirements Specification
+   - Different audiences want different levels.
+   - Business requirements: high level, business constraints, etc.
+   - User requirements: describe what the users need to do.
 
 * 2015-09-11 Friday
 
