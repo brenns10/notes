@@ -3,6 +3,86 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-18 Friday
+
+** Integrality
+
+   When you have a ILP, it's normally NP-hard.  However, if the optimal solution
+   to the LP is integral, then you have the solution in polynomial time.  Hooray
+   for you.  How can you check to find out if the optimal solution is integral?
+   Apparently, using a concept called *unimodularity*.
+
+   For this part of the lecture, $A$ is a $p \times q$ matrix, with integer values,
+   and $rank(A)=p$.
+
+   *Definition:* A is unimodular iff $\forall B$ basis, $\det B = \pm 1$.
+
+   *Theorem:* $A$ as above.  Equivalent:
+   - (a) $A$ is unimodular
+   - (b) \forall basic feasible solution, $Ax=b$, $x\ge 0$ s an integer. (b integer)
+   - (c) $\forall B$ basis, $B^{-1}$ integer.
+
+   This theorem is cool because it will apply for any objective function, and
+   any integer $\vec{b}$.  However, unimodularity is more strict than purely
+   figuring out whether a given problem has an integer solution that is optimal.
+
+   *Proof:* (a) \to (b)
+   - A basic feasible solution is $x=(x_B, x_L)$ s.t. $Bx_B = b$ and $x_L = 0$.
+   - For all basic feasible solutions, we have $x_L = 0$, which is integer.  What
+     about $x_B$?  Let's figure out the ith component of $x_B$.
+   - Well, it turns out that by *Cramer's Rule*, $x_i = \frac{\det B_i}{\det B}$.
+   - We know that $\det B_i =$ an integer (how?).
+   - Since $\det B = \pm 1$, we know that $x_i$ must be an integer.  Yay (I guess).
+   *Proof:* (b) \to (c)
+   - basis \to $B$.
+   - D_j: jth column of $B^{-1}$
+   - $D_j = B^{-1} e_J$, where $e_j$ is a vector of zeros except for index $j$, which
+     is 1.
+   - $(d_{ij}) = B^{-1}$
+   - \(a_i = \left\{ \begin{array}{ll} [-d_{ij}] & \text{ if } d_{ij} < 0 \\ 0 &
+     \text{ if } d_{ij} \ge 0 \end{array} \right.\) (where [] is ceiling function).
+   - This gives us a vector $\vec{a}$.
+   - \(D_j + a \ge 0\)
+   - \(Bx = e_j + Ba\)
+   - \(x = D_j + a\) is a solution
+   - \(B(B^{-1} e_j + a) = e_j + Ba\)
+   - The right hand side is an integer, and \(B^{-1} e_j + a\) is apparently also an
+     integer.
+   - And I guess this proves it.  I'm totally lost here.
+   *Proof:* (c) \to (a)
+   - \(\det B \det B^{-1} = 1\)
+   - This is because \(\det A \det B = \det AB\), and \(\det I = 1\).
+   - So, \(\det B = \frac{1}{\det B^{-1}}\).  We know that $B$ is integer (since
+     $A$ is as above, integer).
+   - We also know by our assumption (c) that $B^{-1}$ is integer.  This means both
+     determinants are integers, and the only values for $\det B^{-1}$ that make
+     this possible are -1 and 1.
+   - So, $A$ must be unimodular.
+
+** Minimum Cost Network Flow
+
+   Woo?
+
+   In minimum cost network flow, I have a graph $G=(V,E)$ which is directed.  We
+   now call vertices nodes, and edges arcs.  You have a source node and a sink
+   node, with a certain amount of flow that needs to go through the network
+   (e.g., 3 units must go out of the source, and into the sink).
+
+   Each arc in the network from node $i$ and $j$ has a cost associated with it
+   $c_{ij}$.  It also has an $\ell_{ij}$ that is a lower bound of flow, and an $u_{ij}$,
+   which is an upper bound of what can flow through the arc.  The cost of a flow
+   is the amount of flow through an arc times the cost of the arc.  All flows
+   are nonnegative.
+
+   The goal is to put the required amount of flow through the network, while
+   minimizing the cost.  The total cost is the sum for each arc of the amount of
+   flow times the $c_{ij}$ for that arc.
+
+   The three next steps for this problem:
+   1. Make in into a linear program.
+   2. Find out whether it is unimodular.
+   3. Figure out its dual.
+
 * 2015-09-16 Wednesday
 
   Intro: we're getting to the core of the class.  :D
