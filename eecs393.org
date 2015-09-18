@@ -3,7 +3,23 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
-* 2015-09-15 Wednesday
+* 2015-09-18 Friday
+
+** Information Gathering Techniques
+
+   - Interviews
+   - Facilitated requirements workshops
+   - Document analysis.
+   - Lots of stuff.
+
+** Use Case
+
+   - Describes a set of related usage scenarios for a software system.
+   - Not sufficient as a list of functional requirements.
+   - Can be used in addition to functional requirements.
+   - Can derive functional requiremnets from each use case.
+
+* 2015-09-16 Wednesday
 
 ** Moar Requirements
 
