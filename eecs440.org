@@ -3,6 +3,137 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-22 Tuesday
+
+** ANNs, Continued
+
+*** Cascade Correlation (Learning the Structure of an ANN)
+
+    - No textbook sections on this, ask for paper.
+    - Start with a single perceptron.  Train and find "residuals".
+    - Now, add a new perceptron that feeds into the original one.
+    - Train it to feed the "residuals" into the original perceptron.
+      - Hold the original perceptron's training constant.
+    - Continue adding perceptrons that correct for the "residual" of the
+      previous iteration.
+    - This essentially does a Taylor series approximation of the underlying
+      function.
+    - It is an instantiation of a more general technique called "gradient
+      boosting".
+
+*** Interpretation of Hidden Units
+
+    - Unlike Decision trees, the ANN structure is very opaque.
+    - Difficult to interpret what it is doing.
+    - One way is to look at the last layer of the ANN (the last perceptron) and
+      see what it's doing.  You could even assign labels to each of the inputs
+      for whatever concept you may believe they represent.
+
+*** How Many Hidden Units?
+
+    - Some work shows that it is better to start with a network that is too big.
+      - Train until the error on the validation set grows.
+      - Then look at the weights associated with edges, and prune the hidden
+        units that don't actually contribute.
+
+*** Recurrent ANNs
+
+    - So far, we've looked at ANNs that feed forward.
+    - There are also networks with loops, called "recurrent neural networks"
+      - This gives ANNs a "memory" of previous inputs.
+      - They are much more of a dynamic structure
+    - A recurrent ANN architecture with /rational weights/ has computational
+      power equivalent to a Universal Turing Machine!!!!!
+      - However, this is ridiculously hard to train (ya don't say...)
+      - Very prone to overfitting.
+
+*** Pros/Cons of ANNs
+
+    Pros:
+    - Very expressive hypothesis space
+    - Very useful for classification, regression, density estimation
+    - Builds useful representations "automatically"
+
+    Cons:
+    - Easy to overfit.
+    - Slow to train, require many examples.
+    - Doesn't easily handle nominal data.
+    - Opaque
+
+** Comparing Learning Algorithms
+
+*** Issue 1
+    - Suppose we collect test data and evaluate a classifier.  Accuracy=$x$.
+    - Then, someone repeats the experiment with another set of test data from the
+      same problem, independent of the first set.
+      - What can we say about the accuracy here?
+
+*** Issue 2
+    - Suppose now we have two different classifiers $A$ and $B$.  We measure
+      their accuracies on a test set, and get $x$ and $y$, and $x > y$.  Does
+      this mean $A$ is better than $B$ in this problem?
+    - Or how about doing this with completely different algorithms?
+      - If we repeated this experiment, we would get new $x'$ and $y'$.  Would
+        we find that $x' > y'$ again?
+
+*** It's All Just Statistics!
+
+    - We're just looking at estimating the "true value" of a metric on the basis
+      of a small sample.
+    - Just like statistics!
+    - *Definition:* Data Distribution: assume there is an unknown, underlying
+      probability distribution, $D$, from which /unlabeled/ examples ($x$) are
+      being sampled without replacement.
+      - I.I.D.
+    - *Definition:* Sample Error Rate: The fraction of examples in our test
+      sample on which the learned classifier disagrees with the target concept.
+      \begin{equation}
+        e_s = \frac{1}{n} \sum_x \delta(y_x, \hat{y}_x)
+      \end{equation}
+    - *Definition:* True Error Rate: The probability that the learned classifier
+      will make a mistake on a random example drawn from $D$.:
+      \begin{equation}
+        e_D = Pr_{x~D}(y_x \ne \hat{y}_x)
+      \end{equation}
+    - For problem #1, we want to know how are $e_S$ and $e_D$ related.
+    - *Definition:* Sampling Distribution:
+      - Suppose we perform a random experiment lots of times and record the
+        outcome.
+      - Call the random variable associated with the outcome $O$.
+      - Suppose we then plot a frequency histogram of $O$.
+      - something something something (see slides)
+    - We'd like to get at the sampling distribution of the "error rate" r.v.,
+      but we'll start with something easier.
+    - Let $R$ be an rv denoting the number of errors in an evaluation
+      experiment: (he changed slides too quick)
+      - Sampling Distribution of $R$
+        - Suppose we run $k$ experiment with test samples of size $n$
+        - In the $i$th experiment our learned classifier makes $R=r_i$ errors.
+        - We'll pot a frequency histogram of $R$.
+        - What will it look like for $k$ large?
+        - We have a Binomial distribution.  In the limit, this actually
+          converges to a normal distribution.
+        - This means we can infer the error rate $e_D$ (since $\mu=np$, $\sigma =
+          ne_D(1-e_d)$)
+      - If we do one trial and find that there are $r$ errors on $n$ examples, a
+        good parameter estimate for $e_D$ is $\frac{r}{n}$.  Why?
+      - This is a maximum likelihood estimation.  It is the parameter that
+        maximizes the probability of the data.
+    - *Definition:* Estimation Bias: Estimation bias of an estimator $Y$ for
+      parameter $p$ is $E(Y)-p$.
+      - If it has 0 bias, it converges asymptotically to the true value.
+      - MLE has 0 estimation bias.
+    - This is getting to some good math, but I can't summarize it in my notes
+      right now if I want to understand it.  See slides.
+    - Summary for Issue 1:
+      - Determine sampling distribution of measure.
+      - Estimate sampling distribution parameters using MLE on test set.
+        - If necessary, approximate using standard distribution such as
+          Gaussian.
+      - Use tables to determine C% CI.
+        - Usually use C=95
+        - The true measure will lie in that interval with C% probability.
+
 * 2015-09-17 Thursday
 
 ** Tradeoffs of Neural Networks
