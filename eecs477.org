@@ -3,6 +3,126 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-23 Wednesday
+
+** MCNF: Transformations
+
+   Have an instance of MCNF, and I want to transform it into another instance
+   which is equivalent.
+
+*** Removing lower bounds
+   - If you have an arc from i to j, with b_i and b_j, with cost c_{ij}, and bounds
+     (\ell_{ij}, u_{ij}).
+   - Create a new arc with bounds (0, u_{ij}-\ell_{ij}), and you make node i
+     b_i-\ell_{ij}, and node j has b_{j}+\ell_{ij}.
+   - Essentially, this is an equivalent problem where you disregard the required
+     flow.  The cost that's eliminated is constant, so the solution to this will
+     be the same to the solution of the original.
+
+*** Removing upper bounds
+   - Again, you have i and j, with supply b_i/b_j, cost c_{ij}, and upper bound u_{iu}.
+   - i is flowing to j, with an amount x.
+   - Create a new "node" that has supply -u_{ij}.  Both i and j will flow into the
+     new node.  x will still flow from node i into the new node.
+   - The cost of the flow from i to the new node will be c_{ij}
+   - The cost of the flow from j into the new node will be 0.
+   - The supply of node i is still b_i.
+   - The supply of j becomes b_j + u_{ij}.  Essentially, the flow from j to the new
+     node will be u_{ij} - x, and when you subtract that from the supply, you will
+     get b_{ij} + x, which is the flow from the original setup.
+
+   Example: he's doing an example I can't draw, but functionally he's taking a
+   MCNF problem with costs and upper bounds, and getting rid of all the upper
+   bounds.  The process is as follows (for the whole graph):
+
+   1. The whole network becomes a bipartite graph.  Each original node is on the
+      left, and on the right there is a node for each arc in the original
+      network.
+   2. For each arc on the original, you connect both nodes on the left to the
+      corresponding node on the right.
+   3. You set the supply on the right side node to be the opposite of the upper
+      bound.
+   4. The "supplying" node's arc has the same cost.
+   5. The "receiving" node's arc gets a cost of 0.
+   6. The receiving node has its supply increased by the upper bound.
+
+*** Node splitting
+
+    Sometimes you try to model a LP as an MCNF?  So to make the modeling better,
+    you may want to bound the amount flowing through a node (not just the net
+    "supply/demand").
+
+    1. Split the node into two: an input node containing all the edges going in,
+       and an output node containing all the outgoing edges.
+    2. Connect the nodes from the input to the output, set the cost to 0, and
+       upper bound it by the amount of flow you'd like to allow through the
+       terminal.
+    3. You set the input node's demand to 0, and the output node's demand to the
+       original.
+    4. Congrats, you've split the node!
+
+** Residual Network
+
+   If you have a feasible flow going through an instance of an MCNF problem, you
+   can create a new problem by changing the demands at each node to be what you
+   currently have satisfied, and creating arcs to either send back what you've
+   already got flowing, or to go up to the maximum flow between nodes.
+
+   This new network is called a "residual network" since it represents the
+   residual actions you can take to change the flow.  It's sort of a pivot in
+   the LP or maybe the dual.  It's an action frequently taken by algorithms.
+
+** MCNF as LP
+
+   The MCNF is formulated as:
+
+   - min c^T x, s.t.
+   - Nx = b
+   - x \ge 0
+
+   Where x is a vector of arcs, c^T is a vector of costs for flows on each arc.
+   N is the node arc incidence matrix.  Its rows are the nodes, and its columns
+   are the arcs.  For arc (i,j), there is a +1 in row i, and a -1 in row j,
+   assuming the flow is from i to j.
+
+   We will call $A$ the maximal subset of rows of $N$ that are linearly
+   independent.  It has full row rank.  It has at least two non-zero elements,
+   which are \pm 1, in each column.  Then, we have the problem:
+
+   - min c^T x, s.t.
+   - Ax = b
+   - x \ge 0
+
+   If $A$ is unimodular, then \forall integer b, the optimal solution is an integer.
+   Which means that the solution to the ILP version of the $A$ LP would be the
+   same as the solution to the LP, and integer.  I guess that would be pretty
+   cool.
+
+   *Definition:* A is totally unimodular iff \forall square submatrices C of A, det C
+   \in {0, \pm 1}.
+
+   *Claim:* Totally Unimodular \to Unimodular.  (recall Unimodular is: \forall bases B
+   of A, det B \in {\pm 1}.)
+   *Proof:* Well, B is a non-singular square submatrix, so its determinant must
+   be \pm 1.
+
+   So, we must prove that $A$ is totally unimodular!
+   - \forall C square submatrices k \times k.  We do induction on k.
+   - Base case: k=1.  Each submatrix is 1 \times 1, and either contains -1, 0, or 1,
+     so the determinant is either -1, 0, or 1.
+   - Induction:
+     - Case 1: C has a column containing all 0's \to det C = 0.
+     - Case 2: in every column, there is a +1 and a -1.  If you sum up every
+       row, you get 0, so the matrix is singular, and det C = 0.
+     - Case 3: Anything else.  Pick a column such that you have just a +1 or a
+       -1.  This is simply that entry (\pm 1), times the determinant of the
+       submatrix that excludes that row and column.  By the inductive
+       hypothesis, the determinant of this submatrix is \in {0, \pm 1}, so this
+       means that det C is \in {0, \pm 1} as well!
+
+    MCNF is unimodular!
+
+* TODO 2015-09-21 Monday
 * 2015-09-18 Friday
 
 ** Integrality
