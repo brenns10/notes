@@ -3,6 +3,146 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-24 Thursday
+
+  Recall: we want to compare ML algorithms.  Our steps for comparing test data:
+  1. Determine the sampling distribution.
+  2. Estimate parameters using MLE.
+  3. Use an approximation distribution if necessary.
+  4. Come up with a C% confidence interval.
+
+  Our "Issue #1" was "what do we know about the true performance of a
+  classification algorithm, given that we've tested it on a test set?"
+  - We determined that we could come up with a confidence interval for an
+    observed test statistic.
+
+** Issue 2.1
+
+  Our next issue, #2.1, is that we have a conjecture "classifier A is better
+  than algorithm B on a certain type of data."  We would like to evaluate
+  whether this conjecture is true.  We can do this with statistical hypothesis
+  testing.
+
+  We want to look at the random variable \(F = Err_{C_1} - Err_{C_2}\).  What can we
+  say about the sampling distribution of $F$?  Assuming that the error
+  distributions are Gaussian, the distribution of $F$ is going to be Gaussian
+  also.  The MLE parameter estimates:
+  - \(E(F) = e_{S,C_1} - e_{S,C_2} = \left(\frac{r_1}{n_1} - \frac{r_2}{n_2}\right)\)
+  - \(V(F) = V(Err_{C_1}) + V(Err_{C_2}) = \frac{e_{S,C_1}(1-e_{S,C_1})}{n_1} + \frac{e_{S,C_2}(1-e_{S,C_2})}{n_2}\)
+
+  Comparing classifiers: hypothesis testing:
+  - Establish your "null hypothesis."
+    - You will reject this hypothesis with high probability.
+    - You presume it is true until the test shows otherwise.
+
+  This test assumes that the two classifiers were evaluated on independent test
+  data.
+
+  Example:
+  - On a test set with (*0 examples a decision tree misclassifies 20 examples.
+    on the same test set, a neural network misclassifies 25 examples. Are these
+    two classifiers actually different on this problem?
+  - \(F=\frac{r_1}{n_1} - \frac{r_2}{n_2} = 0.05\)
+  - \(V(F) = 0.2(1-0.2)/100 + 0.25 (1-0.25) / 100 = 0.0016 + 0.001875 = 0.0034\)
+  - Standard deviation is about 0.05.
+  - 0 is definitely within the 95% confidence interval, so we cannot reject the
+    null hypothesis (that they are the same)
+
+** Issue 2.2
+
+   This issue is critically different from 2.1.  In 2.1, we had two classifiers
+   -- who knows where they came from, but we want to compare those two
+   classifiers' performances.  In this case, we have two learning algorithms,
+   and we want to compare the performance of the *algorithms*, not a particular
+   *classifier* produced by an algorithm.
+
+   In order to do so, we must find the expected value of an algorithm's error
+   rate.  To do this, we must take the average over all classifiers, produced by
+   all possible training sets.  We usually estimate this by doing $n$-fold
+   validation instead of actually finding all possible training sets from the
+   population.
+
+   We can do /pair testing/, where we evaluate the algorithms on the same folds,
+   and then compare the difference between their error rates.  Or, we can do it
+   independently, on separate folds, and compare their error rates.  But this
+   method gives you a bigger variance.
+
+   When you compare the difference of error rates, you want to know what the
+   sampling distribution is.  The sampling distribution looks Gaussian, but not
+   quite.  Instead, it's a $t$ distribution.  If $k$ (the number of folds) was
+   very large, we could use the Gaussian, but instead we have to use $t$
+   distribution, with $k-1$ degrees of freedom.  Here are parameter estimates:
+   - Mean (\delta): the average difference of error rates across $k$ folds.
+   - Standard Deviation:
+     \begin{equation}
+       s = \sqrt{\frac{\sum_{i=1}^k (\delta_i - \delta)^2}{k(k-1)}}
+     \end{equation}
+   - The standard deviation is adjusted to make the distribution narrower, and
+     put more mass in the tails!
+
+** One-way ANOVA
+
+   - For comparing >2 algorithms.
+   - Why not just do pairwise hypothesis tests?
+     - The results may not be consistent (i.e. transitive)
+     - Multiple hypotheses result in lost confidence, so you'd need to correct
+       your P-value/confidence interval.
+       - EG: with 10 95% CI's, you only have 60% confidence that the true values
+         of all 10 parameters are within the range.
+   - ANOVA looks at the "between means" variance.
+   - Essentially, it seems like a generalized $t$ test (gives the same result as
+     a $t$ test for two distributions).
+
+** Sign Test
+
+   - Simpler than $t$ test with fewer assumptions.
+   - For each fold, note which algorithm had better performance.
+   - Use binomial null hypothesis, where p=0.5.
+
+** Mann-Whitney-Wolcoxon Signed-Rank Test
+
+   - What if a classifier produces confidence estimates?
+   - If we can rank the predictions, we can calculate a $U$ statistic based on
+     the ranks:
+     \begin{equation}
+       U_1 = \sum_i R_{1,i} - \frac{n_1(n_1 + 1)}{2}
+     \end{equation}
+   - For large enough samples, you can approximate $U$ with a normal
+     distribution.
+   - AUC is actually a normalized version of $U$!
+
+** Bootstrap
+
+   - All previous methods relied on knowing the sampling distribution of the
+     statistic we are interested in.
+   - The bootstrap is a procedure where we get the properties of the statistic
+     using /empirical resampling/ from the observations.
+
+   Example:
+   - Suppose we have a set of iid examples and we want to get a C1 for F1 score.
+   - Repeatedly draw an equal sized sample (with replacement) from our test
+     examples, and measure F1.
+   - This creates an empirical sampling dsitribution.
+   - Then, go back to the original data, measure F1, and ask how unusual that is
+     in the empirical distribution.
+
+   Weird... ¯\_ (ツ)_/¯
+
+   Pros: very easy, few assumptions, good for complex things.
+
+   Cons: finite sample behavior is not very well understood.
+
+** Is there a best learning algorithm?
+
+   - No
+   - No Free Lunch theorem!
+     - In the expectation over all learning algorithms, they will perform
+       equally.
+     - Wolpert 1996: "The lack of a priori distinctions between learning
+       algorithms."
+     - For any specific application, you can have a "best" algorithm.  But
+       overall, no.
+
 * 2015-09-22 Tuesday
 
 ** ANNs, Continued
