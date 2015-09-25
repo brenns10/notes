@@ -1,7 +1,7 @@
 addons:
   apt:
     packages:
-      - emacs24-nox
+      - emacs23-nox
       - org-mode
 script: make
 after_success: ./push.sh
