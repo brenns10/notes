@@ -3,6 +3,82 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 
+* 2015-09-25 Friday
+** MCNF Duality
+
+   Assume for simplicity, \forall (i,j) \in E, 0 < u_{ij} < \infty.  This condition doesn't
+   provide any algorithmic restrictions, it just makes our notation simpler.
+
+   - \(\min \sum_{(i,j)\in E} c_{ij} x_ij \), s.t.
+   - \(\sum_{(i,j)\in E} x_{ij} - \sum_{(j,i)\in E} x_ji = b_i\)  for all i
+   - \(-x_{ij} \ge -u_{ij}\) for all (i,j).
+   - \(x_ij \ge 0\) for all (i,j)
+
+  The dual: this should be pretty automatic by now.  We will use variables \pi_{i}
+  for the top constraint, and \alpha_{ij} for the second constraint
+
+  - \(\max \sum_{i\in V} b_i \pi_i - \sum_{(i,j) \in E} u_{ij} \alpha_{i,j}\), s.t.
+  - \( \pi_i - \pi_j - \alpha_{ij} \le 0\), for all i,j
+    - rewrite: \(c_{ij} - \pi_i + \pi_j + \alpha_{ij} \ge 0\)
+  - \(\alpha_{ij} \ge 0\)
+  - \pi_i unrestricted
+
+  Now that we have the dual, the next step is to ask, "what does it mean"?  If
+  we figure out what the dual means, we can learn many properties about the
+  original problem and maybe come up with more efficient algorithms for it.
+
+  *Claim:* If the dual has an optimal solution, then \exists optimal solution where
+  \(\alpha_{ij} = \max \{0, -c_{ij}^\pi \}\).
+  - *Definition:* \(c_{ij}^\pi = c_{ij} - \pi_i + \pi_j\)
+  - Called the reduced costs for the arc (i,j).
+  - But not the same as the reduced costs as its linear program (?).
+    - That doesn't really matter to me since I never got the reduced costs thing
+      anyway.
+
+  *Proof:* We already know that \(a_{ij} \ge 0\), and \(\alpha_{ij} \ge - c_{ij}^\pi\).
+  The claim states that this is a strict equality, and apparently this is true
+  becasue the profit of $a_{ij}$ is $-u_{ij}$, which means we need $a_{ij}$ to be as
+  small as possible.
+
+  *Theorem:* (Complementary Slackness).  If \(x_{ij}\) is feasible, and \(\pi_i, a_{ij}\)
+  are feasible, then they are optimal iff:
+  - \(\alpha_{ij}(u_ij - x_{ij}) = 0\)
+  - \(x_{ij} (c_{ij}^\pi + a_{ij}) = 0\)
+
+  *Define:* Excess at $i$: \(e_i = b_i - \sum_{(i,j)\in E} x_{ij} + \sum_{(j,i) \in E} x_{ij}\)
+  - $e_i=0$ in any feasible solution.
+
+  *Proof:* (of the complementary slackness statement above):
+  - We write the LP complementary slackness conditions.
+  - \(\pi_i e_i = 0\)
+  - \(\alpha_{ij} (u_{ij}-x_{ij}) = 0\)
+  - \(x_{ij} (c_{ij}^\pi + \alpha_{ij}) = 0\)
+  - The first is always true (as we mentioned above with the excess)
+  - The other two are the complementary slackness conditions from the theorem.
+
+  Example time (not pictured):
+  - He gave a network and a feasible flow.
+  - He claims it's optimal.
+  - To prove it, he'll give a corresponding solution to the dual!
+  - $\pi_{j}$ is called the "node potential".
+  - He gave us the values for $\pi_i$ at each node.  The $\alpha_{ij}$ follow from
+    complementary slackness, having the values of $x_{ij}$ and $\pi_i$.
+  - We then computed the values for $c_{ij}^\pi$, and used those to compute
+    $\alpha_{ij}$, and showed that they satisfy complementary slackness, and are
+    feasible.
+  - Then, we wrote the residual network.  Recall, you do this by replacing each
+    edge that has a flow with an edge in the same direction, same cost, and ub
+    is \(u_{ij}-x_{ij}\).  And, you add a reverse edge with negative cost and ub is
+    \(x_{ij}\)
+  - Then, we mapped the reduced costs $c_{ij}^\pi$ onto the residual network.  For
+    the new back edges $(i,j)$, their reduced costs are just $-c_{ji}^pi$.
+  - We notice that \(c_{ij}^\pi \ge 0\) for all edges in the residual network.  We
+    denote that \(\forall (i,j) \in E(x)\).
+  - We make the claim that $x_{ij}$ and $\pi_i$ are optimal iff \(c_{ij}^pi \ge 0\) forall
+    edges in the residual network.
+  - Also, we point out that if \(c_{ij}^\pi > 0\), then that arc is a binding
+    constraint on the flow (i.e., that arc is at capacity).
+
 * 2015-09-23 Wednesday
 
 ** MCNF: Transformations
