@@ -2,6 +2,7 @@ addons:
   apt:
     packages:
       - emacs24-nox
+      - org-mode
 script: make
 after_success: ./push.sh
 secure: "G4L//lK0ClPOm9t77X7kXwmYJNXIRfNtjzxWeY9fKAKjFbifs5xzvoV29xP07ZgWxQ/sZrwyksUOu6RDULKib5FQEI5d6spWLs1pEZnh94/SDegIdb65tcZnhmir0ewAyC1EC1KreOgWdnjesVrRvNmt7STjoelTaoabvkrIvUnnCc5wswS1iNbwgQ2ME6usHmk2jTXiCw2wlbl53KXT/IBAFO4Nb2blapeehDClgn/47sprQfFcL5Po2IwdJGePpTxTZQKyXzSF/ylXH4fEomv9mk8f9mfYtZLo/eut+RQJeF6CoExbEP8swqAMOl1W5mPYem/Unxt7p4OR6ulgF+Z437s8JtAwESSth44vw/ty9CP/LL8F+hT+g9Vfegihs3kzxDuxr56EaVqC7ewB1WE6vDaAyUfOJ+yPmg9ZqqknsLPo1J4MPqrpL3zLTjM5Ma1QWZnSuFE2l06wJTdwtInFp4m6FfIqJ+taYCYp9Pj9Z9uPqsBgd3glCDSbHWybZq4Wxp056j0koa0/jN8+kghoL1sui73SxhDZYb3UxOVJ8/+Zty1rXMBL021EEmc+6qmFrgtRMAheDJqG3sjVlChyCvfz69iF1c4IJ+XAhXY7J4V57rpR3rTjY9L+qx2SkvxhtNkzOrbAkedvor4JuhiVcdC9oTiCOmycjTUDae8="
