@@ -71,10 +71,10 @@
     is \(u_{ij}-x_{ij}\).  And, you add a reverse edge with negative cost and ub is
     \(x_{ij}\)
   - Then, we mapped the reduced costs $c_{ij}^\pi$ onto the residual network.  For
-    the new back edges $(i,j)$, their reduced costs are just $-c_{ji}^pi$.
+    the new back edges $(i,j)$, their reduced costs are just $-c_{ji}^\pi$.
   - We notice that \(c_{ij}^\pi \ge 0\) for all edges in the residual network.  We
     denote that \(\forall (i,j) \in E(x)\).
-  - We make the claim that $x_{ij}$ and $\pi_i$ are optimal iff \(c_{ij}^pi \ge 0\) forall
+  - We make the claim that $x_{ij}$ and $\pi_i$ are optimal iff \(c_{ij}^\pi \ge 0\) forall
     edges in the residual network.
   - Also, we point out that if \(c_{ij}^\pi > 0\), then that arc is a binding
     constraint on the flow (i.e., that arc is at capacity).
