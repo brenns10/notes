@@ -9,7 +9,7 @@
 For some reason I thought it would be a good idea to publish my class notes
 online.  So here they are:
 
-- [[eecs440.html][EECS 440: Machine Learning]]
-- [[eecs477.html][EECS 477: Advanced Algorithms]]
-- [[eecs393.html][EECS 393: Software Engineering]]
-- [[phil201.html][PHIL 201: Intro to Logic]]
+- [[file:eecs440.html][EECS 440: Machine Learning]]
+- [[file:eecs477.html][EECS 477: Advanced Algorithms]]
+- [[file:eecs393.html][EECS 393: Software Engineering]]
+- [[file:phil201.html][PHIL 201: Intro to Logic]]
