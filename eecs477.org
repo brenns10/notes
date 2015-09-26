@@ -2,6 +2,7 @@
 #+AUTHOR: Stephen Brennan
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
+#+SETUPFILE: org-html-themes/setup/theme-readtheorg.setup
 
 * 2015-09-25 Friday
 ** MCNF Duality
