@@ -1,8 +1,6 @@
 #+TITLE: PHIL 201 Notes
 #+AUTHOR: Stephen Brennan
-#+OPTIONS: tex:t
-#+STARTUP: entitiespretty
-#+SETUPFILE: org-html-themes/setup/theme-readtheorg.setup
+#+SETUPFILE: config.setup
 
 * 2015-08-24 Monday
 
