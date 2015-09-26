@@ -1,0 +1,11 @@
+#+TITLE: Class Notes
+#+AUTHOR: Stephen Brennan
+#+HTML_HEAD: <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
+
+For some reason I thought it would be a good idea to publish my class notes
+online.  So here they are:
+
+- [[eecs440.html][EECS 440: Machine Learning]]
+- [[eecs477.html][EECS 477: Advanced Algorithms]]
+- [[eecs393.html][EECS 393: Software Engineering]]
+- [[phil201.html][PHIL 201: Intro to Logic]]
