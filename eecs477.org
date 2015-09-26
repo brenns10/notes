@@ -3,6 +3,7 @@
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
 #+SETUPFILE: org-html-themes/setup/theme-readtheorg.setup
+#+HTML_MATHJAX: path:"/MathJax/MathJax.js"
 
 * 2015-09-25 Friday
 ** MCNF Duality
