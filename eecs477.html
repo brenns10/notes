@@ -1,0 +1,2149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-09-26 Sat 03:01 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>EECS 477 Notes</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Stephen Brennan" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">EECS 477 Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. 2015-09-25 Friday</a>
+<ul>
+<li><a href="#orgheadline1">1.1. MCNF Duality</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">2. 2015-09-23 Wednesday</a>
+<ul>
+<li><a href="#orgheadline6">2.1. MCNF: Transformations</a>
+<ul>
+<li><a href="#orgheadline3">2.1.1. Removing lower bounds</a></li>
+<li><a href="#orgheadline4">2.1.2. Removing upper bounds</a></li>
+<li><a href="#orgheadline5">2.1.3. Node splitting</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">2.2. Residual Network</a></li>
+<li><a href="#orgheadline8">2.3. MCNF as LP</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">3. <span class="todo nilTODO">TODO</span> 2015-09-21 Monday</a></li>
+<li><a href="#orgheadline13">4. 2015-09-18 Friday</a>
+<ul>
+<li><a href="#orgheadline11">4.1. Integrality</a></li>
+<li><a href="#orgheadline12">4.2. Minimum Cost Network Flow</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline19">5. 2015-09-16 Wednesday</a>
+<ul>
+<li><a href="#orgheadline14">5.1. Problem Setup</a></li>
+<li><a href="#orgheadline15">5.2. Complementary Slackness Proof</a></li>
+<li><a href="#orgheadline16">5.3. Lagrangian Relaxation</a></li>
+<li><a href="#orgheadline17">5.4. Easily Finding the Dual</a></li>
+<li><a href="#orgheadline18">5.5. More Examples</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline23">6. 2015-09-14 Monday</a>
+<ul>
+<li><a href="#orgheadline20">6.1. Homework Stuff</a></li>
+<li><a href="#orgheadline21">6.2. Duality</a></li>
+<li><a href="#orgheadline22">6.3. Complementary Slackness</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">7. 2015-09-11 Friday</a>
+<ul>
+<li><a href="#orgheadline24">7.1. Duality</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline27">8. 2015-09-09 Wednesday</a>
+<ul>
+<li><a href="#orgheadline26">8.1. Linear Programming</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline36">9. 2015-09-02 Wednesday</a>
+<ul>
+<li><a href="#orgheadline29">9.1. Review of LP</a>
+<ul>
+<li><a href="#orgheadline28">9.1.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline30">9.2. Reducing Vertex Cover to ILP</a></li>
+<li><a href="#orgheadline31">9.3. "Slicing" Linear Programs</a></li>
+<li><a href="#orgheadline32">9.4. Semi Definite Programming</a></li>
+<li><a href="#orgheadline33">9.5. LP reduces to SDP</a></li>
+<li><a href="#orgheadline34">9.6. Quadratically Constrained Quadratic Programming (QCQP)</a></li>
+<li><a href="#orgheadline35">9.7. Back to Linear Programming</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline41">10. 2015-08-31 Monday</a>
+<ul>
+<li><a href="#orgheadline37">10.1. Linear Programming (LP)</a></li>
+<li><a href="#orgheadline38">10.2. Integer Linear Programming</a></li>
+<li><a href="#orgheadline39">10.3. Mixed Integer Linear Programming</a></li>
+<li><a href="#orgheadline40">10.4. Next Time, on Advanced Algorithms:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline48">11. 2015-08-28 Friday</a>
+<ul>
+<li><a href="#orgheadline42">11.1. Last Time:</a></li>
+<li><a href="#orgheadline43">11.2. Proof</a></li>
+<li><a href="#orgheadline46">11.3. Reduction</a>
+<ul>
+<li><a href="#orgheadline44">11.3.1. Optimal Message Passing</a></li>
+<li><a href="#orgheadline45">11.3.2. Choosing your reduction</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline47">11.4. GNU Octave</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline49">12. <span class="todo nilTODO">TODO</span> 2015-08-26 Wednesday</a></li>
+<li><a href="#orgheadline52">13. 2015-08-24 Monday</a>
+<ul>
+<li><a href="#orgheadline50">13.1. Asymptotics</a></li>
+<li><a href="#orgheadline51">13.2. Optimization Problems</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> 2015-09-25 Friday</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> MCNF Duality</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Assume for simplicity, &forall; (i,j) &isin; E, 0 &lt; u<sub>ij</sub> &lt; &infin;.  This condition doesn't
+provide any algorithmic restrictions, it just makes our notation simpler.
+</p>
+
+<ul class="org-ul">
+<li>\(\min \sum_{(i,j)\in E} c_{ij} x_ij \), s.t.</li>
+<li>\(\sum_{(i,j)\in E} x_{ij} - \sum_{(j,i)\in E} x_ji = b_i\)  for all i</li>
+<li>\(-x_{ij} \ge -u_{ij}\) for all (i,j).</li>
+<li>\(x_ij \ge 0\) for all (i,j)</li>
+</ul>
+
+<p>
+The dual: this should be pretty automatic by now.  We will use variables &pi;<sub>i</sub>
+for the top constraint, and &alpha;<sub>ij</sub> for the second constraint
+</p>
+
+<ul class="org-ul">
+<li>\(\max \sum_{i\in V} b_i \pi_i - \sum_{(i,j) \in E} u_{ij} \alpha_{i,j}\), s.t.</li>
+<li>\( \pi_i - \pi_j - \alpha_{ij} \le 0\), for all i,j
+<ul class="org-ul">
+<li>rewrite: \(c_{ij} - \pi_i + \pi_j + \alpha_{ij} \ge 0\)</li>
+</ul></li>
+<li>\(\alpha_{ij} \ge 0\)</li>
+<li>&pi;<sub>i</sub> unrestricted</li>
+</ul>
+
+<p>
+Now that we have the dual, the next step is to ask, "what does it mean"?  If
+we figure out what the dual means, we can learn many properties about the
+original problem and maybe come up with more efficient algorithms for it.
+</p>
+
+<p>
+<b>Claim:</b> If the dual has an optimal solution, then &exist; optimal solution where
+\(\alpha_{ij} = \max \{0, -c_{ij}^\pi \}\).
+</p>
+<ul class="org-ul">
+<li><b>Definition:</b> \(c_{ij}^\pi = c_{ij} - \pi_i + \pi_j\)</li>
+<li>Called the reduced costs for the arc (i,j).</li>
+<li>But not the same as the reduced costs as its linear program (?).
+<ul class="org-ul">
+<li>That doesn't really matter to me since I never got the reduced costs thing
+anyway.</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Proof:</b> We already know that \(a_{ij} \ge 0\), and \(\alpha_{ij} \ge - c_{ij}^\pi\).
+The claim states that this is a strict equality, and apparently this is true
+becasue the profit of \(a_{ij}\) is \(-u_{ij}\), which means we need \(a_{ij}\) to be as
+small as possible.
+</p>
+
+<p>
+<b>Theorem:</b> (Complementary Slackness).  If \(x_{ij}\) is feasible, and \(\pi_i, a_{ij}\)
+are feasible, then they are optimal iff:
+</p>
+<ul class="org-ul">
+<li>\(\alpha_{ij}(u_ij - x_{ij}) = 0\)</li>
+<li>\(x_{ij} (c_{ij}^\pi + a_{ij}) = 0\)</li>
+</ul>
+
+<p>
+<b>Define:</b> Excess at \(i\): \(e_i = b_i - \sum_{(i,j)\in E} x_{ij} + \sum_{(j,i) \in E} x_{ij}\)
+</p>
+<ul class="org-ul">
+<li>\(e_i=0\) in any feasible solution.</li>
+</ul>
+
+<p>
+<b>Proof:</b> (of the complementary slackness statement above):
+</p>
+<ul class="org-ul">
+<li>We write the LP complementary slackness conditions.</li>
+<li>\(\pi_i e_i = 0\)</li>
+<li>\(\alpha_{ij} (u_{ij}-x_{ij}) = 0\)</li>
+<li>\(x_{ij} (c_{ij}^\pi + \alpha_{ij}) = 0\)</li>
+<li>The first is always true (as we mentioned above with the excess)</li>
+<li>The other two are the complementary slackness conditions from the theorem.</li>
+</ul>
+
+<p>
+Example time (not pictured):
+</p>
+<ul class="org-ul">
+<li>He gave a network and a feasible flow.</li>
+<li>He claims it's optimal.</li>
+<li>To prove it, he'll give a corresponding solution to the dual!</li>
+<li>\(\pi_{j}\) is called the "node potential".</li>
+<li>He gave us the values for \(\pi_i\) at each node.  The \(\alpha_{ij}\) follow from
+complementary slackness, having the values of \(x_{ij}\) and \(\pi_i\).</li>
+<li>We then computed the values for \(c_{ij}^\pi\), and used those to compute
+\(\alpha_{ij}\), and showed that they satisfy complementary slackness, and are
+feasible.</li>
+<li>Then, we wrote the residual network.  Recall, you do this by replacing each
+edge that has a flow with an edge in the same direction, same cost, and ub
+is \(u_{ij}-x_{ij}\).  And, you add a reverse edge with negative cost and ub is
+\(x_{ij}\)</li>
+<li>Then, we mapped the reduced costs \(c_{ij}^\pi\) onto the residual network.  For
+the new back edges \((i,j)\), their reduced costs are just \(-c_{ji}^\pi\).</li>
+<li>We notice that \(c_{ij}^\pi \ge 0\) for all edges in the residual network.  We
+denote that \(\forall (i,j) \in E(x)\).</li>
+<li>We make the claim that \(x_{ij}\) and \(\pi_i\) are optimal iff \(c_{ij}^\pi \ge 0\) forall
+edges in the residual network.</li>
+<li>Also, we point out that if \(c_{ij}^\pi > 0\), then that arc is a binding
+constraint on the flow (i.e., that arc is at capacity).</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">2</span> 2015-09-23 Wednesday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.1</span> MCNF: Transformations</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Have an instance of MCNF, and I want to transform it into another instance
+which is equivalent.
+</p>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">2.1.1</span> Removing lower bounds</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>If you have an arc from i to j, with b<sub>i</sub> and b<sub>j</sub>, with cost c<sub>ij</sub>, and bounds
+(&ell;<sub>ij</sub>, u<sub>ij</sub>).</li>
+<li>Create a new arc with bounds (0, u<sub>ij</sub>-&ell;<sub>ij</sub>), and you make node i
+b<sub>i</sub>-&ell;<sub>ij</sub>, and node j has b<sub>j</sub>+&ell;<sub>ij</sub>.</li>
+<li>Essentially, this is an equivalent problem where you disregard the required
+flow.  The cost that's eliminated is constant, so the solution to this will
+be the same to the solution of the original.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">2.1.2</span> Removing upper bounds</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>Again, you have i and j, with supply b<sub>i</sub>/b<sub>j</sub>, cost c<sub>ij</sub>, and upper bound u<sub>iu</sub>.</li>
+<li>i is flowing to j, with an amount x.</li>
+<li>Create a new "node" that has supply -u<sub>ij</sub>.  Both i and j will flow into the
+new node.  x will still flow from node i into the new node.</li>
+<li>The cost of the flow from i to the new node will be c<sub>ij</sub></li>
+<li>The cost of the flow from j into the new node will be 0.</li>
+<li>The supply of node i is still b<sub>i</sub>.</li>
+<li>The supply of j becomes b<sub>j</sub> + u<sub>ij</sub>.  Essentially, the flow from j to the new
+node will be u<sub>ij</sub> - x, and when you subtract that from the supply, you will
+get b<sub>ij</sub> + x, which is the flow from the original setup.</li>
+</ul>
+
+<p>
+Example: he's doing an example I can't draw, but functionally he's taking a
+MCNF problem with costs and upper bounds, and getting rid of all the upper
+bounds.  The process is as follows (for the whole graph):
+</p>
+
+<ol class="org-ol">
+<li>The whole network becomes a bipartite graph.  Each original node is on the
+left, and on the right there is a node for each arc in the original
+network.</li>
+<li>For each arc on the original, you connect both nodes on the left to the
+corresponding node on the right.</li>
+<li>You set the supply on the right side node to be the opposite of the upper
+bound.</li>
+<li>The "supplying" node's arc has the same cost.</li>
+<li>The "receiving" node's arc gets a cost of 0.</li>
+<li>The receiving node has its supply increased by the upper bound.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">2.1.3</span> Node splitting</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+Sometimes you try to model a LP as an MCNF?  So to make the modeling better,
+you may want to bound the amount flowing through a node (not just the net
+"supply/demand").
+</p>
+
+<ol class="org-ol">
+<li>Split the node into two: an input node containing all the edges going in,
+and an output node containing all the outgoing edges.</li>
+<li>Connect the nodes from the input to the output, set the cost to 0, and
+upper bound it by the amount of flow you'd like to allow through the
+terminal.</li>
+<li>You set the input node's demand to 0, and the output node's demand to the
+original.</li>
+<li>Congrats, you've split the node!</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.2</span> Residual Network</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+If you have a feasible flow going through an instance of an MCNF problem, you
+can create a new problem by changing the demands at each node to be what you
+currently have satisfied, and creating arcs to either send back what you've
+already got flowing, or to go up to the maximum flow between nodes.
+</p>
+
+<p>
+This new network is called a "residual network" since it represents the
+residual actions you can take to change the flow.  It's sort of a pivot in
+the LP or maybe the dual.  It's an action frequently taken by algorithms.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">2.3</span> MCNF as LP</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+The MCNF is formulated as:
+</p>
+
+<ul class="org-ul">
+<li>min c<sup>T</sup> x, s.t.</li>
+<li>Nx = b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+Where x is a vector of arcs, c<sup>T</sup> is a vector of costs for flows on each arc.
+N is the node arc incidence matrix.  Its rows are the nodes, and its columns
+are the arcs.  For arc (i,j), there is a +1 in row i, and a -1 in row j,
+assuming the flow is from i to j.
+</p>
+
+<p>
+We will call \(A\) the maximal subset of rows of \(N\) that are linearly
+independent.  It has full row rank.  It has at least two non-zero elements,
+which are &plusmn; 1, in each column.  Then, we have the problem:
+</p>
+
+<ul class="org-ul">
+<li>min c<sup>T</sup> x, s.t.</li>
+<li>Ax = b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+If \(A\) is unimodular, then &forall; integer b, the optimal solution is an integer.
+Which means that the solution to the ILP version of the \(A\) LP would be the
+same as the solution to the LP, and integer.  I guess that would be pretty
+cool.
+</p>
+
+<p>
+<b>Definition:</b> A is totally unimodular iff &forall; square submatrices C of A, det C
+&isin; {0, &plusmn; 1}.
+</p>
+
+<p>
+<b>Claim:</b> Totally Unimodular &rarr; Unimodular.  (recall Unimodular is: &forall; bases B
+of A, det B &isin; {&plusmn; 1}.)
+<b>Proof:</b> Well, B is a non-singular square submatrix, so its determinant must
+be &plusmn; 1.
+</p>
+
+<p>
+So, we must prove that \(A\) is totally unimodular!
+</p>
+<ul class="org-ul">
+<li>&forall; C square submatrices k &times; k.  We do induction on k.</li>
+<li>Base case: k=1.  Each submatrix is 1 &times; 1, and either contains -1, 0, or 1,
+so the determinant is either -1, 0, or 1.</li>
+<li><p>
+Induction:
+</p>
+<ul class="org-ul">
+<li>Case 1: C has a column containing all 0's &rarr; det C = 0.</li>
+<li>Case 2: in every column, there is a +1 and a -1.  If you sum up every
+row, you get 0, so the matrix is singular, and det C = 0.</li>
+<li>Case 3: Anything else.  Pick a column such that you have just a +1 or a
+-1.  This is simply that entry (&plusmn; 1), times the determinant of the
+submatrix that excludes that row and column.  By the inductive
+hypothesis, the determinant of this submatrix is &isin; {0, &plusmn; 1}, so this
+means that det C is &isin; {0, &plusmn; 1} as well!</li>
+</ul>
+<p>
+MCNF is unimodular!
+</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> <span class="todo TODO">TODO</span> 2015-09-21 Monday</h2>
+</div>
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">4</span> 2015-09-18 Friday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.1</span> Integrality</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+When you have a ILP, it's normally NP-hard.  However, if the optimal solution
+to the LP is integral, then you have the solution in polynomial time.  Hooray
+for you.  How can you check to find out if the optimal solution is integral?
+Apparently, using a concept called <b>unimodularity</b>.
+</p>
+
+<p>
+For this part of the lecture, \(A\) is a \(p \times q\) matrix, with integer values,
+and \(rank(A)=p\).
+</p>
+
+<p>
+<b>Definition:</b> A is unimodular iff \(\forall B\) basis, \(\det B = \pm 1\).
+</p>
+
+<p>
+<b>Theorem:</b> \(A\) as above.  Equivalent:
+</p>
+<ul class="org-ul">
+<li>(a) \(A\) is unimodular</li>
+<li>(b) &forall; basic feasible solution, \(Ax=b\), \(x\ge 0\) s an integer. (b integer)</li>
+<li>(c) \(\forall B\) basis, \(B^{-1}\) integer.</li>
+</ul>
+
+<p>
+This theorem is cool because it will apply for any objective function, and
+any integer \(\vec{b}\).  However, unimodularity is more strict than purely
+figuring out whether a given problem has an integer solution that is optimal.
+</p>
+
+<p>
+<b>Proof:</b> (a) &rarr; (b)
+</p>
+<ul class="org-ul">
+<li>A basic feasible solution is \(x=(x_B, x_L)\) s.t. \(Bx_B = b\) and \(x_L = 0\).</li>
+<li>For all basic feasible solutions, we have \(x_L = 0\), which is integer.  What
+about \(x_B\)?  Let's figure out the ith component of \(x_B\).</li>
+<li>Well, it turns out that by <b>Cramer's Rule</b>, \(x_i = \frac{\det B_i}{\det B}\).</li>
+<li>We know that \(\det B_i =\) an integer (how?).</li>
+<li>Since \(\det B = \pm 1\), we know that \(x_i\) must be an integer.  Yay (I guess).</li>
+</ul>
+<p>
+<b>Proof:</b> (b) &rarr; (c)
+</p>
+<ul class="org-ul">
+<li>basis &rarr; \(B\).</li>
+<li>D<sub>j</sub>: jth column of \(B^{-1}\)</li>
+<li>\(D_j = B^{-1} e_J\), where \(e_j\) is a vector of zeros except for index \(j\), which
+is 1.</li>
+<li>\((d_{ij}) = B^{-1}\)</li>
+<li>\(a_i = \left\{ \begin{array}{ll} [-d_{ij}] & \text{ if } d_{ij} < 0 \\ 0 &
+     \text{ if } d_{ij} \ge 0 \end{array} \right.\) (where [] is ceiling function).</li>
+<li>This gives us a vector \(\vec{a}\).</li>
+<li>\(D_j + a \ge 0\)</li>
+<li>\(Bx = e_j + Ba\)</li>
+<li>\(x = D_j + a\) is a solution</li>
+<li>\(B(B^{-1} e_j + a) = e_j + Ba\)</li>
+<li>The right hand side is an integer, and \(B^{-1} e_j + a\) is apparently also an
+integer.</li>
+<li>And I guess this proves it.  I'm totally lost here.</li>
+</ul>
+<p>
+<b>Proof:</b> (c) &rarr; (a)
+</p>
+<ul class="org-ul">
+<li>\(\det B \det B^{-1} = 1\)</li>
+<li>This is because \(\det A \det B = \det AB\), and \(\det I = 1\).</li>
+<li>So, \(\det B = \frac{1}{\det B^{-1}}\).  We know that \(B\) is integer (since
+\(A\) is as above, integer).</li>
+<li>We also know by our assumption (c) that \(B^{-1}\) is integer.  This means both
+determinants are integers, and the only values for \(\det B^{-1}\) that make
+this possible are -1 and 1.</li>
+<li>So, \(A\) must be unimodular.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.2</span> Minimum Cost Network Flow</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Woo?
+</p>
+
+<p>
+In minimum cost network flow, I have a graph \(G=(V,E)\) which is directed.  We
+now call vertices nodes, and edges arcs.  You have a source node and a sink
+node, with a certain amount of flow that needs to go through the network
+(e.g., 3 units must go out of the source, and into the sink).
+</p>
+
+<p>
+Each arc in the network from node \(i\) and \(j\) has a cost associated with it
+\(c_{ij}\).  It also has an \(\ell_{ij}\) that is a lower bound of flow, and an \(u_{ij}\),
+which is an upper bound of what can flow through the arc.  The cost of a flow
+is the amount of flow through an arc times the cost of the arc.  All flows
+are nonnegative.
+</p>
+
+<p>
+The goal is to put the required amount of flow through the network, while
+minimizing the cost.  The total cost is the sum for each arc of the amount of
+flow times the \(c_{ij}\) for that arc.
+</p>
+
+<p>
+The three next steps for this problem:
+</p>
+<ol class="org-ol">
+<li>Make in into a linear program.</li>
+<li>Find out whether it is unimodular.</li>
+<li>Figure out its dual.</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">5</span> 2015-09-16 Wednesday</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Intro: we're getting to the core of the class.  :D
+</p>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">5.1</span> Problem Setup</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Problem setup:
+</p>
+
+<ul class="org-ul">
+<li>min c<sup>T</sup> x, s.t.</li>
+<li>Ax &ge; b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+Dual:
+</p>
+
+<ul class="org-ul">
+<li>min b<sup>T</sup> &pi;, s.t.</li>
+<li>A<sup>T</sup> &pi; &le; c</li>
+<li>&pi; &ge; 0</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">5.2</span> Complementary Slackness Proof</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+<b>Definition:</b> x, &pi; feasible are said to satisfy complementary slackness iff:
+</p>
+
+<ul class="org-ul">
+<li>\(\pi_i \left( \sum_{i=1}^q a_{ij}x_{j} - b_i \right) = 0\), i=1,2,&#x2026;,p, (1)</li>
+<li>\(x_j \left( \sum_{i=1}^p a_{ij}x_i - c_j \right) = 0\), j=1,2,&#x2026;,q, (2)</li>
+</ul>
+
+<p>
+<b>Theorem:</b> x, &pi; feasible satisfy c.s. iff x, &pi; are optimal.
+</p>
+
+<p>
+<b>Proof:</b> x, &pi; feasible &rarr; weak duality.
+</p>
+<ul class="org-ul">
+<li>b<sup>T</sup> &pi; &le; &pi;<sup>T</sup> A x &le; c<sup>T</sup> x</li>
+<li>First, prove cs &rarr; optimal
+<ul class="org-ul">
+<li>Assume x, &pi; satisfy cs.</li>
+<li>Sum up equation (1):</li>
+<li>You actually get \(\pi^T A x - \pi^T b = 0\), or \(\pi^T A x = \pi^T b\)</li>
+<li>Sum up equation (2):</li>
+<li>You similarly get \(\pi^T A x = c^T x\).</li>
+<li>So, you have \(\pi^T b = c^T x\).</li>
+<li>This means that x and &pi; are optimal.</li>
+</ul></li>
+<li>Next, the other way around.
+<ul class="org-ul">
+<li>It's basically the same proof in reverse.</li>
+<li>\(c^T x = b^T \pi\) (by strong duality)</li>
+<li>Due to the weak duality inequalities, we know \(c^T x = \pi^T A x = b^T \pi\).</li>
+<li>Then we can take the left and right side of the above, and take them make
+to summations:</li>
+<li>\(\sum_{i=1}^p \pi_i \left(\sum_{j=1}^q a_{ij}x_j - b_i \right) = 0\)</li>
+<li>(and similarly for the left side)</li>
+<li>Since &pi;<sub>i</sub> &ge; 0 and the inner summation also &ge; 0, we know that each term
+must be equal to 0.</li>
+<li>So, this proves (1), and WLOG the other half of the equation proves (2).</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">5.3</span> Lagrangian Relaxation</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+z<sup>*</sup> = min c<sup>T</sup> x, s.t. constraints
+</p>
+
+<ul class="org-ul">
+<li>L(&pi;) = min c<sup>T</sup> x + &pi;<sup>T</sup> (b - Ax), s.t.
+<ul class="org-ul">
+<li>x &ge; 0</li>
+</ul></li>
+</ul>
+
+<p>
+Assume &pi; &ge; 0.  z* &ge; min c<sup>T</sup> x + &pi;<sup>T</sup> (b - Ax), s.t. Ax&ge; b, x&ge; 0.  This makes
+sense because the feasible region is the same, the c<sup>T</sup> x part is the same, and
+&pi;<sup>T</sup> (b - Ax) will be &le; 0.  We can then further expand this to say that the
+right side is &ge; L(&pi;), since L(&pi;) expands the feasible region, meaning that
+the optimum value is &le; the more constrained one.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">5.4</span> Easily Finding the Dual</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+We want to find the dual of every linear program, not just the form with
+minimization, Ax&ge;b. and x&ge;0.  We could switch the problem into this form.
+Let's call that plan B.  Let's do this instead:
+</p>
+
+<p>
+min c<sup>T</sup> x s.t.
+</p>
+<ul class="org-ul">
+<li>a<sub>i</sub><sup>T</sup> x = b<sub>i</sub>, (i&isin;M)</li>
+<li>a<sub>i</sub><sup>T</sup> x &ge; b<sub>i</sub>, (i&not;&isin;M)</li>
+<li>x<sub>j</sub> &ge; 0, (j&isin;N)</li>
+<li>x<sub>j</sub> unconstrained, (j&not;&isin;N)</li>
+</ul>
+
+<p>
+Dual:
+</p>
+
+<p>
+max b<sup>T</sup> &pi;, s.t.
+</p>
+<ul class="org-ul">
+<li>&pi;<sub>i</sub> unconstrained</li>
+<li>&pi;<sub>i</sub> &ge; 0</li>
+<li>A<sub>j</sub><sup>T</sup> &pi; &le; c<sub>j</sub></li>
+<li>A<sub>j</sub><sup>T</sup> &pi; = c<sub>j</sub></li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Primal</td>
+<td class="org-left">Dual</td>
+</tr>
+
+<tr>
+<td class="org-left">min</td>
+<td class="org-left">max</td>
+</tr>
+
+<tr>
+<td class="org-left">c<sup>T</sup> x</td>
+<td class="org-left">b<sup>T</sup> &pi;</td>
+</tr>
+
+<tr>
+<td class="org-left">a<sub>i</sub><sup>T</sup> x = b<sub>i</sub></td>
+<td class="org-left">&pi;<sub>i</sub> unconstrained</td>
+</tr>
+
+<tr>
+<td class="org-left">a<sub>i</sub><sup>T</sup> x &ge; b<sub>i</sub></td>
+<td class="org-left">&pi;<sub>i</sub> &ge; 0</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>j</sub> &ge; 0</td>
+<td class="org-left">a<sub>j</sub><sup>T</sup> &pi; &le; c<sub>j</sub></td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>J</sub> unconstrained</td>
+<td class="org-left">A<sub>j</sub><sup>T</sup> &pi; = c<sub>j</sub></td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+EG: min x<sub>1</sub> + x<sub>2</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>x<sub>1</sub> - 2x<sub>2</sub> = 3</li>
+<li>x<sub>1</sub>, x<sub>2</sub>, &ge; 0</li>
+</ul>
+
+<p>
+Originally, we would have transformed it into this problem: min x<sub>1</sub> + x<sub>2</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>x<sub>1</sub> - 2x<sub>2</sub> &ge; 3</li>
+<li>-x<sub>1</sub> + 2x<sub>2</sub> &ge; -3</li>
+<li>x<sub>1</sub>, x<sub>2</sub> &ge; 0</li>
+</ul>
+
+<p>
+Then, we get the dual from the constraints: max 3&pi;<sub>1</sub> - 3&pi;<sub>2</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>&pi;<sub>1</sub> - &pi;<sub>2</sub> &le; 1</li>
+<li>-2&pi;<sub>1</sub> + 2&pi;<sub>2</sub> &le; 1</li>
+<li>&pi;<sub>1</sub>, &pi;<sub>2</sub> &ge; 0</li>
+</ul>
+
+<p>
+Finally, simplify to max 3y, s.t.
+</p>
+<ul class="org-ul">
+<li>y &le; 1</li>
+<li>-2y &le; 1</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">5.5</span> More Examples</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+min 2x<sub>1</sub> + x<sub>2</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>x<sub>1</sub> + 3x<sub>2</sub> &ge; 4   (&pi;<sub>1</sub>)</li>
+<li>-x<sub>1</sub> + x<sub>2</sub> = 7   (&pi;)</li>
+</ul>
+
+<p>
+Dual: max 4&pi;<sub>1</sub> + 7&pi;<sub>2</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>&pi;<sub>1</sub> - &pi;<sub>2</sub> &le; 2 (x<sub>1</sub>)</li>
+<li>3&pi;<sub>1</sub> + &pi;<sub>2</sub> = 1 (x<sub>2</sub>)</li>
+<li>&pi;<sub>1</sub> &ge; 0</li>
+</ul>
+
+<p>
+min x<sub>1</sub> + 2x<sub>2</sub> - 3x<sub>3</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>x<sub>1</sub> +  + x<sub>3</sub> = 4 (&pi;<sub>1</sub>)</li>
+<li>2x<sub>1</sub> - x<sub>2</sub> + 2x<sub>3</sub> &le; 5
+<ul class="org-ul">
+<li>-2x<sub>1</sub> + x<sub>2</sub> - 2x<sub>3</sub> &ge; -5 (&pi;<sub>2</sub>)</li>
+</ul></li>
+<li>3x<sub>1</sub> - 2x<sub>2</sub> + 3x<sub>3</sub> &ge; 7, (&pi;<sub>3</sub>)</li>
+<li>x<sub>1</sub>, x<sub>3</sub> &ge; 0</li>
+</ul>
+
+<p>
+&pi;<sub>1</sub> is unconstrained, due to the equality.  &pi;<sub>2</sub> and &pi;<sub>3</sub> are &ge; 0, due to the
+inequality.  The dual: max 4&pi;<sub>1</sub> - 5&pi;<sub>2</sub> + 7&pi;<sub>3</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>&pi;<sub>1</sub> - 2&pi;<sub>2</sub> + 3&pi;<sub>3</sub> &le; 1 (x<sub>1</sub>)</li>
+<li>&pi;<sub>2</sub> - 2&pi;<sub>3</sub> = 2 (x<sub>2</sub>)</li>
+<li>&pi;<sub>1</sub> - 2&pi;<sub>2</sub> + 3&pi;3 &le; -3 (x<sub>3</sub>)</li>
+<li>&pi;<sub>2</sub>, &pi;<sub>3</sub> &ge; 0</li>
+</ul>
+
+<p>
+We'll do one with the knapsack problem, where we don't have a definite number
+of constraints/variables.
+</p>
+
+<p>
+max &sum;<sub>j=1</sub><sup>q</sup> c<sub>j</sub> x<sub>J</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>&sum;<sub>j=1</sub><sup>q</sup> w<sub>j</sub> x<sub>j</sub> &le; W</li>
+<li>x<sub>j</sub> &le; 1, j=1&#x2026;q</li>
+<li>x<sub>j</sub> &ge; 0, j=1&#x2026;q</li>
+</ul>
+
+<p>
+For the dual, we'll take the one constraint, call it &alpha;, and the rest and call
+the others &pi;<sub>i</sub>
+</p>
+
+<ul class="org-ul">
+<li>min W &alpha;, s.t.</li>
+<li>w<sub>j</sub> &alpha; + &pi;<sub>i</sub> &ge; c<sub>j</sub></li>
+<li>&alpha;, &pi;<sub>i</sub> &ge; 0</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">6</span> 2015-09-14 Monday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">6.1</span> Homework Stuff</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Problem 3 had no solution.
+</p>
+
+<p>
+In problem 7, you could find many examples of optimal solutions that are
+actually convex combinations of two optimal basic solutions, which are not
+themselves basic solutions.  This is not what the question asked for.  It
+seems like the basic feasible solutions are always integer for this problem.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">6.2</span> Duality</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Strong Duality Theorem: I have a program of the form:
+</p>
+
+<ul class="org-ul">
+<li>min c<sup>T</sup> x, st</li>
+<li>Ax &ge; b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+We also have its dual:
+</p>
+
+<ul class="org-ul">
+<li>max b<sup>T</sup> &pi;, s.t.</li>
+<li>A<sup>T</sup> &pi; &le; c</li>
+<li>&pi; &ge; 0</li>
+</ul>
+
+<p>
+The differences between these are:
+</p>
+<ul class="org-ul">
+<li>min/max</li>
+<li>A becomes A<sup>T</sup></li>
+<li>c and b are swapped</li>
+<li>x becomes &pi;</li>
+</ul>
+
+<p>
+We have weak duality, that b<sup>T</sup> &pi; &le; &pi;<sup>T</sup> A x &le; c<sup>T</sup> x.
+</p>
+
+<p>
+<b>Strong Duality Theorem:</b> Suppose that the primal (or dual) has a finite,
+optimal solution.  Then, so does the dual (primal), and they have the same
+optimal objective value.
+</p>
+
+<p>
+<b>Proof:</b> WLOG, assume that the primal has a finite, optimal solution x<sup>*</sup> (the
+primal and dual can be swapped and the proof is the same).  Also assume WLOG
+x<sup>*</sup> is a BFS.  First, we'll take the primal and put it into standard form:
+</p>
+
+<ul class="org-ul">
+<li>min c<sup>T</sup> x, s.t.</li>
+<li>Ax - Is = b</li>
+<li>x, s &ge; 0</li>
+</ul>
+
+<p>
+Let \(\tilde{x}=(x,s)\), \(\tilde{c}=(c,0)\), and \(\tilde{A}=(A,-I)\).  Then we can put this in
+even nicer looking standard form:
+</p>
+
+<ul class="org-ul">
+<li>\(\min \tilde{c}^T \tilde{x}\), s.t.</li>
+<li>\(\tilde{A} \tilde{x} = b\)</li>
+<li>\(\tilde{x} \geq 0\)</li>
+</ul>
+
+<p>
+When we write this in "canonical form" (I seriously need to study this part
+of the stuff):
+</p>
+
+<ul class="org-ul">
+<li>\(\min (c_L^{\tilde{\pi}})^T \tilde{x}_L + \tilde{\pi}^T b\), s.t.</li>
+<li>\(\tilde{x}_B + \tilde{A}\tilde{x}_L = \tilde{b}\)</li>
+<li>\(\tilde{x}_B, \tilde{x}_L \geq 0\)</li>
+</ul>
+
+<p>
+We'll call the objective function z, so we're minimizing \(z(\tilde{x})\).
+\(z(x^*)=\tilde{\pi}^T b\).  The next thing is to look at the reduced costs.  First,
+we know that \(c^{\tilde{\pi}} \geq 0\), because x<sup>*</sup> is optimal.  Next, we know
+that \(c^{\tilde{\pi}} = \tilde{c} - \tilde{A}^T \tilde{\pi} =\):
+</p>
+
+\begin{align*}
+c^{\tilde{\pi}} &= \tilde{c} - \tilde{A}^T \tilde{\pi} \\
+   &= \begin{bmatrix} c \\ 0 \end{bmatrix} - \begin{bmatrix} A^T \\ -I \end{bmatrix} \\
+   &= \begin{bmatrix} c - A^T \tilde{\pi} \\ \tilde{\pi} \end{bmatrix}
+\end{align*}
+
+<p>
+This gives us that \(c \geq A^T \tilde{\pi}\), and \(\tilde{\pi} \geq 0\).  This
+tells us that the \(\tilde{\pi}\) is feasible in the dual.  And then, we know that
+the objective value of \(\tilde{\pi}\) in the dual is \(b^T \tilde{\pi}\), which is
+z(x<sup>*</sup>).  We know by the weak duality theorem that no &pi; can have an objective
+value greater than this, so it is an optimal solution for the dual!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">6.3</span> Complementary Slackness</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Let x, &pi; be feasible solutions.  x, &pi; satisfy complementary slackness (p+q
+equalities).
+</p>
+
+\begin{equation}
+  \pi_i \left(\sum_{j=1}^q a_{ij} x_{j} - b_i \right) = 0
+\end{equation}
+<p>
+for i=1, 2, &hellip;, p
+</p>
+
+\begin{equation}
+  x_j \left(\sum_{i=1}^p a_{ij} \pi_i - c_j \right) = 0
+\end{equation}
+<p>
+for j=1, 2, &hellip;, q
+</p>
+
+<p>
+Essentially, each of these are the slack variables.  So, if you look at the
+slackness in a constraint in one problem, and multiply it by the
+corresponding variable in its dual, you'll find that quantity is zero.
+</p>
+
+<p>
+If the slackness \(s_i > 0\), then \(\pi_i = 0\).  You can look at the \(\pi_i\) as a
+"price" for how much you'd be willing to "get rid" of the constraint.  If
+your constraint is not even constraining you, you wouldn't care to get rid of
+it, and \(\pi_i\) is 0.  On the flip side, if your slackness is 0, the \(\pi_i\) will
+tell you <i>kinda</i> how much you'd like to get rid of your constraint.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">7</span> 2015-09-11 Friday</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+LP <b>canonical</b> form.
+</p>
+
+\begin{align*}
+  \min (c_L^{\pi})^T x_L + \pi^T b &\\
+  \text{s.t. } x_B + \bar{A} x_L &= \bar{b} \\
+  x_B, x_L &\geq 0 \\
+  \text{where } \pi^T B &= c_B^T \\
+  c^pi &= c - A^T \pi \\
+\end{align*}
+
+<p>
+EG:
+</p>
+
+\begin{align*}
+  \min x_3 + x_4 + 7 &\\
+  \text{s.t. } x_1 + 2x_3 + 3x_4 &= 1 \\
+  x_2 + x_3 + 7x_4 &= 2 \\
+  x_1, x_2, x_3, x_4 &\geq 0 \\
+\end{align*}
+
+<ul class="org-ul">
+<li>The basic variables are x<sub>1</sub> and x<sub>2</sub>.  You can come up with a BFS by setting x<sub>3</sub>
+    and x<sub>4</sub> equal to 0, and reading off the values for the basic variables.</li>
+</ul>
+
+<p>
+<b>Thm:</b> BFS \(\bar{x}\) is optimal iff c^&pi; &ge; 0.
+</p>
+<ul class="org-ul">
+<li><b>Proof:</b> &larr; last time</li>
+<li><p>
+<b>Proof:</b> &rarr; (only the non-degenerate case)
+</p>
+
+<p>
+&exist; s . c<sub>s</sub><sup>T</sup> &lt; 0 &rarr; \(\bar{x}\) is not optimal.
+</p>
+
+<p>
+Look at the $s$th column of \(\bar{A}\), or \(\bar{A}_s\).
+</p>
+
+<p>
+The ith constraint is \(x_1 + \bar{a}_{is} x_s + \mathcal{L} \text{ terms } =
+    \bar{b}_i\).
+</p>
+
+<p>
+If \(\bar{A}_{is} \leq 0 \: \forall i\) then x<sub>s</sub> can be increased arbitrarily to.
+</p>
+
+<p>
+Assume &exist; i s.t. $\bar{a}<sub>is</sub> &gt; 0
+</p>
+
+\begin{equation}
+  \theta = \min_{i: \bar{a}_{is} > 0} \frac{\bar{b}_i}{\bar{a}_{is}}
+\end{equation}
+
+<p>
+Since \(\bar{b}_i \ge 0\) and \(\bar{a}_{is} > 0\), we can claim \(\theta \ge 0\).
+However, we'll be doing the non-degenerate case, and assuming \(\theta > 0\).
+</p>
+
+<p>
+More proof stuff that I really need to read about.
+</p></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">7.1</span> Duality</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>Primal: min C<sup>T</sup> x s.t. Ax &ge; b, x &ge; 0.</li>
+<li>Dual: max b<sup>T</sup> &pi; s.t. A<sup>T</sup> &pi; &le; c, &pi; &ge; 0</li>
+</ul>
+
+<p>
+Claim: dual of dual is primal.
+</p>
+
+<p>
+Theorem (Weak Duality): &forall; feasible x, &pi;, b<sup>T</sup> &pi; &le; c<sup>t</sup> x.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">8</span> 2015-09-09 Wednesday</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">8.1</span> Linear Programming</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+min c<sup>T</sup> x, s.t. Ax = b, x &ge; 0
+</p>
+<ul class="org-ul">
+<li>A p &times; q matrix.</li>
+<li>Rank(A) = p</li>
+<li>A = (A<sub>1</sub>, A<sub>2</sub>, A<sub>3</sub>, &#x2026;, A<sub>q</sub>)</li>
+</ul>
+
+<p>
+Let \(\bar{x}\) be a feasible solution.  Let \(A(\bar{x}) = \{A_i: \bar{x}_i >
+   0\}\).  <b>Thm:</b> \(\bar{x}\) is an extreme point iff \(A(\bar{x})\) is a set of
+linearly independent vectors.
+</p>
+
+<p>
+<b>Def:</b> (B,L) is a basis structure iff:
+</p>
+<ul class="org-ul">
+<li>(B,L) partition of {1, 2, &#x2026;, q}.</li>
+<li>{A<sub>I</sub>: i &isin; B} is a basis for R<sup>p</sup></li>
+</ul>
+
+<p>
+A = (B, L), x = (x<sub>B</sub>, x<sub>L</sub>), c = (c<sub>B</sub>, c<sub>L</sub>)
+</p>
+
+<p>
+EG: min x<sub>1</sub>+x<sub>2</sub>+x<sub>3</sub>+x<sub>4</sub> s.
+</p>
+<ul class="org-ul">
+<li>x<sub>1</sub> + 2x<sub>2</sub> + 3x<sub>4</sub> = 1</li>
+<li>4x<sub>2</sub> + x<sub>3</sub> + 2x<sub>4</sub> = 2</li>
+<li>All x &ge; 0</li>
+</ul>
+
+<p>
+Rename variables x<sub>1</sub> to y<sub>1</sub>, x<sub>2</sub> to y<sub>3</sub>, x<sub>3</sub> to y<sub>2</sub>, x<sub>4</sub> to y<sub>4</sub>:
+</p>
+
+<p>
+min y<sub>1</sub> + y<sub>2</sub> + y<sub>3</sub> + y<sub>4</sub>, s.t.
+</p>
+<ul class="org-ul">
+<li>y<sub>1</sub> + 2y<sub>3</sub> + 3y<sub>4</sub> = 1</li>
+<li>y<sub>2</sub> + 4y<sub>3</sub> + 2y<sub>4</sub> = 2</li>
+<li>All y &ge; 0</li>
+</ul>
+
+\begin{equation}
+A = \begin{bmatrix} 1 & 0 & 2 & 3 \\ 0 & 1 & 4 & 2 \end{bmatrix}
+\end{equation}
+
+<p>
+The left half of A is B, and the right half is L.
+</p>
+
+\begin{equation}
+y = \begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ y_4 \end{bmatrix}
+\end{equation}
+\begin{equation}
+c = \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix}
+\end{equation}
+
+<p>
+The top halves of these are \(y_B\) and \(c_B\) respectively.
+</p>
+
+\begin{align*}
+  B x_B + L x_L &= b \\
+  x_B + B^{-1} L x_L &= B^{-1} b \\
+  x_B + \bar{A} x_L &= \bar{b}
+\end{align*}
+
+<p>
+Here we're letting \(\bar{A} = B^{-1} L\) and \(\bar{b} = B^{-1} b\).
+</p>
+
+<p>
+A basic solution is one where \(\bar{x_B} = \bar{b}\), or \(\bar{x_L} = 0\).  A
+feasible basic solution is one where \(\bar{x_B} \geq 0\) as well.
+</p>
+
+<p>
+<b>Def:</b> Simplex multipliers corresponding to \((B,L)\):
+</p>
+
+\begin{equation}
+  \pi^T = c_B^T B^{-1}
+\end{equation}
+
+<p>
+Let \(\bar{x} = \begin{bmatrix}\bar{x_B} \\ \bar{x_L} \end{bmatrix}\) be BFS
+corresponding to (B, L).  The objective function at \(\bar{x}\) is:
+</p>
+
+\begin{align*}
+  \begin{bmatrix} c_B^T & c_L^T \end{bmatrix}
+  \begin{bmatrix} \bar{x_B} \\ \bar{x_L} \end{bmatrix}
+  &= c_B^T \bar{x_B} + c_L^T x_L \\
+  &= (\pi^T B) (B^{-1} b) + c_L^T (0) \\
+  &= \pi^T b
+\end{align*}
+
+<p>
+<b>Def:</b> Reduced costs corresponding to (B,L) = A
+</p>
+
+\begin{equation}
+  c^{\pi}  = c - A^T \pi
+\end{equation}
+
+\begin{equation}
+  c^{\pi} = \begin{bmatrix} c_B^{\pi} \\ c_L^{\pi} \end{bmatrix}
+  = \begin{bmatrix} c_B \\ c_L \end{bmatrix} - \begin{bmatrix} B^T & L^T \end{bmatrix} \pi
+  = \begin{bmatrix} c_B - B^T \pi \\ c_L - L^T \pi \end{bmatrix}
+  = \begin{bmatrix} 0 \\ c_L - L^T \pi \end{bmatrix}
+\end{equation}
+
+<p>
+I guess you can also rewrite it to \(c = c^{\pi} + A^T \pi\), but I'm not writing
+out the vectors and matrices again.  Now he's doing more stuff with the
+objective function.
+</p>
+
+\begin{equation}
+  c^T x = (c^{\pi}_L)^T x_L + \pi^T b
+\end{equation}
+
+<p>
+Once we find the basic feasible solution, the \(\pi^T b\) is pretty much fixed,
+and so we just need to minimize (C<sub>L</sub><sup>&pi;</sup>)<sup>T</sup> x<sub>L</sub>.  Now, say we look at a non-basic
+(i.e. in L, not B) variable x<sub>i</sub>, and look at its reduced costs.
+</p>
+
+<ul class="org-ul">
+<li>If c<sub>i</sub><sup>&pi;</sup> &ge; 0, we would be happy to set x<sub>i</sub> = 0 (if it's feasible).</li>
+<li>If c<sub>i</sub><sup>&pi;</sup> &lt; 0, we would be happy to set x<sub>i</sub> = +&infin; (if it's feasible).</li>
+</ul>
+
+<p>
+We can see that if &forall; i c<sub>i</sub><sup>&pi;</sup> &ge; 0, then the BFS is optimal.  In fact, it's
+also true the other way around.
+</p>
+
+<p>
+<b>Thm:</b> BFS \(\bar{x}\) is optimal iff &forall; i c<sub>i</sub><sup>&pi;</sup> &ge; 0.
+</p>
+<ul class="org-ul">
+<li>Proof &larr;: (basically what we've been talking about)</li>
+<li>Proof &rarr;: is a really difficult, multi-lecture proof.  We'll sketch out the
+non-degenerate case only, &theta; &gt; 0.  Next time.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline36" class="outline-2">
+<h2 id="orgheadline36"><span class="section-number-2">9</span> 2015-09-02 Wednesday</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">9.1</span> Review of LP</h3>
+<div class="outline-text-3" id="text-9-1">
+<ul class="org-ul">
+<li>min C<sup>T</sup> x, st.</li>
+<li>Ax = b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+Integer LP is same, except require that x is an integer.
+</p>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28"><span class="section-number-4">9.1.1</span> Example</h4>
+<div class="outline-text-4" id="text-9-1-1">
+<p>
+Vertex Cover Problem - given a undirected graph G, find a vertex cover of
+minimum size.  (vc = a set of vertices that cover every edge).
+</p>
+
+<p>
+We are going to convert a VC problem into ILP.  The graph we have is (no
+diagrams, sorry): V={1, 2, 3, 4}, E={(1,2), (1,3), (1,4), (2,3), (3,4)}
+(undirected).
+</p>
+
+<p>
+Decision variables are x<sub>i</sub>= 1, if i &isin; VC, 0 otherwise.  We minimize the
+function x<sub>1</sub> + x<sub>2</sub> + x<sub>3</sub> + x<sub>4</sub>, s.t.:
+</p>
+
+<ul class="org-ul">
+<li>x<sub>1</sub> + x<sub>2</sub> &ge; 1</li>
+<li>x<sub>1</sub> + x<sub>3</sub> &ge; 1</li>
+<li>x<sub>1</sub> + x<sub>4</sub> &ge; 1</li>
+<li>x<sub>2</sub> + x<sub>3</sub> &ge; 1</li>
+<li>x<sub>3</sub> + x<sub>4</sub> &ge; 1</li>
+<li>x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub> &isin; {0, 1}</li>
+</ul>
+
+<p>
+In case you can't tell, there is a constraint for each edge, which basically
+says that at least one of the vertices on the edge needs to be 1.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">9.2</span> Reducing Vertex Cover to ILP</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+More generally, the vertex cover of G=(V,E) can be transformed to ILP like this:
+</p>
+
+<ul class="org-ul">
+<li>Min &sum;<sub>i&isin;V</sub> x<sub>i</sub>, s.t.</li>
+<li>x<sub>i</sub> + x<sub>j</sub> &ge; 1 &forall; (i,j) &isin; E</li>
+<li>x<sub>i</sub> &isin; {0, 1} &forall; i &isin; V</li>
+</ul>
+
+<p>
+When you remove the integrality constraint from an ILP, you get the <b>linear
+relaxation</b> of the problem.  In the case of this problem, we get an
+assignment of fractional weights to vertices such that each edge has sum &ge;
+1, while minimizing the total vertex weights.  It's an entirely different
+problem, and not really something we want.
+</p>
+
+<p>
+According to the Liberator, the difference between a lot of the problems
+dealt with in other fields and in computer science is the addition of these
+"integrality constraints," which makes problems much more difficult than
+their continuous relatives.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">9.3</span> "Slicing" Linear Programs</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+When you have the constraints Ax = b, you can think of it as a<sub>i</sub><sup>T</sup> x = b<sub>i</sub>,
+where a<sub>i</sub><sup>T</sup> is a row vector of A.  This is totally linear algebra, and I'm sure
+it'll come in useful later in the course.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">9.4</span> Semi Definite Programming</h3>
+<div class="outline-text-3" id="text-9-4">
+<ul class="org-ul">
+<li><b>Def:</b> A real matrix A is positive (semi) definite iff &forall; x &ge; 0, x<sup>T</sup> A x &gt; 0
+(x<sup>T</sup> A x &ge; 0).</li>
+
+<li><b>Thm:</b> A is positive semidefinite iff all its eigenvalues are &ge; 0.</li>
+</ul>
+
+<p>
+(note to self - go over linear algebra!)
+</p>
+
+<ul class="org-ul">
+<li><b>Def:</b> A is symmetric, positive, semidefinite -&gt; A &sccue; 0.</li>
+
+<li><b>Thm:</b> A &sccue; 0 iff &exist; B s.t. A = B<sup>T</sup> B.  Given A, B can be found in polynomial
+time.  B is not necessarily square, but of course B<sup>T</sup> B will be.</li>
+
+<li>Given two matrices C, X (n by m), C &sdot; X = &sum;<sub>i=1</sub><sup>n</sup> &sum;<sub>j=1</sub><sup>m</sup> c<sub>ij</sub> x<sub>ij</sub>.</li>
+</ul>
+
+<p>
+The problem of Semi Definite Programming is:
+</p>
+
+<ul class="org-ul">
+<li>minimize C &sdot; X, st:</li>
+<li>A<sub>i</sub> &sdot; X = b<sub>i</sub></li>
+<li>X &sccue; 0</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">9.5</span> LP reduces to SDP</h3>
+<div class="outline-text-3" id="text-9-5">
+<ul class="org-ul">
+<li><p>
+<b>Claim:</b> Linear programming is a special case of (i.e. reduces to) Semi
+Definite Programming.
+</p>
+
+\begin{equation}
+X = \begin{bmatrix} x_1 & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & x_q \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+C = \begin{bmatrix} c_1 & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & c_q \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+A_i = \begin{bmatrix} a_{i1} & 0 & 0 \\ 0 & \ddots & 0 \\ 0 & 0 & a_{iq} \end{bmatrix}
+\end{equation}</li>
+
+<li>We wouldn't want to do this in practice, since we have more efficient
+algorithms to LP.  But it exists.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34"><span class="section-number-3">9.6</span> Quadratically Constrained Quadratic Programming (QCQP)</h3>
+<div class="outline-text-3" id="text-9-6">
+<ul class="org-ul">
+<li>min x<sup>T</sup> Q x + q<sup>T</sup> x</li>
+<li>s.t. x<sup>T</sup> Q<sub>i</sub> x + q<sub>i</sub><sup>T</sup> x &le; b<sub>i</sub>, i=1,2,..,p</li>
+</ul>
+
+<p>
+Both the objective function and the constraints may be quadratic.
+</p>
+
+<ul class="org-ul">
+<li>It seems that you can reduce QCQP also to SDP.</li>
+<li>I guess the way to think about it is that in SDP, X = B<sup>T</sup> B, so in the
+decision variables you get quadratic terms.  Or something.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline35" class="outline-3">
+<h3 id="orgheadline35"><span class="section-number-3">9.7</span> Back to Linear Programming</h3>
+<div class="outline-text-3" id="text-9-7">
+<p>
+Like you could slice LP constraint matrices by rows, you can also do it by
+columns.  Split A into columns A<sub>1</sub>, A<sub>2</sub>, &#x2026;, A<sub>q</sub>.  Then, you can break the
+constraints into: A<sub>1</sub> x<sub>1</sub> + A<sub>2</sub> x<sub>2</sub> + &#x2026; + A<sub>q</sub> x<sub>q</sub> = b.
+</p>
+
+<p>
+Back when we were looking at LP the first time, we saw the feasible region as
+a polygon (or polyhedron), and the vertices were the extreme points, which
+are the candidate solutions.  These extreme points cannot be expressed as
+convex combination of other feasible solutions.  Even more exciting, <b>Thm:</b>
+All feasible solutions are convex combinations of extreme points.
+</p>
+
+<p>
+Each constraint point corresponds in some way to the column breakdown shown
+above, which allows us to do LP is a Linear Algebra way.
+</p>
+
+<p>
+<b>Thm:</b> A feasible solution is an extreme point iff:
+</p>
+<ul class="org-ul">
+<li>A<sub>i</sub> corresponding to x<sub>i</sub> &gt; 0 are independent.  That is, given a point x, look
+at its coordinates x<sub>i</sub>, find the ones greater than 0, and check if the A<sub>i</sub>
+corresponding to them are independent.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline41" class="outline-2">
+<h2 id="orgheadline41"><span class="section-number-2">10</span> 2015-08-31 Monday</h2>
+<div class="outline-text-2" id="text-10">
+</div><div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37"><span class="section-number-3">10.1</span> Linear Programming (LP)</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+An instance of LP:
+</p>
+
+<ul class="org-ul">
+<li>min &sum;<sub>j=1</sub><sup>q</sup> c<sub>j</sub> x<sub>j</sub>, subject to:</li>
+<li>&sum;<sub>j=1</sub><sup>q</sup> a<sub>ij</sub> x<sub>j</sub> &le; b<sub>i</sub>, for i = 1, 2, &#x2026;, p, and j=1, 2, &#x2026;, q</li>
+<li>x<sub>j</sub> &gt; 0</li>
+</ul>
+
+<p>
+The constraints define X, the feasible region.  You can switch a minimization
+problem to a maximization problem by negating the objective function.
+Minimization is the "standard form".  You can also define the "slack
+variables" in the constraints, which were covered a bit more in the EECS 440
+lecture on LP.  EG, diet problem:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">i</td>
+<td class="org-left">Food</td>
+<td class="org-right">Energy</td>
+<td class="org-right">Protein</td>
+<td class="org-right">Calcium</td>
+<td class="org-right">Price</td>
+<td class="org-right">Max</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">Oatmeal</td>
+<td class="org-right">110</td>
+<td class="org-right">4</td>
+<td class="org-right">2</td>
+<td class="org-right">3</td>
+<td class="org-right">4</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">Chicken</td>
+<td class="org-right">205</td>
+<td class="org-right">32</td>
+<td class="org-right">12</td>
+<td class="org-right">24</td>
+<td class="org-right">3</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">Eggs</td>
+<td class="org-right">160</td>
+<td class="org-right">13</td>
+<td class="org-right">54</td>
+<td class="org-right">13</td>
+<td class="org-right">2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">Milk</td>
+<td class="org-right">160</td>
+<td class="org-right">8</td>
+<td class="org-right">285</td>
+<td class="org-right">9</td>
+<td class="org-right">8</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">Pie</td>
+<td class="org-right">420</td>
+<td class="org-right">4</td>
+<td class="org-right">22</td>
+<td class="org-right">20</td>
+<td class="org-right">2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">Pork w/ beans</td>
+<td class="org-right">260</td>
+<td class="org-right">14</td>
+<td class="org-right">80</td>
+<td class="org-right">19</td>
+<td class="org-right">2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">GOALS</td>
+<td class="org-right">2000</td>
+<td class="org-right">55</td>
+<td class="org-right">800</td>
+<td class="org-right">min</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Decision variable is x<sub>1</sub>, so here is the problem:
+</p>
+
+<ul class="org-ul">
+<li>minimize, 3x<sub>1</sub> + 24x<sub>2</sub> + 13x<sub>3</sub> + 9x<sub>4</sub> + 20x<sub>5</sub> + 19x<sub>6</sub>, subject to:</li>
+<li>110x<sub>1</sub> + 205x<sub>2</sub> + 160x<sub>3</sub> + 160x<sub>4</sub> + 420x<sub>5</sub> + 260x<sub>6</sub> &ge; 2000</li>
+<li>4x<sub>1</sub> + 32x<sub>2</sub> + 13x<sub>3</sub> + 8x<sub>4</sub> + 4x<sub>5</sub> + 14x<sub>6</sub> &ge; 55</li>
+<li>2x<sub>1</sub> + 12x<sub>2</sub> + 54x<sub>3</sub> + 285x<sub>4</sub> + 22x<sub>5</sub> + 80x<sub>6</sub> &ge; 800</li>
+<li>0 &le; x<sub>1</sub> &le; 4</li>
+<li>0 &le; x<sub>2</sub> &le; 3</li>
+<li>0 &le; x<sub>3</sub> &le; 2</li>
+<li>0 &le; x<sub>4</sub> &le; 8</li>
+<li>0 &le; x<sub>5</sub> &le; 2</li>
+<li>0 &le; x<sub>6</sub> &le; 2</li>
+</ul>
+
+<p>
+This isn't in standard form due to the greater than or equal to in the top 3
+constraints, and the less than or equal to in the variable bounds.  I guess.
+</p>
+
+<p>
+What to do to get decision variables unrestricted in sign (not in std form):
+If you want x to be negative (or just allowed to be negative) replace it with
+two variables (say, y and z).  Substitute x with y-z, and add the condition
+that y,z &ge; 0.  This allows x (aka y-z) to be positive or negative, but you
+could add more conditions on y-z to make it how you'd like.
+</p>
+
+<p>
+The graphical representation of these problems is pretty simple (when you
+have two variables).  The constraints create a nice shaded polygon that
+represents your feasible region, and then you pick the vertex that maximizes
+the objective function.
+</p>
+
+<p>
+<b><b>Claim:</b></b> There is always an optimal solution in an extreme point.  That's
+worded weird.  I prefer "an optimal solution is always an extreme point."
+</p>
+
+<p>
+You can represent a LP instance in matrix form like this:
+</p>
+<ul class="org-ul">
+<li>min C<sup>T</sup> x</li>
+<li>s.t. Ax=b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+Where, x = (x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>q</sub>)<sup>T</sup>, c = (c<sub>1</sub>, c<sub>2</sub>, &#x2026;, c<sub>q</sub>)<sup>T</sup>, A=(a<sub>11</sub>, a<sub>12</sub>, &#x2026;, a<sub>1q</sub>;
+&#x2026;; a<sub>p1</sub>, a<sub>p2</sub>, &#x2026;, a<sub>pq</sub>), b=(b<sub>1</sub>, b<sub>2</sub>, &#x2026;, b<sub>p</sub>)<sup>T</sup>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">10.2</span> Integer Linear Programming</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+Same as ^, except that the x's must be integers.  Since this is a more
+restricted problem, the solutions are no better than the LP solutions.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">10.3</span> Mixed Integer Linear Programming</h3>
+<div class="outline-text-3" id="text-10-3">
+<p>
+MILP.  Really?
+</p>
+
+<p>
+&gt; Matrix I'd Like to Program - Andrew Mason
+</p>
+
+<p>
+Only some of the decision variables need to be integral, others can be
+continuous.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40"><span class="section-number-3">10.4</span> Next Time, on Advanced Algorithms:</h3>
+<div class="outline-text-3" id="text-10-4">
+<p>
+Vertex cover, formulated as ILP.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline48" class="outline-2">
+<h2 id="orgheadline48"><span class="section-number-2">11</span> 2015-08-28 Friday</h2>
+<div class="outline-text-2" id="text-11">
+</div><div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">11.1</span> Last Time:</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+Approximation algorithms have approximation ratio:
+</p>
+
+<p>
+apx ratio = \(max_{I\in{}\mathscr{I}} {\frac{c(I)}{c^*(I)}}\)
+</p>
+
+<p>
+A c-approximation algorithm has cost &le; c &times; optimal cost on all instances I of
+the problem \(\mathscr{I}\).  One example is the vertex cover problem.  We
+covered a 2-approximation algorithm (called <code>VCapx</code>) that operates by
+repeatedly choosing an edge, adding its endpoints to the VC, and removing all
+incident edges from the graph.
+</p>
+
+<p>
+We left off saying that today we would cover the proof that it is a 2-apx
+algorithm.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43"><span class="section-number-3">11.2</span> Proof</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+<b>Theorem</b> <code>VCapx</code> is a 2-approximation algorithm.
+</p>
+
+<p>
+<b>Proof</b> Every edge is covered by <code>VCapx</code> at termination.  For every one of
+these edges, the algorithm adds at most two vertices to \(V'\).  The optimal
+solution contains at least one of these two.  <code>VCapx</code> never considers the
+same vertex twice (since it deletes incident edges).  So, this is a 2
+approximation algorithm.
+</p>
+
+<p>
+Here's the actual text of his proof:
+</p>
+
+<ul class="org-ul">
+<li>Every edge is covered by <code>VCapx</code> at terminates.</li>
+<li>&forall; edge chosen by <code>VCapx</code>
+<ul class="org-ul">
+<li><code>VCapx</code> adds 2 vertices to \(V'\)</li>
+<li>Opt contains at least one of the two vertices</li>
+</ul></li>
+<li><code>VCapx</code> never considers same vertex twice. (by deleting incident edges)
+<ul class="org-ul">
+<li>&rarr; edges are disjoint, &rarr; \(V'\) can be partitioned by edges added by <code>VCapx</code></li>
+</ul></li>
+<li>&rarr; 2-apx algorithm</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46"><span class="section-number-3">11.3</span> Reduction</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+The pipeline of reduction:
+</p>
+
+<p>
+(X, c) &isin; <b>I</b> &rarr; (X', c') &isin; <b>I' &rarr;</b> x'<sup>*</sup> &rarr; x<sup>*</sup>
+</p>
+
+<p>
+If the time to translate (X,c) to (X', c') is T<sub>1</sub>, and the time to translate
+x'<sup>*</sup> to x<sup>*</sup> is T<sub>2</sub>, then problem <b>I</b> reduces to *I^'* in time T<sub>1</sub> + T<sub>2</sub>.
+</p>
+
+<p>
+EG: Any maximization problem reduces to a minimization problem in O(1) time.
+</p>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44"><span class="section-number-4">11.3.1</span> Optimal Message Passing</h4>
+<div class="outline-text-4" id="text-11-3-1">
+<p>
+Given a graph G=(V,E) with probability p<sub>e</sub> (0 &lt; p<sub>e</sub> &lt; 1) associated to each e
+&isin; E.  Find a spanning tree of G that minimizes the probability of failure.
+(The probabilities are of failure, and independent).
+</p>
+
+<p>
+So, the probability of survival for the whole tree is &Pi;<sub>e&isin; T</sub> (1-p<sub>e</sub>).
+</p>
+
+<p>
+We can reduce the OMP to Minimum Spanning Tree problem in linear time.  We
+define the weight of an edge to be w<sub>e</sub> = -log (1-p<sub>e</sub>).  The cost of an MST
+is c(T) = &sum;<sub>e&isin; T</sub> w<sub>e</sub> = &sum;<sub>e&isin; T</sub> log 1/(1-p<sub>e</sub>) = log &Pi;<sub>e&isin; T</sub> 1/(1-p<sub>e</sub>) =
+log 1/(&Pi;<sub>e&isin; T</sub>(1-p<sub>e</sub>)).  Since we're trying to minimize that logarithm, and
+logarithms are strictly increasing functions, we also are minimizing the
+inside of the logarithm.  This is the same as maximizing the denominator,
+which happens to be the probability of survival of the tree.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-4">
+<h4 id="orgheadline45"><span class="section-number-4">11.3.2</span> Choosing your reduction</h4>
+<div class="outline-text-4" id="text-11-3-2">
+<p>
+This isn't necessarily like EECS 343 reductions, where you find the easiest
+reduction to do.  There are entire families of problems that are special
+cases of each other.  A problem might be able to be reduced to the simplest
+of these, or the most general of these.  The reduction to the most general
+problem is usually easiest, and the reduction to the simpler problem is more
+difficult.  The advantage of doing the harder reduction is generally a
+faster algorithm to solve the simpler problem.  It's just a wonderful world
+of tradeoffs here in computer science land.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline47" class="outline-3">
+<h3 id="orgheadline47"><span class="section-number-3">11.4</span> GNU Octave</h3>
+<div class="outline-text-3" id="text-11-4">
+<ul class="org-ul">
+<li>Download it via your package manager, or from the GNU website if you're a
+Win/Mac user.</li>
+<li>There is a good deal of documentation on the GNU site about how to use
+Octave.  It looks like a less powerful Python+NumPy+Matplotlib, or maybe a
+less powerful (open source) Mathematica.</li>
+<li><code>glpk</code> function for linear programming.</li>
+<li>First homework this afternoon, due in two weeks!</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline49" class="outline-2">
+<h2 id="orgheadline49"><span class="section-number-2">12</span> <span class="todo TODO">TODO</span> 2015-08-26 Wednesday</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+Need to copy over notes from paper.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline52" class="outline-2">
+<h2 id="orgheadline52"><span class="section-number-2">13</span> 2015-08-24 Monday</h2>
+<div class="outline-text-2" id="text-13">
+<ul class="org-ul">
+<li>5 books, get sections from library</li>
+<li>2 tests:
+<ul class="org-ul">
+<li>Final exam, possibly oral.</li>
+<li>Midterm</li>
+</ul></li>
+<li>6 homeworks:
+<ul class="org-ul">
+<li>Need to know octave</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50"><span class="section-number-3">13.1</span> Asymptotics</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+Measure time complexity.  Focus is on large inputs.
+</p>
+
+<ul class="org-ul">
+<li><p>
+f(n) &isin; O(g(n)) means "f(n) &le; g(n)"
+</p>
+
+<p>
+&exist; c &gt; g, n<sub>0</sub> &gt; 0 s.t. &forall; n &ge; n<sub>0</sub> : f(n) &le; c g(n)
+</p></li>
+
+<li>f(n) = &Omega;(g(n)) defined: g(n) &isin; O(f(n))</li>
+
+<li>f(n) &isin; &Theta;(g(n)) defined: f(n) &isin; O(g(n)) and f(n) &isin; &Omega;(g(n))</li>
+
+<li>f(n) &isin; o(g(n)) defined: \(\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0\)</li>
+
+<li>f(n) &isin; &omega;(g(n)) defined: \(\lim{n\to\infty} \frac{f(n)}{g(n)}
+     =\infty\)</li>
+</ul>
+
+<p>
+What is \(n\)?  Input size.  Sometimes it's a number of elements, or it could
+be multiple parameters (number of nodes, number of edges).
+</p>
+
+<p>
+Sometimes we use the number of bits of the input.  For example, an algorithm
+with input integer \(k\).  The number of bits is \(n=\Theta(\log k)\).  If the
+runtime is \(O(k)\), it looks like it's linear time.  But in the number of
+bits, it's exponential (\(O(2^n)\)).  It looks polynomial, but it's
+exponential.  It's called pseudo-polynomial.
+</p>
+
+<p>
+Formula:
+</p>
+
+<p>
+\((1-\frac{x}{k})^k\), where \(x \in R\), \(k \in N^+\).  We have that quantity
+\(< e^{-k}\), and \(\geq (1-x)\).  This will be used a lot apparently.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">13.2</span> Optimization Problems</h3>
+<div class="outline-text-3" id="text-13-2">
+<p>
+<b><b>Definition:</b></b> An instance of an optimization problem is a pair \((X,f)\),
+  where \(X\) is a set of feasible solutions, and \(f\) is an objective function.
+  \(f\) maps from \(X\) to the real numbers.  An <i>optimal solution</i> \(x^*\) is an
+  element of \(X\) with the property that \(f(x^*) \leq f(x) \: \forall x \in
+     X\).
+</p>
+
+<p>
+For instance, if you have a graph and you're talking about the minimum
+spanning tree problem, \(X\) is the set of all MSTs, and \(f\) maps each to the
+sum of the edge weights in the tree.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Stephen Brennan</p>
+<p class="date">Created: 2015-09-26 Sat 03:01</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

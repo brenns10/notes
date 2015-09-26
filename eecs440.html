@@ -1,0 +1,2491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-09-26 Sat 03:01 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>EECS 440 Notes</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Stephen Brennan" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">EECS 440 Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline8">1. 2015-09-24 Thursday</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Issue 2.1</a></li>
+<li><a href="#orgheadline2">1.2. Issue 2.2</a></li>
+<li><a href="#orgheadline3">1.3. One-way ANOVA</a></li>
+<li><a href="#orgheadline4">1.4. Sign Test</a></li>
+<li><a href="#orgheadline5">1.5. Mann-Whitney-Wolcoxon Signed-Rank Test</a></li>
+<li><a href="#orgheadline6">1.6. Bootstrap</a></li>
+<li><a href="#orgheadline7">1.7. Is there a best learning algorithm?</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline19">2. 2015-09-22 Tuesday</a>
+<ul>
+<li><a href="#orgheadline14">2.1. ANNs, Continued</a>
+<ul>
+<li><a href="#orgheadline9">2.1.1. Cascade Correlation (Learning the Structure of an ANN)</a></li>
+<li><a href="#orgheadline10">2.1.2. Interpretation of Hidden Units</a></li>
+<li><a href="#orgheadline11">2.1.3. How Many Hidden Units?</a></li>
+<li><a href="#orgheadline12">2.1.4. Recurrent ANNs</a></li>
+<li><a href="#orgheadline13">2.1.5. Pros/Cons of ANNs</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">2.2. Comparing Learning Algorithms</a>
+<ul>
+<li><a href="#orgheadline15">2.2.1. Issue 1</a></li>
+<li><a href="#orgheadline16">2.2.2. Issue 2</a></li>
+<li><a href="#orgheadline17">2.2.3. It's All Just Statistics!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline27">3. 2015-09-17 Thursday</a>
+<ul>
+<li><a href="#orgheadline20">3.1. Tradeoffs of Neural Networks</a></li>
+<li><a href="#orgheadline23">3.2. Training ANN</a>
+<ul>
+<li><a href="#orgheadline21">3.2.1. Backpropagation</a></li>
+<li><a href="#orgheadline22">3.2.2. Example</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">3.3. Overfitting in ANNs</a>
+<ul>
+<li><a href="#orgheadline24">3.3.1. Weight Decay</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline26">3.4. Implementation Issues</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline34">4. 2015-09-15 Tuesday</a>
+<ul>
+<li><a href="#orgheadline28">4.1. Famous Dead People</a></li>
+<li><a href="#orgheadline29">4.2. History</a></li>
+<li><a href="#orgheadline33">4.3. Perceptron / Linear Threshold Unit</a>
+<ul>
+<li><a href="#orgheadline30">4.3.1. Training a Perceptron</a></li>
+<li><a href="#orgheadline31">4.3.2. More on Perceptrons</a></li>
+<li><a href="#orgheadline32">4.3.3. Feedforward Network Topology</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline40">5. 2015-09-10 Thursday</a>
+<ul>
+<li><a href="#orgheadline39">5.1. Evaluation Methods and Metrics</a>
+<ul>
+<li><a href="#orgheadline35">5.1.1. n-fold Cross Validation</a></li>
+<li><a href="#orgheadline36">5.1.2. Metrics for Classification</a></li>
+<li><a href="#orgheadline37">5.1.3. Learning Curves</a></li>
+<li><a href="#orgheadline38">5.1.4. Metrics with Confidence Measures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline45">6. 2015-09-08 Tuesday</a>
+<ul>
+<li><a href="#orgheadline41">6.1. Review:</a></li>
+<li><a href="#orgheadline42">6.2. Generalizing ID3</a></li>
+<li><a href="#orgheadline44">6.3. Overfitting</a>
+<ul>
+<li><a href="#orgheadline43">6.3.1. Controlling Overfitting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline61">7. 2015-09-01 Tuesday</a>
+<ul>
+<li><a href="#orgheadline55">7.1. What is "Machine Learning?"</a>
+<ul>
+<li><a href="#orgheadline46">7.1.1. Inductive Generalization</a></li>
+<li><a href="#orgheadline54">7.1.2. Learning Settings</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline56">7.2. When to use ML?</a></li>
+<li><a href="#orgheadline60">7.3. Example Representations</a>
+<ul>
+<li><a href="#orgheadline57">7.3.1. Feature Vector Representation</a></li>
+<li><a href="#orgheadline58">7.3.2. Relational Representation</a></li>
+<li><a href="#orgheadline59">7.3.3. Multiple Instance Representation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline78">8. 2015-08-27 Thursday</a>
+<ul>
+<li><a href="#orgheadline76">8.1. Optimization</a>
+<ul>
+<li><a href="#orgheadline62">8.1.1. What is it?</a></li>
+<li><a href="#orgheadline63">8.1.2. Types of Optimization Problems</a></li>
+<li><a href="#orgheadline64">8.1.3. Unconstrained Optimization</a></li>
+<li><a href="#orgheadline65">8.1.4. Gradient Ascent</a></li>
+<li><a href="#orgheadline66">8.1.5. Newton-Raphson Method</a></li>
+<li><a href="#orgheadline67">8.1.6. Quasi-Newton Methods</a></li>
+<li><a href="#orgheadline68">8.1.7. Local and Global Optima</a></li>
+<li><a href="#orgheadline69">8.1.8. Convex Sets</a></li>
+<li><a href="#orgheadline70">8.1.9. Convex Functions</a></li>
+<li><a href="#orgheadline71">8.1.10. Constrained Optimization</a></li>
+<li><a href="#orgheadline72">8.1.11. Linear Programming</a></li>
+<li><a href="#orgheadline73">8.1.12. Simplex Algorithm</a></li>
+<li><a href="#orgheadline74">8.1.13. Duality in Linear Programming</a></li>
+<li><a href="#orgheadline75">8.1.14. Summary of Optimization</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline77">8.2. The Simplex Algorithm</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">1</span> 2015-09-24 Thursday</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Recall: we want to compare ML algorithms.  Our steps for comparing test data:
+</p>
+<ol class="org-ol">
+<li>Determine the sampling distribution.</li>
+<li>Estimate parameters using MLE.</li>
+<li>Use an approximation distribution if necessary.</li>
+<li>Come up with a C% confidence interval.</li>
+</ol>
+
+<p>
+Our "Issue #1" was "what do we know about the true performance of a
+classification algorithm, given that we've tested it on a test set?"
+</p>
+<ul class="org-ul">
+<li>We determined that we could come up with a confidence interval for an
+observed test statistic.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Issue 2.1</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Our next issue, #2.1, is that we have a conjecture "classifier A is better
+than algorithm B on a certain type of data."  We would like to evaluate
+whether this conjecture is true.  We can do this with statistical hypothesis
+testing.
+</p>
+
+<p>
+We want to look at the random variable \(F = Err_{C_1} - Err_{C_2}\).  What can we
+say about the sampling distribution of \(F\)?  Assuming that the error
+distributions are Gaussian, the distribution of \(F\) is going to be Gaussian
+also.  The MLE parameter estimates:
+</p>
+<ul class="org-ul">
+<li>\(E(F) = e_{S,C_1} - e_{S,C_2} = \left(\frac{r_1}{n_1} - \frac{r_2}{n_2}\right)\)</li>
+<li>\(V(F) = V(Err_{C_1}) + V(Err_{C_2}) = \frac{e_{S,C_1}(1-e_{S,C_1})}{n_1} + \frac{e_{S,C_2}(1-e_{S,C_2})}{n_2}\)</li>
+</ul>
+
+<p>
+Comparing classifiers: hypothesis testing:
+</p>
+<ul class="org-ul">
+<li>Establish your "null hypothesis."
+<ul class="org-ul">
+<li>You will reject this hypothesis with high probability.</li>
+<li>You presume it is true until the test shows otherwise.</li>
+</ul></li>
+</ul>
+
+<p>
+This test assumes that the two classifiers were evaluated on independent test
+data.
+</p>
+
+<p>
+Example:
+</p>
+<ul class="org-ul">
+<li>On a test set with (*0 examples a decision tree misclassifies 20 examples.
+on the same test set, a neural network misclassifies 25 examples. Are these
+two classifiers actually different on this problem?</li>
+<li>\(F=\frac{r_1}{n_1} - \frac{r_2}{n_2} = 0.05\)</li>
+<li>\(V(F) = 0.2(1-0.2)/100 + 0.25 (1-0.25) / 100 = 0.0016 + 0.001875 = 0.0034\)</li>
+<li>Standard deviation is about 0.05.</li>
+<li>0 is definitely within the 95% confidence interval, so we cannot reject the
+null hypothesis (that they are the same)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Issue 2.2</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+This issue is critically different from 2.1.  In 2.1, we had two classifiers
+&#x2013; who knows where they came from, but we want to compare those two
+classifiers' performances.  In this case, we have two learning algorithms,
+and we want to compare the performance of the <b>algorithms</b>, not a particular
+<b>classifier</b> produced by an algorithm.
+</p>
+
+<p>
+In order to do so, we must find the expected value of an algorithm's error
+rate.  To do this, we must take the average over all classifiers, produced by
+all possible training sets.  We usually estimate this by doing $n$-fold
+validation instead of actually finding all possible training sets from the
+population.
+</p>
+
+<p>
+We can do <i>pair testing</i>, where we evaluate the algorithms on the same folds,
+and then compare the difference between their error rates.  Or, we can do it
+independently, on separate folds, and compare their error rates.  But this
+method gives you a bigger variance.
+</p>
+
+<p>
+When you compare the difference of error rates, you want to know what the
+sampling distribution is.  The sampling distribution looks Gaussian, but not
+quite.  Instead, it's a \(t\) distribution.  If \(k\) (the number of folds) was
+very large, we could use the Gaussian, but instead we have to use \(t\)
+distribution, with \(k-1\) degrees of freedom.  Here are parameter estimates:
+</p>
+<ul class="org-ul">
+<li>Mean (&delta;): the average difference of error rates across \(k\) folds.</li>
+<li><p>
+Standard Deviation:
+</p>
+\begin{equation}
+  s = \sqrt{\frac{\sum_{i=1}^k (\delta_i - \delta)^2}{k(k-1)}}
+\end{equation}</li>
+<li>The standard deviation is adjusted to make the distribution narrower, and
+put more mass in the tails!</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> One-way ANOVA</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>For comparing &gt;2 algorithms.</li>
+<li>Why not just do pairwise hypothesis tests?
+<ul class="org-ul">
+<li>The results may not be consistent (i.e. transitive)</li>
+<li>Multiple hypotheses result in lost confidence, so you'd need to correct
+your P-value/confidence interval.
+<ul class="org-ul">
+<li>EG: with 10 95% CI's, you only have 60% confidence that the true values
+of all 10 parameters are within the range.</li>
+</ul></li>
+</ul></li>
+<li>ANOVA looks at the "between means" variance.</li>
+<li>Essentially, it seems like a generalized \(t\) test (gives the same result as
+a \(t\) test for two distributions).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.4</span> Sign Test</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>Simpler than \(t\) test with fewer assumptions.</li>
+<li>For each fold, note which algorithm had better performance.</li>
+<li>Use binomial null hypothesis, where p=0.5.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">1.5</span> Mann-Whitney-Wolcoxon Signed-Rank Test</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>What if a classifier produces confidence estimates?</li>
+<li><p>
+If we can rank the predictions, we can calculate a \(U\) statistic based on
+the ranks:
+</p>
+\begin{equation}
+  U_1 = \sum_i R_{1,i} - \frac{n_1(n_1 + 1)}{2}
+\end{equation}</li>
+<li>For large enough samples, you can approximate \(U\) with a normal
+distribution.</li>
+<li>AUC is actually a normalized version of \(U\)!</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">1.6</span> Bootstrap</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>All previous methods relied on knowing the sampling distribution of the
+statistic we are interested in.</li>
+<li>The bootstrap is a procedure where we get the properties of the statistic
+using <i>empirical resampling</i> from the observations.</li>
+</ul>
+
+<p>
+Example:
+</p>
+<ul class="org-ul">
+<li>Suppose we have a set of iid examples and we want to get a C1 for F1 score.</li>
+<li>Repeatedly draw an equal sized sample (with replacement) from our test
+examples, and measure F1.</li>
+<li>This creates an empirical sampling dsitribution.</li>
+<li>Then, go back to the original data, measure F1, and ask how unusual that is
+in the empirical distribution.</li>
+</ul>
+
+<p>
+Weird&#x2026; ¯&ensp;(ツ)_/¯
+</p>
+
+<p>
+Pros: very easy, few assumptions, good for complex things.
+</p>
+
+<p>
+Cons: finite sample behavior is not very well understood.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">1.7</span> Is there a best learning algorithm?</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>No</li>
+<li>No Free Lunch theorem!
+<ul class="org-ul">
+<li>In the expectation over all learning algorithms, they will perform
+equally.</li>
+<li>Wolpert 1996: "The lack of a priori distinctions between learning
+algorithms."</li>
+<li>For any specific application, you can have a "best" algorithm.  But
+overall, no.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">2</span> 2015-09-22 Tuesday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">2.1</span> ANNs, Continued</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">2.1.1</span> Cascade Correlation (Learning the Structure of an ANN)</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>No textbook sections on this, ask for paper.</li>
+<li>Start with a single perceptron.  Train and find "residuals".</li>
+<li>Now, add a new perceptron that feeds into the original one.</li>
+<li>Train it to feed the "residuals" into the original perceptron.
+<ul class="org-ul">
+<li>Hold the original perceptron's training constant.</li>
+</ul></li>
+<li>Continue adding perceptrons that correct for the "residual" of the
+previous iteration.</li>
+<li>This essentially does a Taylor series approximation of the underlying
+function.</li>
+<li>It is an instantiation of a more general technique called "gradient
+boosting".</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">2.1.2</span> Interpretation of Hidden Units</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>Unlike Decision trees, the ANN structure is very opaque.</li>
+<li>Difficult to interpret what it is doing.</li>
+<li>One way is to look at the last layer of the ANN (the last perceptron) and
+see what it's doing.  You could even assign labels to each of the inputs
+for whatever concept you may believe they represent.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">2.1.3</span> How Many Hidden Units?</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<ul class="org-ul">
+<li>Some work shows that it is better to start with a network that is too big.
+<ul class="org-ul">
+<li>Train until the error on the validation set grows.</li>
+<li>Then look at the weights associated with edges, and prune the hidden
+units that don't actually contribute.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">2.1.4</span> Recurrent ANNs</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<ul class="org-ul">
+<li>So far, we've looked at ANNs that feed forward.</li>
+<li>There are also networks with loops, called "recurrent neural networks"
+<ul class="org-ul">
+<li>This gives ANNs a "memory" of previous inputs.</li>
+<li>They are much more of a dynamic structure</li>
+</ul></li>
+<li>A recurrent ANN architecture with <i>rational weights</i> has computational
+power equivalent to a Universal Turing Machine!!!!!
+<ul class="org-ul">
+<li>However, this is ridiculously hard to train (ya don't say&#x2026;)</li>
+<li>Very prone to overfitting.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">2.1.5</span> Pros/Cons of ANNs</h4>
+<div class="outline-text-4" id="text-2-1-5">
+<p>
+Pros:
+</p>
+<ul class="org-ul">
+<li>Very expressive hypothesis space</li>
+<li>Very useful for classification, regression, density estimation</li>
+<li>Builds useful representations "automatically"</li>
+</ul>
+
+<p>
+Cons:
+</p>
+<ul class="org-ul">
+<li>Easy to overfit.</li>
+<li>Slow to train, require many examples.</li>
+<li>Doesn't easily handle nominal data.</li>
+<li>Opaque</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">2.2</span> Comparing Learning Algorithms</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">2.2.1</span> Issue 1</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>Suppose we collect test data and evaluate a classifier.  Accuracy=\(x\).</li>
+<li>Then, someone repeats the experiment with another set of test data from the
+same problem, independent of the first set.
+<ul class="org-ul">
+<li>What can we say about the accuracy here?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">2.2.2</span> Issue 2</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>Suppose now we have two different classifiers \(A\) and \(B\).  We measure
+their accuracies on a test set, and get \(x\) and \(y\), and \(x > y\).  Does
+this mean \(A\) is better than \(B\) in this problem?</li>
+<li>Or how about doing this with completely different algorithms?
+<ul class="org-ul">
+<li>If we repeated this experiment, we would get new \(x'\) and \(y'\).  Would
+we find that \(x' > y'\) again?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">2.2.3</span> It's All Just Statistics!</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>We're just looking at estimating the "true value" of a metric on the basis
+of a small sample.</li>
+<li>Just like statistics!</li>
+<li><b>Definition:</b> Data Distribution: assume there is an unknown, underlying
+probability distribution, \(D\), from which <i>unlabeled</i> examples (\(x\)) are
+being sampled without replacement.
+<ul class="org-ul">
+<li>I.I.D.</li>
+</ul></li>
+<li><p>
+<b>Definition:</b> Sample Error Rate: The fraction of examples in our test
+sample on which the learned classifier disagrees with the target concept.
+</p>
+\begin{equation}
+  e_s = \frac{1}{n} \sum_x \delta(y_x, \hat{y}_x)
+\end{equation}</li>
+<li><p>
+<b>Definition:</b> True Error Rate: The probability that the learned classifier
+will make a mistake on a random example drawn from \(D\).:
+</p>
+\begin{equation}
+  e_D = Pr_{x~D}(y_x \ne \hat{y}_x)
+\end{equation}</li>
+<li>For problem #1, we want to know how are \(e_S\) and \(e_D\) related.</li>
+<li><b>Definition:</b> Sampling Distribution:
+<ul class="org-ul">
+<li>Suppose we perform a random experiment lots of times and record the
+outcome.</li>
+<li>Call the random variable associated with the outcome \(O\).</li>
+<li>Suppose we then plot a frequency histogram of \(O\).</li>
+<li>something something something (see slides)</li>
+</ul></li>
+<li>We'd like to get at the sampling distribution of the "error rate" r.v.,
+but we'll start with something easier.</li>
+<li>Let \(R\) be an rv denoting the number of errors in an evaluation
+experiment: (he changed slides too quick)
+<ul class="org-ul">
+<li>Sampling Distribution of \(R\)
+<ul class="org-ul">
+<li>Suppose we run \(k\) experiment with test samples of size \(n\)</li>
+<li>In the $i$th experiment our learned classifier makes \(R=r_i\) errors.</li>
+<li>We'll pot a frequency histogram of \(R\).</li>
+<li>What will it look like for \(k\) large?</li>
+<li>We have a Binomial distribution.  In the limit, this actually
+converges to a normal distribution.</li>
+<li>This means we can infer the error rate \(e_D\) (since \(\mu=np\), \(\sigma =
+          ne_D(1-e_d)\))</li>
+</ul></li>
+<li>If we do one trial and find that there are \(r\) errors on \(n\) examples, a
+good parameter estimate for \(e_D\) is \(\frac{r}{n}\).  Why?</li>
+<li>This is a maximum likelihood estimation.  It is the parameter that
+maximizes the probability of the data.</li>
+</ul></li>
+<li><b>Definition:</b> Estimation Bias: Estimation bias of an estimator \(Y\) for
+parameter \(p\) is \(E(Y)-p\).
+<ul class="org-ul">
+<li>If it has 0 bias, it converges asymptotically to the true value.</li>
+<li>MLE has 0 estimation bias.</li>
+</ul></li>
+<li>This is getting to some good math, but I can't summarize it in my notes
+right now if I want to understand it.  See slides.</li>
+<li>Summary for Issue 1:
+<ul class="org-ul">
+<li>Determine sampling distribution of measure.</li>
+<li>Estimate sampling distribution parameters using MLE on test set.
+<ul class="org-ul">
+<li>If necessary, approximate using standard distribution such as
+Gaussian.</li>
+</ul></li>
+<li>Use tables to determine C% CI.
+<ul class="org-ul">
+<li>Usually use C=95</li>
+<li>The true measure will lie in that interval with C% probability.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">3</span> 2015-09-17 Thursday</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">3.1</span> Tradeoffs of Neural Networks</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>Lots of DoF!
+<ul class="org-ul">
+<li>Topology</li>
+<li>Parameters</li>
+</ul></li>
+<li>Easy to overfit.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">3.2</span> Training ANN</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+We'll pretend that the network topology is already decided.  Here is the
+setup:
+</p>
+
+\begin{equation}
+  D = \left( \begin{array}{ccccc}
+        x_{11} & \cdots & x_{1n} & -1 & y_1 \\
+        \vdots & & \vdots & \vdots & \vdots \\
+        x_{m1} & \cdots & x_{mn} & -1 & y_m
+      \end{array} \right)
+\end{equation}
+
+<ul class="org-ul">
+<li>Want to find parameters \(\vec{w} = (w_1, w_2, \cdots, \sigma)\).</li>
+<li>Such that we minimize the "loss" function \(L(\vec{w})\).</li>
+<li>We can't use the sign function because it's not differentiable.</li>
+<li>We can't use the dot product approximation.</li>
+<li>Instead we use a sigmoid function \(y = (1 - e^{x})\) I think.</li>
+</ul>
+
+<p>
+To train, we use Backpropagation!  This is gonna be fun.
+</p>
+<ul class="org-ul">
+<li>Feed examples forward through the network.</li>
+<li>Do layer-wise gradient descent starting at the output layer.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">3.2.1</span> Backpropagation</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<ul class="org-ul">
+<li>Let \(x_{ji}\) be the ith input to unit j.</li>
+<li>Let \(w_{ji}\) be the parameter associated with \(x_{ji}\).</li>
+<li>Let \(n_j = \sum_i something\)</li>
+<li>Next up is the derivation of the derivative of the loss function for the
+output layer.  It's easy to follow, and I can't keep up with typing the
+math.  Check the slides!</li>
+</ul>
+
+<p>
+Backpropagation for hidden layers.
+</p>
+<ul class="org-ul">
+<li>A perceptron \(j\) only can affect the output from its downstream
+perceptrons, which we denote as \(Downstream(j)\).</li>
+<li>We can compute the derivative of the loss function with respect to the
+inputs of this perceptron, \(\frac{dL}{dn_j}\), by computing the sum of
+\(\frac{dL}{dn_k} \frac{dn_k}{dn_j}\) for all the \(k\in{}Downstream(j)\).
+Excitingly, we already have \(\frac{dL}{dn_k}\), since \(k\) is dowstream of
+\(j\),</li>
+<li>The math is on the slides again, cause I'm not typing this stuff.  Still
+pretty easy to follow.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">3.2.2</span> Example</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+Consider a neural network with 2 input units, 2 hidden units, and 1 output
+unit, and all weights initialized to 1, with the bias set to zero.  Using
+squared loss, show the weights after the first backpropagation update with
+these examples.
+</p>
+
+<p>
+We have the inputs labelled 1 and 2, and then the two internal nodes labeled
+3 and 4, and the output node labeled 5.  Weights and x's are labeled
+accordingly.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">x<sub>1</sub></td>
+<td class="org-right">x<sub>2</sub></td>
+<td class="org-right">f</td>
+<td class="org-right">\(\hat{f}\)</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0.731</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">0.812</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Now that we have the initial outputs of the network, we can compute the
+derivatives for each example, and once we have all the derivatives we add up
+all the derivatives and compute the next step.
+</p>
+
+<p>
+Example 1:
+</p>
+<ul class="org-ul">
+<li>Output layer: \(\frac{dL}{dw_{53}} = (0.731) (1 - 0.731) (0.5) (0.731 - 0) = 0.0719\)</li>
+</ul>
+
+<p>
+Example 2:
+</p>
+<ul class="org-ul">
+<li>Output Layer: \(\frac{dL}{dw_{53}} = (0.812) (1 - 0.812) (0.731) (0.812 - 1) = -0.021\)</li>
+</ul>
+
+<p>
+Update:
+</p>
+<ul class="org-ul">
+<li>\(w_{53}' = 1 - \eta (0.0719 - 0.021) = 0.949\) (assuming \(\eta = 1\) for example).</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">3.3</span> Overfitting in ANNs</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>They are very prone to overfitting, due to the large amount of parameters.</li>
+<li>Can create very nonlinear decision surfaces.</li>
+<li>You can impose a simple structure on the network, but then the network may
+not be capable of representing the true decision boundary.</li>
+<li>Some strategies for controlling overfitting:</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24"><span class="section-number-4">3.3.1</span> Weight Decay</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+Add a "weight decay term" to keep the weights from growing:
+</p>
+
+<p>
+\(L_{OC}(\vec{y}, \hat{\vec{y}}, \vec{w}) = L(\vec{y}, \hat{\vec{y}}, \vec{w}) + \gamma \sum_i \sum_j w_{ji}^2\)
+</p>
+
+<p>
+If you have a large \(\gamma\), your solution will tend to $w<sub>ji</sub>$'s will tend toward
+zero, to minimize the effect of \(\gamma\).  So it seems careful choice of \(\gamma\) is
+pretty important.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">3.4</span> Implementation Issues</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+You should standardize your inputs to zero mean, unit variance, so that your
+units don't have a massive effect on the network.
+</p>
+
+<p>
+Nominal features: you need to re-encode it.  You could do 1 of N input units.
+Or you could do logarithmic encoding, where each input is a binary code.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34"><span class="section-number-2">4</span> 2015-09-15 Tuesday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline28" class="outline-3">
+<h3 id="orgheadline28"><span class="section-number-3">4.1</span> Famous Dead People</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>George Boole - father of Boolean algebra.</li>
+<li>Someone else - neuroscience.</li>
+<li>Frank Rosenblatt (may not be dead) - artificial neurons.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">4.2</span> History</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>We want "artificial intelligence."</li>
+<li>Human brain is intelligent.</li>
+<li>Try to simulate the structure of the brain to achieve intelligence</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">4.3</span> Perceptron / Linear Threshold Unit</h3>
+<div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li>Has weighted (\(w_i\)) inputs (\(x_i\)).</li>
+<li>Has Activation Threshold \(\sigma\)</li>
+<li><p>
+Activation function is:
+</p>
+
+\begin{equation}
+  h(\vec{x}; \vec{w}, \sigma) = \left\{
+  \begin{array}{ll}
+    +1 & \text{if } \vec{w} \cdot \vec{x} \ge \sigma \\
+    -1 & \text{else} \\
+  \end{array}
+  \right.
+\end{equation}</li>
+
+<li>The parameters of the perceptron are \(\vec{w}\) and \(\sigma\).
+<ul class="org-ul">
+<li>There aren't really parameters of the decision tree algorithm, just the
+structure of the tree.</li>
+</ul></li>
+
+<li><p>
+Example evaluation for perceptron \(\vec{w}=(1,2)\), \(\sigma=0.5\):
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">\(x_1\)</td>
+<td class="org-right">\(x_2\)</td>
+<td class="org-right">h</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">-1</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+</tbody>
+</table></li>
+
+<li>So, the question remains, how do we train them?</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30"><span class="section-number-4">4.3.1</span> Training a Perceptron</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<ul class="org-ul">
+<li>Loss function: \(L(\vec{w},\sigma)\)</li>
+<li>Measures the difference between the current estimates of \(y\) (\(\hat{y}\)),
+and the true \(y\) (which is known), over all training examples.</li>
+<li>Our goal is to minimize the loss function with respect to \((\vec{w}, \sigma)\).</li>
+<li>Notations:
+<ul class="org-ul">
+<li>Training data: (he changed the slide too quick)</li>
+</ul></li>
+<li><p>
+Common loss function is "squared loss":
+</p>
+\begin{equation}
+  L(\vec{w}) = \frac{1}{2} \sum_{i=1}^m (y_i - \hat{y}_i)^2
+             = \frac{1}{2} \sum_{i=1}^m (y_i - sign(\vec{w}\cdot\vec{x}_i))^2
+\end{equation}</li>
+<li><p>
+Sign function is not differentiable, so we'll replace it by dot product.
+</p>
+\begin{equation}
+  L(\vec{w}) = \frac{1}{2} \sum_{i=1}^m (y_i - \vec{w}\cdot\vec{x}_i)^2
+\end{equation}</li>
+<li><p>
+Calculate gradient wrt \(\vec{w}\)
+</p>
+\begin{equation}
+  \frac{dL}{d\vec{w}} = \sum_{i=1}^m (y_i - \vec{w} \cdot \vec{x}_i)(-\vec{x}_i)
+\end{equation}</li>
+<li><p>
+Parameter Update:
+</p>
+\begin{equation}
+  \vec{w} \gets \vec{w} - \eta \frac{dL}{d\vec{w}}
+\end{equation}</li>
+<li>We can use gradient descent
+<ul class="org-ul">
+<li>Loss function is differentiable.</li>
+<li>Loss function is bounded below by 0.</li>
+<li>Loss function is convex (proof???)</li>
+<li>This means there is a well-defined minimum for the loss function.</li>
+<li>And, gradient descent will find it!</li>
+</ul></li>
+<li>However, just cause the gradient descent converges, doesn't mean that it
+will converge to 0, since the true concept is not necessarily linear.</li>
+<li><p>
+Stochastic G.D:
+</p>
+\begin{array}{l}
+  \frac{dL}{d\vec{w}} = (y_i - \vec{w} \cdot \vec{x}_i)(-\vec{x}_i) \\
+  \vec{w} \gets \vec{w} - \eta \frac{dL}{d\vec{w}}
+\end{array}
+<ul class="org-ul">
+<li>This is done for each example instead of as a group.</li>
+<li>Since the loss function is convex, it will converge to the same thing in
+the limit.</li>
+<li>But the stochastic procedure will procede differently and maybe converge
+at a different speed.</li>
+<li>Stochastic seems to give initial examples more "weight" in the direction
+of the search.</li>
+<li>Stochastic is better for "online" learning, and for very large datasets.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-4">
+<h4 id="orgheadline31"><span class="section-number-4">4.3.2</span> More on Perceptrons</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<ul class="org-ul">
+<li>Geometry of the perceptron:
+<ul class="org-ul">
+<li>In one dimension, it is a step function.</li>
+<li>In two dimensions, the separating surface is a line.</li>
+<li>In three dimensions, the separating surface is a plane.</li>
+<li>So, in general, the decision surface is a hyperplane.</li>
+</ul></li>
+<li>Loss function is 0 when the surface completely separates the examples with
+no errors.  It is non-0 when there are some wrong ones.</li>
+<li>Linear separability is whether or not a dataset can be separated by a
+linear function without error.</li>
+<li>The perceptron is not nearly as powerful as a decision tree (can't
+separate things like exclusive or).</li>
+<li>So, it is more resistant to overfitting.  (which we will quantify later)</li>
+<li>It can do some logic:
+<ul class="org-ul">
+<li><p>
+Conjunctions:
+</p>
+\begin{array}{l}
+  x_1 \land x_2 \land x_3 \leftrightarrow y \\
+  1 \cdot x_1 + 1 \cdot x_2 + 1 \cdot x_3 \ge 3
+\end{array}</li>
+<li><p>
+At least $m$-of-\(n\):
+</p>
+\begin{array}{l}
+  (x_1 \land x_2) \lor (x_1 \land x_3) \lor (x_2 \land x_3) \leftrightarrow y \\
+  1 \cdot x_1 + 1 \cdot x_2 + 1 \cdot x_3 \ge 2
+\end{array}</li>
+</ul></li>
+<li>But not all:
+<ul class="org-ul">
+<li>Complex disjunctions</li>
+<li>Exclusive or!!</li>
+</ul></li>
+<li>Can fix this by using more perceptrons hooked up to each other.</li>
+<li>The neural network for exclusive or looks remarkably similar to the logic
+gate circuit for XOR :D</li>
+<li>It involves a "hidden" layer that isn't part of the output.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-4">
+<h4 id="orgheadline32"><span class="section-number-4">4.3.3</span> Feedforward Network Topology</h4>
+<div class="outline-text-4" id="text-4-3-3">
+<ul class="org-ul">
+<li>Essentially, a directed acyclic graph of perceptrons.</li>
+<li>But, it may be that you have to follow the layer structure.</li>
+<li>Representation ability
+<ul class="org-ul">
+<li>Every boolean function can be represented by a network w/ one hidden
+layer.</li>
+<li>Every bounded continuous function can be represented by a network with
+one hidden layer.</li>
+<li>Every function in R<sup>n</sup> can be represented by a network with two hidden
+layers.</li>
+<li>Woah.</li>
+</ul></li>
+<li>This gives you a tradeoff&#x2026;
+<ul class="org-ul">
+<li>You end up with the possibility for a lot of overfitting (many degrees
+of freedom and high representation ability).</li>
+<li>It also takes a long time to train these networks if they are complex.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-2">
+<h2 id="orgheadline40"><span class="section-number-2">5</span> 2015-09-10 Thursday</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">5.1</span> Evaluation Methods and Metrics</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+How do you figure out if your algorithm is "good"?
+</p>
+
+<p>
+Goal: find a measure <b>expected future performance</b> of the learning algorithm
+for some problem.  How?
+</p>
+
+<p>
+Idea:
+</p>
+<ul class="org-ul">
+<li>Separate available data into sets for training and evaluation.</li>
+<li>The examples for evaluation will be new to the learned classifier.</li>
+<li>Do this lots of times to get reliable estimates.</li>
+<li>The sets should be "separate" at least in the sense of independently
+chosen, if not disjoint examples.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline35" class="outline-4">
+<h4 id="orgheadline35"><span class="section-number-4">5.1.1</span> n-fold Cross Validation</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<ul class="org-ul">
+<li>Generally, the number of examples is limited.</li>
+<li>Want to train on sets that are as large as possible.</li>
+<li>Divide set into \(n\) separate sets.
+<ul class="org-ul">
+<li>For each set, withhold it for testing, and train on the remaining sets.</li>
+<li>Then evaluate the classifier on the testing sets.</li>
+</ul></li>
+<li>Special case of $n$-fold cross validation: Leave-one-out
+<ul class="org-ul">
+<li>\(n\) examples, \(n\) folds.</li>
+<li>Only really useful if you have a few examples.</li>
+<li>Called "jackknife" in statistics literature.</li>
+</ul></li>
+<li>Stratified cross validation
+<ul class="org-ul">
+<li>Same as $n$-fold cross validation, but you sample folds such that the
+proportions of class labels is preserved in each fold.</li>
+<li>More stable performance estimates.</li>
+<li>Implementation:
+<ul class="org-ul">
+<li>Put \(pos\) positive examples in one list, and \(neg\) negative examples
+in another.</li>
+<li>Randomly shuffle the lists.</li>
+<li>Put the first \(pos/n\) positives in fold 1, the next into fold 2, etc.</li>
+<li>Repeat for negatives.</li>
+<li>Assign leftover examples randomly.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">5.1.2</span> Metrics for Classification</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<p>
+Contingency Table
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Positive (TC)</td>
+<td class="org-left">Negative (TC)</td>
+</tr>
+
+<tr>
+<td class="org-left">Positive (C)</td>
+<td class="org-left">True Positive (TP)</td>
+<td class="org-left">False Positives (FP, Type I)</td>
+</tr>
+
+<tr>
+<td class="org-left">Negative (C)</td>
+<td class="org-left">False Negative (FN, Type II)</td>
+<td class="org-left">True Negative (TN)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Can compute all metrics from the contingency table.
+</p>
+
+<ul class="org-ul">
+<li><p>
+Accuracy: most commonly used measure for comparing algorithms.
+</p>
+\begin{equation}
+  \text{Accuracy} = \frac{TP + TN}{TP + FP + TN + FN}
+\end{equation}
+<ul class="org-ul">
+<li>Simply the fraction of examples that are correctly classified.</li>
+<li>There are many problems with accuracy.
+<ul class="org-ul">
+<li>Skewed class distribution: eg, if 99% animals aren't lions, a
+classifier with 99% accuracy would just predict "not lion".  And it
+would kill you next time you see a lion.</li>
+<li>Differential misclassification costs: some types of errors (FP or FN)
+are more serious for an application than others (eg screening for a
+disease).  Accuracy treats them equally.</li>
+</ul></li>
+</ul></li>
+<li><p>
+Weighted Accuracy
+</p>
+\begin{equation}
+  \text{WAcc} = \frac{1}{2}\left(\frac{TP}{Allpos} + \frac{TN}{Allneg}\right)
+              = \frac{1}{2}\left(\frac{TP}{TP + FN} + \frac{TN}{TN + FP}\right)
+\end{equation}
+<ul class="org-ul">
+<li>First part is the "true positive rate" (how many positives are correctly
+identified)</li>
+<li>Second part is the "true negative rate" (how many negatives are
+correctly identified)</li>
+</ul></li>
+<li><p>
+Precision
+</p>
+\begin{equation}
+  \text{Precision} = \frac{TP}{TP + FP}
+\end{equation}
+<ul class="org-ul">
+<li>Sometimes, the "positive" case is all you're interested in.</li>
+<li>This measures "of all the examples classified positive, how many were
+actually positive?"</li>
+</ul></li>
+<li><p>
+Recall / True Positive Rate / Sensitivity
+</p>
+\begin{equation}
+  \text{Recall} = \frac{TP}{TP + FN}
+\end{equation}
+<ul class="org-ul">
+<li>This quantifies "of all the positive examples, how many were correctly
+classified?"</li>
+</ul></li>
+<li><p>
+Specificity
+</p>
+\begin{equation}
+  \text{Specificity} = \frac{TN}{TN + FP}
+\end{equation}
+<ul class="org-ul">
+<li>Conterpart of recall for the negative class.</li>
+</ul></li>
+<li><p>
+F1
+</p>
+\begin{equation}
+  \frac{1}{F1} = \frac{1}{2} \left( \frac{1}{Precision} + \frac{1}{Recall}\right)
+\end{equation}
+\begin{equation}
+  F1 = \frac{2}{\left( \frac{1}{Precision} + \frac{1}{Recall}\right)}
+\end{equation}
+<ul class="org-ul">
+<li>Combines precision and recall into single measure.</li>
+<li>Not necessarily a good idea, but widely used.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37"><span class="section-number-4">5.1.3</span> Learning Curves</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ul class="org-ul">
+<li>Frequently it's useful to plot metrics as a function of sample size.</li>
+<li>Provides insight into how many examples the algorithm needs to be
+effective.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-4">
+<h4 id="orgheadline38"><span class="section-number-4">5.1.4</span> Metrics with Confidence Measures</h4>
+<div class="outline-text-4" id="text-5-1-4">
+<ul class="org-ul">
+<li>Many learning algorithms produce classifiers or models that provide
+estimates of how confident they are.</li>
+<li>Can use this to create Precision/Recall curves or Receiver Operator
+Characteristic curves.</li>
+<li>Precision/Recall curves:
+<ul class="org-ul">
+<li>plot precision, recall as you change threshold.</li>
+</ul></li>
+<li>ROC graphs
+<ul class="org-ul">
+<li>plot FPR x , TPR y as you change threshold.</li>
+<li>Random guessing is a diagonal line.
+<ul class="org-ul">
+<li>Also majority class classifier.</li>
+<li>Good classifier mst be above the diagonal.</li>
+</ul></li>
+<li>Monotonically increasing.</li>
+<li>Can be misleading if class distribution is too skewed.
+<ul class="org-ul">
+<li>Use PR instead.</li>
+</ul></li>
+<li>Frequently use AUC as statistic.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline45" class="outline-2">
+<h2 id="orgheadline45"><span class="section-number-2">6</span> 2015-09-08 Tuesday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline41" class="outline-3">
+<h3 id="orgheadline41"><span class="section-number-3">6.1</span> Review:</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>Decision trees: trees where internal nodes are tests on attributes, and
+leaves are class labels.</li>
+<li>Construct them by choosing attributes which give the most information.</li>
+<li>Measure this information with entropy, mutual information ("information
+gain").</li>
+<li>ID3 algorithm is the formal algorithm for applying mutual information to
+constructing decision trees.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">6.2</span> Generalizing ID3</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>What about multiple valued attributes (more than 2-valued)?
+<ul class="org-ul">
+<li>Mutual information still applies to $v$-valued finite, discrete
+variables.</li>
+<li>You simply have the internal node for that attribute have \(v\) children
+instead of 2.</li>
+<li>However, the maximum mutual information for a \(k\) valued variable is
+\(\log{k}\), so the IG function is biased towards attributes with many
+values.</li>
+<li>Can normalize by dividing by \(H(X)\), the entropy of the attribute itself.
+<ul class="org-ul">
+<li><b>Question:</b> why is this better than dividing by \(\log{|X|}\), e.g., the
+maximum overall entropy of \(H(X)\)?</li>
+<li>In essence, this division gives you a quantity that answers the
+question "what fraction of this variable's entropy contributes
+information about the class label?"</li>
+</ul></li>
+</ul></li>
+<li>Continuous Attributes
+<ul class="org-ul">
+<li>Continuous variables have entropy defined on them, but it's useless for
+making a decision in a tree.</li>
+<li>Need to "bin" the attribute (\(X \le v\) or \(X \ge v\)).</li>
+<li>You only need to consider values for \(v\) that separate different class
+labels in the training set.
+<ul class="org-ul">
+<li>This is still problematic for large training sets, as we'll see on our
+programming assignment.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+Example
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Color</td>
+<td class="org-right">Area</td>
+<td class="org-left">Shape</td>
+<td class="org-right">Class Label</td>
+</tr>
+
+<tr>
+<td class="org-left">red</td>
+<td class="org-right">0.1</td>
+<td class="org-left">circle</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">red</td>
+<td class="org-right">0.7</td>
+<td class="org-left">square</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">red</td>
+<td class="org-right">0.4</td>
+<td class="org-left">triangle</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">blue</td>
+<td class="org-right">0.2</td>
+<td class="org-left">triangle</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">blue</td>
+<td class="org-right">0.6</td>
+<td class="org-left">circle</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">blue</td>
+<td class="org-right">0.8</td>
+<td class="org-left">square</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">green</td>
+<td class="org-right">0.4</td>
+<td class="org-left">square</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">green</td>
+<td class="org-right">0.3</td>
+<td class="org-left">triangle</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">green</td>
+<td class="org-right">0.3</td>
+<td class="org-left">circle</td>
+<td class="org-right">0</td>
+</tr>
+</tbody>
+</table>
+
+<ol class="org-ol">
+<li>First, compute H(Y), which is \(H(\frac{1}{3})\) (as a shorthand).</li>
+<li><p>
+Then, compute H(Y|Color):
+</p>
+
+\begin{equation}
+H(Y|Color) = p(Color=red)H(Y|Color=red) + p(Color=blue)H(Y|color=blue) + p(Color=green)H(Y|Color=green)
+\end{equation}
+
+\begin{equation}
+H(Y|Color) = \frac{1}{3}H(\frac{1}{3}) + \frac{1}{3}H(\frac{1}{3}) + \frac{1}{3}\times 0
+\end{equation}
+
+\begin{equation}
+H(Y|Color) = \frac{2}{3}H(\frac{1}{3})
+\end{equation}</li>
+
+<li><p>
+We can use this to compute the information gain of Color.
+</p>
+
+\begin{equation}
+IG(Color) = H(Y) - H(Y|Color) = \frac{1}{3} H(\frac{1}{3})
+\end{equation}</li>
+
+<li>Conveniently, this is the same as the information gain of Shape.</li>
+
+<li><p>
+For area, if we sort the training set by Area, we find the cutoffs 0.25,
+0.35, and 0.5.  Then we can compute H(Y|Area,v) for each cutoff v.
+</p>
+
+<p>
+\(H(Y|Area\le0.25) = \frac{2}{9}\times 0 + \frac{7}{9} H(\frac{1}{7})\), so IG(Area&le; 0.25) = 0.4583
+</p>
+
+<p>
+etc for each cutoff
+</p></li>
+
+<li>You choose the best IG, and use that for the root node.  Then continue to
+do this for each child node.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44"><span class="section-number-3">6.3</span> Overfitting</h3>
+<div class="outline-text-3" id="text-6-3">
+<ul class="org-ul">
+<li>Given enough features, ID3 will create a tree that fits your data perfectly.
+<ul class="org-ul">
+<li>Enough features = enough that there are no contradictory examples.</li>
+</ul></li>
+<li>Overfitting is an issue.</li>
+
+<li>What is overfitting?  Making your model too specific to your training
+examples, and not general enough to be applied well to new data.</li>
+
+<li>Strictly, if a concept \(h\) has:
+
+<ul class="org-ul">
+<li>Higher performance on the training examples, but</li>
+<li>Lower performance on the whole dataset</li>
+</ul></li>
+
+<li>Than some other concept \(h'\), then we say that \(h\) has overfit the training
+data.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-4">
+<h4 id="orgheadline43"><span class="section-number-4">6.3.1</span> Controlling Overfitting</h4>
+<div class="outline-text-4" id="text-6-3-1">
+<ul class="org-ul">
+<li>Can introduce a restriction on the hypothesis space, to prevent overly
+complex hypotheses from being learned.</li>
+<li>Early Stopping
+<ul class="org-ul">
+<li>Standard ID3 algorithm stops when IG(X)=0 for all X.</li>
+<li>Instead, stop when IG(X) &le; &epsilon;, for some chosen &epsilon;.</li>
+<li>This is sensitive to your parameter choice for &epsilon;.</li>
+<li>It's easy to implement, but doesn't work well in practice.</li>
+</ul></li>
+<li>Greedy post-pruning
+<ul class="org-ul">
+<li>Hold aside some training examples at the start.</li>
+<li>Do your training procedure on the remainder (allowing it to overfit if
+it wants).</li>
+<li>Then, do a <i>greedy pruning</i> algorithm on your model.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline61" class="outline-2">
+<h2 id="orgheadline61"><span class="section-number-2">7</span> 2015-09-01 Tuesday</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+HW1 due tonight at midnight.  HW 2 out today.  Read Ch. 3 in Mitchell.
+</p>
+</div>
+
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="orgheadline55"><span class="section-number-3">7.1</span> What is "Machine Learning?"</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>Machine = autonomous system, with no (or limited) human intervention.</li>
+<li>Learning?
+<ul class="org-ul">
+<li>System changes after an experience, so that it can work more effectively
+next time it does the task.</li>
+<li>We want the system to learn how to do <i>related</i> tasks better too.</li>
+</ul></li>
+<li>Specification for a learning system:
+<ul class="org-ul">
+<li>Given: Task goal, performance measure P, and examples E</li>
+<li>Produce a <b>concept</b> that is good wih respect to P on <i>all</i> examples of
+the task.</li>
+</ul></li>
+<li>Example: learn to play chess
+<ul class="org-ul">
+<li>Perforance measure = games won/lost</li>
+<li>Examples = games played</li>
+<li>Concept?  Probably a function mapping a current board state to a move to
+play next.</li>
+</ul></li>
+<li>Two phases: learning/training, and evaluation/testing
+<ul class="org-ul">
+<li>(In the evaluation phase, you want to evaluate on new examples that you
+haven't trained on).</li>
+</ul></li>
+<li>Batch learning: one learning phase, with a large set of examples, followed
+by a testing phase.</li>
+<li>Online learning: examples arrive one at a time (or in small groups);
+learning and evaluation phases iterate.</li>
+<li>Learning systems need to have some sort of constraint.  Memorizing all the
+examples is probably the best strategy, but we know that this doesn't
+represent learning the underlying concept.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline46" class="outline-4">
+<h4 id="orgheadline46"><span class="section-number-4">7.1.1</span> Inductive Generalization</h4>
+<div class="outline-text-4" id="text-7-1-1">
+<ul class="org-ul">
+<li>In all learning problems, need to reason from specific examples to a
+general case.</li>
+<li>(this is the reverse of deductive reasoning, where you reason from the
+general case to the specific case)</li>
+<li>Target concept = the underlying concept that the system is trying to
+learn.  EG, Gary kasparov's head.</li>
+<li>Typically, the performance measure quantifies the difference between
+current and target concepts.</li>
+<li>Hypothesis space - all concepts the learning system will consider
+(e.g. all possible combinations of animal properties)</li>
+<li>Hopefully, target concept is in the hypothesis space.
+<ul class="org-ul">
+<li>But can't include every possible hypothesis in your space.</li>
+<li>The size would be huge.</li>
+<li>You would end up memorizing, not learning.</li>
+</ul></li>
+<li>This is the idea behind "No Tabula Rasa" (blank slate) learning.  There
+has to be some sort of restriction on hypothesis spaces.</li>
+<li>Inductive Bias
+<ul class="org-ul">
+<li>Assumptions used to limit the hypothesis space are the inductive bias.</li>
+<li>The more assumptions, the stronger the bias.</li>
+<li>It can even be quantified (later)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline54" class="outline-4">
+<h4 id="orgheadline54"><span class="section-number-4">7.1.2</span> Learning Settings</h4>
+<div class="outline-text-4" id="text-7-1-2">
+</div><ol class="org-ol"><li><a id="orgheadline47"></a>Supervised Learning<br  /><div class="outline-text-5" id="text-7-1-2-1">
+<ul class="org-ul">
+<li>Examples are annotated by a teacheer or oracle.</li>
+<li>Learning system just finds the concept to match the annotations.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline48"></a>Unsupervised Learning<br  /><div class="outline-text-5" id="text-7-1-2-2">
+<ul class="org-ul">
+<li>No annotations</li>
+<li>Goal is to find interesting patterns in the examples</li>
+<li>System defines what is interesting.</li>
+<li>Example: grouping images by content.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline49"></a>Semi-Supervised Learning<br  /><div class="outline-text-5" id="text-7-1-2-3">
+<ul class="org-ul">
+<li>"<b>normal learning</b>" is really a combination of the two</li>
+<li>You do unsupervised learning, and you occasionally get your
+"parent"/oracle to come in and teach you some labels.</li>
+<li>You use those new concepts to help you organize your thoughts better.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline50"></a>Active Learning<br  /><div class="outline-text-5" id="text-7-1-2-4">
+<ul class="org-ul">
+<li>A few examples are annotated with the target concept.</li>
+<li>Learning system can "ask" the oracle to label something.</li>
+<li>There is a cost of labelling that the system must optimize.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline51"></a>Transductive Learning<br  /><div class="outline-text-5" id="text-7-1-2-5">
+<ul class="org-ul">
+<li>Learning system has some knowledge of possible examples it will be
+evaluated on.</li>
+<li>Adjusts the system to do better on those examples.</li>
+<li>EG - learn to play chess against Kasparov.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline52"></a>Reinforcement Learning<br  /><div class="outline-text-5" id="text-7-1-2-6">
+<ul class="org-ul">
+<li>This is "sequential" learning.</li>
+<li>Your environment provides feedback.</li>
+<li>You take actions and use the consequences to learn.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline53"></a>Transfer Learning<br  /><div class="outline-text-5" id="text-7-1-2-7">
+<ul class="org-ul">
+<li>Human learning is cumulative.
+<ul class="org-ul">
+<li>When we encounter a new problem, we don't just start from scratch.</li>
+<li>We use prior knowledge and reasoning.</li>
+</ul></li>
+<li>Transfer learning attempts to apply concepts learned in other problems to
+bias your search.</li>
+</ul>
+</div></li></ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline56" class="outline-3">
+<h3 id="orgheadline56"><span class="section-number-3">7.2</span> When to use ML?</h3>
+<div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li>Shouldn't use ML to recognize geometric shapes.</li>
+<li>In general, you don't need to learn if you have these things:
+<ul class="org-ul">
+<li>The concept is already accurately known.</li>
+<li>It can be easily (and compactly) described</li>
+<li>Unlikely to change</li>
+</ul></li>
+<li>Learning is not free, requires computation and storage, and real world
+effort in labeling, etc.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline60" class="outline-3">
+<h3 id="orgheadline60"><span class="section-number-3">7.3</span> Example Representations</h3>
+<div class="outline-text-3" id="text-7-3">
+<ul class="org-ul">
+<li>Internal representation of examples effects how you learn.</li>
+<li>EG: When you recognize objects, you don't do it at the level of signals on
+your optic nerve.  You do it at the level of smaller parts that you've
+learned.  A chair has four legs, a flat surface, and usually a back.</li>
+<li>In the same way, pixels aren't useful in object recognition.</li>
+<li>This is an open area of research: we don't always know the best
+representation of examples.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline57" class="outline-4">
+<h4 id="orgheadline57"><span class="section-number-4">7.3.1</span> Feature Vector Representation</h4>
+<div class="outline-text-4" id="text-7-3-1">
+<ul class="org-ul">
+<li>Examples are vectors of values for a set of attributes.</li>
+<li><p>
+Can be an n-by-m matrix
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Attr 1</td>
+<td class="org-left">Attr 2</td>
+<td class="org-left">Attr 3</td>
+</tr>
+
+<tr>
+<td class="org-left">EG 1</td>
+<td class="org-left">v<sub>11</sub></td>
+<td class="org-left">v<sub>12</sub></td>
+<td class="org-left">v<sub>13</sub></td>
+</tr>
+
+<tr>
+<td class="org-left">EG 2</td>
+<td class="org-left">V<sub>21</sub></td>
+<td class="org-left">V<sub>22</sub></td>
+<td class="org-left">v<sub>23</sub></td>
+</tr>
+
+<tr>
+<td class="org-left">EG 3</td>
+<td class="org-left">v<sub>31</sub></td>
+<td class="org-left">v<sub>32</sub></td>
+<td class="org-left">v<sub>33</sub></td>
+</tr>
+</tbody>
+</table></li>
+
+<li>This is also called "propositional representation", because each example
+can be a logical conjunction.</li>
+<li>Can represent all the examples as logic formula.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline58" class="outline-4">
+<h4 id="orgheadline58"><span class="section-number-4">7.3.2</span> Relational Representation</h4>
+<div class="outline-text-4" id="text-7-3-2">
+<ul class="org-ul">
+<li>Can use first order logic.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline59" class="outline-4">
+<h4 id="orgheadline59"><span class="section-number-4">7.3.3</span> Multiple Instance Representation</h4>
+<div class="outline-text-4" id="text-7-3-3">
+<ul class="org-ul">
+<li>Examples are represented by arbitrary sized sets of attribute-value pairs.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline78" class="outline-2">
+<h2 id="orgheadline78"><span class="section-number-2">8</span> 2015-08-27 Thursday</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline76" class="outline-3">
+<h3 id="orgheadline76"><span class="section-number-3">8.1</span> Optimization</h3>
+<div class="outline-text-3" id="text-8-1">
+</div><div id="outline-container-orgheadline62" class="outline-4">
+<h4 id="orgheadline62"><span class="section-number-4">8.1.1</span> What is it?</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<p>
+Find the extreme points of an objective function.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline63" class="outline-4">
+<h4 id="orgheadline63"><span class="section-number-4">8.1.2</span> Types of Optimization Problems</h4>
+<div class="outline-text-4" id="text-8-1-2">
+<ul class="org-ul">
+<li>Discrete vs Continuous - objective function is defined on discrete or
+continuous space.</li>
+<li>Unconstrained vs constrained - whether there are additional constraints
+defining the feasible region.</li>
+<li>In this class, we are interested in continuous problems, constrained and
+unconstrained.  We use tools from calculus and linear algebra.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline64" class="outline-4">
+<h4 id="orgheadline64"><span class="section-number-4">8.1.3</span> Unconstrained Optimization</h4>
+<div class="outline-text-4" id="text-8-1-3">
+<ul class="org-ul">
+<li>Function of one variable, eg minimum of x<sup>2</sup>.  Typical method for solving
+this is to compute first and second derivative, find zeros of first
+derivative where second derivative is positive.</li>
+<li>Fuctions of two variables, you find the same things, but in matrix form:
+<ul class="org-ul">
+<li>Jacobian \(J = (\frac{\delta{}f}{\delta{}x_i}) = 0\)</li>
+<li>Hessian \(H = [\frac{\delta^{2}f}{\delta{}x_{i}\delta{}x_j}] > 0\) must be
+positive definite.</li>
+</ul></li>
+<li>Can't always do this, due to computational constrains, and due to weird or
+unknown function.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline65" class="outline-4">
+<h4 id="orgheadline65"><span class="section-number-4">8.1.4</span> Gradient Ascent</h4>
+<div class="outline-text-4" id="text-8-1-4">
+<p>
+A way of maximizing/minimizing a function.  From your current position
+\(\vec{x}\), go in the direction that maximizes the increase.
+</p>
+
+<p>
+\(\vec{x}_{new} = \vec{x}_{old} - \alpha \Delta f_{\vec{x}_old}(\vec{x})\)
+</p>
+
+<p>
+Here, &alpha; is the step size, and &Delta; f is the function gradient
+evaluated at x<sub>old</sub>.
+</p>
+
+<p>
+Downside of this is that the convergence rate is not very good.  Also, this
+procedure assumes linearity, where a quadratic function may be a better
+approximation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline66" class="outline-4">
+<h4 id="orgheadline66"><span class="section-number-4">8.1.5</span> Newton-Raphson Method</h4>
+<div class="outline-text-4" id="text-8-1-5">
+<p>
+In this, we use a quadratic approximation of f.  Then, instead of taking a
+linear step, we take a "Newton step".
+</p>
+
+<p>
+\(f(\vec{x}_{old} + u) = f(\vec{x}_{old}) + u^T \Delta f_{\vec{x}_{old}}(\vec{x}) + \frac{1}{2} u^T \Delta^2f_{\vec{x}_{old}}(\vec{x})u = g(u)\)
+</p>
+
+<p>
+More math, see slides.
+</p>
+
+<p>
+Properties:
+</p>
+<ul class="org-ul">
+<li>Fast convergence close to solution.</li>
+<li>Not guaranteed to converge if started far from solution, may cycle or
+diverge in this case.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline67" class="outline-4">
+<h4 id="orgheadline67"><span class="section-number-4">8.1.6</span> Quasi-Newton Methods</h4>
+<div class="outline-text-4" id="text-8-1-6">
+<ul class="org-ul">
+<li>Often, constructing the Hessian for a multivariate function is
+computationally difficult, because it takes O(n<sup>2</sup>) space and time and has
+to be done over and over.</li>
+<li>So, a number of methods exist that approximate the Hessian by using the
+Jacobian at nearby points.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline68" class="outline-4">
+<h4 id="orgheadline68"><span class="section-number-4">8.1.7</span> Local and Global Optima</h4>
+<div class="outline-text-4" id="text-8-1-7">
+<ul class="org-ul">
+<li>A <b>global minimum</b> for a function is a point x where f(x) &le; f(x+u) for
+all u.</li>
+<li>A <b>local minimum</b> is an x where f(x) &le; f(x+u) for all |u|&lt;&epsilon;, for
+some positive &epsilon;.</li>
+<li>Every global minimum is a local min, but not the other way around.</li>
+<li>There is no algorithm that is guaranteed to find the global maximum of an
+arbitrary function.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline69" class="outline-4">
+<h4 id="orgheadline69"><span class="section-number-4">8.1.8</span> Convex Sets</h4>
+<div class="outline-text-4" id="text-8-1-8">
+<p>
+Take two points x<sub>1</sub> and x<sub>2</sub>.  A point on the line segment between them is
+defined by &lambda; x<sub>1</sub> + (1-&lambda;) x<sub>2</sub>, for 0 &le; &lambda; &le; 1.
+</p>
+
+<p>
+A Convex Set is a set of points such that for any two points in the set,
+&lambda; x<sub>1</sub> + (1-&lambda;) x<sub>2</sub> is also in the set (for 0 &le; &lambda; &le;
+1).  Basically, you can visualize these sets on the plane as "shapes that
+don't have holes in them".
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline70" class="outline-4">
+<h4 id="orgheadline70"><span class="section-number-4">8.1.9</span> Convex Functions</h4>
+<div class="outline-text-4" id="text-8-1-9">
+<p>
+If you look at all the points that are "above" a function - {(x,y)|y &ge;
+f(x)}, if that set is convex, then f is a convex function.
+</p>
+
+<p>
+JENSEN'S INEQUALITY (yaaaaaaas)!
+</p>
+
+<p>
+f(&lambda; x<sub>1</sub> + (1-&lambda;) x<sub>2</sub>) &le; &lambda; f(x<sub>1</sub>) + (1-&lambda;) f(x<sub>2</sub>)
+</p>
+
+<p>
+Jensen's inequality seems to apply for any convex function.  It just says
+that the points on the segment between f(x<sub>1</sub>) and f(x<sub>2</sub>) have to be above
+the the function itself.  Pretty cool.
+</p>
+
+<p>
+For a convex function, every local optimum is also a global optimum!  That's
+a pretty nice property to have.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline71" class="outline-4">
+<h4 id="orgheadline71"><span class="section-number-4">8.1.10</span> Constrained Optimization</h4>
+<div class="outline-text-4" id="text-8-1-10">
+<ul class="org-ul">
+<li>Minimize a function of x such that some constraints on x are satisfied.
+The constraints define a feasible region on of in which the solution must
+lie.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline72" class="outline-4">
+<h4 id="orgheadline72"><span class="section-number-4">8.1.11</span> Linear Programming</h4>
+<div class="outline-text-4" id="text-8-1-11">
+<p>
+Linear Programming is a <b>special case</b> of <b>constrained optimization</b>, in
+which both the objective function and the constraints are linear!
+Typically, we write all the constraints and objective function as functions
+of matrices and vectors, for compactness.
+</p>
+
+<p>
+When you apply all these linear constraints, you have a feasible region that
+is a "polyhedron" (because it is bounded by a bunch of "hyperplanes").  It's
+possible that one side of the feasible region is open, (so not completely
+bounded).
+</p>
+
+<p>
+If you have a linear objective function, you can say for certain that an
+optimal point is on one of the vertices.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline73" class="outline-4">
+<h4 id="orgheadline73"><span class="section-number-4">8.1.12</span> Simplex Algorithm</h4>
+<div class="outline-text-4" id="text-8-1-12">
+<ul class="org-ul">
+<li>Around the polyhedron we go.</li>
+<li>From any feasible vertex, walk along the edges of the polyhedron,
+following the vertices.</li>
+<li>Once you are at a vertex where the neighboring vertices have higher f
+values, stop.</li>
+<li>You've found a local optimum, which happens to be a global optimum since
+the linear function is convex.</li>
+</ul>
+
+<p>
+Properties of this algorithm:
+</p>
+
+<ul class="org-ul">
+<li>Very simple, and easy to implement, and works well in practice.</li>
+<li>It works by traversing vertices, and there may be exponentially many
+vertices for n constraints.  So, in the worst case, runtime is
+exponential.
+<ul class="org-ul">
+<li>Average case under various distributions has been shown to be
+polynomial, which is useful.</li>
+</ul></li>
+<li>Other algorithms exist, such as "interior point methods", which have
+polynomial bounds*</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline74" class="outline-4">
+<h4 id="orgheadline74"><span class="section-number-4">8.1.13</span> Duality in Linear Programming</h4>
+<div class="outline-text-4" id="text-8-1-13">
+<p>
+From any "primal" LP, we can derive a "dual" LP.  Say we have a primal LP:
+</p>
+
+<ul class="org-ul">
+<li>min<sub>x</sub> c<sup>T</sup> x, such that</li>
+<li>A x &ge; b</li>
+<li>x &ge; 0</li>
+</ul>
+
+<p>
+We could create a dual like this:
+</p>
+
+<ul class="org-ul">
+<li>max<sub>u</sub> b<sup>T</sup> u, such that</li>
+<li>A<sup>T</sup> u &le; c</li>
+<li>u &ge; 0</li>
+</ul>
+
+<p>
+The nice properties of this are:
+</p>
+
+<ul class="org-ul">
+<li>The primal has a solution iff the dual has a solution.</li>
+<li>Further, the dual LP is a lower bound on the primal LP.
+<ul class="org-ul">
+<li>That is, if we pick any feasible x and any feasible u, we always havve
+c<sup>T</sup> x &ge; b<sup>T</sup> u.</li>
+</ul></li>
+<li>From the relationship between primal and dual LPs, we can derive a set of
+conditions that characterize the solutions for a primal/dual pair, called
+the Karush-Kuhn-Tucker conditions.</li>
+<li>Essentially, the conditions are that at the optimal solution, x and u are
+feasible and the objective functions c<sup>T</sup> x and b<sup>T</sup> u are equal (and some
+other stuff).</li>
+<li>Soumya says if this doesn't make sense now, that's ok.  Which is good,
+because he lost me at the dual being a lower bound on the primal.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline75" class="outline-4">
+<h4 id="orgheadline75"><span class="section-number-4">8.1.14</span> Summary of Optimization</h4>
+<div class="outline-text-4" id="text-8-1-14">
+<ul class="org-ul">
+<li>Types of optimization problems.</li>
+<li>Unconstrained optimization - gradient ascent/descent, Newton Raphson
+methods.</li>
+<li>Convex sets and functions</li>
+<li>Constrained optimization:
+<ul class="org-ul">
+<li>Linear programming</li>
+<li>Simplex method</li>
+<li>Duality</li>
+<li>KKT conditions</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline77" class="outline-3">
+<h3 id="orgheadline77"><span class="section-number-3">8.2</span> The Simplex Algorithm</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+He says we should know how it works.
+</p>
+
+<p>
+Let us consider the following linear program:
+</p>
+
+<ul class="org-ul">
+<li>minimize (with respect to x<sub>1</sub>, x<sub>2</sub>) f(x) = 3x<sub>1</sub> - 6x<sub>2</sub>, such that</li>
+<li>x<sub>1</sub> + 2x<sub>2</sub> &ge; -1</li>
+<li>2x<sub>1</sub> + x<sub>2</sub> &ge; 0</li>
+<li>-x<sub>2</sub> + x<sub>1</sub> &ge; -1</li>
+<li>-4x<sub>2</sub> + x<sub>1</sub> &ge; -15</li>
+<li>-4x<sub>1</sub> + x<sub>2</sub> &ge; -23</li>
+<li>x1, x<sub>2</sub> &ge; 0</li>
+</ul>
+
+<p>
+Steps:
+</p>
+<ol class="org-ol">
+<li>Standardize so everything is in [variables] &ge; [constant] form.</li>
+<li>Introduce "slack variables".  Essentially, these are the gap in the
+conditions.  These have to be greater than or equal to 0:
+<ol class="org-ol">
+<li>x<sub>3</sub> = x<sub>1</sub> + 2x<sub>2</sub> + 1</li>
+<li>x<sub>4</sub> = 2x<sub>1</sub> + x<sub>2</sub></li>
+<li>x<sub>5</sub> = -x2 + x<sub>1</sub> + 1</li>
+<li>x<sub>6</sub> = -4x<sub>2</sub> + x<sub>1</sub> + 15</li>
+<li>x<sub>7</sub> = -4x<sub>1</sub> + x<sub>2</sub> + 23</li>
+</ol></li>
+<li><p>
+We can put this stuff into tableu form:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">x<sub>1</sub></td>
+<td class="org-right">x<sub>2</sub></td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>3</sub></td>
+<td class="org-right">1</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>4</sub></td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>5</sub></td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>6</sub></td>
+<td class="org-right">1</td>
+<td class="org-right">-4</td>
+<td class="org-right">13</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>7</sub></td>
+<td class="org-right">-4</td>
+<td class="org-right">1</td>
+<td class="org-right">23</td>
+</tr>
+
+<tr>
+<td class="org-left">2</td>
+<td class="org-right">3</td>
+<td class="org-right">-6</td>
+<td class="org-right">0</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>
+Assume that zero is feasible.  Pick the variable that will decrease the
+objective function (the most?), and change it accordingly.  In this case,
+we choose x<sub>2</sub>.  Then, we write out the constraints, holding x<sub>1</sub> to be 0.
+We find the smallest positive constraint value for x<sub>2</sub>, and choose that.
+Whatever variable caused that constraint, we swap it with x<sub>2</sub>, and make a
+new tableau.
+</p>
+
+<p>
+In this case, x<sub>5</sub> is the blocking constraint, so we pick it.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">x<sub>1</sub></td>
+<td class="org-right">x<sub>5</sub></td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>3</sub></td>
+<td class="org-right">3</td>
+<td class="org-right">-2</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>4</sub></td>
+<td class="org-right">3</td>
+<td class="org-right">-1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>2</sub></td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>6</sub></td>
+<td class="org-right">-3</td>
+<td class="org-right">4</td>
+<td class="org-right">9</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>7</sub></td>
+<td class="org-right">-3</td>
+<td class="org-right">1</td>
+<td class="org-right">24</td>
+</tr>
+
+<tr>
+<td class="org-left">z</td>
+<td class="org-right">-3</td>
+<td class="org-right">6</td>
+<td class="org-right">-6</td>
+</tr>
+</tbody>
+</table></li>
+
+<li><p>
+The value of the function is now -6.  We can see that the right variable
+to decrease now is x<sub>1</sub>.  So, we do the constraints again.  Here, the
+blocking constraint is x<sub>6</sub>, so then we get this tableau:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">x<sub>6</sub></td>
+<td class="org-right">x<sub>5</sub></td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>3</sub></td>
+<td class="org-right">-1</td>
+<td class="org-right">2</td>
+<td class="org-right">12</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>4</sub></td>
+<td class="org-right">-1</td>
+<td class="org-right">3</td>
+<td class="org-right">10</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>2</sub></td>
+<td class="org-right">1/3</td>
+<td class="org-right">1/3</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>1</sub></td>
+<td class="org-right">-1/3</td>
+<td class="org-right">1/3</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-left">x<sub>7</sub></td>
+<td class="org-right">1</td>
+<td class="org-right">-5</td>
+<td class="org-right">15</td>
+</tr>
+
+<tr>
+<td class="org-left">z</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">-15</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The stopping condition is when both variables on top of the columns have
+coefficients that are positive, so you can't improve the function value.
+</p></li>
+</ol>
+
+<p>
+If you have more than one variable that will decrease the function, you can
+choose any variable to decrease, and you will always get to the correct
+solution.  However, some choices will be faster than others.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Stephen Brennan</p>
+<p class="date">Created: 2015-09-26 Sat 03:01</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

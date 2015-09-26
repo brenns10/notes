@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-09-26 Sat 03:01 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>EECS 393 Notes</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Stephen Brennan" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">EECS 393 Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">1. 2015-09-18 Friday</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Information Gathering Techniques</a></li>
+<li><a href="#orgheadline2">1.2. Use Case</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline5">2. 2015-09-16 Wednesday</a>
+<ul>
+<li><a href="#orgheadline4">2.1. Moar Requirements</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">3. 2015-09-11 Friday</a>
+<ul>
+<li><a href="#orgheadline6">3.1. Software Requirements</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">4. 2015-09-09 Wednesday</a>
+<ul>
+<li><a href="#orgheadline8">4.1. Software Process Models</a></li>
+<li><a href="#orgheadline9">4.2. Agile Methods</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">5. 2015-09-02 Wednesday</a>
+<ul>
+<li><a href="#orgheadline11">5.1. Incremental Delivery</a></li>
+<li><a href="#orgheadline12">5.2. Spiral Model</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">6. 2015-08-31-Monday</a>
+<ul>
+<li><a href="#orgheadline14">6.1. Objectives</a></li>
+<li><a href="#orgheadline15">6.2. Inspection Roles</a></li>
+<li><a href="#orgheadline16">6.3. Rules</a></li>
+<li><a href="#orgheadline17">6.4. Checklists</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">7. 2015-08-28 Friday</a>
+<ul>
+<li><a href="#orgheadline19">7.1. Incentive Mismatch</a></li>
+<li><a href="#orgheadline23">7.2. Prototyping</a>
+<ul>
+<li><a href="#orgheadline20">7.2.1. Types of prototyping</a></li>
+<li><a href="#orgheadline21">7.2.2. Operational Prototyping</a></li>
+<li><a href="#orgheadline22">7.2.3. Drawbacks of Prototyping</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline24">7.3. Incremental Delivery</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline33">8. 2015-08-26 Wednesday</a>
+<ul>
+<li><a href="#orgheadline32">8.1. Software Process Models</a>
+<ul>
+<li><a href="#orgheadline26">8.1.1. Anti-model: Build &amp; Fix</a></li>
+<li><a href="#orgheadline30">8.1.2. Basic Waterfall Model</a></li>
+<li><a href="#orgheadline31">8.1.3. Incentive Mismatch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline41">9. 2015-08-24 Monday</a>
+<ul>
+<li><a href="#orgheadline40">9.1. Software Engineering</a>
+<ul>
+<li><a href="#orgheadline34">9.1.1. Goals of Saftware Engineering</a></li>
+<li><a href="#orgheadline37">9.1.2. Aspects of Software Engineering</a></li>
+<li><a href="#orgheadline38">9.1.3. Software Complexity</a></li>
+<li><a href="#orgheadline39">9.1.4. Software Engineering Methodology</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> 2015-09-18 Friday</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Information Gathering Techniques</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Interviews</li>
+<li>Facilitated requirements workshops</li>
+<li>Document analysis.</li>
+<li>Lots of stuff.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Use Case</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Describes a set of related usage scenarios for a software system.</li>
+<li>Not sufficient as a list of functional requirements.</li>
+<li>Can be used in addition to functional requirements.</li>
+<li>Can derive functional requiremnets from each use case.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">2</span> 2015-09-16 Wednesday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Moar Requirements</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Levels of Detail in Requirements Specification
+</p>
+<ul class="org-ul">
+<li>Different audiences want different levels.</li>
+<li>Business requirements: high level, business constraints, etc.</li>
+<li>User requirements: describe what the users need to do.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">3</span> 2015-09-11 Friday</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Software Requirements</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>Properties a software product must exhibit to meet the needs of users.</li>
+<li>Described in a softare requirements specification (SRS) document.</li>
+<li>Should be derived and specified collaboratively w/ customer &amp; devs.</li>
+<li>Process of developing reqirements is called requirements engineering.</li>
+</ul>
+
+<p>
+Consumers of Requirements:
+</p>
+<ul class="org-ul">
+<li>Project sponsors</li>
+<li>Managers</li>
+<li>Users</li>
+<li>Designers</li>
+<li>Programmers</li>
+<li>Testers</li>
+<li>Maintainers</li>
+<li>Trainees</li>
+<li>Documentation writers</li>
+<li>Lawyers ("at the bottom")</li>
+</ul>
+
+<p>
+Functional Requirements
+</p>
+<ul class="org-ul">
+<li>Describe functionality a product must provide.</li>
+<li>Written primarily in natural language.
+<ul class="org-ul">
+<li>Shouldn't use any "technical language".  If any jargon is used, it should
+be the "product domain" jargon, not the software development jargon.</li>
+</ul></li>
+<li>Open to interpretation, can be ambiguous, this should be resolved before
+design.</li>
+<li>For a complex system, could be hundreds or thousands of requirements.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">4</span> 2015-09-09 Wednesday</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+QUIZ TODAY.  Starts at 12:10.  Studying.  Two slide decks from previous
+lectures: Software Process Models and Agile Methods
+</p>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">4.1</span> Software Process Models</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+There are graphics to depict how software is made.
+</p>
+
+<p>
+Models:
+</p>
+<ul class="org-ul">
+<li>Build &amp; Fix (anti): Build first version, modify until client is fixed, and
+maintain.
+<ul class="org-ul">
+<li>No spec, design document.</li>
+<li>Bad for large projects.</li>
+</ul></li>
+<li>Basic Waterfall: Requirements -&gt; Design -&gt; Implementation -&gt; Validation -&gt;
+Maintenance.
+<ul class="org-ul">
+<li>Requirements: what it should do.</li>
+<li>Design: how it will be structured to do it</li>
+</ul></li>
+<li>Waterfall Augmented with Iteration: replace the validation stage with
+"integration", and from maintenance you can update requirements and go back
+to specification, design, implementation, etc.
+<ul class="org-ul">
+<li>Criticisms of Waterfall + Requirements are that they encourage lots of
+bulk and extra features.</li>
+</ul></li>
+<li>Prototyping:
+<ul class="org-ul">
+<li>Throwaway - quick and dirty, focus on the risky stuff first, just to see
+whether the client likes it.
+<ul class="org-ul">
+<li>Prototyping done after outlining requirements, but before specification
+of the actual system.</li>
+</ul></li>
+<li>Evolutionary - basics first to see what the client wants out of it.</li>
+<li>Operational - observer goes to clients with evolutionary prototype.
+Watches clients and develops new throwaway prototypes.  If clients like
+it, he sends the requirements back to the team to create a new
+evolutionary prototype.</li>
+</ul></li>
+<li>Incremental Delivery: basically iterated waterfall
+<ul class="org-ul">
+<li>Get sooner feedback, most important features get most testing.</li>
+<li>Can respond to changing requirements better.</li>
+</ul></li>
+<li>Spiral Model: for high risk projects.  Four stages: objectives, risk
+analysis, development+validation, planning.
+<ul class="org-ul">
+<li>Best when you have high risk, lots of time, and clients in the same
+organization.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.2</span> Agile Methods</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>Aim to respond better to frequent changes, with less emphasis on planning,
+design, and documentation.</li>
+<li>Extreme Programming
+<ul class="org-ul">
+<li>Principles
+<ul class="org-ul">
+<li>Rapid feedback</li>
+<li>Simplicity</li>
+<li>Embracing changes</li>
+<li>Quality work</li>
+</ul></li>
+<li>Practices
+<ul class="org-ul">
+<li>Planning - user stories, cards, prioritize, etc.</li>
+<li>Small releases, working system after just a few releases.  (every few
+days/weeks)</li>
+<li>Metaphors</li>
+<li>Simple design - remove complexity</li>
+<li>TDD</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">5</span> 2015-09-02 Wednesday</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">5.1</span> Incremental Delivery</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>Series of builds, each provides a subset of functionality.</li>
+<li>Each increment follows a pretty standard waterfall design process.</li>
+<li>Very similar to an evolutionary prototype, but with waterfall in each
+increment.</li>
+</ul>
+
+<p>
+Advantages:
+</p>
+
+<ul class="org-ul">
+<li>Client can exploint product functionality sooner.</li>
+<li>Client can adapt gradually.</li>
+<li>Developer gets earlier feedback.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">5.2</span> Spiral Model</h3>
+<div class="outline-text-3" id="text-5-2">
+<ul class="org-ul">
+<li>For mega defense stuff.</li>
+<li>Four phases:
+<ul class="org-ul">
+<li></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">6</span> 2015-08-31-Monday</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+<b>GUEST SPEAKER ON INPSECTIONS</b>
+</p>
+
+<p>
+Why inspect?  To hold your company's code to a standard of excellence by
+finding defects in code before it's shipped.  It also makes developers more
+disciplined in creating code that satisfies your standards.
+</p>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">6.1</span> Objectives</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>Promote completeness and correctness in the product.</li>
+<li>Promote adherence to project style and rules of construction.</li>
+<li>Compliance with the technology practices of the organization.</li>
+<li>Examination of the product from the user's viewpoint as well as the
+producer's.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">6.2</span> Inspection Roles</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>Author - developer responsible for work product.</li>
+<li>Inspectors - inspect work product</li>
+<li>Scribe/Recorder - records the issues</li>
+<li>Moderator - directs preparation and inspection meeting; reports results to
+manager.</li>
+<li>Manager - schedules inspection, assigns moderator and team, manages
+follow-up.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">6.3</span> Rules</h3>
+<div class="outline-text-3" id="text-6-3">
+<ul class="org-ul">
+<li>Manager is not present.</li>
+<li>Inspectors take turns presenting issues.</li>
+<li>Inspectors are tactful.</li>
+<li>Author does not defend work.</li>
+<li>Problems are not solved at the meeting.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">6.4</span> Checklists</h3>
+<div class="outline-text-3" id="text-6-4">
+<ul class="org-ul">
+<li>PEP8</li>
+<li>Useful for reminding inspector of important issues.</li>
+<li>May inhibit them from discovering other issues.</li>
+<li>Perhaps best consulted after first read of work product.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">7</span> 2015-08-28 Friday</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">7.1</span> Incentive Mismatch</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>Schrage claims that requirements create perverse incentives.</li>
+<li>It's easy for a client to build a "wish list" of requirements.</li>
+<li>Developers are paid to implement requirements, so they do it.</li>
+<li>He advocated for "prototyping", and for small requirements.</li>
+<li>He says that it makes clients more likely to accept the result (if it's
+perceived as partly their work as well).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">7.2</span> Prototyping</h3>
+<div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li>A prototype is an incomplete model (typically executable, not just a
+storyboard) of a system.  It's made rapidly based on your initial
+requirements and provided to users for evaluation and feedback.</li>
+<li>Makes it easier to refine and validate the requirements, especially with
+look and feel / UI.</li>
+<li>Also can be good to validate internal design, like performance.</li>
+<li>Focus on the areas of greatest risk for the project.</li>
+<li>To rapidly prototype:
+<ul class="org-ul">
+<li>Omit functionality.</li>
+<li>Ignore non-functional constraints (like efficiency)</li>
+<li>Reuse existing components, use rapid prototyping languages like Python!</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">7.2.1</span> Types of prototyping</h4>
+<div class="outline-text-4" id="text-7-2-1">
+<ul class="org-ul">
+<li><p>
+Throwaway - not built upon later.  It might be pretty awful, but it
+works.
+</p>
+<ul class="org-ul">
+<li>Goal is to build the poorly understood parts first to clarify the</li>
+</ul>
+<p>
+requirements.
+</p></li>
+<li>Evolutionary - will be refined iteratively to create the final product.
+(IT'S SO AGILE!)
+<ul class="org-ul">
+<li>Usually needs refactoring</li>
+<li>Goal is to build the well understood parts first, and uncover any
+unkown requirements as you go, evolving to fit the requirements.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">7.2.2</span> Operational Prototyping</h4>
+<div class="outline-text-4" id="text-7-2-2">
+<ul class="org-ul">
+<li>Combines thrawaway and evolutionary prototyping.</li>
+<li>An evolutionary prototype is constructed and made into a baseline using
+conventional methods.</li>
+<li>Copies of he baseline are sent to multiple customer sites with a trained
+prototyper.</li>
+<li>At each site, the prototyper observes the use of the system and tracks
+feature requests/issues/etc.</li>
+<li>After the observation period, prototyper adds a throwaway prototype on
+top of the baseline, and the user evaluates them.
+<ul class="org-ul">
+<li>If they're ineffective, they are removed.</li>
+<li>If the users like the new prototype, the prototyper submits a change
+request to the development team, and the development team works on the
+evolutionary prototype.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">7.2.3</span> Drawbacks of Prototyping</h4>
+<div class="outline-text-4" id="text-7-2-3">
+<ul class="org-ul">
+<li>You neglect up-front analysis by relying on the customer to provide
+feedback.  There's a bit of a tradeoff here.</li>
+<li>Users might misunderstood the purpose of the prototype:
+<ul class="org-ul">
+<li>Maybe they'll like it too much and keep it, and not finish the contract.</li>
+<li>Maybe they'll think it's bad and lose confidence in the developer.</li>
+</ul></li>
+<li>Can lead to feature creep when you accomodate every feature request.</li>
+<li>Wasted effort prototyping (when you could have drawn on paper, or verbally
+asked, etc&#x2026;).</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">7.3</span> Incremental Delivery</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+This is a "tweak" to evolutionary prototyping.  It's the basis for AGILE.
+</p>
+
+<ul class="org-ul">
+<li>Built + delivered in increments/builds.</li>
+<li>Each increment provides a subset of the system's functionality.</li>
+<li>Services are allocated to increments based on customer's priorities.</li>
+<li>Conventional development process is applied to each increment.  (AGILE
+methods sometimes skimp on this).</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline33" class="outline-2">
+<h2 id="orgheadline33"><span class="section-number-2">8</span> 2015-08-26 Wednesday</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">8.1</span> Software Process Models</h3>
+<div class="outline-text-3" id="text-8-1">
+<ul class="org-ul">
+<li>Graphical models of the software development process.</li>
+<li>Characterize workflow</li>
+<li>Have descriptive and prescriptive purposes
+<ul class="org-ul">
+<li>Some people advocate models that will help you make better software.</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26"><span class="section-number-4">8.1.1</span> Anti-model: Build &amp; Fix</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<ul class="org-ul">
+<li>Build first version</li>
+<li>Modify until client is satisfied</li>
+</ul>
+
+<p>
+Problems with this:
+</p>
+
+<ul class="org-ul">
+<li>Product is implemented without specification or design documents. (!)
+<ul class="org-ul">
+<li>Lack of planning&#x2026; it sucks.</li>
+</ul></li>
+<li>Reworked until the client is satisfied.
+<ul class="org-ul">
+<li>This is a moving target.</li>
+</ul></li>
+<li>Works poorly for large products.</li>
+<li>Maintenance is likely to be very difficult.</li>
+</ul>
+
+<p>
+Ways to improve:
+</p>
+
+<ul class="org-ul">
+<li>Add a requirements document.</li>
+<li>Add a planning stage.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30"><span class="section-number-4">8.1.2</span> Basic Waterfall Model</h4>
+<div class="outline-text-4" id="text-8-1-2">
+<ul class="org-ul">
+<li>Phases: (this is kinda a combination of multiple slides)
+<ul class="org-ul">
+<li>Requirements
+<ul class="org-ul">
+<li>Elicitation and analysis: determine what it should do.  This is a good
+time to meet with a client and help them describe exactly what their
+software should do.</li>
+<li>Specification: after your analysis, you write a specification of what
+the software should do.  Called SRS</li>
+</ul></li>
+<li>Design: intermediate between requirements and implementation.  Describes
+the structure and behavior in a way that satisfies the requirements, but
+doesn't actually implement it.</li>
+<li>Implementation: coding yo.</li>
+<li>Validation: the set of activities that you do to make sure you deliver
+the right product.
+<ul class="org-ul">
+<li>Testing!!</li>
+<li>Previews for customer to make sure they're satisfied.</li>
+<li>Integration - combining the components into a working system.</li>
+<li>Deployment - send out teh binaries</li>
+</ul></li>
+<li>Maintenance: repair, adapt, or enhance the system as needed.</li>
+</ul></li>
+<li>Pretty much all software development models will contain some variation of
+these phases, but not necessarily in the same order, or linearly.</li>
+<li>Stage called "Verification" is for formal reasoning and proofs of
+correction.</li>
+</ul>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline27"></a>Waterfall Augmented With Iteration<br  /><div class="outline-text-5" id="text-8-1-2-1">
+<ul class="org-ul">
+<li>Basically adds a whole bunch of transitions, to make maintenance more
+nice.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline28"></a>Waterfall  Advantages<br  /><div class="outline-text-5" id="text-8-1-2-2">
+<ul class="org-ul">
+<li>It is disciplined, if you do it right.  Which is much better than just
+"build and fix."</li>
+<li>If you're careful, the analysis+docs can prevent costly problems later.</li>
+<li>Documentation typically fall out of date, so it takes a ton of effort to
+"be careful".</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline29"></a>Waterfall Disadvantages<br  /><div class="outline-text-5" id="text-8-1-2-3">
+<ul class="org-ul">
+<li>Difficult to convey dynamics of a system in a document.</li>
+<li>Customers often can't tell what they want/don't want until they see it.</li>
+<li>Requirements can also change for reasons other than shifting wants.</li>
+<li>Sometimes you only really understand the requirements when you try to
+implement them.</li>
+<li>Diffcult to assess your progress until some things are implemented.</li>
+</ul>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-4">
+<h4 id="orgheadline31"><span class="section-number-4">8.1.3</span> Incentive Mismatch</h4>
+<div class="outline-text-4" id="text-8-1-3">
+<ul class="org-ul">
+<li>Schrage claims requirements create perverse incentives for clients to:
+<ul class="org-ul">
+<li>Avoid rigorous thinking about cost, change, priorities, and risk.</li>
+<li>Delegate hard design decisions to software developers.</li>
+</ul></li>
+<li>It's easy and inexpensive to come up with many requirements.  They're
+"wishes".  It's easy.</li>
+<li>Developers are rewarded for building to requirements.</li>
+<li>Not rewarded for finding and removing requirements.</li>
+<li>Schrage argues for quick prototypes based on few requirements.
+<ul class="org-ul">
+<li>"Never go to a client meeting without a prototype."</li>
+<li>This fosters ongoing client interaction in development.</li>
+<li>Clients are also less likely to reject their own work.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline41" class="outline-2">
+<h2 id="orgheadline41"><span class="section-number-2">9</span> 2015-08-24 Monday</h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>I'm definitely going to switch to undergrad version of this class.</li>
+<li>Quizzes - 60%</li>
+<li>Project - 40%.</li>
+<li>"Try" to get 8-10 quizzes.</li>
+<li>Drop 2 lowest quizzes.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40"><span class="section-number-3">9.1</span> Software Engineering</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+Multiple meanings:
+</p>
+
+<ul class="org-ul">
+<li>Application of engineering principles to software development.  Whatever
+those "engineering principles" are.
+<ul class="org-ul">
+<li>NATO stuff - many NATO countries had to do military software dev.</li>
+<li>They held a conference to solve their problems by applying engineering
+practices.</li>
+<li>Specification documents, etc.</li>
+</ul></li>
+<li>Name of the software engineering practice.</li>
+<li>Something else</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-4">
+<h4 id="orgheadline34"><span class="section-number-4">9.1.1</span> Goals of Saftware Engineering</h4>
+<div class="outline-text-4" id="text-9-1-1">
+<p>
+To produce, as quickly and inexpensively as possible, software that is:
+</p>
+
+<ul class="org-ul">
+<li>Easy to use</li>
+<li>Reliable</li>
+<li>Something</li>
+<li>Straightforward to maintain, adapt, and enhance</li>
+<li>Secure (lol)</li>
+</ul>
+
+<p>
+Generally most of software engineering is actually maintaining, adapting,
+and enhancing.  Not constructing.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37"><span class="section-number-4">9.1.2</span> Aspects of Software Engineering</h4>
+<div class="outline-text-4" id="text-9-1-2">
+</div><ol class="org-ol"><li><a id="orgheadline35"></a>Technical<br  /><div class="outline-text-5" id="text-9-1-2-1">
+<ul class="org-ul">
+<li>Specification - creating a document that says exactly what a software or
+subsystem will do.</li>
+<li>Design - taking a specification and coming up with a "design" that will
+do what the spec says.  Design is high level (not code), like UML, etc.</li>
+<li>Programming - taking the design and putting it into code.</li>
+<li>Inspection and Testing</li>
+<li>Static &amp; dynamic analysis</li>
+<li>Debugging</li>
+<li>Maintenance</li>
+<li>Configuration management</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline36"></a>Non-Technical<br  /><div class="outline-text-5" id="text-9-1-2-2">
+<ul class="org-ul">
+<li>Project management</li>
+<li>Psychology
+<ul class="org-ul">
+<li>cognitive, behavioral, organization</li>
+</ul></li>
+<li>Law
+<ul class="org-ul">
+<li>contracts, liability, intellectual property</li>
+</ul></li>
+</ul>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-4">
+<h4 id="orgheadline38"><span class="section-number-4">9.1.3</span> Software Complexity</h4>
+<div class="outline-text-4" id="text-9-1-3">
+<p>
+Primary issue for software dev: complexity:
+</p>
+
+<ul class="org-ul">
+<li>problem complexity</li>
+<li>design/implementation complexity</li>
+<li>platform complexity</li>
+</ul>
+
+<p>
+Large systems are among the most complex things produced by humans.
+(e.g. Windows 8.1 - 80 million lines of code).
+</p>
+
+<ul class="org-ul">
+<li>Complex systems are difficult to understand, produce, and maintain.</li>
+<li>They rarely satisfy every need, and the needs often are a moving target.</li>
+<li>They always contain "residual defects" that you don't know about.</li>
+<li>Many SD projects are late and over budget.
+<ul class="org-ul">
+<li>Some just never complete.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-4">
+<h4 id="orgheadline39"><span class="section-number-4">9.1.4</span> Software Engineering Methodology</h4>
+<div class="outline-text-4" id="text-9-1-4">
+<ul class="org-ul">
+<li>Broad collection of techniques and tools addressing each phase of software
+development.</li>
+<li>Continually evolving</li>
+<li>Specialized for subfields:
+<ul class="org-ul">
+<li>Web</li>
+<li>Real-time</li>
+<li>Health</li>
+</ul></li>
+<li>Influential methods:
+<ul class="org-ul">
+<li>OO</li>
+<li>TDD</li>
+<li>Agile</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Stephen Brennan</p>
+<p class="date">Created: 2015-09-26 Sat 03:01</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
