@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-26 Sat 04:11 -->
+<!-- 2015-09-26 Sat 04:16 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>PHIL 201 Notes</title>
@@ -94,6 +94,12 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -161,7 +167,7 @@ for the JavaScript code in this tag.
 });
 </script>
 <script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        src="http://orgmode.org/mathjax/MathJax.js"></script>
 </head>
 <body>
 <div id="content">
@@ -189,6 +195,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline11">9. 2015-09-11 Friday</a></li>
 <li><a href="#orgheadline12">10. 2015-09-13 Monday</a></li>
 <li><a href="#orgheadline13">11. 2015-09-15 Wednesday</a></li>
+<li><a href="#orgheadline14">12. 2015-09-25 Friday</a></li>
 </ul>
 </div>
 </div>
@@ -756,10 +763,120 @@ false.  That is, (A &rarr; (B &amp; C)) and (A &rarr; C).
 </ul>
 </div>
 </div>
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">12</span> 2015-09-25 Friday</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+There are logic sentences on the board.
+</p>
+
+<ul class="org-ul">
+<li>\((A \lor B) \to C\)</li>
+<li>\(D \to E\)</li>
+<li>\(E \to B\)</li>
+<li>&there4; ~C &rarr; ~D (negate to ~(~C&rarr;~D))</li>
+
+<li>(A &or; B) &rarr; C
+<ul class="org-ul">
+<li>~(A &or; B)
+<ul class="org-ul">
+<li>~A, ~B.  Now, D &rarr; E
+<ul class="org-ul">
+<li>~D: E &rarr; B
+<ul class="org-ul">
+<li>~E : ~(~C &rarr; ~D)
+<ul class="org-ul">
+<li>~C, D: FALSE</li>
+</ul></li>
+<li>B : ~(~C &rarr; ~D)
+<ul class="org-ul">
+<li>~C, D: FALSE</li>
+</ul></li>
+</ul></li>
+<li>E: E &rarr; B
+<ul class="org-ul">
+<li>~E: FALSE</li>
+<li>B: FALSE</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>C: Now, D &rarr; E
+<ul class="org-ul">
+<li>more stuff</li>
+</ul></li>
+</ul></li>
+
+<li>Should start with the tree that doesn't branch.</li>
+<li>Then go to sentences that look like they'll have conflicts.</li>
+
+<li>A &rarr; (B &or; C)</li>
+<li>B &rarr; (D &amp; E)</li>
+<li>~(A &rarr; D)</li>
+
+<li>A, ~D: go to A &rarr; (B &or; C)
+<ul class="org-ul">
+<li>~A FALSE</li>
+<li>B &or; C
+<ul class="org-ul">
+<li>B: B &rarr; (D &amp; E)
+<ul class="org-ul">
+<li>~B FALSE</li>
+<li>D &amp; E
+<ul class="org-ul">
+<li>D, E: FALSE (~D)</li>
+</ul></li>
+</ul></li>
+<li>C: B &rarr; (D &amp; E)
+<ul class="org-ul">
+<li>~B: TRUE</li>
+<li>D &amp; E</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+Set A, ~B, C, ~D
+</p>
+
+<p>
+A &equiv; (B &or; C)
+C &equiv; (A &amp; ~B)
+</p>
+
+<ul class="org-ul">
+<li>A, (B &or; C)
+<ul class="org-ul">
+<li>B: C &equiv; (A &amp; ~B)
+<ul class="org-ul">
+<li>C, (A &amp; ~B)
+<ul class="org-ul">
+<li>A, ~B: FALSE</li>
+</ul></li>
+<li>~C, ~(A &amp; ~B)
+<ul class="org-ul">
+<li>~A, B: FALSE</li>
+</ul></li>
+</ul></li>
+<li>C:
+<ul class="org-ul">
+<li>C, (A &amp; ~B)
+<ul class="org-ul">
+<li>A, ~B: TRUE</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+Set A, C, ~B
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-09-26 Sat 04:11</p>
+<p class="date">Created: 2015-09-26 Sat 04:16</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

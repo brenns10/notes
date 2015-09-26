@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-26 Sat 04:11 -->
+<!-- 2015-09-26 Sat 04:16 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 393 Notes</title>
@@ -94,6 +94,12 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -148,74 +154,90 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline3">1. 2015-09-18 Friday</a>
+<li><a href="#orgheadline14">1. 2015-09-25 Friday</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Information Gathering Techniques</a></li>
-<li><a href="#orgheadline2">1.2. Use Case</a></li>
+<li><a href="#orgheadline10">1.1. What are Requirements?</a>
+<ul>
+<li><a href="#orgheadline1">1.1.1. Functional Requirements</a></li>
+<li><a href="#orgheadline2">1.1.2. Non-Functional Requirements</a></li>
+<li><a href="#orgheadline3">1.1.3. Requirements vs Design</a></li>
+<li><a href="#orgheadline4">1.1.4. Design Patterns in Requirements</a></li>
+<li><a href="#orgheadline9">1.1.5. Detail</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline5">2. 2015-09-16 Wednesday</a>
-<ul>
-<li><a href="#orgheadline4">2.1. Moar Requirements</a></li>
+<li><a href="#orgheadline11">1.2. Software Features</a></li>
+<li><a href="#orgheadline12">1.3. Properties of Good SRS</a></li>
+<li><a href="#orgheadline13">1.4. Requirements Engineering</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline7">3. 2015-09-11 Friday</a>
+<li><a href="#orgheadline17">2. 2015-09-18 Friday</a>
 <ul>
-<li><a href="#orgheadline6">3.1. Software Requirements</a></li>
+<li><a href="#orgheadline15">2.1. Information Gathering Techniques</a></li>
+<li><a href="#orgheadline16">2.2. Use Case</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline10">4. 2015-09-09 Wednesday</a>
+<li><a href="#orgheadline19">3. 2015-09-16 Wednesday</a>
 <ul>
-<li><a href="#orgheadline8">4.1. Software Process Models</a></li>
-<li><a href="#orgheadline9">4.2. Agile Methods</a></li>
+<li><a href="#orgheadline18">3.1. Moar Requirements</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline13">5. 2015-09-02 Wednesday</a>
+<li><a href="#orgheadline21">4. 2015-09-11 Friday</a>
 <ul>
-<li><a href="#orgheadline11">5.1. Incremental Delivery</a></li>
-<li><a href="#orgheadline12">5.2. Spiral Model</a></li>
+<li><a href="#orgheadline20">4.1. Software Requirements</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline18">6. 2015-08-31-Monday</a>
+<li><a href="#orgheadline24">5. 2015-09-09 Wednesday</a>
 <ul>
-<li><a href="#orgheadline14">6.1. Objectives</a></li>
-<li><a href="#orgheadline15">6.2. Inspection Roles</a></li>
-<li><a href="#orgheadline16">6.3. Rules</a></li>
-<li><a href="#orgheadline17">6.4. Checklists</a></li>
+<li><a href="#orgheadline22">5.1. Software Process Models</a></li>
+<li><a href="#orgheadline23">5.2. Agile Methods</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline25">7. 2015-08-28 Friday</a>
+<li><a href="#orgheadline27">6. 2015-09-02 Wednesday</a>
 <ul>
-<li><a href="#orgheadline19">7.1. Incentive Mismatch</a></li>
-<li><a href="#orgheadline23">7.2. Prototyping</a>
-<ul>
-<li><a href="#orgheadline20">7.2.1. Types of prototyping</a></li>
-<li><a href="#orgheadline21">7.2.2. Operational Prototyping</a></li>
-<li><a href="#orgheadline22">7.2.3. Drawbacks of Prototyping</a></li>
+<li><a href="#orgheadline25">6.1. Incremental Delivery</a></li>
+<li><a href="#orgheadline26">6.2. Spiral Model</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline24">7.3. Incremental Delivery</a></li>
+<li><a href="#orgheadline32">7. 2015-08-31-Monday</a>
+<ul>
+<li><a href="#orgheadline28">7.1. Objectives</a></li>
+<li><a href="#orgheadline29">7.2. Inspection Roles</a></li>
+<li><a href="#orgheadline30">7.3. Rules</a></li>
+<li><a href="#orgheadline31">7.4. Checklists</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline33">8. 2015-08-26 Wednesday</a>
+<li><a href="#orgheadline39">8. 2015-08-28 Friday</a>
 <ul>
-<li><a href="#orgheadline32">8.1. Software Process Models</a>
+<li><a href="#orgheadline33">8.1. Incentive Mismatch</a></li>
+<li><a href="#orgheadline37">8.2. Prototyping</a>
 <ul>
-<li><a href="#orgheadline26">8.1.1. Anti-model: Build &amp; Fix</a></li>
-<li><a href="#orgheadline30">8.1.2. Basic Waterfall Model</a></li>
-<li><a href="#orgheadline31">8.1.3. Incentive Mismatch</a></li>
+<li><a href="#orgheadline34">8.2.1. Types of prototyping</a></li>
+<li><a href="#orgheadline35">8.2.2. Operational Prototyping</a></li>
+<li><a href="#orgheadline36">8.2.3. Drawbacks of Prototyping</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline38">8.3. Incremental Delivery</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline47">9. 2015-08-26 Wednesday</a>
+<ul>
+<li><a href="#orgheadline46">9.1. Software Process Models</a>
+<ul>
+<li><a href="#orgheadline40">9.1.1. Anti-model: Build &amp; Fix</a></li>
+<li><a href="#orgheadline44">9.1.2. Basic Waterfall Model</a></li>
+<li><a href="#orgheadline45">9.1.3. Incentive Mismatch</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline41">9. 2015-08-24 Monday</a>
+<li><a href="#orgheadline55">10. 2015-08-24 Monday</a>
 <ul>
-<li><a href="#orgheadline40">9.1. Software Engineering</a>
+<li><a href="#orgheadline54">10.1. Software Engineering</a>
 <ul>
-<li><a href="#orgheadline34">9.1.1. Goals of Saftware Engineering</a></li>
-<li><a href="#orgheadline37">9.1.2. Aspects of Software Engineering</a></li>
-<li><a href="#orgheadline38">9.1.3. Software Complexity</a></li>
-<li><a href="#orgheadline39">9.1.4. Software Engineering Methodology</a></li>
+<li><a href="#orgheadline48">10.1.1. Goals of Saftware Engineering</a></li>
+<li><a href="#orgheadline51">10.1.2. Aspects of Software Engineering</a></li>
+<li><a href="#orgheadline52">10.1.3. Software Complexity</a></li>
+<li><a href="#orgheadline53">10.1.4. Software Engineering Methodology</a></li>
 </ul>
 </li>
 </ul>
@@ -224,12 +246,191 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">1</span> 2015-09-18 Friday</h2>
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">1</span> 2015-09-25 Friday</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Information Gathering Techniques</h3>
+<p>
+Uh oh, there's a quiz today!  Better take notes on the last couple weeks of
+stuff.  The material is essentially from last quiz (9/9) on.  Which appears to
+be simply software requirements.  Let's gogogogo.
+</p>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">1.1</span> What are Requirements?</h3>
 <div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Properties your software must exhibit to meet needs (of users).</li>
+<li>SRS = software requirements specification</li>
+<li>Derived collaboratively: customer + devs</li>
+<li>Process = req engineering</li>
+<li>Lots of people use requirements!  Not just developers and customers, but
+management, lawyers, documenters, etc.  And users.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-4">
+<h4 id="orgheadline1"><span class="section-number-4">1.1.1</span> Functional Requirements</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<ul class="org-ul">
+<li>Describe functionality for users.</li>
+<li>Use natural language + problem domain.</li>
+<li>Can be a bit ambiguous, interpretable.</li>
+<li>Can have hundreds or thousands.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2"><span class="section-number-4">1.1.2</span> Non-Functional Requirements</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<ul class="org-ul">
+<li>All the other requirements</li>
+<li>Types:
+<ul class="org-ul">
+<li>Usability</li>
+<li>Reliability</li>
+<li>Availability</li>
+<li>Efficiency/performance</li>
+<li>Security</li>
+<li>Hardware/software constraints</li>
+<li>Portability</li>
+<li>Compliance</li>
+<li>Certification</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">1.1.3</span> Requirements vs Design</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<ul class="org-ul">
+<li>You don't want to include "design" stuff in the SRS.
+<ul class="org-ul">
+<li>Requirements = what, not how</li>
+<li>Don't want unnecessary constraints on the implementers.</li>
+</ul></li>
+<li>However, gotta be careful not to make your requirements too abstract.  You
+need <i>some</i> details after all.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">1.1.4</span> Design Patterns in Requirements</h4>
+<div class="outline-text-4" id="text-1-1-4">
+<ul class="org-ul">
+<li>Design pattern = reusable solution to a recurring problem.</li>
+<li>Requirements should have "architectural design patterns"</li>
+<li>They will raise specific questions about what the product's requirements
+ore.</li>
+<li>For instance, if you have a web site for a music store, it raises a lot of
+questions about the website that help clarify your requirements.</li>
+<li>Much better than if you hadn't specified the "web store" design pattern.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">1.1.5</span> Detail</h4>
+<div class="outline-text-4" id="text-1-1-5">
+<ul class="org-ul">
+<li>Different levels for different people.</li>
+<li>Different goals depending on who you're targeting.</li>
+</ul>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline5"></a>Business Requirements<br  /><div class="outline-text-5" id="text-1-1-5-1">
+<ul class="org-ul">
+<li>High level</li>
+<li>They are about business objectives.</li>
+<li>Not much about the specific functionality.</li>
+<li>EG: what are your goals with the software.  What business problem will
+you solve, or objective will you satisfy.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline6"></a>User Requirements<br  /><div class="outline-text-5" id="text-1-1-5-2">
+<ul class="org-ul">
+<li>Describe tasks that users will accomplish.</li>
+<li>You may have multiple user requirements that will relate to one business
+requirement.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline7"></a>Functional/Non-Functional<br  /><div class="outline-text-5" id="text-1-1-5-3">
+<ul class="org-ul">
+<li>These are the most detailed requirements.</li>
+<li>They describe functionality that satisfies user requirements.</li>
+<li>Probably you'll get multiple F/NF reqs for a single User req.</li>
+</ul>
+</div></li>
+
+<li><a id="orgheadline8"></a>Overall<br  /><div class="outline-text-5" id="text-1-1-5-4">
+<p>
+In essence, you use the business needs, or marketing information, to get
+business requirements.  From there, you come up with the user requirements
+to satisfy those, and then you make F/NF requriments that satisfy each user
+requirement.
+</p>
+</div></li></ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">1.2</span> Software Features</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Groups of related FR's.</li>
+<li>May influence customers to choose your product.</li>
+<li>probably used in marketing.</li>
+<li>Feature tree</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">1.3</span> Properties of Good SRS</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Complete - nothing missing.</li>
+<li>Correct</li>
+<li>Feasible - it should be possible to create the system in the available
+resources and time.</li>
+<li>Unambiguous - as much as possible :D</li>
+<li>Consistent - no conflicts</li>
+<li>Validateable - should be easy to say whether each requirement is satisfied.</li>
+<li>Modifiable - you should be able to easily revise it with structure, labels,
+stuff.</li>
+<li>Traceable - each requirement should be linked back to its origin, and
+froward to its design elements.  And the source code that implements it.
+And the test cases that exercise it.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">1.4</span> Requirements Engineering</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>Identify use cases</li>
+<li>Analyze info from users.</li>
+<li>Allocate requirements to top level components.</li>
+<li>Negotiating priorities</li>
+<li>Documenting the requirements (creating SRS)</li>
+<li>Reviewing requirements to ensure everyone understands.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">2</span> 2015-09-18 Friday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">2.1</span> Information Gathering Techniques</h3>
+<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Interviews</li>
 <li>Facilitated requirements workshops</li>
@@ -239,9 +440,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Use Case</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">2.2</span> Use Case</h3>
+<div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li>Describes a set of related usage scenarios for a software system.</li>
 <li>Not sufficient as a list of functional requirements.</li>
@@ -252,12 +453,12 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">2</span> 2015-09-16 Wednesday</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Moar Requirements</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">3</span> 2015-09-16 Wednesday</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">3.1</span> Moar Requirements</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Levels of Detail in Requirements Specification
 </p>
@@ -270,12 +471,12 @@ Levels of Detail in Requirements Specification
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">3</span> 2015-09-11 Friday</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Software Requirements</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">4</span> 2015-09-11 Friday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">4.1</span> Software Requirements</h3>
+<div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>Properties a software product must exhibit to meet the needs of users.</li>
 <li>Described in a softare requirements specification (SRS) document.</li>
@@ -317,18 +518,18 @@ design.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10"><span class="section-number-2">4</span> 2015-09-09 Wednesday</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">5</span> 2015-09-09 Wednesday</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 QUIZ TODAY.  Starts at 12:10.  Studying.  Two slide decks from previous
 lectures: Software Process Models and Agile Methods
 </p>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">4.1</span> Software Process Models</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">5.1</span> Software Process Models</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 There are graphics to depict how software is made.
 </p>
@@ -385,9 +586,9 @@ organization.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">4.2</span> Agile Methods</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">5.2</span> Agile Methods</h3>
+<div class="outline-text-3" id="text-5-2">
 <ul class="org-ul">
 <li>Aim to respond better to frequent changes, with less emphasis on planning,
 design, and documentation.</li>
@@ -414,12 +615,12 @@ days/weeks)</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13"><span class="section-number-2">5</span> 2015-09-02 Wednesday</h2>
-<div class="outline-text-2" id="text-5">
-</div><div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">5.1</span> Incremental Delivery</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">6</span> 2015-09-02 Wednesday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">6.1</span> Incremental Delivery</h3>
+<div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li>Series of builds, each provides a subset of functionality.</li>
 <li>Each increment follows a pretty standard waterfall design process.</li>
@@ -439,9 +640,9 @@ Advantages:
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">5.2</span> Spiral Model</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">6.2</span> Spiral Model</h3>
+<div class="outline-text-3" id="text-6-2">
 <ul class="org-ul">
 <li>For mega defense stuff.</li>
 <li>Four phases:
@@ -452,9 +653,9 @@ Advantages:
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline18" class="outline-2">
-<h2 id="orgheadline18"><span class="section-number-2">6</span> 2015-08-31-Monday</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgheadline32" class="outline-2">
+<h2 id="orgheadline32"><span class="section-number-2">7</span> 2015-08-31-Monday</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 <b>GUEST SPEAKER ON INPSECTIONS</b>
 </p>
@@ -466,9 +667,9 @@ disciplined in creating code that satisfies your standards.
 </p>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">6.1</span> Objectives</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgheadline28" class="outline-3">
+<h3 id="orgheadline28"><span class="section-number-3">7.1</span> Objectives</h3>
+<div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>Promote completeness and correctness in the product.</li>
 <li>Promote adherence to project style and rules of construction.</li>
@@ -479,9 +680,9 @@ producer's.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15"><span class="section-number-3">6.2</span> Inspection Roles</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">7.2</span> Inspection Roles</h3>
+<div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>Author - developer responsible for work product.</li>
 <li>Inspectors - inspect work product</li>
@@ -494,9 +695,9 @@ follow-up.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">6.3</span> Rules</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">7.3</span> Rules</h3>
+<div class="outline-text-3" id="text-7-3">
 <ul class="org-ul">
 <li>Manager is not present.</li>
 <li>Inspectors take turns presenting issues.</li>
@@ -507,9 +708,9 @@ follow-up.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17"><span class="section-number-3">6.4</span> Checklists</h3>
-<div class="outline-text-3" id="text-6-4">
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">7.4</span> Checklists</h3>
+<div class="outline-text-3" id="text-7-4">
 <ul class="org-ul">
 <li>PEP8</li>
 <li>Useful for reminding inspector of important issues.</li>
@@ -519,12 +720,12 @@ follow-up.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline25" class="outline-2">
-<h2 id="orgheadline25"><span class="section-number-2">7</span> 2015-08-28 Friday</h2>
-<div class="outline-text-2" id="text-7">
-</div><div id="outline-container-orgheadline19" class="outline-3">
-<h3 id="orgheadline19"><span class="section-number-3">7.1</span> Incentive Mismatch</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgheadline39" class="outline-2">
+<h2 id="orgheadline39"><span class="section-number-2">8</span> 2015-08-28 Friday</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">8.1</span> Incentive Mismatch</h3>
+<div class="outline-text-3" id="text-8-1">
 <ul class="org-ul">
 <li>Schrage claims that requirements create perverse incentives.</li>
 <li>It's easy for a client to build a "wish list" of requirements.</li>
@@ -536,9 +737,9 @@ perceived as partly their work as well).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline23" class="outline-3">
-<h3 id="orgheadline23"><span class="section-number-3">7.2</span> Prototyping</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37"><span class="section-number-3">8.2</span> Prototyping</h3>
+<div class="outline-text-3" id="text-8-2">
 <ul class="org-ul">
 <li>A prototype is an incomplete model (typically executable, not just a
 storyboard) of a system.  It's made rapidly based on your initial
@@ -556,9 +757,9 @@ look and feel / UI.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-4">
-<h4 id="orgheadline20"><span class="section-number-4">7.2.1</span> Types of prototyping</h4>
-<div class="outline-text-4" id="text-7-2-1">
+<div id="outline-container-orgheadline34" class="outline-4">
+<h4 id="orgheadline34"><span class="section-number-4">8.2.1</span> Types of prototyping</h4>
+<div class="outline-text-4" id="text-8-2-1">
 <ul class="org-ul">
 <li><p>
 Throwaway - not built upon later.  It might be pretty awful, but it
@@ -581,9 +782,9 @@ unkown requirements as you go, evolving to fit the requirements.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-4">
-<h4 id="orgheadline21"><span class="section-number-4">7.2.2</span> Operational Prototyping</h4>
-<div class="outline-text-4" id="text-7-2-2">
+<div id="outline-container-orgheadline35" class="outline-4">
+<h4 id="orgheadline35"><span class="section-number-4">8.2.2</span> Operational Prototyping</h4>
+<div class="outline-text-4" id="text-8-2-2">
 <ul class="org-ul">
 <li>Combines thrawaway and evolutionary prototyping.</li>
 <li>An evolutionary prototype is constructed and made into a baseline using
@@ -604,9 +805,9 @@ evolutionary prototype.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-4">
-<h4 id="orgheadline22"><span class="section-number-4">7.2.3</span> Drawbacks of Prototyping</h4>
-<div class="outline-text-4" id="text-7-2-3">
+<div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">8.2.3</span> Drawbacks of Prototyping</h4>
+<div class="outline-text-4" id="text-8-2-3">
 <ul class="org-ul">
 <li>You neglect up-front analysis by relying on the customer to provide
 feedback.  There's a bit of a tradeoff here.</li>
@@ -623,9 +824,9 @@ asked, etc&#x2026;).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-3">
-<h3 id="orgheadline24"><span class="section-number-3">7.3</span> Incremental Delivery</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">8.3</span> Incremental Delivery</h3>
+<div class="outline-text-3" id="text-8-3">
 <p>
 This is a "tweak" to evolutionary prototyping.  It's the basis for AGILE.
 </p>
@@ -640,12 +841,12 @@ methods sometimes skimp on this).</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline33" class="outline-2">
-<h2 id="orgheadline33"><span class="section-number-2">8</span> 2015-08-26 Wednesday</h2>
-<div class="outline-text-2" id="text-8">
-</div><div id="outline-container-orgheadline32" class="outline-3">
-<h3 id="orgheadline32"><span class="section-number-3">8.1</span> Software Process Models</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgheadline47" class="outline-2">
+<h2 id="orgheadline47"><span class="section-number-2">9</span> 2015-08-26 Wednesday</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46"><span class="section-number-3">9.1</span> Software Process Models</h3>
+<div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li>Graphical models of the software development process.</li>
 <li>Characterize workflow</li>
@@ -656,9 +857,9 @@ methods sometimes skimp on this).</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline26" class="outline-4">
-<h4 id="orgheadline26"><span class="section-number-4">8.1.1</span> Anti-model: Build &amp; Fix</h4>
-<div class="outline-text-4" id="text-8-1-1">
+<div id="outline-container-orgheadline40" class="outline-4">
+<h4 id="orgheadline40"><span class="section-number-4">9.1.1</span> Anti-model: Build &amp; Fix</h4>
+<div class="outline-text-4" id="text-9-1-1">
 <ul class="org-ul">
 <li>Build first version</li>
 <li>Modify until client is satisfied</li>
@@ -692,9 +893,9 @@ Ways to improve:
 </div>
 </div>
 
-<div id="outline-container-orgheadline30" class="outline-4">
-<h4 id="orgheadline30"><span class="section-number-4">8.1.2</span> Basic Waterfall Model</h4>
-<div class="outline-text-4" id="text-8-1-2">
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44"><span class="section-number-4">9.1.2</span> Basic Waterfall Model</h4>
+<div class="outline-text-4" id="text-9-1-2">
 <ul class="org-ul">
 <li>Phases: (this is kinda a combination of multiple slides)
 <ul class="org-ul">
@@ -727,14 +928,14 @@ correction.</li>
 </ul>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline27"></a>Waterfall Augmented With Iteration<br  /><div class="outline-text-5" id="text-8-1-2-1">
+<ol class="org-ol"><li><a id="orgheadline41"></a>Waterfall Augmented With Iteration<br  /><div class="outline-text-5" id="text-9-1-2-1">
 <ul class="org-ul">
 <li>Basically adds a whole bunch of transitions, to make maintenance more
 nice.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline28"></a>Waterfall  Advantages<br  /><div class="outline-text-5" id="text-8-1-2-2">
+<li><a id="orgheadline42"></a>Waterfall  Advantages<br  /><div class="outline-text-5" id="text-9-1-2-2">
 <ul class="org-ul">
 <li>It is disciplined, if you do it right.  Which is much better than just
 "build and fix."</li>
@@ -744,7 +945,7 @@ nice.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline29"></a>Waterfall Disadvantages<br  /><div class="outline-text-5" id="text-8-1-2-3">
+<li><a id="orgheadline43"></a>Waterfall Disadvantages<br  /><div class="outline-text-5" id="text-9-1-2-3">
 <ul class="org-ul">
 <li>Difficult to convey dynamics of a system in a document.</li>
 <li>Customers often can't tell what they want/don't want until they see it.</li>
@@ -756,9 +957,9 @@ implement them.</li>
 </div></li></ol>
 </div>
 
-<div id="outline-container-orgheadline31" class="outline-4">
-<h4 id="orgheadline31"><span class="section-number-4">8.1.3</span> Incentive Mismatch</h4>
-<div class="outline-text-4" id="text-8-1-3">
+<div id="outline-container-orgheadline45" class="outline-4">
+<h4 id="orgheadline45"><span class="section-number-4">9.1.3</span> Incentive Mismatch</h4>
+<div class="outline-text-4" id="text-9-1-3">
 <ul class="org-ul">
 <li>Schrage claims requirements create perverse incentives for clients to:
 <ul class="org-ul">
@@ -780,9 +981,9 @@ implement them.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline41" class="outline-2">
-<h2 id="orgheadline41"><span class="section-number-2">9</span> 2015-08-24 Monday</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-orgheadline55" class="outline-2">
+<h2 id="orgheadline55"><span class="section-number-2">10</span> 2015-08-24 Monday</h2>
+<div class="outline-text-2" id="text-10">
 <ul class="org-ul">
 <li>I'm definitely going to switch to undergrad version of this class.</li>
 <li>Quizzes - 60%</li>
@@ -792,9 +993,9 @@ implement them.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline40" class="outline-3">
-<h3 id="orgheadline40"><span class="section-number-3">9.1</span> Software Engineering</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54"><span class="section-number-3">10.1</span> Software Engineering</h3>
+<div class="outline-text-3" id="text-10-1">
 <p>
 Multiple meanings:
 </p>
@@ -813,9 +1014,9 @@ practices.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline34" class="outline-4">
-<h4 id="orgheadline34"><span class="section-number-4">9.1.1</span> Goals of Saftware Engineering</h4>
-<div class="outline-text-4" id="text-9-1-1">
+<div id="outline-container-orgheadline48" class="outline-4">
+<h4 id="orgheadline48"><span class="section-number-4">10.1.1</span> Goals of Saftware Engineering</h4>
+<div class="outline-text-4" id="text-10-1-1">
 <p>
 To produce, as quickly and inexpensively as possible, software that is:
 </p>
@@ -835,10 +1036,10 @@ and enhancing.  Not constructing.
 </div>
 </div>
 
-<div id="outline-container-orgheadline37" class="outline-4">
-<h4 id="orgheadline37"><span class="section-number-4">9.1.2</span> Aspects of Software Engineering</h4>
-<div class="outline-text-4" id="text-9-1-2">
-</div><ol class="org-ol"><li><a id="orgheadline35"></a>Technical<br  /><div class="outline-text-5" id="text-9-1-2-1">
+<div id="outline-container-orgheadline51" class="outline-4">
+<h4 id="orgheadline51"><span class="section-number-4">10.1.2</span> Aspects of Software Engineering</h4>
+<div class="outline-text-4" id="text-10-1-2">
+</div><ol class="org-ol"><li><a id="orgheadline49"></a>Technical<br  /><div class="outline-text-5" id="text-10-1-2-1">
 <ul class="org-ul">
 <li>Specification - creating a document that says exactly what a software or
 subsystem will do.</li>
@@ -853,7 +1054,7 @@ do what the spec says.  Design is high level (not code), like UML, etc.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline36"></a>Non-Technical<br  /><div class="outline-text-5" id="text-9-1-2-2">
+<li><a id="orgheadline50"></a>Non-Technical<br  /><div class="outline-text-5" id="text-10-1-2-2">
 <ul class="org-ul">
 <li>Project management</li>
 <li>Psychology
@@ -868,9 +1069,9 @@ do what the spec says.  Design is high level (not code), like UML, etc.</li>
 </div></li></ol>
 </div>
 
-<div id="outline-container-orgheadline38" class="outline-4">
-<h4 id="orgheadline38"><span class="section-number-4">9.1.3</span> Software Complexity</h4>
-<div class="outline-text-4" id="text-9-1-3">
+<div id="outline-container-orgheadline52" class="outline-4">
+<h4 id="orgheadline52"><span class="section-number-4">10.1.3</span> Software Complexity</h4>
+<div class="outline-text-4" id="text-10-1-3">
 <p>
 Primary issue for software dev: complexity:
 </p>
@@ -898,9 +1099,9 @@ Large systems are among the most complex things produced by humans.
 </div>
 </div>
 
-<div id="outline-container-orgheadline39" class="outline-4">
-<h4 id="orgheadline39"><span class="section-number-4">9.1.4</span> Software Engineering Methodology</h4>
-<div class="outline-text-4" id="text-9-1-4">
+<div id="outline-container-orgheadline53" class="outline-4">
+<h4 id="orgheadline53"><span class="section-number-4">10.1.4</span> Software Engineering Methodology</h4>
+<div class="outline-text-4" id="text-10-1-4">
 <ul class="org-ul">
 <li>Broad collection of techniques and tools addressing each phase of software
 development.</li>
@@ -925,7 +1126,7 @@ development.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-09-26 Sat 04:11</p>
+<p class="date">Created: 2015-09-26 Sat 04:16</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
