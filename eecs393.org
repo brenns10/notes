@@ -2,6 +2,112 @@
 #+AUTHOR: Stephen Brennan
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
+#+SETUPFILE: org-html-themes/setup/theme-readtheorg.setup
+
+* 2015-09-25 Friday
+
+  Uh oh, there's a quiz today!  Better take notes on the last couple weeks of
+  stuff.  The material is essentially from last quiz (9/9) on.  Which appears to
+  be simply software requirements.  Let's gogogogo.
+
+** What are Requirements?
+   - Properties your software must exhibit to meet needs (of users).
+   - SRS = software requirements specification
+   - Derived collaboratively: customer + devs
+   - Process = req engineering
+   - Lots of people use requirements!  Not just developers and customers, but
+     management, lawyers, documenters, etc.  And users.
+
+*** Functional Requirements
+    - Describe functionality for users.
+    - Use natural language + problem domain.
+    - Can be a bit ambiguous, interpretable.
+    - Can have hundreds or thousands.
+
+*** Non-Functional Requirements
+    - All the other requirements
+    - Types:
+      - Usability
+      - Reliability
+      - Availability
+      - Efficiency/performance
+      - Security
+      - Hardware/software constraints
+      - Portability
+      - Compliance
+      - Certification
+
+*** Requirements vs Design
+    - You don't want to include "design" stuff in the SRS.
+      - Requirements = what, not how
+      - Don't want unnecessary constraints on the implementers.
+    - However, gotta be careful not to make your requirements too abstract.  You
+      need /some/ details after all.
+
+*** Design Patterns in Requirements
+    - Design pattern = reusable solution to a recurring problem.
+    - Requirements should have "architectural design patterns"
+    - They will raise specific questions about what the product's requirements
+      ore.
+    - For instance, if you have a web site for a music store, it raises a lot of
+      questions about the website that help clarify your requirements.
+    - Much better than if you hadn't specified the "web store" design pattern.
+
+*** Detail
+    - Different levels for different people.
+    - Different goals depending on who you're targeting.
+
+**** Business Requirements
+     - High level
+     - They are about business objectives.
+     - Not much about the specific functionality.
+     - EG: what are your goals with the software.  What business problem will
+       you solve, or objective will you satisfy.
+
+**** User Requirements
+     - Describe tasks that users will accomplish.
+     - You may have multiple user requirements that will relate to one business
+       requirement.
+
+**** Functional/Non-Functional
+     - These are the most detailed requirements.
+     - They describe functionality that satisfies user requirements.
+     - Probably you'll get multiple F/NF reqs for a single User req.
+
+**** Overall
+
+     In essence, you use the business needs, or marketing information, to get
+     business requirements.  From there, you come up with the user requirements
+     to satisfy those, and then you make F/NF requriments that satisfy each user
+     requirement.
+
+** Software Features
+   - Groups of related FR's.
+   - May influence customers to choose your product.
+   - probably used in marketing.
+   - Feature tree
+
+** Properties of Good SRS
+   - Complete - nothing missing.
+   - Correct
+   - Feasible - it should be possible to create the system in the available
+     resources and time.
+   - Unambiguous - as much as possible :D
+   - Consistent - no conflicts
+   - Validateable - should be easy to say whether each requirement is satisfied.
+   - Modifiable - you should be able to easily revise it with structure, labels,
+     stuff.
+   - Traceable - each requirement should be linked back to its origin, and
+     froward to its design elements.  And the source code that implements it.
+     And the test cases that exercise it.
+
+** Requirements Engineering
+   - Identify use cases
+   - Analyze info from users.
+   - Allocate requirements to top level components.
+   - Negotiating priorities
+   - Documenting the requirements (creating SRS)
+   - Reviewing requirements to ensure everyone understands.
 
 * 2015-09-18 Friday
 
