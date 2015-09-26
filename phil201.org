@@ -2,6 +2,7 @@
 #+AUTHOR: Stephen Brennan
 #+OPTIONS: tex:t
 #+STARTUP: entitiespretty
+#+SETUPFILE: org-html-themes/setup/theme-readtheorg.setup
 
 * 2015-08-24 Monday
 
@@ -278,3 +279,60 @@
     - To make the inside false, we make the antecedent true and the consequent
       false.  That is, (A \to (B & C)) and (A \to C).
       - Not sure where we go from here.
+* 2015-09-25 Friday
+
+  There are logic sentences on the board.
+
+  - \((A \lor B) \to C\)
+  - \(D \to E\)
+  - \(E \to B\)
+  - \therefore ~C \to ~D (negate to ~(~C\to~D))
+
+  - (A \lor B) \to C
+    - ~(A \lor B)
+      - ~A, ~B.  Now, D \to E
+        - ~D: E \to B
+          - ~E : ~(~C \to ~D)
+            - ~C, D: FALSE
+          - B : ~(~C \to ~D)
+            - ~C, D: FALSE
+        - E: E \to B
+          - ~E: FALSE
+          - B: FALSE
+    - C: Now, D \to E
+      - more stuff
+
+  - Should start with the tree that doesn't branch.
+  - Then go to sentences that look like they'll have conflicts.
+
+  - A \to (B \lor C)
+  - B \to (D & E)
+  - ~(A \to D)
+
+  - A, ~D: go to A \to (B \lor C)
+    - ~A FALSE
+    - B \lor C
+      - B: B \to (D & E)
+        - ~B FALSE
+        - D & E
+          - D, E: FALSE (~D)
+      - C: B \to (D & E)
+        - ~B: TRUE
+        - D & E
+
+  Set A, ~B, C, ~D
+
+  A \equiv (B \lor C)
+  C \equiv (A & ~B)
+
+  - A, (B \lor C)
+    - B: C \equiv (A & ~B)
+      - C, (A & ~B)
+        - A, ~B: FALSE
+      - ~C, ~(A & ~B)
+        - ~A, B: FALSE
+    - C:
+      - C, (A & ~B)
+        - A, ~B: TRUE
+
+  Set A, C, ~B
