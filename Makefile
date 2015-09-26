@@ -11,4 +11,4 @@ all: ../$(ORG_VERSION) $(OBJECTS)
 	cd .. && curl http://orgmode.org/org-8.3.1.tar.gz | tar xvz
 
 %.html: %.org
-	emacs --batch --eval "(add-to-list 'load-path \"./$(ORG_VERSION)/lisp/\")" --eval "(require 'org)" $< -f org-html-export-to-html --kill
+	emacs --batch --eval "(add-to-list 'load-path \"../$(ORG_VERSION)/lisp/\")" --eval "(require 'org)" $< -f org-html-export-to-html --kill
