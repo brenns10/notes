@@ -2,6 +2,20 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-09-28 Monday
+
+  /Looks like we're going over homework 2./
+
+  - It appears that the function =numpy.invert()= doesn't actually invert a
+    matrix.  The function for that is =numpy.linalg.inv()=.  Who names a
+    function =invert()=, when it doesn't actually invert a matrix?  Damn.
+  - When you have a linear program with matrix $A$, you can show that all BFS of
+    that program will be integer by showing that: $A$ has full row rank!!, and
+    then that $A$ is unimodular.
+    - Turns out we needed to do all 8x8 bases, not 9x9 bases.  In which case,
+      checking all (10 choose 8) bases would be too much, so a script was
+      necessary here.
+
 * 2015-09-25 Friday
 ** MCNF Duality
 
