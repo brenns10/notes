@@ -2,6 +2,150 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-09-29 Tuesday
+
+** Support Vector Machines
+
+   - SVM's are a rather new method in machine learning.
+   - Produced by multiple groups of people in ML, Statistics, and Operations
+     Research who basically converged on this idea.
+   - Three fundamental ideas:
+     - Linear discriminants (we saw this with a perceptron)
+     - Margins
+     - Kernels
+
+*** Linear Discriminants
+
+    What is?
+    - \(sign(5x_1 + 3x_2 - 4)\)
+    - \(sign(x_2 - 4x_1^2)\)
+    - \(sign(x_2 - e^{-x^2})\)
+
+    This was a trick question.  They all are.  In machine learning, we aren't
+    particularly interested in the $x$ variables -- they are given to us.  We are
+    interested in the coefficients $w$.  So when we talk about linear
+    discriminants, we mean linear in terms of $w$, not $x$.
+    - In general, we talk about a linear discriminant in this form:
+    - \(\vec{w} \cdot \phi(\vec{x}) + b = 0\)
+
+    When we talked about perceptrons not being able to discriminate XOR, it was
+    not entirely true.  If you make a transformation $\phi$ of the variables, you
+    can define a line that discriminates XOR perfectly.  This transformation is
+    \(\phi(x_1, x_2) = x_1 + x_1 x_2 \).  You can see the diagram in the slides.
+
+*** Margins
+
+    Given a training sample, you can frequently define tons of linear
+    discriminants that cleanly separate the training sample.
+
+    What is the best one?  Probably the one that is mostly in the middle of the
+    training positives and negatives.
+
+    We define *margins* as the amount you could slide the discriminant in until
+    you reach a point.  With this, we can say that we would define our best SVM
+    classifier as the one with the /maximum margin/.
+
+    When you are in the "/input feature space/", (i.e. \(\phi(\vec{x})=\vec{x}\)),
+    this is called a "linear SVM" (which is a bit confusing, but this means
+    linear in the feature space, as opposed to the coefficient space -- in
+    essence, it's a linear, linear SVM).
+
+** Why it makes sense
+
+   - Computationally easy to come up with.
+   - Requires relatively few data points.
+
+** Calculating the Margin
+
+   If you have a classifier \(\vec{w}\cdot\vec{x} + b = 0\), and your first positive
+   datapoint is at \(\vec{w}\cdot\vec{x} + b = 1\), and your first negative point is
+   \(\vec{w}\cdot\vec{x} + b = -1\).  Cool.
+
+   Note that $\vec{w}$ is perpendicular to \(\vec{w}\cdot\vec{x} + b = 0\),
+   - Why? Pick any $\vec{u}$, $\vec{v}$.
+   - \(\vec{w}\cdot(\vec{u}-\vec{v}) = \vec{w}\cdot\vec{u} - \vec{w}\cdot\vec{v} = (-b) -
+     (-b) = 0\)
+   - Also, $\vec{w}$ is perpendicular to the plus and minus planes.
+
+   There's some stuff here that I didn't follow.  Essentially, he got to the
+   point where maximizing the margin is equivalent to maximizing
+   \(\frac{2}{||\vec{w}||}\), which is equivalent to $\frac{||\vec{w}||^2}{2}$.
+
+** Problem Formulation
+
+   What we want to do:
+   - While respecting the labels of training examples:
+     - \(\vec{w}\cdot\vec{x_i} + b \ge 1 \text{ if } y_i = 1\)
+     - \(\vec{w}\cdot\vec{x_i} + b \le -1 \text{ if } y_i = -1\)
+   - Or, more compactly:
+     - \(y_i(\vec{w}\cdot\vec{x_i} + b) \ge 1\)
+
+   Problem formulation:
+   - \(\min \frac{1}{2} ||\vec{w}||^2\), s.t.
+   - \(y_i(\vec{w}\cdot\vec{x}_i + b) \ge 1\)
+
+   Whoa, it's quadratic programming!  There are algorithms to do this, and since
+   the constraints are linear, the feasible region is convex, and therefore we
+   have a global minimum!
+
+   Unfortunately, if the data are not linearly separable, then our quadratic
+   programming algorithm will come back saying that the problem is not feasible.
+   So, we need to allow for misclassification by adding slack variables:
+
+   - \(\min \frac{1}{2} ||\vec{w}||^2\), s.t.
+   - \(y_i(\vec{w}\cdot\vec{x}_i + b) + \xi_i \ge 1\)
+   - \(\xi_i \ge 0\)
+
+   Sadly, this doesn't solve the problem.  A trivial solution that always
+   exists: \(\vec{w}=\vec{0}\), and \(\xi_i=0\)!  We need to add into the objective
+   function a term to simultaneously minimize the number of errors in the
+   classifier.  Unfortunately, the number of errors is not a differentiable
+   quantity, but \(\sum_i \xi_i\) is a good proxy and is differentiable.  Hooray!
+
+   - \(\min \frac{1}{2} ||\vec{w}||^2 + C\sum_i \xi_i \), s.t.
+   - \(y_i(\vec{w}\cdot\vec{x}_i + b) + \xi_i \ge 1\)
+   - \(\xi_i \ge 0\)
+
+   In this program, $C$ is a constant that quantifies the "tradeoff" between the
+   generalization and the error.  The value tends to be problem and dataset
+   specific, so you need to determine it via cross validation in your code.
+
+   Notice that in an optimal solution \(\xi_i = \max(0,1-y_i(\vec{w}\cdot\vec{x}_i +
+   b))\).  We can lift this into the objective function to remove the
+   constraints:
+
+   \begin{equation}
+     \min \frac{1}{2} ||\vec{w}||^2 + C\sum_i [(1 - y_i(\vec{w}\cdot\vec{x}_i + b))]^2
+   \end{equation}
+
+   We don't need to use quadratic programming now, we can just solve an
+   unconstrained problem, which is much simpler and more efficient.  Yay us.
+
+** Course Project Notes
+
+   Sign up sheet: "I want to do project", "I have an idea for a project."
+
+   Email with idea for project by 10/9.  Official project start date 10/23.
+
+   Significant work - treat like a real research project.  Start with a
+   hypothesis of what you'd like to show.  You may be algorithm-specific, or
+   application specific:
+   - I have a better version of algorithm X.
+   - My algorithm X is better for application Y.
+
+   Preferably, you should integrate the project with your own research.  You may
+   also be able to integrate the project with other course projects as well.
+
+   In terms of grading, the project is 35% of your grade:
+   - 25% is a writeup, in a conference format, of your problem, experiments,
+     observations, and interesting directions.
+   - 10% is a presentation to the class on what you did, during finals week.
+
+   Website will have example projects, and a document with requirements for the
+   writeup document.
+
+   *The writeup is due Dec 10!  /No extensions!!/*
+
 * 2015-09-24 Thursday
 
   Recall: we want to compare ML algorithms.  Our steps for comparing test data:
