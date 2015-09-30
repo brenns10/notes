@@ -2,6 +2,121 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-09-30 Wednesday
+
+** MCNF Duality
+
+   Recall from last time:
+   - \pi_i: node potential at node i \in V
+   - \alpha_{ij} = max{0, -c_{ij}^\pi}, (i,j) \in E
+   - where c_{ij}^\pi = c_{ij} - \pi_i + \pi_j
+
+   Here's his network from last time:
+
+   | Node | Supply | \pi_i |
+   | 1    | 4      | 0  |
+   | 2    | 0      | -2 |
+   | 3    | 0      | -3 |
+   | 4    | -4     | -4 |
+
+   | Start | End | Cost | Upper | c_{ij}^\pi |
+   | 1     | 2   | 2    | 4     | 0      |
+   | 1     | 3   | 2    | 2     | -1     |
+   | 2     | 3   | 1    | 2     | 0      |
+   | 2     | 4   | 3    | 3     | 1      |
+   | 3     | 4   | 1    | 5     | 0      |
+
+   We have an (optimal) flow as follows:
+   - 2 units go 1 \to 2 \to 3 \to 4
+   - 2 units go 1 \to 3 \to 4
+
+   Then he wrote the residual network, with \pi_i and c_{ij}^\pi copied down.  c_{ij}^\pi
+   can be copied for the arcs that still exist, but needs to be recalculated for
+   each new arc.  However, if a new arc is the opposite of an old one, you know
+   that \(c_{ji}^\pi = -c_{ij}^\pi\).  Here are the values for the residual network.
+
+   | Node | Supply | \pi_i |
+   |    1 |      0 |  0 |
+   |    2 |      0 | -2 |
+   |    3 |      0 | -3 |
+   |    4 |      0 | -4 |
+
+   | Start | End | Cost | Upper | c_{ij}^\pi |
+   |     1 |   2 |    2 |     2 |    0 |
+   |     2 |   1 |   -2 |     2 |    0 |
+   |     3 |   1 |   -2 |     2 |    1 |
+   |     3 |   2 |   -1 |     2 |    0 |
+   |     2 |   4 |    3 |     3 |    1 |
+   |     3 |   4 |    1 |     1 |    0 |
+   |     4 |   3 |   -1 |     4 |    0 |
+
+   The residual network can be a multigraph.  If you have node $i$ and $j$
+   connected a forward and backward arc in the original network, you could have
+   each arc causing two in the residual.  If an edge $e$ causes new edge $f$ in
+   the same direction and $g$ in the opposite, then you have that \(c_e^\pi =
+   c_f^\pi = - c_g^\pi\).  We say $e$ originates $g$ and $f$.
+
+   Ok.  We're kinda caught up to where we were at the end of the last MCNF
+   duality lecture.  Last time we conjectured that:
+
+   *Theorem:* x_{ij}, \pi_i, (\alpha_{ij}) feasible:
+   - x_{ij}, \pi_i, (\alpha_{ij}) optimal iff: \(c_{ij}^\pi \ge 0 \:\: \forall (i,j) \in E(x)\).
+
+     Here, $E(x)$ is the arcs in the residual network.
+
+   *Proof:* (\to) x_{ij}, \pi_i optimal.
+   - This gives us:
+     - wlog \(\alpha_{ij} = \max \{0, -c_{ij}^pi \}\)
+     - complementary slackness!
+       - (1): \(\alpha_{ij} (u_{ij} - x_{ij}) = 0\)
+       - (2): \(x_{ij} (c_{ij}^\pi + \alpha_{ij}) = 0\)
+   - \(\forall (h,k) \in E(x)\), \(\exists! (i,j) \in E\) that originates it.  \(\exists!\) means
+     "there exists a unique".
+     - Case a: x_{ij} = 0 originates (i,j) \in E(x)
+       - By contradiction, c_{ij}^\pi < 0, so a_{ij} > 0.
+       - By the complementary slackness condition (1), \(x_{ij} = u_{ij}\), which is a
+         contradiction.
+     - Case b: x_{ij} = u_{ij} originates (j, i) \in E(k) (but not (i,j), since there is
+       no more flow to send forward).
+       - By contradiction, c_{ji}^\pi < 0, which means c_{ij}^\pi > 0.
+       - This means that \(c_{ij}^\pi + \alpha_{ij} > 0\) (since c_{ij}^\pi > 0 and \alpha_{ij} \ge 0).
+       - According to complementary slackness condition (2), \(x_{ij} = 0\), which
+         is again a contradiction!
+     - Case c: 0 < x_{ij} < u_{ij} originates (i,j) and (j,i):
+       - By contradiction, assume \(c_{ij}^\pi < 0\).  By the same argument in case
+         a, we get x_{ij}=u_{ij}, which is a contradiction.
+       - By contradiction, assume \(c_{ji}^\pi < 0\), By the same argument in case
+         b, we get x_{ij} = 0, which is a contradiction.
+   - This completes the proof.  We use the fact that x_{ij} and \alpha_{ij} are optimal to
+     get complementary slackness.  That's the key to the proof.
+
+   *Proof:* (\gets) We know \(c_{ij}^\pi \ge 0\), \(\forall (i,j) \in E(x)\).  Need to
+   prove $x_{ij}^\pi$ and $\pi_i$ are optimal.
+   - To do this, we would want to show that for each arc (h,k) \in E, we have
+     the complementary slackness conditions written above.
+   - Case a: x_{hk} = 0:
+     - CS condition (2) follows immediately.
+     - Also, since $x_{hj}=0$, we know that \((h,k) \in E(x)\), which by our initial
+       assumption means that $c_{ij}^\pi \ge 0$.  Since \(\alpha_{hk} = \max\{0,
+       -c_{hj}^\pi\}\), we know \(\alpha_{hk}=0\), and therefore condition (1) is also
+       satisfied.
+   - Case b: x_{hj} = u_{hk}:
+     - CS condition (1) follows immediately.
+     - Since arc (h,k) is at capacity, we know that \((k,h)\in E(x)\).  So, we
+       know that \(c_{kh}^\pi \ge 0\).  This means that in the original problem,
+       \(c_{hk}^\pi \le 0\) (that's how we would have calculated $c_{kh}$.
+     - By our definition of \(\alpha_{hk} = - -c_{hk}^\pi\), which means that condition (2)
+       is satisfied!
+   - Case c: 0 < x_{hk} < u_{hk}:
+     - Now we know that both $(h,k)$ and $(k,h)$ are in $E(x)$.
+     - This means $c_{hk}^\pi, c_{kh}^\pi \ge 0$, which means \(c_{hk}^\pi = c_{kj}^\pi =
+       \alpha_{hk} = 0\), which gives us both complementary slackness conditions!
+   - QED
+
+   As a recap, this proof gives us the approach of most of the MCNF algorithms.
+   They start with a feasible flow, find the violations in the \(c_{ij}^\pi \ge 0\)
+   condition in the residual, and update the flow to improve it.
+
 * 2015-09-28 Monday
 
   /Looks like we're going over homework 2./
