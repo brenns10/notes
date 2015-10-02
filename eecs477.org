@@ -2,6 +2,128 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-02 Friday
+
+  *MCNF: special cases and applications*
+
+  Taking problems and mapping them to MCNF is preferable because:
+  - MCNF is faster that LP
+  - MCNF is unimodular, so you can drop integrality constraints.
+  - This makes it attractive.  How can we solve other problems with it?
+
+** Shortest Paths
+
+   Given:
+   - directed graph \(G=(V,E)\)
+   - \(s \in V\)
+   - lengths \(c_{ij}\) associated with \((i,j)\in E\).
+
+   Find the shortest path from $s$ to $u$.  \(u \in V - \{s\}\).
+
+   I feel like after EECS 340, I don't really need to copy down the graph we're
+   using for demonstration.  So, /shortest paths are a special case of MCNF/.
+   - Set costs to the lengths of the edges.
+   - Lower bounds 0
+   - Upper bounds infinite
+   - Set source node supply to \(|V-\{s\}|\), and all other nodes to $-1$.
+
+   If you get fractional solution for a single solution, you could use either
+   flow.  Note that people really don't try to use MCNF to solve shortest paths;
+   rather, they sometimes use repeated Dijkstra's algorithm to solve MCNF
+   (instead of LP).
+
+   - \(\min \sum_{(i,j)\in E} c_{ij} x_{ij}\), s.t.
+   - \(\sum_{(s,j) \in E} x_{sij} - \sum_{(j,s) \in E} x_{js} = n - 1\)
+   - \(\sum_{(i,j) \in E} x_{ij} - \sum_{(j,i) \in E} x_{ji} = -1\) for \(i \in V-\{s\})
+   - \(x_{ij} > 0\), for \((i,j) \in E\)
+
+   The dual:
+
+   - \(\max (n-1) \pi_s - \sum_{i \in V-\{s\}} \pi_i\), s.t.
+   - \(c_{ij} - \pi_i + \pi_j \ge 0\), for \((i,j) \in E\)
+   - \pi's unrestricted.
+
+   Let's look at the objective function and make a change of variable:
+
+   \begin{equation}
+     (n-1) \pi_s - \sum_{i \in V-\{s\}} \pi_i = n \pi_s - \sum_{i\in V} \pi_i = \sum_{i \in V} (\pi_s - \pi_i) = \sum_{i\in V} d_i
+   \end{equation}
+
+   So, we change variable to \(d_i = \pi_s - \pi_i\).  Above is the new objective
+   function using the change of variable.  Now we'll rewrite the whole thing
+   using \(d_i\).
+
+   - \(\max \sum_{i\in V} d_i \), s.t.
+   - \(d_j \le d_i + c_{ij}\), for all \((i,j) \in E\)
+
+   The intuition is that \(d_j \) is the distance from the source to node $j$.
+   We are maximizing, which seems funny, but it makes sense when you realize
+   that the constraints are holding back the whole thing.  The constraints here
+   are the Bellman-Ford optimality conditions, which are what Dijkstra's
+   Algorithm does at every step (and of course the Bellman-Ford algorithm).
+
+** Dynamic Programming!!!!!
+
+   Dynamic programming is an algorithm design technique, not an algorithm in
+   itself.  However, we're going to make a sweeping claim here: "all dynamic
+   programming is a special case of network flow".  (=say-whaaaaat.gif=)
+
+   *Weighted Interval Scheduling*: You have $n$ intervals \((s_i, f_i), v_i \).
+   Find the subset of non-overlapping intervals with maximum value.
+
+   Solution: \(M(i)\) is the maximum value from scheduling intervals 1, 2, ...,
+   i.  We want \(M(n)\).  We do know that \(M(0) = 0\).  Recursively:
+
+   \begin{equation}
+     M(i) = \max \left\{ M(i-1), v_i + M(p(i))\right\}\
+   \end{equation}
+
+   Here, \(p(i)\) is the first predecessor interval that doesn't overlap with
+   $i$.  The two conditions are either (1) we don't choose interval $i$, or (2),
+   we do choose interval $i$.  In the solution algorithm, we keep a vector of
+   $M(i)$ values and compute it from $0$ up to $n$, and that value is your
+   optimal value.
+
+   | 0 | 1 | 2 | ... | p(i)    | ... | i-1    | i    | ... | n    |
+   | 0 |   |   |     | M(p(i)) |     | M(i-1) | M(i) |     | M(n) |
+
+   Imagine that in this illustration, we have arrows going from the vector slot
+   $i$ back to $i-1$ and $p(i)$.
+
+   Now, we start making broad, sweeping claims!  This is just a MCNF problem!
+   Make each element in the vector a node in a graph, and put edges from
+   \(p(i)\) to \(i\), and \(i-1\) to \(i). The edges are labeled with the gain
+   you get $-v_i$.  You can then run MCNF on this, and get an optimal solution.
+   You can do this with any Dynamic Programming algorithm that you have the
+   recursive formulation of, and are stored in a tabular format like this.
+
+   So essentially, the dynamic programming and recursive/network way of thinking
+   are pretty equivalent, and it usually depends on the person and how they've
+   been thinking previously.  But the solutions you come up with as a result may
+   have slightly different advantages and disadvantages.
+
+** Circulation
+
+   Circulation problems are pretty much MCNF, except that all supplies are 0.
+   Sometimes, you have lower bounds, so you are forced to send some flow.  Of
+   course, then you could eliminate the lower bounds as we've discussed, and
+   then end up with a problem that has supplies and demands that are nonzero.
+
+   However, you can have problems with no supply/demand and no lower bounds,
+   which have an optimal flow that does send some flow.
+
+   *Example Network*
+
+   | i | j | c_{ij} | l_{ij} | u_{ij} |
+   | 1 | 2 |  -1 |   0 |   3 |
+   | 2 | 3 |  +1 |   2 |     |
+   | 2 | 5 |     |     |     |
+   | 3 | 4 |     |     |     |
+   | 3 | 1 |  -2 |     |   4 |
+   | 5 | 4 |     |     |     |
+
+   Next week is a regular week.  Then homework solutions and midterm review.
+
 * 2015-09-30 Wednesday
 
 ** MCNF Duality
