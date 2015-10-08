@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-02 Fri 15:20 -->
+<!-- 2015-10-08 Thu 15:09 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 440 Notes</title>
@@ -176,155 +176,276 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline8">1. 2015-09-29 Tuesday</a>
+<li><a href="#orgheadline4">1. 2015-10-08 Thursday</a>
 <ul>
-<li><a href="#orgheadline3">1.1. Support Vector Machines</a>
-<ul>
-<li><a href="#orgheadline1">1.1.1. Linear Discriminants</a></li>
-<li><a href="#orgheadline2">1.1.2. Margins</a></li>
+<li><a href="#orgheadline1">1.1. Why Does Naive Bayes Work Well?</a></li>
+<li><a href="#orgheadline2">1.2. Tree Augmented Naive Bayes</a></li>
+<li><a href="#orgheadline3">1.3. Logistic Regression</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline4">1.2. Why it makes sense</a></li>
-<li><a href="#orgheadline5">1.3. Calculating the Margin</a></li>
-<li><a href="#orgheadline6">1.4. Problem Formulation</a></li>
-<li><a href="#orgheadline7">1.5. Course Project Notes</a></li>
+<li><a href="#orgheadline12">2. 2015-09-29 Tuesday</a>
+<ul>
+<li><a href="#orgheadline7">2.1. Support Vector Machines</a>
+<ul>
+<li><a href="#orgheadline5">2.1.1. Linear Discriminants</a></li>
+<li><a href="#orgheadline6">2.1.2. Margins</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline16">2. 2015-09-24 Thursday</a>
-<ul>
-<li><a href="#orgheadline9">2.1. Issue 2.1</a></li>
-<li><a href="#orgheadline10">2.2. Issue 2.2</a></li>
-<li><a href="#orgheadline11">2.3. One-way ANOVA</a></li>
-<li><a href="#orgheadline12">2.4. Sign Test</a></li>
-<li><a href="#orgheadline13">2.5. Mann-Whitney-Wolcoxon Signed-Rank Test</a></li>
-<li><a href="#orgheadline14">2.6. Bootstrap</a></li>
-<li><a href="#orgheadline15">2.7. Is there a best learning algorithm?</a></li>
+<li><a href="#orgheadline8">2.2. Why it makes sense</a></li>
+<li><a href="#orgheadline9">2.3. Calculating the Margin</a></li>
+<li><a href="#orgheadline10">2.4. Problem Formulation</a></li>
+<li><a href="#orgheadline11">2.5. Course Project Notes</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline27">3. 2015-09-22 Tuesday</a>
+<li><a href="#orgheadline20">3. 2015-09-24 Thursday</a>
 <ul>
-<li><a href="#orgheadline22">3.1. ANNs, Continued</a>
-<ul>
-<li><a href="#orgheadline17">3.1.1. Cascade Correlation (Learning the Structure of an ANN)</a></li>
-<li><a href="#orgheadline18">3.1.2. Interpretation of Hidden Units</a></li>
-<li><a href="#orgheadline19">3.1.3. How Many Hidden Units?</a></li>
-<li><a href="#orgheadline20">3.1.4. Recurrent ANNs</a></li>
-<li><a href="#orgheadline21">3.1.5. Pros/Cons of ANNs</a></li>
+<li><a href="#orgheadline13">3.1. Issue 2.1</a></li>
+<li><a href="#orgheadline14">3.2. Issue 2.2</a></li>
+<li><a href="#orgheadline15">3.3. One-way ANOVA</a></li>
+<li><a href="#orgheadline16">3.4. Sign Test</a></li>
+<li><a href="#orgheadline17">3.5. Mann-Whitney-Wolcoxon Signed-Rank Test</a></li>
+<li><a href="#orgheadline18">3.6. Bootstrap</a></li>
+<li><a href="#orgheadline19">3.7. Is there a best learning algorithm?</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline26">3.2. Comparing Learning Algorithms</a>
+<li><a href="#orgheadline31">4. 2015-09-22 Tuesday</a>
 <ul>
-<li><a href="#orgheadline23">3.2.1. Issue 1</a></li>
-<li><a href="#orgheadline24">3.2.2. Issue 2</a></li>
-<li><a href="#orgheadline25">3.2.3. It's All Just Statistics!</a></li>
+<li><a href="#orgheadline26">4.1. ANNs, Continued</a>
+<ul>
+<li><a href="#orgheadline21">4.1.1. Cascade Correlation (Learning the Structure of an ANN)</a></li>
+<li><a href="#orgheadline22">4.1.2. Interpretation of Hidden Units</a></li>
+<li><a href="#orgheadline23">4.1.3. How Many Hidden Units?</a></li>
+<li><a href="#orgheadline24">4.1.4. Recurrent ANNs</a></li>
+<li><a href="#orgheadline25">4.1.5. Pros/Cons of ANNs</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#orgheadline35">4. 2015-09-17 Thursday</a>
+<li><a href="#orgheadline30">4.2. Comparing Learning Algorithms</a>
 <ul>
-<li><a href="#orgheadline28">4.1. Tradeoffs of Neural Networks</a></li>
-<li><a href="#orgheadline31">4.2. Training ANN</a>
-<ul>
-<li><a href="#orgheadline29">4.2.1. Backpropagation</a></li>
-<li><a href="#orgheadline30">4.2.2. Example</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline33">4.3. Overfitting in ANNs</a>
-<ul>
-<li><a href="#orgheadline32">4.3.1. Weight Decay</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline34">4.4. Implementation Issues</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline42">5. 2015-09-15 Tuesday</a>
-<ul>
-<li><a href="#orgheadline36">5.1. Famous Dead People</a></li>
-<li><a href="#orgheadline37">5.2. History</a></li>
-<li><a href="#orgheadline41">5.3. Perceptron / Linear Threshold Unit</a>
-<ul>
-<li><a href="#orgheadline38">5.3.1. Training a Perceptron</a></li>
-<li><a href="#orgheadline39">5.3.2. More on Perceptrons</a></li>
-<li><a href="#orgheadline40">5.3.3. Feedforward Network Topology</a></li>
+<li><a href="#orgheadline27">4.2.1. Issue 1</a></li>
+<li><a href="#orgheadline28">4.2.2. Issue 2</a></li>
+<li><a href="#orgheadline29">4.2.3. It's All Just Statistics!</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline48">6. 2015-09-10 Thursday</a>
+<li><a href="#orgheadline39">5. 2015-09-17 Thursday</a>
 <ul>
-<li><a href="#orgheadline47">6.1. Evaluation Methods and Metrics</a>
+<li><a href="#orgheadline32">5.1. Tradeoffs of Neural Networks</a></li>
+<li><a href="#orgheadline35">5.2. Training ANN</a>
 <ul>
-<li><a href="#orgheadline43">6.1.1. n-fold Cross Validation</a></li>
-<li><a href="#orgheadline44">6.1.2. Metrics for Classification</a></li>
-<li><a href="#orgheadline45">6.1.3. Learning Curves</a></li>
-<li><a href="#orgheadline46">6.1.4. Metrics with Confidence Measures</a></li>
+<li><a href="#orgheadline33">5.2.1. Backpropagation</a></li>
+<li><a href="#orgheadline34">5.2.2. Example</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline37">5.3. Overfitting in ANNs</a>
+<ul>
+<li><a href="#orgheadline36">5.3.1. Weight Decay</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline38">5.4. Implementation Issues</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline46">6. 2015-09-15 Tuesday</a>
+<ul>
+<li><a href="#orgheadline40">6.1. Famous Dead People</a></li>
+<li><a href="#orgheadline41">6.2. History</a></li>
+<li><a href="#orgheadline45">6.3. Perceptron / Linear Threshold Unit</a>
+<ul>
+<li><a href="#orgheadline42">6.3.1. Training a Perceptron</a></li>
+<li><a href="#orgheadline43">6.3.2. More on Perceptrons</a></li>
+<li><a href="#orgheadline44">6.3.3. Feedforward Network Topology</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline53">7. 2015-09-08 Tuesday</a>
+<li><a href="#orgheadline52">7. 2015-09-10 Thursday</a>
 <ul>
-<li><a href="#orgheadline49">7.1. Review:</a></li>
-<li><a href="#orgheadline50">7.2. Generalizing ID3</a></li>
-<li><a href="#orgheadline52">7.3. Overfitting</a>
+<li><a href="#orgheadline51">7.1. Evaluation Methods and Metrics</a>
 <ul>
-<li><a href="#orgheadline51">7.3.1. Controlling Overfitting</a></li>
+<li><a href="#orgheadline47">7.1.1. n-fold Cross Validation</a></li>
+<li><a href="#orgheadline48">7.1.2. Metrics for Classification</a></li>
+<li><a href="#orgheadline49">7.1.3. Learning Curves</a></li>
+<li><a href="#orgheadline50">7.1.4. Metrics with Confidence Measures</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline69">8. 2015-09-01 Tuesday</a>
+<li><a href="#orgheadline57">8. 2015-09-08 Tuesday</a>
 <ul>
-<li><a href="#orgheadline63">8.1. What is "Machine Learning?"</a>
+<li><a href="#orgheadline53">8.1. Review:</a></li>
+<li><a href="#orgheadline54">8.2. Generalizing ID3</a></li>
+<li><a href="#orgheadline56">8.3. Overfitting</a>
 <ul>
-<li><a href="#orgheadline54">8.1.1. Inductive Generalization</a></li>
-<li><a href="#orgheadline62">8.1.2. Learning Settings</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline64">8.2. When to use ML?</a></li>
-<li><a href="#orgheadline68">8.3. Example Representations</a>
-<ul>
-<li><a href="#orgheadline65">8.3.1. Feature Vector Representation</a></li>
-<li><a href="#orgheadline66">8.3.2. Relational Representation</a></li>
-<li><a href="#orgheadline67">8.3.3. Multiple Instance Representation</a></li>
+<li><a href="#orgheadline55">8.3.1. Controlling Overfitting</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline86">9. 2015-08-27 Thursday</a>
+<li><a href="#orgheadline73">9. 2015-09-01 Tuesday</a>
 <ul>
-<li><a href="#orgheadline84">9.1. Optimization</a>
+<li><a href="#orgheadline67">9.1. What is "Machine Learning?"</a>
 <ul>
-<li><a href="#orgheadline70">9.1.1. What is it?</a></li>
-<li><a href="#orgheadline71">9.1.2. Types of Optimization Problems</a></li>
-<li><a href="#orgheadline72">9.1.3. Unconstrained Optimization</a></li>
-<li><a href="#orgheadline73">9.1.4. Gradient Ascent</a></li>
-<li><a href="#orgheadline74">9.1.5. Newton-Raphson Method</a></li>
-<li><a href="#orgheadline75">9.1.6. Quasi-Newton Methods</a></li>
-<li><a href="#orgheadline76">9.1.7. Local and Global Optima</a></li>
-<li><a href="#orgheadline77">9.1.8. Convex Sets</a></li>
-<li><a href="#orgheadline78">9.1.9. Convex Functions</a></li>
-<li><a href="#orgheadline79">9.1.10. Constrained Optimization</a></li>
-<li><a href="#orgheadline80">9.1.11. Linear Programming</a></li>
-<li><a href="#orgheadline81">9.1.12. Simplex Algorithm</a></li>
-<li><a href="#orgheadline82">9.1.13. Duality in Linear Programming</a></li>
-<li><a href="#orgheadline83">9.1.14. Summary of Optimization</a></li>
+<li><a href="#orgheadline58">9.1.1. Inductive Generalization</a></li>
+<li><a href="#orgheadline66">9.1.2. Learning Settings</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline85">9.2. The Simplex Algorithm</a></li>
+<li><a href="#orgheadline68">9.2. When to use ML?</a></li>
+<li><a href="#orgheadline72">9.3. Example Representations</a>
+<ul>
+<li><a href="#orgheadline69">9.3.1. Feature Vector Representation</a></li>
+<li><a href="#orgheadline70">9.3.2. Relational Representation</a></li>
+<li><a href="#orgheadline71">9.3.3. Multiple Instance Representation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline90">10. 2015-08-27 Thursday</a>
+<ul>
+<li><a href="#orgheadline88">10.1. Optimization</a>
+<ul>
+<li><a href="#orgheadline74">10.1.1. What is it?</a></li>
+<li><a href="#orgheadline75">10.1.2. Types of Optimization Problems</a></li>
+<li><a href="#orgheadline76">10.1.3. Unconstrained Optimization</a></li>
+<li><a href="#orgheadline77">10.1.4. Gradient Ascent</a></li>
+<li><a href="#orgheadline78">10.1.5. Newton-Raphson Method</a></li>
+<li><a href="#orgheadline79">10.1.6. Quasi-Newton Methods</a></li>
+<li><a href="#orgheadline80">10.1.7. Local and Global Optima</a></li>
+<li><a href="#orgheadline81">10.1.8. Convex Sets</a></li>
+<li><a href="#orgheadline82">10.1.9. Convex Functions</a></li>
+<li><a href="#orgheadline83">10.1.10. Constrained Optimization</a></li>
+<li><a href="#orgheadline84">10.1.11. Linear Programming</a></li>
+<li><a href="#orgheadline85">10.1.12. Simplex Algorithm</a></li>
+<li><a href="#orgheadline86">10.1.13. Duality in Linear Programming</a></li>
+<li><a href="#orgheadline87">10.1.14. Summary of Optimization</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline89">10.2. The Simplex Algorithm</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8"><span class="section-number-2">1</span> 2015-09-29 Tuesday</h2>
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">1</span> 2015-10-08 Thursday</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">1.1</span> Support Vector Machines</h3>
+<p>
+Naive Bayes Classifier
+</p>
+
+<p>
+The naive bayes classifier implements a linear decision boundary.
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Why Does Naive Bayes Work Well?</h3>
 <div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Theoretically, it should not.</li>
+<li>The independence assumptions made by naive bayes are nearly always wrong.</li>
+<li>Strangely, it still works well.</li>
+<li>Turns out, it works quite well for <b>classification</b>, but the probability
+estimates are usually bad.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Tree Augmented Naive Bayes</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Augments Naive Bayes so that there is a tree structure over the attributes,
+which is unknown.
+</p>
+
+<ul class="org-ul">
+<li>Instead of each \(X_i\) node having \(p(X_i |Y)\), you have \(p(X_i | X_j and
+     Y)\).</li>
+<li>Makes fewer independence assumptions -&gt; better performance.</li>
+<li>Has optimal algorithm to learn the structure:</li>
+</ul>
+
+<p>
+<b>ALGORITM</b>
+</p>
+
+<ul class="org-ul">
+<li>Create a complete graph over the attributes.
+<ul class="org-ul">
+<li>Edges are weighted by \(I(U, V| Y)\) (conditional mutual information).</li>
+</ul></li>
+<li>Find the maximal weighted spanning tree of this graph.
+<ul class="org-ul">
+<li>Just negate edge weights and apply Prim's Algorithm.</li>
+</ul></li>
+<li>Set the parameters with maximum likelihood estimation.</li>
+</ul>
+
+<p>
+It turns out that this is the tree structure that maximizes the likelihood of
+the data.  (ask for paper)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Logistic Regression</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The simplest discriminative model.  Models "log odds" as a linear function:
+</p>
+
+\begin{equation}
+\log \frac{p(Y = 1 | \vec{x})}{p(Y = -1| \vec{x})} = \vec{w} \cdot \vec{x} + b
+\end{equation}
+
+<p>
+If you manimulate this equation (in slides) you get the following:
+</p>
+
+\begin{equation}
+  p(Y=1|\vec{x}) = \frac{1}{1 + e^{-(\vec{w} \cdot \vec{x} + b)}}
+\end{equation}
+
+<p>
+To do classification, you simply compute the above probability and classify
+as positive if it's greater than 0.5, otherwise negative.
+</p>
+
+<p>
+To do learning, you can use maximum likelihood estimation.  In the previous
+example, we used the likelihood of the data.  In this example, we maximize
+the conditional likelihood of the data.
+</p>
+
+\begin{align*}
+  \vec{w}, b &= \arg \max \Pi_i p(Y_i = p_i | \vec{x}_i) \\
+  &= \arg \max \sum_{i\in pos} \log p(Y_i = 1 | \vec{x}_i) \sum_{i\in neg} \log p(Y_i = -1 | \vec{x}_i)
+\end{align*}
+
+<p>
+You can also add a term to control for overfitting.  Typically
+\(\frac{1}{2} ||\vec{w}||^2\).  Then you have to switch the signs of the rest
+of the function and do a minimization instead.  You can do this min/max
+problem using gradient descent or many other optimization methods.  It's very
+robust, works well in many practical settings, and is easy to code.
+</p>
+
+<p>
+Geometry - classify as positive iff \(\vec{w} \cdot \vec{x} + b > 0\).  So it's
+linear again.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">2</span> 2015-09-29 Tuesday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.1</span> Support Vector Machines</h3>
+<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>SVM's are a rather new method in machine learning.</li>
 <li>Produced by multiple groups of people in ML, Statistics, and Operations
@@ -338,9 +459,9 @@ Research who basically converged on this idea.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1"><span class="section-number-4">1.1.1</span> Linear Discriminants</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">2.1.1</span> Linear Discriminants</h4>
+<div class="outline-text-4" id="text-2-1-1">
 <p>
 What is?
 </p>
@@ -370,9 +491,9 @@ can define a line that discriminates XOR perfectly.  This transformation is
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2"><span class="section-number-4">1.1.2</span> Margins</h4>
-<div class="outline-text-4" id="text-1-1-2">
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">2.1.2</span> Margins</h4>
+<div class="outline-text-4" id="text-2-1-2">
 <p>
 Given a training sample, you can frequently define tons of linear
 discriminants that cleanly separate the training sample.
@@ -399,9 +520,9 @@ essence, it's a linear, linear SVM).
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">1.2</span> Why it makes sense</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">2.2</span> Why it makes sense</h3>
+<div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li>Computationally easy to come up with.</li>
 <li>Requires relatively few data points.</li>
@@ -409,9 +530,9 @@ essence, it's a linear, linear SVM).
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">1.3</span> Calculating the Margin</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">2.3</span> Calculating the Margin</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 If you have a classifier \(\vec{w}\cdot\vec{x} + b = 0\), and your first positive
 datapoint is at \(\vec{w}\cdot\vec{x} + b = 1\), and your first negative point is
@@ -436,9 +557,9 @@ point where maximizing the margin is equivalent to maximizing
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">1.4</span> Problem Formulation</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">2.4</span> Problem Formulation</h3>
+<div class="outline-text-3" id="text-2-4">
 <p>
 What we want to do:
 </p>
@@ -517,9 +638,9 @@ unconstrained problem, which is much simpler and more efficient.  Yay us.
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">1.5</span> Course Project Notes</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">2.5</span> Course Project Notes</h3>
+<div class="outline-text-3" id="text-2-5">
 <p>
 Sign up sheet: "I want to do project", "I have an idea for a project."
 </p>
@@ -564,9 +685,9 @@ writeup document.
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-2">
-<h2 id="orgheadline16"><span class="section-number-2">2</span> 2015-09-24 Thursday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">3</span> 2015-09-24 Thursday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Recall: we want to compare ML algorithms.  Our steps for comparing test data:
 </p>
@@ -587,9 +708,9 @@ observed test statistic.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">2.1</span> Issue 2.1</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">3.1</span> Issue 2.1</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Our next issue, #2.1, is that we have a conjecture "classifier A is better
 than algorithm B on a certain type of data."  We would like to evaluate
@@ -640,9 +761,9 @@ null hypothesis (that they are the same)</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10"><span class="section-number-3">2.2</span> Issue 2.2</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">3.2</span> Issue 2.2</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 This issue is critically different from 2.1.  In 2.1, we had two classifiers
 &#x2013; who knows where they came from, but we want to compare those two
@@ -687,9 +808,9 @@ put more mass in the tails!</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">2.3</span> One-way ANOVA</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">3.3</span> One-way ANOVA</h3>
+<div class="outline-text-3" id="text-3-3">
 <ul class="org-ul">
 <li>For comparing &gt;2 algorithms.</li>
 <li>Why not just do pairwise hypothesis tests?
@@ -709,9 +830,9 @@ a \(t\) test for two distributions).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">2.4</span> Sign Test</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">3.4</span> Sign Test</h3>
+<div class="outline-text-3" id="text-3-4">
 <ul class="org-ul">
 <li>Simpler than \(t\) test with fewer assumptions.</li>
 <li>For each fold, note which algorithm had better performance.</li>
@@ -720,9 +841,9 @@ a \(t\) test for two distributions).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13"><span class="section-number-3">2.5</span> Mann-Whitney-Wolcoxon Signed-Rank Test</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">3.5</span> Mann-Whitney-Wolcoxon Signed-Rank Test</h3>
+<div class="outline-text-3" id="text-3-5">
 <ul class="org-ul">
 <li>What if a classifier produces confidence estimates?</li>
 <li><p>
@@ -739,9 +860,9 @@ distribution.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">2.6</span> Bootstrap</h3>
-<div class="outline-text-3" id="text-2-6">
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">3.6</span> Bootstrap</h3>
+<div class="outline-text-3" id="text-3-6">
 <ul class="org-ul">
 <li>All previous methods relied on knowing the sampling distribution of the
 statistic we are interested in.</li>
@@ -775,9 +896,9 @@ Cons: finite sample behavior is not very well understood.
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15"><span class="section-number-3">2.7</span> Is there a best learning algorithm?</h3>
-<div class="outline-text-3" id="text-2-7">
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">3.7</span> Is there a best learning algorithm?</h3>
+<div class="outline-text-3" id="text-3-7">
 <ul class="org-ul">
 <li>No</li>
 <li>No Free Lunch theorem!
@@ -794,15 +915,15 @@ overall, no.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline27" class="outline-2">
-<h2 id="orgheadline27"><span class="section-number-2">3</span> 2015-09-22 Tuesday</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline22" class="outline-3">
-<h3 id="orgheadline22"><span class="section-number-3">3.1</span> ANNs, Continued</h3>
-<div class="outline-text-3" id="text-3-1">
-</div><div id="outline-container-orgheadline17" class="outline-4">
-<h4 id="orgheadline17"><span class="section-number-4">3.1.1</span> Cascade Correlation (Learning the Structure of an ANN)</h4>
-<div class="outline-text-4" id="text-3-1-1">
+<div id="outline-container-orgheadline31" class="outline-2">
+<h2 id="orgheadline31"><span class="section-number-2">4</span> 2015-09-22 Tuesday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">4.1</span> ANNs, Continued</h3>
+<div class="outline-text-3" id="text-4-1">
+</div><div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">4.1.1</span> Cascade Correlation (Learning the Structure of an ANN)</h4>
+<div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
 <li>No textbook sections on this, ask for paper.</li>
 <li>Start with a single perceptron.  Train and find "residuals".</li>
@@ -821,9 +942,9 @@ boosting".</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline18" class="outline-4">
-<h4 id="orgheadline18"><span class="section-number-4">3.1.2</span> Interpretation of Hidden Units</h4>
-<div class="outline-text-4" id="text-3-1-2">
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">4.1.2</span> Interpretation of Hidden Units</h4>
+<div class="outline-text-4" id="text-4-1-2">
 <ul class="org-ul">
 <li>Unlike Decision trees, the ANN structure is very opaque.</li>
 <li>Difficult to interpret what it is doing.</li>
@@ -834,9 +955,9 @@ for whatever concept you may believe they represent.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-4">
-<h4 id="orgheadline19"><span class="section-number-4">3.1.3</span> How Many Hidden Units?</h4>
-<div class="outline-text-4" id="text-3-1-3">
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">4.1.3</span> How Many Hidden Units?</h4>
+<div class="outline-text-4" id="text-4-1-3">
 <ul class="org-ul">
 <li>Some work shows that it is better to start with a network that is too big.
 <ul class="org-ul">
@@ -848,9 +969,9 @@ units that don't actually contribute.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-4">
-<h4 id="orgheadline20"><span class="section-number-4">3.1.4</span> Recurrent ANNs</h4>
-<div class="outline-text-4" id="text-3-1-4">
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24"><span class="section-number-4">4.1.4</span> Recurrent ANNs</h4>
+<div class="outline-text-4" id="text-4-1-4">
 <ul class="org-ul">
 <li>So far, we've looked at ANNs that feed forward.</li>
 <li>There are also networks with loops, called "recurrent neural networks"
@@ -868,9 +989,9 @@ power equivalent to a Universal Turing Machine!!!!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-4">
-<h4 id="orgheadline21"><span class="section-number-4">3.1.5</span> Pros/Cons of ANNs</h4>
-<div class="outline-text-4" id="text-3-1-5">
+<div id="outline-container-orgheadline25" class="outline-4">
+<h4 id="orgheadline25"><span class="section-number-4">4.1.5</span> Pros/Cons of ANNs</h4>
+<div class="outline-text-4" id="text-4-1-5">
 <p>
 Pros:
 </p>
@@ -893,12 +1014,12 @@ Cons:
 </div>
 </div>
 
-<div id="outline-container-orgheadline26" class="outline-3">
-<h3 id="orgheadline26"><span class="section-number-3">3.2</span> Comparing Learning Algorithms</h3>
-<div class="outline-text-3" id="text-3-2">
-</div><div id="outline-container-orgheadline23" class="outline-4">
-<h4 id="orgheadline23"><span class="section-number-4">3.2.1</span> Issue 1</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">4.2</span> Comparing Learning Algorithms</h3>
+<div class="outline-text-3" id="text-4-2">
+</div><div id="outline-container-orgheadline27" class="outline-4">
+<h4 id="orgheadline27"><span class="section-number-4">4.2.1</span> Issue 1</h4>
+<div class="outline-text-4" id="text-4-2-1">
 <ul class="org-ul">
 <li>Suppose we collect test data and evaluate a classifier.  Accuracy=\(x\).</li>
 <li>Then, someone repeats the experiment with another set of test data from the
@@ -910,9 +1031,9 @@ same problem, independent of the first set.
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-4">
-<h4 id="orgheadline24"><span class="section-number-4">3.2.2</span> Issue 2</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28"><span class="section-number-4">4.2.2</span> Issue 2</h4>
+<div class="outline-text-4" id="text-4-2-2">
 <ul class="org-ul">
 <li>Suppose now we have two different classifiers \(A\) and \(B\).  We measure
 their accuracies on a test set, and get \(x\) and \(y\), and \(x > y\).  Does
@@ -926,9 +1047,9 @@ we find that \(x' > y'\) again?</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-4">
-<h4 id="orgheadline25"><span class="section-number-4">3.2.3</span> It's All Just Statistics!</h4>
-<div class="outline-text-4" id="text-3-2-3">
+<div id="outline-container-orgheadline29" class="outline-4">
+<h4 id="orgheadline29"><span class="section-number-4">4.2.3</span> It's All Just Statistics!</h4>
+<div class="outline-text-4" id="text-4-2-3">
 <ul class="org-ul">
 <li>We're just looking at estimating the "true value" of a metric on the basis
 of a small sample.</li>
@@ -1011,12 +1132,12 @@ Gaussian.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline35" class="outline-2">
-<h2 id="orgheadline35"><span class="section-number-2">4</span> 2015-09-17 Thursday</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-orgheadline28" class="outline-3">
-<h3 id="orgheadline28"><span class="section-number-3">4.1</span> Tradeoffs of Neural Networks</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgheadline39" class="outline-2">
+<h2 id="orgheadline39"><span class="section-number-2">5</span> 2015-09-17 Thursday</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">5.1</span> Tradeoffs of Neural Networks</h3>
+<div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>Lots of DoF!
 <ul class="org-ul">
@@ -1028,9 +1149,9 @@ Gaussian.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline31" class="outline-3">
-<h3 id="orgheadline31"><span class="section-number-3">4.2</span> Training ANN</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orgheadline35" class="outline-3">
+<h3 id="orgheadline35"><span class="section-number-3">5.2</span> Training ANN</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 We'll pretend that the network topology is already decided.  Here is the
 setup:
@@ -1061,9 +1182,9 @@ To train, we use Backpropagation!  This is gonna be fun.
 </ul>
 </div>
 
-<div id="outline-container-orgheadline29" class="outline-4">
-<h4 id="orgheadline29"><span class="section-number-4">4.2.1</span> Backpropagation</h4>
-<div class="outline-text-4" id="text-4-2-1">
+<div id="outline-container-orgheadline33" class="outline-4">
+<h4 id="orgheadline33"><span class="section-number-4">5.2.1</span> Backpropagation</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <ul class="org-ul">
 <li>Let \(x_{ji}\) be the ith input to unit j.</li>
 <li>Let \(w_{ji}\) be the parameter associated with \(x_{ji}\).</li>
@@ -1090,9 +1211,9 @@ pretty easy to follow.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline30" class="outline-4">
-<h4 id="orgheadline30"><span class="section-number-4">4.2.2</span> Example</h4>
-<div class="outline-text-4" id="text-4-2-2">
+<div id="outline-container-orgheadline34" class="outline-4">
+<h4 id="orgheadline34"><span class="section-number-4">5.2.2</span> Example</h4>
+<div class="outline-text-4" id="text-5-2-2">
 <p>
 Consider a neural network with 2 input units, 2 hidden units, and 1 output
 unit, and all weights initialized to 1, with the bias set to zero.  Using
@@ -1172,9 +1293,9 @@ Update:
 </div>
 </div>
 
-<div id="outline-container-orgheadline33" class="outline-3">
-<h3 id="orgheadline33"><span class="section-number-3">4.3</span> Overfitting in ANNs</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37"><span class="section-number-3">5.3</span> Overfitting in ANNs</h3>
+<div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li>They are very prone to overfitting, due to the large amount of parameters.</li>
 <li>Can create very nonlinear decision surfaces.</li>
@@ -1184,9 +1305,9 @@ not be capable of representing the true decision boundary.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline32" class="outline-4">
-<h4 id="orgheadline32"><span class="section-number-4">4.3.1</span> Weight Decay</h4>
-<div class="outline-text-4" id="text-4-3-1">
+<div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">5.3.1</span> Weight Decay</h4>
+<div class="outline-text-4" id="text-5-3-1">
 <p>
 Add a "weight decay term" to keep the weights from growing:
 </p>
@@ -1204,9 +1325,9 @@ pretty important.
 </div>
 </div>
 
-<div id="outline-container-orgheadline34" class="outline-3">
-<h3 id="orgheadline34"><span class="section-number-3">4.4</span> Implementation Issues</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">5.4</span> Implementation Issues</h3>
+<div class="outline-text-3" id="text-5-4">
 <p>
 You should standardize your inputs to zero mean, unit variance, so that your
 units don't have a massive effect on the network.
@@ -1220,12 +1341,12 @@ Or you could do logarithmic encoding, where each input is a binary code.
 </div>
 </div>
 
-<div id="outline-container-orgheadline42" class="outline-2">
-<h2 id="orgheadline42"><span class="section-number-2">5</span> 2015-09-15 Tuesday</h2>
-<div class="outline-text-2" id="text-5">
-</div><div id="outline-container-orgheadline36" class="outline-3">
-<h3 id="orgheadline36"><span class="section-number-3">5.1</span> Famous Dead People</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgheadline46" class="outline-2">
+<h2 id="orgheadline46"><span class="section-number-2">6</span> 2015-09-15 Tuesday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40"><span class="section-number-3">6.1</span> Famous Dead People</h3>
+<div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li>George Boole - father of Boolean algebra.</li>
 <li>Someone else - neuroscience.</li>
@@ -1234,9 +1355,9 @@ Or you could do logarithmic encoding, where each input is a binary code.
 </div>
 </div>
 
-<div id="outline-container-orgheadline37" class="outline-3">
-<h3 id="orgheadline37"><span class="section-number-3">5.2</span> History</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orgheadline41" class="outline-3">
+<h3 id="orgheadline41"><span class="section-number-3">6.2</span> History</h3>
+<div class="outline-text-3" id="text-6-2">
 <ul class="org-ul">
 <li>We want "artificial intelligence."</li>
 <li>Human brain is intelligent.</li>
@@ -1245,9 +1366,9 @@ Or you could do logarithmic encoding, where each input is a binary code.
 </div>
 </div>
 
-<div id="outline-container-orgheadline41" class="outline-3">
-<h3 id="orgheadline41"><span class="section-number-3">5.3</span> Perceptron / Linear Threshold Unit</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45"><span class="section-number-3">6.3</span> Perceptron / Linear Threshold Unit</h3>
+<div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Has weighted (\(w_i\)) inputs (\(x_i\)).</li>
 <li>Has Activation Threshold \(\sigma\)</li>
@@ -1309,9 +1430,9 @@ Example evaluation for perceptron \(\vec{w}=(1,2)\), \(\sigma=0.5\):
 </ul>
 </div>
 
-<div id="outline-container-orgheadline38" class="outline-4">
-<h4 id="orgheadline38"><span class="section-number-4">5.3.1</span> Training a Perceptron</h4>
-<div class="outline-text-4" id="text-5-3-1">
+<div id="outline-container-orgheadline42" class="outline-4">
+<h4 id="orgheadline42"><span class="section-number-4">6.3.1</span> Training a Perceptron</h4>
+<div class="outline-text-4" id="text-6-3-1">
 <ul class="org-ul">
 <li>Loss function: \(L(\vec{w},\sigma)\)</li>
 <li>Measures the difference between the current estimates of \(y\) (\(\hat{y}\)),
@@ -1377,9 +1498,9 @@ of the search.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline39" class="outline-4">
-<h4 id="orgheadline39"><span class="section-number-4">5.3.2</span> More on Perceptrons</h4>
-<div class="outline-text-4" id="text-5-3-2">
+<div id="outline-container-orgheadline43" class="outline-4">
+<h4 id="orgheadline43"><span class="section-number-4">6.3.2</span> More on Perceptrons</h4>
+<div class="outline-text-4" id="text-6-3-2">
 <ul class="org-ul">
 <li>Geometry of the perceptron:
 <ul class="org-ul">
@@ -1425,9 +1546,9 @@ gate circuit for XOR :D</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline40" class="outline-4">
-<h4 id="orgheadline40"><span class="section-number-4">5.3.3</span> Feedforward Network Topology</h4>
-<div class="outline-text-4" id="text-5-3-3">
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44"><span class="section-number-4">6.3.3</span> Feedforward Network Topology</h4>
+<div class="outline-text-4" id="text-6-3-3">
 <ul class="org-ul">
 <li>Essentially, a directed acyclic graph of perceptrons.</li>
 <li>But, it may be that you have to follow the layer structure.</li>
@@ -1453,12 +1574,12 @@ of freedom and high representation ability).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline48" class="outline-2">
-<h2 id="orgheadline48"><span class="section-number-2">6</span> 2015-09-10 Thursday</h2>
-<div class="outline-text-2" id="text-6">
-</div><div id="outline-container-orgheadline47" class="outline-3">
-<h3 id="orgheadline47"><span class="section-number-3">6.1</span> Evaluation Methods and Metrics</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgheadline52" class="outline-2">
+<h2 id="orgheadline52"><span class="section-number-2">7</span> 2015-09-10 Thursday</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">7.1</span> Evaluation Methods and Metrics</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 How do you figure out if your algorithm is "good"?
 </p>
@@ -1480,9 +1601,9 @@ chosen, if not disjoint examples.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline43" class="outline-4">
-<h4 id="orgheadline43"><span class="section-number-4">6.1.1</span> n-fold Cross Validation</h4>
-<div class="outline-text-4" id="text-6-1-1">
+<div id="outline-container-orgheadline47" class="outline-4">
+<h4 id="orgheadline47"><span class="section-number-4">7.1.1</span> n-fold Cross Validation</h4>
+<div class="outline-text-4" id="text-7-1-1">
 <ul class="org-ul">
 <li>Generally, the number of examples is limited.</li>
 <li>Want to train on sets that are as large as possible.</li>
@@ -1516,9 +1637,9 @@ in another.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline44" class="outline-4">
-<h4 id="orgheadline44"><span class="section-number-4">6.1.2</span> Metrics for Classification</h4>
-<div class="outline-text-4" id="text-6-1-2">
+<div id="outline-container-orgheadline48" class="outline-4">
+<h4 id="orgheadline48"><span class="section-number-4">7.1.2</span> Metrics for Classification</h4>
+<div class="outline-text-4" id="text-7-1-2">
 <p>
 Contingency Table
 </p>
@@ -1637,9 +1758,9 @@ F1
 </div>
 </div>
 
-<div id="outline-container-orgheadline45" class="outline-4">
-<h4 id="orgheadline45"><span class="section-number-4">6.1.3</span> Learning Curves</h4>
-<div class="outline-text-4" id="text-6-1-3">
+<div id="outline-container-orgheadline49" class="outline-4">
+<h4 id="orgheadline49"><span class="section-number-4">7.1.3</span> Learning Curves</h4>
+<div class="outline-text-4" id="text-7-1-3">
 <ul class="org-ul">
 <li>Frequently it's useful to plot metrics as a function of sample size.</li>
 <li>Provides insight into how many examples the algorithm needs to be
@@ -1648,9 +1769,9 @@ effective.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline46" class="outline-4">
-<h4 id="orgheadline46"><span class="section-number-4">6.1.4</span> Metrics with Confidence Measures</h4>
-<div class="outline-text-4" id="text-6-1-4">
+<div id="outline-container-orgheadline50" class="outline-4">
+<h4 id="orgheadline50"><span class="section-number-4">7.1.4</span> Metrics with Confidence Measures</h4>
+<div class="outline-text-4" id="text-7-1-4">
 <ul class="org-ul">
 <li>Many learning algorithms produce classifiers or models that provide
 estimates of how confident they are.</li>
@@ -1680,12 +1801,12 @@ Characteristic curves.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline53" class="outline-2">
-<h2 id="orgheadline53"><span class="section-number-2">7</span> 2015-09-08 Tuesday</h2>
-<div class="outline-text-2" id="text-7">
-</div><div id="outline-container-orgheadline49" class="outline-3">
-<h3 id="orgheadline49"><span class="section-number-3">7.1</span> Review:</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgheadline57" class="outline-2">
+<h2 id="orgheadline57"><span class="section-number-2">8</span> 2015-09-08 Tuesday</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline53" class="outline-3">
+<h3 id="orgheadline53"><span class="section-number-3">8.1</span> Review:</h3>
+<div class="outline-text-3" id="text-8-1">
 <ul class="org-ul">
 <li>Decision trees: trees where internal nodes are tests on attributes, and
 leaves are class labels.</li>
@@ -1698,9 +1819,9 @@ constructing decision trees.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline50" class="outline-3">
-<h3 id="orgheadline50"><span class="section-number-3">7.2</span> Generalizing ID3</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54"><span class="section-number-3">8.2</span> Generalizing ID3</h3>
+<div class="outline-text-3" id="text-8-2">
 <ul class="org-ul">
 <li>What about multiple valued attributes (more than 2-valued)?
 <ul class="org-ul">
@@ -1870,9 +1991,9 @@ do this for each child node.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline52" class="outline-3">
-<h3 id="orgheadline52"><span class="section-number-3">7.3</span> Overfitting</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-orgheadline56" class="outline-3">
+<h3 id="orgheadline56"><span class="section-number-3">8.3</span> Overfitting</h3>
+<div class="outline-text-3" id="text-8-3">
 <ul class="org-ul">
 <li>Given enough features, ID3 will create a tree that fits your data perfectly.
 <ul class="org-ul">
@@ -1895,9 +2016,9 @@ data.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline51" class="outline-4">
-<h4 id="orgheadline51"><span class="section-number-4">7.3.1</span> Controlling Overfitting</h4>
-<div class="outline-text-4" id="text-7-3-1">
+<div id="outline-container-orgheadline55" class="outline-4">
+<h4 id="orgheadline55"><span class="section-number-4">8.3.1</span> Controlling Overfitting</h4>
+<div class="outline-text-4" id="text-8-3-1">
 <ul class="org-ul">
 <li>Can introduce a restriction on the hypothesis space, to prevent overly
 complex hypotheses from being learned.</li>
@@ -1920,17 +2041,17 @@ it wants).</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline69" class="outline-2">
-<h2 id="orgheadline69"><span class="section-number-2">8</span> 2015-09-01 Tuesday</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-orgheadline73" class="outline-2">
+<h2 id="orgheadline73"><span class="section-number-2">9</span> 2015-09-01 Tuesday</h2>
+<div class="outline-text-2" id="text-9">
 <p>
 HW1 due tonight at midnight.  HW 2 out today.  Read Ch. 3 in Mitchell.
 </p>
 </div>
 
-<div id="outline-container-orgheadline63" class="outline-3">
-<h3 id="orgheadline63"><span class="section-number-3">8.1</span> What is "Machine Learning?"</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgheadline67" class="outline-3">
+<h3 id="orgheadline67"><span class="section-number-3">9.1</span> What is "Machine Learning?"</h3>
+<div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li>Machine = autonomous system, with no (or limited) human intervention.</li>
 <li>Learning?
@@ -1967,9 +2088,9 @@ represent learning the underlying concept.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline54" class="outline-4">
-<h4 id="orgheadline54"><span class="section-number-4">8.1.1</span> Inductive Generalization</h4>
-<div class="outline-text-4" id="text-8-1-1">
+<div id="outline-container-orgheadline58" class="outline-4">
+<h4 id="orgheadline58"><span class="section-number-4">9.1.1</span> Inductive Generalization</h4>
+<div class="outline-text-4" id="text-9-1-1">
 <ul class="org-ul">
 <li>In all learning problems, need to reason from specific examples to a
 general case.</li>
@@ -1999,17 +2120,17 @@ has to be some sort of restriction on hypothesis spaces.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline62" class="outline-4">
-<h4 id="orgheadline62"><span class="section-number-4">8.1.2</span> Learning Settings</h4>
-<div class="outline-text-4" id="text-8-1-2">
-</div><ol class="org-ol"><li><a id="orgheadline55"></a>Supervised Learning<br  /><div class="outline-text-5" id="text-8-1-2-1">
+<div id="outline-container-orgheadline66" class="outline-4">
+<h4 id="orgheadline66"><span class="section-number-4">9.1.2</span> Learning Settings</h4>
+<div class="outline-text-4" id="text-9-1-2">
+</div><ol class="org-ol"><li><a id="orgheadline59"></a>Supervised Learning<br  /><div class="outline-text-5" id="text-9-1-2-1">
 <ul class="org-ul">
 <li>Examples are annotated by a teacheer or oracle.</li>
 <li>Learning system just finds the concept to match the annotations.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline56"></a>Unsupervised Learning<br  /><div class="outline-text-5" id="text-8-1-2-2">
+<li><a id="orgheadline60"></a>Unsupervised Learning<br  /><div class="outline-text-5" id="text-9-1-2-2">
 <ul class="org-ul">
 <li>No annotations</li>
 <li>Goal is to find interesting patterns in the examples</li>
@@ -2018,7 +2139,7 @@ has to be some sort of restriction on hypothesis spaces.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline57"></a>Semi-Supervised Learning<br  /><div class="outline-text-5" id="text-8-1-2-3">
+<li><a id="orgheadline61"></a>Semi-Supervised Learning<br  /><div class="outline-text-5" id="text-9-1-2-3">
 <ul class="org-ul">
 <li>"<b>normal learning</b>" is really a combination of the two</li>
 <li>You do unsupervised learning, and you occasionally get your
@@ -2027,7 +2148,7 @@ has to be some sort of restriction on hypothesis spaces.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline58"></a>Active Learning<br  /><div class="outline-text-5" id="text-8-1-2-4">
+<li><a id="orgheadline62"></a>Active Learning<br  /><div class="outline-text-5" id="text-9-1-2-4">
 <ul class="org-ul">
 <li>A few examples are annotated with the target concept.</li>
 <li>Learning system can "ask" the oracle to label something.</li>
@@ -2035,7 +2156,7 @@ has to be some sort of restriction on hypothesis spaces.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline59"></a>Transductive Learning<br  /><div class="outline-text-5" id="text-8-1-2-5">
+<li><a id="orgheadline63"></a>Transductive Learning<br  /><div class="outline-text-5" id="text-9-1-2-5">
 <ul class="org-ul">
 <li>Learning system has some knowledge of possible examples it will be
 evaluated on.</li>
@@ -2044,7 +2165,7 @@ evaluated on.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline60"></a>Reinforcement Learning<br  /><div class="outline-text-5" id="text-8-1-2-6">
+<li><a id="orgheadline64"></a>Reinforcement Learning<br  /><div class="outline-text-5" id="text-9-1-2-6">
 <ul class="org-ul">
 <li>This is "sequential" learning.</li>
 <li>Your environment provides feedback.</li>
@@ -2052,7 +2173,7 @@ evaluated on.</li>
 </ul>
 </div></li>
 
-<li><a id="orgheadline61"></a>Transfer Learning<br  /><div class="outline-text-5" id="text-8-1-2-7">
+<li><a id="orgheadline65"></a>Transfer Learning<br  /><div class="outline-text-5" id="text-9-1-2-7">
 <ul class="org-ul">
 <li>Human learning is cumulative.
 <ul class="org-ul">
@@ -2066,9 +2187,9 @@ bias your search.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline64" class="outline-3">
-<h3 id="orgheadline64"><span class="section-number-3">8.2</span> When to use ML?</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-orgheadline68" class="outline-3">
+<h3 id="orgheadline68"><span class="section-number-3">9.2</span> When to use ML?</h3>
+<div class="outline-text-3" id="text-9-2">
 <ul class="org-ul">
 <li>Shouldn't use ML to recognize geometric shapes.</li>
 <li>In general, you don't need to learn if you have these things:
@@ -2083,9 +2204,9 @@ effort in labeling, etc.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline68" class="outline-3">
-<h3 id="orgheadline68"><span class="section-number-3">8.3</span> Example Representations</h3>
-<div class="outline-text-3" id="text-8-3">
+<div id="outline-container-orgheadline72" class="outline-3">
+<h3 id="orgheadline72"><span class="section-number-3">9.3</span> Example Representations</h3>
+<div class="outline-text-3" id="text-9-3">
 <ul class="org-ul">
 <li>Internal representation of examples effects how you learn.</li>
 <li>EG: When you recognize objects, you don't do it at the level of signals on
@@ -2097,9 +2218,9 @@ representation of examples.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline65" class="outline-4">
-<h4 id="orgheadline65"><span class="section-number-4">8.3.1</span> Feature Vector Representation</h4>
-<div class="outline-text-4" id="text-8-3-1">
+<div id="outline-container-orgheadline69" class="outline-4">
+<h4 id="orgheadline69"><span class="section-number-4">9.3.1</span> Feature Vector Representation</h4>
+<div class="outline-text-4" id="text-9-3-1">
 <ul class="org-ul">
 <li>Examples are vectors of values for a set of attributes.</li>
 <li><p>
@@ -2156,18 +2277,18 @@ can be a logical conjunction.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline66" class="outline-4">
-<h4 id="orgheadline66"><span class="section-number-4">8.3.2</span> Relational Representation</h4>
-<div class="outline-text-4" id="text-8-3-2">
+<div id="outline-container-orgheadline70" class="outline-4">
+<h4 id="orgheadline70"><span class="section-number-4">9.3.2</span> Relational Representation</h4>
+<div class="outline-text-4" id="text-9-3-2">
 <ul class="org-ul">
 <li>Can use first order logic.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline67" class="outline-4">
-<h4 id="orgheadline67"><span class="section-number-4">8.3.3</span> Multiple Instance Representation</h4>
-<div class="outline-text-4" id="text-8-3-3">
+<div id="outline-container-orgheadline71" class="outline-4">
+<h4 id="orgheadline71"><span class="section-number-4">9.3.3</span> Multiple Instance Representation</h4>
+<div class="outline-text-4" id="text-9-3-3">
 <ul class="org-ul">
 <li>Examples are represented by arbitrary sized sets of attribute-value pairs.</li>
 </ul>
@@ -2175,24 +2296,24 @@ can be a logical conjunction.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline86" class="outline-2">
-<h2 id="orgheadline86"><span class="section-number-2">9</span> 2015-08-27 Thursday</h2>
-<div class="outline-text-2" id="text-9">
-</div><div id="outline-container-orgheadline84" class="outline-3">
-<h3 id="orgheadline84"><span class="section-number-3">9.1</span> Optimization</h3>
-<div class="outline-text-3" id="text-9-1">
-</div><div id="outline-container-orgheadline70" class="outline-4">
-<h4 id="orgheadline70"><span class="section-number-4">9.1.1</span> What is it?</h4>
-<div class="outline-text-4" id="text-9-1-1">
+<div id="outline-container-orgheadline90" class="outline-2">
+<h2 id="orgheadline90"><span class="section-number-2">10</span> 2015-08-27 Thursday</h2>
+<div class="outline-text-2" id="text-10">
+</div><div id="outline-container-orgheadline88" class="outline-3">
+<h3 id="orgheadline88"><span class="section-number-3">10.1</span> Optimization</h3>
+<div class="outline-text-3" id="text-10-1">
+</div><div id="outline-container-orgheadline74" class="outline-4">
+<h4 id="orgheadline74"><span class="section-number-4">10.1.1</span> What is it?</h4>
+<div class="outline-text-4" id="text-10-1-1">
 <p>
 Find the extreme points of an objective function.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline71" class="outline-4">
-<h4 id="orgheadline71"><span class="section-number-4">9.1.2</span> Types of Optimization Problems</h4>
-<div class="outline-text-4" id="text-9-1-2">
+<div id="outline-container-orgheadline75" class="outline-4">
+<h4 id="orgheadline75"><span class="section-number-4">10.1.2</span> Types of Optimization Problems</h4>
+<div class="outline-text-4" id="text-10-1-2">
 <ul class="org-ul">
 <li>Discrete vs Continuous - objective function is defined on discrete or
 continuous space.</li>
@@ -2204,9 +2325,9 @@ unconstrained.  We use tools from calculus and linear algebra.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline72" class="outline-4">
-<h4 id="orgheadline72"><span class="section-number-4">9.1.3</span> Unconstrained Optimization</h4>
-<div class="outline-text-4" id="text-9-1-3">
+<div id="outline-container-orgheadline76" class="outline-4">
+<h4 id="orgheadline76"><span class="section-number-4">10.1.3</span> Unconstrained Optimization</h4>
+<div class="outline-text-4" id="text-10-1-3">
 <ul class="org-ul">
 <li>Function of one variable, eg minimum of x<sup>2</sup>.  Typical method for solving
 this is to compute first and second derivative, find zeros of first
@@ -2223,9 +2344,9 @@ unknown function.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline73" class="outline-4">
-<h4 id="orgheadline73"><span class="section-number-4">9.1.4</span> Gradient Ascent</h4>
-<div class="outline-text-4" id="text-9-1-4">
+<div id="outline-container-orgheadline77" class="outline-4">
+<h4 id="orgheadline77"><span class="section-number-4">10.1.4</span> Gradient Ascent</h4>
+<div class="outline-text-4" id="text-10-1-4">
 <p>
 A way of maximizing/minimizing a function.  From your current position
 \(\vec{x}\), go in the direction that maximizes the increase.
@@ -2248,9 +2369,9 @@ approximation.
 </div>
 </div>
 
-<div id="outline-container-orgheadline74" class="outline-4">
-<h4 id="orgheadline74"><span class="section-number-4">9.1.5</span> Newton-Raphson Method</h4>
-<div class="outline-text-4" id="text-9-1-5">
+<div id="outline-container-orgheadline78" class="outline-4">
+<h4 id="orgheadline78"><span class="section-number-4">10.1.5</span> Newton-Raphson Method</h4>
+<div class="outline-text-4" id="text-10-1-5">
 <p>
 In this, we use a quadratic approximation of f.  Then, instead of taking a
 linear step, we take a "Newton step".
@@ -2275,9 +2396,9 @@ diverge in this case.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline75" class="outline-4">
-<h4 id="orgheadline75"><span class="section-number-4">9.1.6</span> Quasi-Newton Methods</h4>
-<div class="outline-text-4" id="text-9-1-6">
+<div id="outline-container-orgheadline79" class="outline-4">
+<h4 id="orgheadline79"><span class="section-number-4">10.1.6</span> Quasi-Newton Methods</h4>
+<div class="outline-text-4" id="text-10-1-6">
 <ul class="org-ul">
 <li>Often, constructing the Hessian for a multivariate function is
 computationally difficult, because it takes O(n<sup>2</sup>) space and time and has
@@ -2288,9 +2409,9 @@ Jacobian at nearby points.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline76" class="outline-4">
-<h4 id="orgheadline76"><span class="section-number-4">9.1.7</span> Local and Global Optima</h4>
-<div class="outline-text-4" id="text-9-1-7">
+<div id="outline-container-orgheadline80" class="outline-4">
+<h4 id="orgheadline80"><span class="section-number-4">10.1.7</span> Local and Global Optima</h4>
+<div class="outline-text-4" id="text-10-1-7">
 <ul class="org-ul">
 <li>A <b>global minimum</b> for a function is a point x where f(x) &le; f(x+u) for
 all u.</li>
@@ -2303,9 +2424,9 @@ arbitrary function.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline77" class="outline-4">
-<h4 id="orgheadline77"><span class="section-number-4">9.1.8</span> Convex Sets</h4>
-<div class="outline-text-4" id="text-9-1-8">
+<div id="outline-container-orgheadline81" class="outline-4">
+<h4 id="orgheadline81"><span class="section-number-4">10.1.8</span> Convex Sets</h4>
+<div class="outline-text-4" id="text-10-1-8">
 <p>
 Take two points x<sub>1</sub> and x<sub>2</sub>.  A point on the line segment between them is
 defined by &lambda; x<sub>1</sub> + (1-&lambda;) x<sub>2</sub>, for 0 &le; &lambda; &le; 1.
@@ -2320,9 +2441,9 @@ don't have holes in them".
 </div>
 </div>
 
-<div id="outline-container-orgheadline78" class="outline-4">
-<h4 id="orgheadline78"><span class="section-number-4">9.1.9</span> Convex Functions</h4>
-<div class="outline-text-4" id="text-9-1-9">
+<div id="outline-container-orgheadline82" class="outline-4">
+<h4 id="orgheadline82"><span class="section-number-4">10.1.9</span> Convex Functions</h4>
+<div class="outline-text-4" id="text-10-1-9">
 <p>
 If you look at all the points that are "above" a function - {(x,y)|y &ge;
 f(x)}, if that set is convex, then f is a convex function.
@@ -2349,9 +2470,9 @@ a pretty nice property to have.
 </div>
 </div>
 
-<div id="outline-container-orgheadline79" class="outline-4">
-<h4 id="orgheadline79"><span class="section-number-4">9.1.10</span> Constrained Optimization</h4>
-<div class="outline-text-4" id="text-9-1-10">
+<div id="outline-container-orgheadline83" class="outline-4">
+<h4 id="orgheadline83"><span class="section-number-4">10.1.10</span> Constrained Optimization</h4>
+<div class="outline-text-4" id="text-10-1-10">
 <ul class="org-ul">
 <li>Minimize a function of x such that some constraints on x are satisfied.
 The constraints define a feasible region on of in which the solution must
@@ -2360,9 +2481,9 @@ lie.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline80" class="outline-4">
-<h4 id="orgheadline80"><span class="section-number-4">9.1.11</span> Linear Programming</h4>
-<div class="outline-text-4" id="text-9-1-11">
+<div id="outline-container-orgheadline84" class="outline-4">
+<h4 id="orgheadline84"><span class="section-number-4">10.1.11</span> Linear Programming</h4>
+<div class="outline-text-4" id="text-10-1-11">
 <p>
 Linear Programming is a <b>special case</b> of <b>constrained optimization</b>, in
 which both the objective function and the constraints are linear!
@@ -2384,9 +2505,9 @@ optimal point is on one of the vertices.
 </div>
 </div>
 
-<div id="outline-container-orgheadline81" class="outline-4">
-<h4 id="orgheadline81"><span class="section-number-4">9.1.12</span> Simplex Algorithm</h4>
-<div class="outline-text-4" id="text-9-1-12">
+<div id="outline-container-orgheadline85" class="outline-4">
+<h4 id="orgheadline85"><span class="section-number-4">10.1.12</span> Simplex Algorithm</h4>
+<div class="outline-text-4" id="text-10-1-12">
 <ul class="org-ul">
 <li>Around the polyhedron we go.</li>
 <li>From any feasible vertex, walk along the edges of the polyhedron,
@@ -2416,9 +2537,9 @@ polynomial bounds*</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline82" class="outline-4">
-<h4 id="orgheadline82"><span class="section-number-4">9.1.13</span> Duality in Linear Programming</h4>
-<div class="outline-text-4" id="text-9-1-13">
+<div id="outline-container-orgheadline86" class="outline-4">
+<h4 id="orgheadline86"><span class="section-number-4">10.1.13</span> Duality in Linear Programming</h4>
+<div class="outline-text-4" id="text-10-1-13">
 <p>
 From any "primal" LP, we can derive a "dual" LP.  Say we have a primal LP:
 </p>
@@ -2462,9 +2583,9 @@ because he lost me at the dual being a lower bound on the primal.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline83" class="outline-4">
-<h4 id="orgheadline83"><span class="section-number-4">9.1.14</span> Summary of Optimization</h4>
-<div class="outline-text-4" id="text-9-1-14">
+<div id="outline-container-orgheadline87" class="outline-4">
+<h4 id="orgheadline87"><span class="section-number-4">10.1.14</span> Summary of Optimization</h4>
+<div class="outline-text-4" id="text-10-1-14">
 <ul class="org-ul">
 <li>Types of optimization problems.</li>
 <li>Unconstrained optimization - gradient ascent/descent, Newton Raphson
@@ -2482,9 +2603,9 @@ methods.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline85" class="outline-3">
-<h3 id="orgheadline85"><span class="section-number-3">9.2</span> The Simplex Algorithm</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-orgheadline89" class="outline-3">
+<h3 id="orgheadline89"><span class="section-number-3">10.2</span> The Simplex Algorithm</h3>
+<div class="outline-text-3" id="text-10-2">
 <p>
 He says we should know how it works.
 </p>
@@ -2749,7 +2870,7 @@ solution.  However, some choices will be faster than others.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-10-02 Fri 15:20</p>
+<p class="date">Created: 2015-10-08 Thu 15:09</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
