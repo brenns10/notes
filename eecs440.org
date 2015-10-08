@@ -2,6 +2,76 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-08 Thursday
+
+  Naive Bayes Classifier
+
+  The naive bayes classifier implements a linear decision boundary.
+
+** Why Does Naive Bayes Work Well?
+
+   - Theoretically, it should not.
+   - The independence assumptions made by naive bayes are nearly always wrong.
+   - Strangely, it still works well.
+   - Turns out, it works quite well for *classification*, but the probability
+     estimates are usually bad.
+
+** Tree Augmented Naive Bayes
+
+   Augments Naive Bayes so that there is a tree structure over the attributes,
+   which is unknown.
+
+   - Instead of each $X_i$ node having \(p(X_i |Y)\), you have \(p(X_i | X_j and
+     Y)\).
+   - Makes fewer independence assumptions -> better performance.
+   - Has optimal algorithm to learn the structure:
+
+   *ALGORITM*
+
+   - Create a complete graph over the attributes.
+     - Edges are weighted by \(I(U, V| Y)\) (conditional mutual information).
+   - Find the maximal weighted spanning tree of this graph.
+     - Just negate edge weights and apply Prim's Algorithm.
+   - Set the parameters with maximum likelihood estimation.
+
+   It turns out that this is the tree structure that maximizes the likelihood of
+   the data.  (ask for paper)
+
+** Logistic Regression
+
+   The simplest discriminative model.  Models "log odds" as a linear function:
+
+   \begin{equation}
+   \log \frac{p(Y = 1 | \vec{x})}{p(Y = -1| \vec{x})} = \vec{w} \cdot \vec{x} + b
+   \end{equation}
+
+   If you manimulate this equation (in slides) you get the following:
+
+   \begin{equation}
+     p(Y=1|\vec{x}) = \frac{1}{1 + e^{-(\vec{w} \cdot \vec{x} + b)}}
+   \end{equation}
+
+   To do classification, you simply compute the above probability and classify
+   as positive if it's greater than 0.5, otherwise negative.
+
+   To do learning, you can use maximum likelihood estimation.  In the previous
+   example, we used the likelihood of the data.  In this example, we maximize
+   the conditional likelihood of the data.
+
+   \begin{align*}
+     \vec{w}, b &= \arg \max \Pi_i p(Y_i = p_i | \vec{x}_i) \\
+     &= \arg \max \sum_{i\in pos} \log p(Y_i = 1 | \vec{x}_i) \sum_{i\in neg} \log p(Y_i = -1 | \vec{x}_i)
+   \end{align*}
+
+   You can also add a term to control for overfitting.  Typically
+   \(\frac{1}{2} ||\vec{w}||^2\).  Then you have to switch the signs of the rest
+   of the function and do a minimization instead.  You can do this min/max
+   problem using gradient descent or many other optimization methods.  It's very
+   robust, works well in many practical settings, and is easy to code.
+
+   Geometry - classify as positive iff \(\vec{w} \cdot \vec{x} + b > 0\).  So it's
+   linear again.
+
 * 2015-09-29 Tuesday
 
 ** Support Vector Machines
