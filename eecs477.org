@@ -2,6 +2,65 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-09 Friday
+
+** Uniform Parallel Machines
+
+  You have a set of $n$ jobs:
+  - $s_i$: start time of job $i$
+  - $d_i$: deadline of job $i$
+
+  It seems like the idea is to schedule each job to a time interval on a machine
+  so that everything happens.  The claim is that this reduces to Max Flow.
+
+  | Job |   1 |    2 |   3 |   4 |
+  | r_i  | 1.5 | 1.25 | 2.1 | 3.6 |
+
+  | Interval | Jobs  |
+  |----------+-------|
+  | 1,3      | 2     |
+  | 3,4      | 1,2,3 |
+  | 4,5      | 1,3   |
+  | 5,7      | 3,4   |
+  | 7,9      | 4     |
+
+  We create a network with a source, and a sink.  We create nodes for the jobs,
+  and we create nodes for each time interval.  We create arcs from the source to
+  each time interval, with capacity of \(M * (f_i - s_i)\).  Then we create nodes
+  for each job.  We create arcs from the jobs to the sink with capacity of \(r_i
+  \).  Finally, we create arcs from the intervals to the jobs, with capacity
+  \(f_i - s_i \).
+
+  To go from a flow to a schedule:  If we have \(x_{(h,k), i} > 0\), we schedule
+  $i$ in \([h,k]\) for \(x_{(h,k),i}\) time.  We may have to do some finagling to
+  ensure that everything fits, but we'll come back to that issue.  In any case,
+  we can also go from a schedule to a flow.
+
+  A schedule/flow is feasible if every job \to sink link is at capacity.
+
+** Equipment Replacement
+
+   When you buy a machine, it operates very nicely at the beginning, but then
+   deteriorates and you need to repair it.  You'll need to repair it more and
+   more and more as you go.  At some point, it becomes cheaper to replace it
+   with a new machine than to continue repair it.
+
+   So, say you buy a machine at time $i$ and sell at time $j$.
+
+   - \(c_{ij}\): total cost of operating machine from time $i$ to $j$.  This
+     includes the cost of purchase, minus the sell price, plus repair prices.
+
+   At least one machine must be operating at all times.  The problem is to find
+   an optimal replacement schedule.  The claim is that this reduces to MCNF.  We
+   are given a discrete set of times 1 through $n$ to buy and sell at.
+
+   You can create a network with a node for each time.  Each time $i$ is
+   connected to each future node $j$ with cost $c_{ij}$.  You set the supply at $1$
+   to 1, and supply at $n$ to -1.  The one problem is that this doesn't allow
+   for more than one machine to be running at a time.  So, we're trying to solve
+   that by adding a source and sink node, but things aren't working out
+   perfectly.
+
 * 2015-10-02 Friday
 
   *MCNF: special cases and applications*
