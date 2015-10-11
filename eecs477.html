@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-09 Fri 15:31 -->
+<!-- 2015-10-11 Sun 04:50 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 477 Notes</title>
@@ -552,6 +552,13 @@ itself.  However, we're going to make a sweeping claim here: "all dynamic
 programming is a special case of network flow".  (<code>say-whaaaaat.gif</code>)
 </p>
 
+
+<div class="figure">
+<p><img src="http://static2.therichestimages.com/wp-content/uploads/2014/06/yeahright-anim.gif" alt="yeahright-anim.gif" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Say Whaaaaat?</p>
+</div>
+
 <p>
 <b>Weighted Interval Scheduling</b>: You have \(n\) intervals \((s_i, f_i), v_i \).
 Find the subset of non-overlapping intervals with maximum value.
@@ -635,7 +642,7 @@ Imagine that in this illustration, we have arrows going from the vector slot
 <p>
 Now, we start making broad, sweeping claims!  This is just a MCNF problem!
 Make each element in the vector a node in a graph, and put edges from
-\(p(i)\) to \(i\), and \(i-1\) to \(i). The edges are labeled with the gain
+\(p(i)\) to \(i\), and \(i-1\) to \(i\). The edges are labeled with the gain
 you get \(-v_i\).  You can then run MCNF on this, and get an optimal solution.
 You can do this with any Dynamic Programming algorithm that you have the
 recursive formulation of, and are stored in a tabular format like this.
@@ -3022,7 +3029,7 @@ sum of the edge weights in the tree.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-10-09 Fri 15:31</p>
+<p class="date">Created: 2015-10-11 Sun 04:50</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
