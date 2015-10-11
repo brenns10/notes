@@ -127,6 +127,9 @@
    itself.  However, we're going to make a sweeping claim here: "all dynamic
    programming is a special case of network flow".  (=say-whaaaaat.gif=)
 
+#+CAPTION: Say Whaaaaat?
+[[http://static2.therichestimages.com/wp-content/uploads/2014/06/yeahright-anim.gif]]
+
    *Weighted Interval Scheduling*: You have $n$ intervals \((s_i, f_i), v_i \).
    Find the subset of non-overlapping intervals with maximum value.
 
@@ -151,7 +154,7 @@
 
    Now, we start making broad, sweeping claims!  This is just a MCNF problem!
    Make each element in the vector a node in a graph, and put edges from
-   \(p(i)\) to \(i\), and \(i-1\) to \(i). The edges are labeled with the gain
+   \(p(i)\) to \(i\), and \(i-1\) to \(i\). The edges are labeled with the gain
    you get $-v_i$.  You can then run MCNF on this, and get an optimal solution.
    You can do this with any Dynamic Programming algorithm that you have the
    recursive formulation of, and are stored in a tabular format like this.
