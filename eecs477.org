@@ -2,6 +2,61 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-12 Monday
+
+** Homework 3 Review
+
+   *Problem 1:* when converting nodes with capacities into pairs of nodes
+   without capacities, you assign the supplies to the input/output node by the
+   following rule:
+   - If \(b_i > 0\), then assign it to the output node.
+   - If \(b_i < 0\), then assign it to the input node.
+   - Otherwise, it doesn't really matter, both nodes get 0.
+
+   Also on problem 1, make sure when you draw graphs you explain what your
+   numbers mean.  A good policy is to include a legend.
+
+   Finally, it's generally better to get rid of capacities first, because we
+   don't have solid rules on how to get rid of lower bounds with nodes that have
+   capacities.
+
+   For my case, I know I forgot to decrease the upper bound of \((c,d)\) when I
+   removed the lower bound.  My other error was putting the negative $b_i$ on the
+   output node.
+
+   *Problem 4:* The strategies for finding $\pi_i$ were varied.  Some wrote the
+   primal, and then found the dual, and then solved it with Octave, and then
+   used the dual solution.  Others guessed and checked.  Others used the \(c_{ij} -
+   \pi_i + \pi_j \ge 0\) condition and found a feasible solution to that (which was
+   not too hard given the number of parallel arcs).  The other way was to pick a
+   starting node from which all other nodes are reachable, and then find the
+   shortest to each node.  The negative of these values are suitable to use as
+   node potentials.  Admittedly, in my solution, I didn't show any work for the
+   node potentials, but I used the shortest path method.
+
+   *Problem 5:* Here is one solution to a: 2 3 2 3 2.  Here, Alice always loses
+   no matter what she chooses.  My solution is similar to that (1 6 7 5 8 4 9 3
+   10 2).  This sort of solution may trick you into believing that if Alice has
+   any winning strategy, the best choice is to choose the max chip.  This is not
+   true.  Consider this arrangement: 10 1000 3 4.  Alice should choose 4 in
+   order to protect the 1000, forcing Bob to open it up for her to take on the
+   next turn.  This strategy requires that she remove the lower of the choices.
+
+   One way to solve part b is to formulate the solution recursively, and come up
+   with a dynamic programming algorithm.  Then do as in class and recast the
+   dynamic programming solution as a shortest path solution.
+
+   Another way to do it would be to do game trees, where you represent each node
+   as a series of decisions, and its children are the results of all the
+   possible decisions from that node.  But this has $2^n$ nodes, which is pretty
+   bad.  There is also the problem that a shortest path solution will minimize
+   the strategy of Bob, which doesn't really do what we want.
+
+   Dr. Liberatore's solution is to formulate each node in a graph as a list of
+   chips, and make transitions a full round (Alice, Bob).  We identified a
+   similar issue to the previous strategy (where it minimizes Bob's strategy).
+   Hopefully next class we'll get it figured out.
+
 * 2015-10-09 Friday
 
 ** Uniform Parallel Machines
