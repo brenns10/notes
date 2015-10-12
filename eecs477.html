@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-11 Sun 04:50 -->
+<!-- 2015-10-12 Mon 15:29 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 477 Notes</title>
@@ -176,129 +176,214 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline3">1. 2015-10-09 Friday</a>
+<li><a href="#orgheadline2">1. 2015-10-12 Monday</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Uniform Parallel Machines</a></li>
-<li><a href="#orgheadline2">1.2. Equipment Replacement</a></li>
+<li><a href="#orgheadline1">1.1. Homework 3 Review</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline7">2. 2015-10-02 Friday</a>
+<li><a href="#orgheadline5">2. 2015-10-09 Friday</a>
 <ul>
-<li><a href="#orgheadline4">2.1. Shortest Paths</a></li>
-<li><a href="#orgheadline5">2.2. Dynamic Programming!!!!!</a></li>
-<li><a href="#orgheadline6">2.3. Circulation</a></li>
+<li><a href="#orgheadline3">2.1. Uniform Parallel Machines</a></li>
+<li><a href="#orgheadline4">2.2. Equipment Replacement</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline9">3. 2015-09-30 Wednesday</a>
+<li><a href="#orgheadline9">3. 2015-10-02 Friday</a>
 <ul>
-<li><a href="#orgheadline8">3.1. MCNF Duality</a></li>
+<li><a href="#orgheadline6">3.1. Shortest Paths</a></li>
+<li><a href="#orgheadline7">3.2. Dynamic Programming!!!!!</a></li>
+<li><a href="#orgheadline8">3.3. Circulation</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline10">4. 2015-09-28 Monday</a></li>
-<li><a href="#orgheadline12">5. 2015-09-25 Friday</a>
+<li><a href="#orgheadline11">4. 2015-09-30 Wednesday</a>
 <ul>
-<li><a href="#orgheadline11">5.1. MCNF Duality</a></li>
+<li><a href="#orgheadline10">4.1. MCNF Duality</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline19">6. 2015-09-23 Wednesday</a>
+<li><a href="#orgheadline12">5. 2015-09-28 Monday</a></li>
+<li><a href="#orgheadline14">6. 2015-09-25 Friday</a>
 <ul>
-<li><a href="#orgheadline16">6.1. MCNF: Transformations</a>
-<ul>
-<li><a href="#orgheadline13">6.1.1. Removing lower bounds</a></li>
-<li><a href="#orgheadline14">6.1.2. Removing upper bounds</a></li>
-<li><a href="#orgheadline15">6.1.3. Node splitting</a></li>
+<li><a href="#orgheadline13">6.1. MCNF Duality</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline17">6.2. Residual Network</a></li>
-<li><a href="#orgheadline18">6.3. MCNF as LP</a></li>
+<li><a href="#orgheadline21">7. 2015-09-23 Wednesday</a>
+<ul>
+<li><a href="#orgheadline18">7.1. MCNF: Transformations</a>
+<ul>
+<li><a href="#orgheadline15">7.1.1. Removing lower bounds</a></li>
+<li><a href="#orgheadline16">7.1.2. Removing upper bounds</a></li>
+<li><a href="#orgheadline17">7.1.3. Node splitting</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline20">7. <span class="todo nilTODO">TODO</span> 2015-09-21 Monday</a></li>
-<li><a href="#orgheadline23">8. 2015-09-18 Friday</a>
-<ul>
-<li><a href="#orgheadline21">8.1. Integrality</a></li>
-<li><a href="#orgheadline22">8.2. Minimum Cost Network Flow</a></li>
+<li><a href="#orgheadline19">7.2. Residual Network</a></li>
+<li><a href="#orgheadline20">7.3. MCNF as LP</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline29">9. 2015-09-16 Wednesday</a>
+<li><a href="#orgheadline22">8. <span class="todo nilTODO">TODO</span> 2015-09-21 Monday</a></li>
+<li><a href="#orgheadline25">9. 2015-09-18 Friday</a>
 <ul>
-<li><a href="#orgheadline24">9.1. Problem Setup</a></li>
-<li><a href="#orgheadline25">9.2. Complementary Slackness Proof</a></li>
-<li><a href="#orgheadline26">9.3. Lagrangian Relaxation</a></li>
-<li><a href="#orgheadline27">9.4. Easily Finding the Dual</a></li>
-<li><a href="#orgheadline28">9.5. More Examples</a></li>
+<li><a href="#orgheadline23">9.1. Integrality</a></li>
+<li><a href="#orgheadline24">9.2. Minimum Cost Network Flow</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline33">10. 2015-09-14 Monday</a>
+<li><a href="#orgheadline31">10. 2015-09-16 Wednesday</a>
 <ul>
-<li><a href="#orgheadline30">10.1. Homework Stuff</a></li>
-<li><a href="#orgheadline31">10.2. Duality</a></li>
-<li><a href="#orgheadline32">10.3. Complementary Slackness</a></li>
+<li><a href="#orgheadline26">10.1. Problem Setup</a></li>
+<li><a href="#orgheadline27">10.2. Complementary Slackness Proof</a></li>
+<li><a href="#orgheadline28">10.3. Lagrangian Relaxation</a></li>
+<li><a href="#orgheadline29">10.4. Easily Finding the Dual</a></li>
+<li><a href="#orgheadline30">10.5. More Examples</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline35">11. 2015-09-11 Friday</a>
+<li><a href="#orgheadline35">11. 2015-09-14 Monday</a>
 <ul>
-<li><a href="#orgheadline34">11.1. Duality</a></li>
+<li><a href="#orgheadline32">11.1. Homework Stuff</a></li>
+<li><a href="#orgheadline33">11.2. Duality</a></li>
+<li><a href="#orgheadline34">11.3. Complementary Slackness</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline37">12. 2015-09-09 Wednesday</a>
+<li><a href="#orgheadline37">12. 2015-09-11 Friday</a>
 <ul>
-<li><a href="#orgheadline36">12.1. Linear Programming</a></li>
+<li><a href="#orgheadline36">12.1. Duality</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline46">13. 2015-09-02 Wednesday</a>
+<li><a href="#orgheadline39">13. 2015-09-09 Wednesday</a>
 <ul>
-<li><a href="#orgheadline39">13.1. Review of LP</a>
-<ul>
-<li><a href="#orgheadline38">13.1.1. Example</a></li>
+<li><a href="#orgheadline38">13.1. Linear Programming</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline40">13.2. Reducing Vertex Cover to ILP</a></li>
-<li><a href="#orgheadline41">13.3. "Slicing" Linear Programs</a></li>
-<li><a href="#orgheadline42">13.4. Semi Definite Programming</a></li>
-<li><a href="#orgheadline43">13.5. LP reduces to SDP</a></li>
-<li><a href="#orgheadline44">13.6. Quadratically Constrained Quadratic Programming (QCQP)</a></li>
-<li><a href="#orgheadline45">13.7. Back to Linear Programming</a></li>
+<li><a href="#orgheadline48">14. 2015-09-02 Wednesday</a>
+<ul>
+<li><a href="#orgheadline41">14.1. Review of LP</a>
+<ul>
+<li><a href="#orgheadline40">14.1.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline51">14. 2015-08-31 Monday</a>
-<ul>
-<li><a href="#orgheadline47">14.1. Linear Programming (LP)</a></li>
-<li><a href="#orgheadline48">14.2. Integer Linear Programming</a></li>
-<li><a href="#orgheadline49">14.3. Mixed Integer Linear Programming</a></li>
-<li><a href="#orgheadline50">14.4. Next Time, on Advanced Algorithms:</a></li>
+<li><a href="#orgheadline42">14.2. Reducing Vertex Cover to ILP</a></li>
+<li><a href="#orgheadline43">14.3. "Slicing" Linear Programs</a></li>
+<li><a href="#orgheadline44">14.4. Semi Definite Programming</a></li>
+<li><a href="#orgheadline45">14.5. LP reduces to SDP</a></li>
+<li><a href="#orgheadline46">14.6. Quadratically Constrained Quadratic Programming (QCQP)</a></li>
+<li><a href="#orgheadline47">14.7. Back to Linear Programming</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline58">15. 2015-08-28 Friday</a>
+<li><a href="#orgheadline53">15. 2015-08-31 Monday</a>
 <ul>
-<li><a href="#orgheadline52">15.1. Last Time:</a></li>
-<li><a href="#orgheadline53">15.2. Proof</a></li>
-<li><a href="#orgheadline56">15.3. Reduction</a>
-<ul>
-<li><a href="#orgheadline54">15.3.1. Optimal Message Passing</a></li>
-<li><a href="#orgheadline55">15.3.2. Choosing your reduction</a></li>
+<li><a href="#orgheadline49">15.1. Linear Programming (LP)</a></li>
+<li><a href="#orgheadline50">15.2. Integer Linear Programming</a></li>
+<li><a href="#orgheadline51">15.3. Mixed Integer Linear Programming</a></li>
+<li><a href="#orgheadline52">15.4. Next Time, on Advanced Algorithms:</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline57">15.4. GNU Octave</a></li>
+<li><a href="#orgheadline60">16. 2015-08-28 Friday</a>
+<ul>
+<li><a href="#orgheadline54">16.1. Last Time:</a></li>
+<li><a href="#orgheadline55">16.2. Proof</a></li>
+<li><a href="#orgheadline58">16.3. Reduction</a>
+<ul>
+<li><a href="#orgheadline56">16.3.1. Optimal Message Passing</a></li>
+<li><a href="#orgheadline57">16.3.2. Choosing your reduction</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline59">16. <span class="todo nilTODO">TODO</span> 2015-08-26 Wednesday</a></li>
-<li><a href="#orgheadline62">17. 2015-08-24 Monday</a>
+<li><a href="#orgheadline59">16.4. GNU Octave</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline61">17. <span class="todo nilTODO">TODO</span> 2015-08-26 Wednesday</a></li>
+<li><a href="#orgheadline64">18. 2015-08-24 Monday</a>
 <ul>
-<li><a href="#orgheadline60">17.1. Asymptotics</a></li>
-<li><a href="#orgheadline61">17.2. Optimization Problems</a></li>
+<li><a href="#orgheadline62">18.1. Asymptotics</a></li>
+<li><a href="#orgheadline63">18.2. Optimization Problems</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">1</span> 2015-10-09 Friday</h2>
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> 2015-10-12 Monday</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Uniform Parallel Machines</h3>
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Homework 3 Review</h3>
 <div class="outline-text-3" id="text-1-1">
+<p>
+<b>Problem 1:</b> when converting nodes with capacities into pairs of nodes
+without capacities, you assign the supplies to the input/output node by the
+following rule:
+</p>
+<ul class="org-ul">
+<li>If \(b_i > 0\), then assign it to the output node.</li>
+<li>If \(b_i < 0\), then assign it to the input node.</li>
+<li>Otherwise, it doesn't really matter, both nodes get 0.</li>
+</ul>
+
+<p>
+Also on problem 1, make sure when you draw graphs you explain what your
+numbers mean.  A good policy is to include a legend.
+</p>
+
+<p>
+Finally, it's generally better to get rid of capacities first, because we
+don't have solid rules on how to get rid of lower bounds with nodes that have
+capacities.
+</p>
+
+<p>
+For my case, I know I forgot to decrease the upper bound of \((c,d)\) when I
+removed the lower bound.  My other error was putting the negative \(b_i\) on the
+output node.
+</p>
+
+<p>
+<b>Problem 4:</b> The strategies for finding \(\pi_i\) were varied.  Some wrote the
+primal, and then found the dual, and then solved it with Octave, and then
+used the dual solution.  Others guessed and checked.  Others used the \(c_{ij} -
+   \pi_i + \pi_j \ge 0\) condition and found a feasible solution to that (which was
+not too hard given the number of parallel arcs).  The other way was to pick a
+starting node from which all other nodes are reachable, and then find the
+shortest to each node.  The negative of these values are suitable to use as
+node potentials.  Admittedly, in my solution, I didn't show any work for the
+node potentials, but I used the shortest path method.
+</p>
+
+<p>
+<b>Problem 5:</b> Here is one solution to a: 2 3 2 3 2.  Here, Alice always loses
+no matter what she chooses.  My solution is similar to that (1 6 7 5 8 4 9 3
+10 2).  This sort of solution may trick you into believing that if Alice has
+any winning strategy, the best choice is to choose the max chip.  This is not
+true.  Consider this arrangement: 10 1000 3 4.  Alice should choose 4 in
+order to protect the 1000, forcing Bob to open it up for her to take on the
+next turn.  This strategy requires that she remove the lower of the choices.
+</p>
+
+<p>
+One way to solve part b is to formulate the solution recursively, and come up
+with a dynamic programming algorithm.  Then do as in class and recast the
+dynamic programming solution as a shortest path solution.
+</p>
+
+<p>
+Another way to do it would be to do game trees, where you represent each node
+as a series of decisions, and its children are the results of all the
+possible decisions from that node.  But this has \(2^n\) nodes, which is pretty
+bad.  There is also the problem that a shortest path solution will minimize
+the strategy of Bob, which doesn't really do what we want.
+</p>
+
+<p>
+Dr. Liberatore's solution is to formulate each node in a graph as a list of
+chips, and make transitions a full round (Alice, Bob).  We identified a
+similar issue to the previous strategy (where it minimizes Bob's strategy).
+Hopefully next class we'll get it figured out.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">2</span> 2015-10-09 Friday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.1</span> Uniform Parallel Machines</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 You have a set of \(n\) jobs:
 </p>
@@ -409,9 +494,9 @@ A schedule/flow is feasible if every job &rarr; sink link is at capacity.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Equipment Replacement</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.2</span> Equipment Replacement</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 When you buy a machine, it operates very nicely at the beginning, but then
 deteriorates and you need to repair it.  You'll need to repair it more and
@@ -446,9 +531,9 @@ perfectly.
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">2</span> 2015-10-02 Friday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> 2015-10-02 Friday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 <b>MCNF: special cases and applications</b>
 </p>
@@ -463,9 +548,9 @@ Taking problems and mapping them to MCNF is preferable because:
 </ul>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Shortest Paths</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Shortest Paths</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Given:
 </p>
@@ -543,9 +628,9 @@ Algorithm does at every step (and of course the Bellman-Ford algorithm).
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">2.2</span> Dynamic Programming!!!!!</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.2</span> Dynamic Programming!!!!!</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Dynamic programming is an algorithm design technique, not an algorithm in
 itself.  However, we're going to make a sweeping claim here: "all dynamic
@@ -657,9 +742,9 @@ have slightly different advantages and disadvantages.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">2.3</span> Circulation</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.3</span> Circulation</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 Circulation problems are pretty much MCNF, except that all supplies are 0.
 Sometimes, you have lower bounds, so you are forced to send some flow.  Of
@@ -756,12 +841,12 @@ Next week is a regular week.  Then homework solutions and midterm review.
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9"><span class="section-number-2">3</span> 2015-09-30 Wednesday</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">3.1</span> MCNF Duality</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">4</span> 2015-09-30 Wednesday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.1</span> MCNF Duality</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 Recall from last time:
 </p>
@@ -1132,9 +1217,9 @@ condition in the residual, and update the flow to improve it.
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10"><span class="section-number-2">4</span> 2015-09-28 Monday</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">5</span> 2015-09-28 Monday</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 <i>Looks like we're going over homework 2.</i>
 </p>
@@ -1155,12 +1240,12 @@ necessary here.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12"><span class="section-number-2">5</span> 2015-09-25 Friday</h2>
-<div class="outline-text-2" id="text-5">
-</div><div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">5.1</span> MCNF Duality</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">6</span> 2015-09-25 Friday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">6.1</span> MCNF Duality</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 Assume for simplicity, &forall; (i,j) &isin; E, 0 &lt; u<sub>ij</sub> &lt; &infin;.  This condition doesn't
 provide any algorithmic restrictions, it just makes our notation simpler.
@@ -1273,21 +1358,21 @@ constraint on the flow (i.e., that arc is at capacity).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-2">
-<h2 id="orgheadline19"><span class="section-number-2">6</span> 2015-09-23 Wednesday</h2>
-<div class="outline-text-2" id="text-6">
-</div><div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">6.1</span> MCNF: Transformations</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">7</span> 2015-09-23 Wednesday</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">7.1</span> MCNF: Transformations</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 Have an instance of MCNF, and I want to transform it into another instance
 which is equivalent.
 </p>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-4">
-<h4 id="orgheadline13"><span class="section-number-4">6.1.1</span> Removing lower bounds</h4>
-<div class="outline-text-4" id="text-6-1-1">
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">7.1.1</span> Removing lower bounds</h4>
+<div class="outline-text-4" id="text-7-1-1">
 <ul class="org-ul">
 <li>If you have an arc from i to j, with b<sub>i</sub> and b<sub>j</sub>, with cost c<sub>ij</sub>, and bounds
 (&ell;<sub>ij</sub>, u<sub>ij</sub>).</li>
@@ -1300,9 +1385,9 @@ be the same to the solution of the original.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-4">
-<h4 id="orgheadline14"><span class="section-number-4">6.1.2</span> Removing upper bounds</h4>
-<div class="outline-text-4" id="text-6-1-2">
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">7.1.2</span> Removing upper bounds</h4>
+<div class="outline-text-4" id="text-7-1-2">
 <ul class="org-ul">
 <li>Again, you have i and j, with supply b<sub>i</sub>/b<sub>j</sub>, cost c<sub>ij</sub>, and upper bound u<sub>iu</sub>.</li>
 <li>i is flowing to j, with an amount x.</li>
@@ -1337,9 +1422,9 @@ bound.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-4">
-<h4 id="orgheadline15"><span class="section-number-4">6.1.3</span> Node splitting</h4>
-<div class="outline-text-4" id="text-6-1-3">
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">7.1.3</span> Node splitting</h4>
+<div class="outline-text-4" id="text-7-1-3">
 <p>
 Sometimes you try to model a LP as an MCNF?  So to make the modeling better,
 you may want to bound the amount flowing through a node (not just the net
@@ -1360,9 +1445,9 @@ original.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17"><span class="section-number-3">6.2</span> Residual Network</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">7.2</span> Residual Network</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
 If you have a feasible flow going through an instance of an MCNF problem, you
 can create a new problem by changing the demands at each node to be what you
@@ -1378,9 +1463,9 @@ the LP or maybe the dual.  It's an action frequently taken by algorithms.
 </div>
 </div>
 
-<div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18"><span class="section-number-3">6.3</span> MCNF as LP</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">7.3</span> MCNF as LP</h3>
+<div class="outline-text-3" id="text-7-3">
 <p>
 The MCNF is formulated as:
 </p>
@@ -1457,15 +1542,15 @@ MCNF is unimodular!
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-2">
-<h2 id="orgheadline20"><span class="section-number-2">7</span> <span class="todo TODO">TODO</span> 2015-09-21 Monday</h2>
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">8</span> <span class="todo TODO">TODO</span> 2015-09-21 Monday</h2>
 </div>
-<div id="outline-container-orgheadline23" class="outline-2">
-<h2 id="orgheadline23"><span class="section-number-2">8</span> 2015-09-18 Friday</h2>
-<div class="outline-text-2" id="text-8">
-</div><div id="outline-container-orgheadline21" class="outline-3">
-<h3 id="orgheadline21"><span class="section-number-3">8.1</span> Integrality</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">9</span> 2015-09-18 Friday</h2>
+<div class="outline-text-2" id="text-9">
+</div><div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">9.1</span> Integrality</h3>
+<div class="outline-text-3" id="text-9-1">
 <p>
 When you have a ILP, it's normally NP-hard.  However, if the optimal solution
 to the LP is integral, then you have the solution in polynomial time.  Hooray
@@ -1544,9 +1629,9 @@ this possible are -1 and 1.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-3">
-<h3 id="orgheadline22"><span class="section-number-3">8.2</span> Minimum Cost Network Flow</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">9.2</span> Minimum Cost Network Flow</h3>
+<div class="outline-text-3" id="text-9-2">
 <p>
 Woo?
 </p>
@@ -1584,17 +1669,17 @@ The three next steps for this problem:
 </div>
 </div>
 
-<div id="outline-container-orgheadline29" class="outline-2">
-<h2 id="orgheadline29"><span class="section-number-2">9</span> 2015-09-16 Wednesday</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-orgheadline31" class="outline-2">
+<h2 id="orgheadline31"><span class="section-number-2">10</span> 2015-09-16 Wednesday</h2>
+<div class="outline-text-2" id="text-10">
 <p>
 Intro: we're getting to the core of the class.  :D
 </p>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-3">
-<h3 id="orgheadline24"><span class="section-number-3">9.1</span> Problem Setup</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">10.1</span> Problem Setup</h3>
+<div class="outline-text-3" id="text-10-1">
 <p>
 Problem setup:
 </p>
@@ -1617,9 +1702,9 @@ Dual:
 </div>
 </div>
 
-<div id="outline-container-orgheadline25" class="outline-3">
-<h3 id="orgheadline25"><span class="section-number-3">9.2</span> Complementary Slackness Proof</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">10.2</span> Complementary Slackness Proof</h3>
+<div class="outline-text-3" id="text-10-2">
 <p>
 <b>Definition:</b> x, &pi; feasible are said to satisfy complementary slackness iff:
 </p>
@@ -1665,9 +1750,9 @@ must be equal to 0.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline26" class="outline-3">
-<h3 id="orgheadline26"><span class="section-number-3">9.3</span> Lagrangian Relaxation</h3>
-<div class="outline-text-3" id="text-9-3">
+<div id="outline-container-orgheadline28" class="outline-3">
+<h3 id="orgheadline28"><span class="section-number-3">10.3</span> Lagrangian Relaxation</h3>
+<div class="outline-text-3" id="text-10-3">
 <p>
 z<sup>*</sup> = min c<sup>T</sup> x, s.t. constraints
 </p>
@@ -1689,9 +1774,9 @@ the optimum value is &le; the more constrained one.
 </div>
 </div>
 
-<div id="outline-container-orgheadline27" class="outline-3">
-<h3 id="orgheadline27"><span class="section-number-3">9.4</span> Easily Finding the Dual</h3>
-<div class="outline-text-3" id="text-9-4">
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">10.4</span> Easily Finding the Dual</h3>
+<div class="outline-text-3" id="text-10-4">
 <p>
 We want to find the dual of every linear program, not just the form with
 minimization, Ax&ge;b. and x&ge;0.  We could switch the problem into this form.
@@ -1805,9 +1890,9 @@ Finally, simplify to max 3y, s.t.
 </div>
 </div>
 
-<div id="outline-container-orgheadline28" class="outline-3">
-<h3 id="orgheadline28"><span class="section-number-3">9.5</span> More Examples</h3>
-<div class="outline-text-3" id="text-9-5">
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">10.5</span> More Examples</h3>
+<div class="outline-text-3" id="text-10-5">
 <p>
 min 2x<sub>1</sub> + x<sub>2</sub>, s.t.
 </p>
@@ -1877,12 +1962,12 @@ the others &pi;<sub>i</sub>
 </div>
 </div>
 
-<div id="outline-container-orgheadline33" class="outline-2">
-<h2 id="orgheadline33"><span class="section-number-2">10</span> 2015-09-14 Monday</h2>
-<div class="outline-text-2" id="text-10">
-</div><div id="outline-container-orgheadline30" class="outline-3">
-<h3 id="orgheadline30"><span class="section-number-3">10.1</span> Homework Stuff</h3>
-<div class="outline-text-3" id="text-10-1">
+<div id="outline-container-orgheadline35" class="outline-2">
+<h2 id="orgheadline35"><span class="section-number-2">11</span> 2015-09-14 Monday</h2>
+<div class="outline-text-2" id="text-11">
+</div><div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">11.1</span> Homework Stuff</h3>
+<div class="outline-text-3" id="text-11-1">
 <p>
 Problem 3 had no solution.
 </p>
@@ -1896,9 +1981,9 @@ seems like the basic feasible solutions are always integer for this problem.
 </div>
 </div>
 
-<div id="outline-container-orgheadline31" class="outline-3">
-<h3 id="orgheadline31"><span class="section-number-3">10.2</span> Duality</h3>
-<div class="outline-text-3" id="text-10-2">
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">11.2</span> Duality</h3>
+<div class="outline-text-3" id="text-11-2">
 <p>
 Strong Duality Theorem: I have a program of the form:
 </p>
@@ -1996,9 +2081,9 @@ value greater than this, so it is an optimal solution for the dual!
 </div>
 </div>
 
-<div id="outline-container-orgheadline32" class="outline-3">
-<h3 id="orgheadline32"><span class="section-number-3">10.3</span> Complementary Slackness</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34"><span class="section-number-3">11.3</span> Complementary Slackness</h3>
+<div class="outline-text-3" id="text-11-3">
 <p>
 Let x, &pi; be feasible solutions.  x, &pi; satisfy complementary slackness (p+q
 equalities).
@@ -2034,9 +2119,9 @@ tell you <i>kinda</i> how much you'd like to get rid of your constraint.
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline35" class="outline-2">
-<h2 id="orgheadline35"><span class="section-number-2">11</span> 2015-09-11 Friday</h2>
-<div class="outline-text-2" id="text-11">
+<div id="outline-container-orgheadline37" class="outline-2">
+<h2 id="orgheadline37"><span class="section-number-2">12</span> 2015-09-11 Friday</h2>
+<div class="outline-text-2" id="text-12">
 <p>
 LP <b>canonical</b> form.
 </p>
@@ -2110,9 +2195,9 @@ More proof stuff that I really need to read about.
 </ul>
 </div>
 
-<div id="outline-container-orgheadline34" class="outline-3">
-<h3 id="orgheadline34"><span class="section-number-3">11.1</span> Duality</h3>
-<div class="outline-text-3" id="text-11-1">
+<div id="outline-container-orgheadline36" class="outline-3">
+<h3 id="orgheadline36"><span class="section-number-3">12.1</span> Duality</h3>
+<div class="outline-text-3" id="text-12-1">
 <ul class="org-ul">
 <li>Primal: min C<sup>T</sup> x s.t. Ax &ge; b, x &ge; 0.</li>
 <li>Dual: max b<sup>T</sup> &pi; s.t. A<sup>T</sup> &pi; &le; c, &pi; &ge; 0</li>
@@ -2128,12 +2213,12 @@ Theorem (Weak Duality): &forall; feasible x, &pi;, b<sup>T</sup> &pi; &le; c<sup
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline37" class="outline-2">
-<h2 id="orgheadline37"><span class="section-number-2">12</span> 2015-09-09 Wednesday</h2>
-<div class="outline-text-2" id="text-12">
-</div><div id="outline-container-orgheadline36" class="outline-3">
-<h3 id="orgheadline36"><span class="section-number-3">12.1</span> Linear Programming</h3>
-<div class="outline-text-3" id="text-12-1">
+<div id="outline-container-orgheadline39" class="outline-2">
+<h2 id="orgheadline39"><span class="section-number-2">13</span> 2015-09-09 Wednesday</h2>
+<div class="outline-text-2" id="text-13">
+</div><div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">13.1</span> Linear Programming</h3>
+<div class="outline-text-3" id="text-13-1">
 <p>
 min c<sup>T</sup> x, s.t. Ax = b, x &ge; 0
 </p>
@@ -2290,12 +2375,12 @@ non-degenerate case only, &theta; &gt; 0.  Next time.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline46" class="outline-2">
-<h2 id="orgheadline46"><span class="section-number-2">13</span> 2015-09-02 Wednesday</h2>
-<div class="outline-text-2" id="text-13">
-</div><div id="outline-container-orgheadline39" class="outline-3">
-<h3 id="orgheadline39"><span class="section-number-3">13.1</span> Review of LP</h3>
-<div class="outline-text-3" id="text-13-1">
+<div id="outline-container-orgheadline48" class="outline-2">
+<h2 id="orgheadline48"><span class="section-number-2">14</span> 2015-09-02 Wednesday</h2>
+<div class="outline-text-2" id="text-14">
+</div><div id="outline-container-orgheadline41" class="outline-3">
+<h3 id="orgheadline41"><span class="section-number-3">14.1</span> Review of LP</h3>
+<div class="outline-text-3" id="text-14-1">
 <ul class="org-ul">
 <li>min C<sup>T</sup> x, st.</li>
 <li>Ax = b</li>
@@ -2307,9 +2392,9 @@ Integer LP is same, except require that x is an integer.
 </p>
 </div>
 
-<div id="outline-container-orgheadline38" class="outline-4">
-<h4 id="orgheadline38"><span class="section-number-4">13.1.1</span> Example</h4>
-<div class="outline-text-4" id="text-13-1-1">
+<div id="outline-container-orgheadline40" class="outline-4">
+<h4 id="orgheadline40"><span class="section-number-4">14.1.1</span> Example</h4>
+<div class="outline-text-4" id="text-14-1-1">
 <p>
 Vertex Cover Problem - given a undirected graph G, find a vertex cover of
 minimum size.  (vc = a set of vertices that cover every edge).
@@ -2343,9 +2428,9 @@ says that at least one of the vertices on the edge needs to be 1.
 </div>
 </div>
 
-<div id="outline-container-orgheadline40" class="outline-3">
-<h3 id="orgheadline40"><span class="section-number-3">13.2</span> Reducing Vertex Cover to ILP</h3>
-<div class="outline-text-3" id="text-13-2">
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">14.2</span> Reducing Vertex Cover to ILP</h3>
+<div class="outline-text-3" id="text-14-2">
 <p>
 More generally, the vertex cover of G=(V,E) can be transformed to ILP like this:
 </p>
@@ -2373,9 +2458,9 @@ their continuous relatives.
 </div>
 </div>
 
-<div id="outline-container-orgheadline41" class="outline-3">
-<h3 id="orgheadline41"><span class="section-number-3">13.3</span> "Slicing" Linear Programs</h3>
-<div class="outline-text-3" id="text-13-3">
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43"><span class="section-number-3">14.3</span> "Slicing" Linear Programs</h3>
+<div class="outline-text-3" id="text-14-3">
 <p>
 When you have the constraints Ax = b, you can think of it as a<sub>i</sub><sup>T</sup> x = b<sub>i</sub>,
 where a<sub>i</sub><sup>T</sup> is a row vector of A.  This is totally linear algebra, and I'm sure
@@ -2384,9 +2469,9 @@ it'll come in useful later in the course.
 </div>
 </div>
 
-<div id="outline-container-orgheadline42" class="outline-3">
-<h3 id="orgheadline42"><span class="section-number-3">13.4</span> Semi Definite Programming</h3>
-<div class="outline-text-3" id="text-13-4">
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44"><span class="section-number-3">14.4</span> Semi Definite Programming</h3>
+<div class="outline-text-3" id="text-14-4">
 <ul class="org-ul">
 <li><b>Def:</b> A real matrix A is positive (semi) definite iff &forall; x &ge; 0, x<sup>T</sup> A x &gt; 0
 (x<sup>T</sup> A x &ge; 0).</li>
@@ -2419,9 +2504,9 @@ The problem of Semi Definite Programming is:
 </div>
 </div>
 
-<div id="outline-container-orgheadline43" class="outline-3">
-<h3 id="orgheadline43"><span class="section-number-3">13.5</span> LP reduces to SDP</h3>
-<div class="outline-text-3" id="text-13-5">
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45"><span class="section-number-3">14.5</span> LP reduces to SDP</h3>
+<div class="outline-text-3" id="text-14-5">
 <ul class="org-ul">
 <li><p>
 <b>Claim:</b> Linear programming is a special case of (i.e. reduces to) Semi
@@ -2446,9 +2531,9 @@ algorithms to LP.  But it exists.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline44" class="outline-3">
-<h3 id="orgheadline44"><span class="section-number-3">13.6</span> Quadratically Constrained Quadratic Programming (QCQP)</h3>
-<div class="outline-text-3" id="text-13-6">
+<div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46"><span class="section-number-3">14.6</span> Quadratically Constrained Quadratic Programming (QCQP)</h3>
+<div class="outline-text-3" id="text-14-6">
 <ul class="org-ul">
 <li>min x<sup>T</sup> Q x + q<sup>T</sup> x</li>
 <li>s.t. x<sup>T</sup> Q<sub>i</sub> x + q<sub>i</sub><sup>T</sup> x &le; b<sub>i</sub>, i=1,2,..,p</li>
@@ -2466,9 +2551,9 @@ decision variables you get quadratic terms.  Or something.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline45" class="outline-3">
-<h3 id="orgheadline45"><span class="section-number-3">13.7</span> Back to Linear Programming</h3>
-<div class="outline-text-3" id="text-13-7">
+<div id="outline-container-orgheadline47" class="outline-3">
+<h3 id="orgheadline47"><span class="section-number-3">14.7</span> Back to Linear Programming</h3>
+<div class="outline-text-3" id="text-14-7">
 <p>
 Like you could slice LP constraint matrices by rows, you can also do it by
 columns.  Split A into columns A<sub>1</sub>, A<sub>2</sub>, &#x2026;, A<sub>q</sub>.  Then, you can break the
@@ -2499,12 +2584,12 @@ corresponding to them are independent.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline51" class="outline-2">
-<h2 id="orgheadline51"><span class="section-number-2">14</span> 2015-08-31 Monday</h2>
-<div class="outline-text-2" id="text-14">
-</div><div id="outline-container-orgheadline47" class="outline-3">
-<h3 id="orgheadline47"><span class="section-number-3">14.1</span> Linear Programming (LP)</h3>
-<div class="outline-text-3" id="text-14-1">
+<div id="outline-container-orgheadline53" class="outline-2">
+<h2 id="orgheadline53"><span class="section-number-2">15</span> 2015-08-31 Monday</h2>
+<div class="outline-text-2" id="text-15">
+</div><div id="outline-container-orgheadline49" class="outline-3">
+<h3 id="orgheadline49"><span class="section-number-3">15.1</span> Linear Programming (LP)</h3>
+<div class="outline-text-3" id="text-15-1">
 <p>
 An instance of LP:
 </p>
@@ -2752,9 +2837,9 @@ Where, x = (x<sub>1</sub>, x<sub>2</sub>, &#x2026;, x<sub>q</sub>)<sup>T</sup>, 
 </div>
 </div>
 
-<div id="outline-container-orgheadline48" class="outline-3">
-<h3 id="orgheadline48"><span class="section-number-3">14.2</span> Integer Linear Programming</h3>
-<div class="outline-text-3" id="text-14-2">
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50"><span class="section-number-3">15.2</span> Integer Linear Programming</h3>
+<div class="outline-text-3" id="text-15-2">
 <p>
 Same as ^, except that the x's must be integers.  Since this is a more
 restricted problem, the solutions are no better than the LP solutions.
@@ -2762,9 +2847,9 @@ restricted problem, the solutions are no better than the LP solutions.
 </div>
 </div>
 
-<div id="outline-container-orgheadline49" class="outline-3">
-<h3 id="orgheadline49"><span class="section-number-3">14.3</span> Mixed Integer Linear Programming</h3>
-<div class="outline-text-3" id="text-14-3">
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">15.3</span> Mixed Integer Linear Programming</h3>
+<div class="outline-text-3" id="text-15-3">
 <p>
 MILP.  Really?
 </p>
@@ -2780,9 +2865,9 @@ continuous.
 </div>
 </div>
 
-<div id="outline-container-orgheadline50" class="outline-3">
-<h3 id="orgheadline50"><span class="section-number-3">14.4</span> Next Time, on Advanced Algorithms:</h3>
-<div class="outline-text-3" id="text-14-4">
+<div id="outline-container-orgheadline52" class="outline-3">
+<h3 id="orgheadline52"><span class="section-number-3">15.4</span> Next Time, on Advanced Algorithms:</h3>
+<div class="outline-text-3" id="text-15-4">
 <p>
 Vertex cover, formulated as ILP.
 </p>
@@ -2790,12 +2875,12 @@ Vertex cover, formulated as ILP.
 </div>
 </div>
 
-<div id="outline-container-orgheadline58" class="outline-2">
-<h2 id="orgheadline58"><span class="section-number-2">15</span> 2015-08-28 Friday</h2>
-<div class="outline-text-2" id="text-15">
-</div><div id="outline-container-orgheadline52" class="outline-3">
-<h3 id="orgheadline52"><span class="section-number-3">15.1</span> Last Time:</h3>
-<div class="outline-text-3" id="text-15-1">
+<div id="outline-container-orgheadline60" class="outline-2">
+<h2 id="orgheadline60"><span class="section-number-2">16</span> 2015-08-28 Friday</h2>
+<div class="outline-text-2" id="text-16">
+</div><div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54"><span class="section-number-3">16.1</span> Last Time:</h3>
+<div class="outline-text-3" id="text-16-1">
 <p>
 Approximation algorithms have approximation ratio:
 </p>
@@ -2819,9 +2904,9 @@ algorithm.
 </div>
 </div>
 
-<div id="outline-container-orgheadline53" class="outline-3">
-<h3 id="orgheadline53"><span class="section-number-3">15.2</span> Proof</h3>
-<div class="outline-text-3" id="text-15-2">
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="orgheadline55"><span class="section-number-3">16.2</span> Proof</h3>
+<div class="outline-text-3" id="text-16-2">
 <p>
 <b>Theorem</b> <code>VCapx</code> is a 2-approximation algorithm.
 </p>
@@ -2854,9 +2939,9 @@ Here's the actual text of his proof:
 </div>
 </div>
 
-<div id="outline-container-orgheadline56" class="outline-3">
-<h3 id="orgheadline56"><span class="section-number-3">15.3</span> Reduction</h3>
-<div class="outline-text-3" id="text-15-3">
+<div id="outline-container-orgheadline58" class="outline-3">
+<h3 id="orgheadline58"><span class="section-number-3">16.3</span> Reduction</h3>
+<div class="outline-text-3" id="text-16-3">
 <p>
 The pipeline of reduction:
 </p>
@@ -2875,9 +2960,9 @@ EG: Any maximization problem reduces to a minimization problem in O(1) time.
 </p>
 </div>
 
-<div id="outline-container-orgheadline54" class="outline-4">
-<h4 id="orgheadline54"><span class="section-number-4">15.3.1</span> Optimal Message Passing</h4>
-<div class="outline-text-4" id="text-15-3-1">
+<div id="outline-container-orgheadline56" class="outline-4">
+<h4 id="orgheadline56"><span class="section-number-4">16.3.1</span> Optimal Message Passing</h4>
+<div class="outline-text-4" id="text-16-3-1">
 <p>
 Given a graph G=(V,E) with probability p<sub>e</sub> (0 &lt; p<sub>e</sub> &lt; 1) associated to each e
 &isin; E.  Find a spanning tree of G that minimizes the probability of failure.
@@ -2900,9 +2985,9 @@ which happens to be the probability of survival of the tree.
 </div>
 </div>
 
-<div id="outline-container-orgheadline55" class="outline-4">
-<h4 id="orgheadline55"><span class="section-number-4">15.3.2</span> Choosing your reduction</h4>
-<div class="outline-text-4" id="text-15-3-2">
+<div id="outline-container-orgheadline57" class="outline-4">
+<h4 id="orgheadline57"><span class="section-number-4">16.3.2</span> Choosing your reduction</h4>
+<div class="outline-text-4" id="text-16-3-2">
 <p>
 This isn't necessarily like EECS 343 reductions, where you find the easiest
 reduction to do.  There are entire families of problems that are special
@@ -2917,9 +3002,9 @@ of tradeoffs here in computer science land.
 </div>
 </div>
 
-<div id="outline-container-orgheadline57" class="outline-3">
-<h3 id="orgheadline57"><span class="section-number-3">15.4</span> GNU Octave</h3>
-<div class="outline-text-3" id="text-15-4">
+<div id="outline-container-orgheadline59" class="outline-3">
+<h3 id="orgheadline59"><span class="section-number-3">16.4</span> GNU Octave</h3>
+<div class="outline-text-3" id="text-16-4">
 <ul class="org-ul">
 <li>Download it via your package manager, or from the GNU website if you're a
 Win/Mac user.</li>
@@ -2932,17 +3017,17 @@ less powerful (open source) Mathematica.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline59" class="outline-2">
-<h2 id="orgheadline59"><span class="section-number-2">16</span> <span class="todo TODO">TODO</span> 2015-08-26 Wednesday</h2>
-<div class="outline-text-2" id="text-16">
+<div id="outline-container-orgheadline61" class="outline-2">
+<h2 id="orgheadline61"><span class="section-number-2">17</span> <span class="todo TODO">TODO</span> 2015-08-26 Wednesday</h2>
+<div class="outline-text-2" id="text-17">
 <p>
 Need to copy over notes from paper.
 </p>
 </div>
 </div>
-<div id="outline-container-orgheadline62" class="outline-2">
-<h2 id="orgheadline62"><span class="section-number-2">17</span> 2015-08-24 Monday</h2>
-<div class="outline-text-2" id="text-17">
+<div id="outline-container-orgheadline64" class="outline-2">
+<h2 id="orgheadline64"><span class="section-number-2">18</span> 2015-08-24 Monday</h2>
+<div class="outline-text-2" id="text-18">
 <ul class="org-ul">
 <li>5 books, get sections from library</li>
 <li>2 tests:
@@ -2957,9 +3042,9 @@ Need to copy over notes from paper.
 </ul>
 </div>
 
-<div id="outline-container-orgheadline60" class="outline-3">
-<h3 id="orgheadline60"><span class="section-number-3">17.1</span> Asymptotics</h3>
-<div class="outline-text-3" id="text-17-1">
+<div id="outline-container-orgheadline62" class="outline-3">
+<h3 id="orgheadline62"><span class="section-number-3">18.1</span> Asymptotics</h3>
+<div class="outline-text-3" id="text-18-1">
 <p>
 Measure time complexity.  Focus is on large inputs.
 </p>
@@ -3007,9 +3092,9 @@ Formula:
 </div>
 </div>
 
-<div id="outline-container-orgheadline61" class="outline-3">
-<h3 id="orgheadline61"><span class="section-number-3">17.2</span> Optimization Problems</h3>
-<div class="outline-text-3" id="text-17-2">
+<div id="outline-container-orgheadline63" class="outline-3">
+<h3 id="orgheadline63"><span class="section-number-3">18.2</span> Optimization Problems</h3>
+<div class="outline-text-3" id="text-18-2">
 <p>
 <b><b>Definition:</b></b> An instance of an optimization problem is a pair \((X,f)\),
   where \(X\) is a set of feasible solutions, and \(f\) is an objective function.
@@ -3029,7 +3114,7 @@ sum of the edge weights in the tree.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-10-11 Sun 04:50</p>
+<p class="date">Created: 2015-10-12 Mon 15:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
