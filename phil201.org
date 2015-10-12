@@ -334,3 +334,140 @@
         - A, ~B: TRUE
 
   Set A, C, ~B
+* 2015-10-12 Monday
+
+  These aren't actually my notes for today's class.  There's a quiz in class
+  today, so I'm using today's notes as a place to take notes on the content of
+  the past week.  We have three major topics: soundness, completeness, and
+  effectiveness.  Particularly, we've been talking about these properties of the
+  Tree Method for Validity in Sentential Logic.
+
+** Soundness
+
+   The soundness property of any method means that it will never produce false
+   positives.  If a method says "this argument is valid", then the argument
+   /must/ be valid.  The simplest sound test is to say no argument is valid.  In
+   Machine Learning terms, a sound argument (classifier) is one that produces no
+   false positives, and thus has perfect Precision.
+
+   More formally, you can state soundness as "if the method says an argument is
+   valid, then the argument is valid".  We can prove this by proving the
+   contrapositive, that is: "if the argument is invalid, then the method will
+   not say it is valid".
+
+   - To say an argument is invalid is to say that there is a counterexample
+     (i.e. a row in a truth table that makes the whole list true).
+   - First, we prove the lemma: "if a row of the truth table makes a sentence
+     valid, then that same row will make at least one of the branches true."
+     - For atomic or negated atomics, there is no branch.
+     - For conjunctions \(A \land B\), the only row that could make the conjunction
+       true is assigning True to both $A$ and $B$.  The tree rule will create
+       one branch with $A$ and $B$ on it.  The only table row that makes \(A \land
+       B\) true also makes both $A$ and $B$ true in the subsequent rule.
+     - For negated conjunctions \(~(P \land Q)\), The rule will expand to two trees:
+       one that is $~P$, and the other that is $~Q$.  The rows that could make
+       \(~(P \land Q)\) true are:
+       - $~P$, $~Q$: this makes both $~P$ and $~Q$ branches true.
+       - $~P$, $Q$: this makes the $~P$ branch true
+       - $P$, $~Q$: this makes the $~Q$ branch true.
+     - For \(P \lor Q\), the rule will expand to two branches: one with $P$, the
+       other with $Q$.  The truth table rules that make \(P \lor Q\) true are:
+       - $P$, $Q$: this makes both branches true
+       - $P$, $~Q$: this makes the $P$ branch true
+       - $~P$, $Q$: this makes the $Q$ branch true
+     We can keep doing this for every tree rule (which kinda stinks, but we'll
+     have to know how to do this for any tree rule he gives us).
+   - The second part of the proof is pretty simple.  You need to prove the
+     statement that "if some row of the truth table makes all the sentences on a
+     current branch true, then applying any truth tree rule to a sentence on
+     that branch will result in at least one branch remaining open":
+     - This is a direct result of the previous lemma.
+     - Choose any sentence and any rule, and apply the rule to the sentence.
+     - If the rule makes no branches at all, then the subtree will be a tree
+       with one less sentence, and the same branch still makes all those
+       sentences true.  So the branch is still open.
+     - If the rule makes any branches, then applying the above lemma, since
+       there is truth tree row that makes this sentence true, that row also
+       makes at least one of the child branches true.  That row also makes the
+       remaining sentences in the tree true, so that (those) child branch(es)
+       remain open.
+
+** Completeness
+
+   As soundness is the property of "no false positives", completeness is the
+   property of "no false negatives".  This means perfect Recall.  More formally,
+   if an argument is valid, then the method will say it is valid (i.e. the truth
+   tree will close).  To prove this, we prove the contrapositive: "if the method
+   does not say it is valid, then the argument is invalid".  We'll rely on
+   effectiveness in this proof, but I guess the proof of effectiveness isn't
+   content for this quiz.
+
+   Since every tree will eventually complete (in SL...), all we need to do is
+   say that every open branch on a completed truth tree corresponds to a (not
+   necessarily unique) counterexample.
+
+   To show this, we consider a finished open branch on a tree.  Go up it,
+   assigning T to each atomic sentence you see.  Once you're done, assign F to
+   every atomic that you didn't see (just so that you have a decision made for
+   every variable).
+
+   The first thing to say is that you are guaranteed that you will get a
+   consistent variable assignment.  This is because if you got a contradictory
+   variable assignment, this branch would be closed (that's the condition for
+   closing a branch!).
+
+   The second thing is to show that this variable assignment makes every
+   sentence in the tree True.  We do this as we go up the tree, for each kind of
+   rule.  This is actually a bit inductive - the first case is the base case,
+   and the following cases seem to require the inductive hypothesis.
+
+   - An atomic/negated atomic sentence can't be False, because we are assigning
+     it to true.
+   - Conjunctions \(P \land Q\) can't be the first sentence to be made false, since
+     the tree below has made both P and Q to be true (the inductive
+     hypothesis).
+   - Negated conjunctions \(~(P \land Q)\) can't be the first sentence to be made
+     false, since below it either $~P$ or $~Q$ was true (it could be both, but
+     we only know that one of them is true).  If we've made one of those true,
+     then we've made this sentence true as well.
+   - For \(P \lor Q\), they can't be the first sentence made false.  This is
+     because below, we've either got $P$ or $Q$ to be true.  It could be both,
+     but we know that at least one of them is true).  By the definition of $\lor$,
+     this means that \(P \lor Q\) must also be true.
+   - This continues for every rule.
+
+   This tells you that every open branch must produce a variable assignment, and
+   since all the sentences are true, thet variable assignment is a
+   counterexample.  Therefore, whenever the tree finishes with an open branch,
+   there is a counterexample, and so there are no false negatives.
+
+** Effectiveness
+
+   It seems silly that this proof won't be quizzed on, but whatever.
+   Essentially, you look at any collection of sentences and see that you can
+   place an upper bound on the number of tree levels that are necessary to rid
+   it of all its binary connectives and negations.  You just need to show that
+   for each binary connective tree rule, you get on the next level one less
+   binary connective, and at most one more negation.
+
+** Condensed Concepts
+
+   *Soundness:*
+   - "No false positives"
+   - If Tree says it's valid, then argument is valid.
+   - If invalid, then tree says invalid.
+   - If counterexample, then tree finds it.
+   - If a row makes all sentences true, then there will be an open branch.
+   - Must show: for each rule, every row that makes it true makes one of the
+     children true.
+
+   *Completeness:*
+   - "Every correct positive."
+     - If argument is valid, then tree says it's valid.
+   - "No false negatives."
+     - If tree says it's invalid, then argument is invalid.
+   - Both of the above "statements" followed by formal statements are
+     equivalent; we use the second.
+   - Every open tree branch corresponds to a counterexample.
+   - Must show: for each rule, if one of its children is true, then the parent
+     is also true.
