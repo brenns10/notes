@@ -2,6 +2,151 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-13 Tuesday
+
+** Part 2: Issues in Machine Learning
+
+   We're entering the second part of the course!  We've covered algorithms,
+   evaluation, and comparison.  Now we cover extensions and enhancements, and
+   implementation issues.
+
+*** Handling Missing Attribute Values
+
+    - Frequently you don't have complete data due to cost, noise, or just
+      inconsistencies on behalf of the person doing the measuring.
+    - How do we handle it?
+
+    Strategies:
+
+    - Preprocess to remove missing  values.
+    - Algorithm specific strategies.
+    - A general strategy for generative probabilistic models (expectation
+      maximization)
+
+**** Preprocessing
+
+     - Easiest strategy: remove all examples with missing examples.
+       - Sometimes this is the sensible thing to do - especially if only a few
+         examples are missing data.
+     - Next easiest: replace with a new value that indicates "unknown"
+       - This can cause unforeseen consequences!  (gene expression leukemia
+         story)
+     - Third strategy: fill in the missing values somehow, based on the observed
+       data.
+       - (this is called imputation)
+       - It's a learning algorithm within a learning algorithm.
+       - Machine Learning-ception
+
+***** Mean Imputation
+     - Suppose the \(j\)th feature is missing from the \(i\)th example is
+       missing.
+     - Substitute with the average value for the \(j\)th feature taken over all
+       examples with the same label for which $j$ is observed.
+
+       \begin{equation}
+         \hat{x}_{ij} = \frac{\sum_{\{k|x_{kj}\text{ is observed}\}} x_{kj} I(y_k = y_i)}{\sum_{\{k|x_{kj}\text{ is observed}\}} I(y_k=y_i)}
+       \end{equation}
+
+       This is useful for training.  What about prediction?
+     - Suppose the \(j\)th feature for new example, $x$, is missing.
+     - Substitute with the average value of the \(j\)th feature taken over all
+       examples for which $x_j$ is observed.
+
+       \begin{equation}
+         \hat{x}_j = \frac{\sum_{\{k|x_{kj}\text{ is observed}\}} x_{kj}}{\text{# where }x_{jk}\text{ is observed}}
+       \end{equation}
+
+***** Model-based Imputation
+
+      - Suppose you have example $i$, which is missing some attributes, in
+        particular $j$.
+      - Let $O$ be the set of observed attributes for $i$.
+      - Find the set of examples $E$ which (i) have the same label as $j$, (ii)
+        have at least both $O$ and $x_j$ observed.
+      - Learn a model to predict $x_j$ using $O$, trained on $E$.
+      - Use this model to impute $x_{ij}$.
+      - *Very costly:* You must do this for every single cell that is missing!
+
+***** Imputation Recap
+
+      - If you need to do some sort of imputation, Dr. Ray recommends you start
+        with mean-based imputation.  It works "surprisingly well".
+
+**** Algorithm-Dependent Strategies
+
+     The above preprocessing solutions ignore which classification algorithm you
+     are going to use with the data.
+     - "Generally not a good idea"
+
+     Some algorithms have tailored approaches to deal with missing values.
+
+***** Decision Trees
+      *Prediction:*
+
+      - When training, maintain fractions of training examples that went down
+        each branch, at every node.
+      - When you encounter a node that asks you to test an attribute that your
+        example doesn't have, send it down "both" (or all) paths.
+        - You'll get back a prediction with a weight.
+        - Add up all the fractions for each label, and pick the label with the
+          biggest fraction.
+      - If you have lots of incomplete data, then your classification time is
+        like $b^k$, where $b$ is your branching factor and $k$ is your number of
+        missing attributes.  So it's pretty inefficient.
+
+      *Learning:*
+      - Key question: how to compute $IG(X)$ if there are examples with $X$
+        missing?
+      - Idea: when partitioning the data to get $H(Y|X)$, send "fractions" of
+        these examples to all buckets for $X$.
+      - For the \(i\)th bucket, the fraction is equal to the proportion of the
+        \(i\)th value of $X$ in /other/ examples at this node, where $X$ is
+        observed.
+      - On the slides, he has a table with an example, that really helps the
+        understanding.  I'd check it out if this is confusing.
+      - When you go down a node, you need to remember what proportion of each
+        example is "present" in this node.
+      - His slides example:
+        - You have an example that is missing "color".  \(\frac{3}{8}\) of the
+          other examples have color=red, so when you split a node on color, you
+          say that there are 3 and \(\frac{3}{8}\) examples where color=red.
+        - When you go down to the next node, and that examples is present, you
+          need to remember that there is only \(\frac{3}{8}\) of that example
+          present.
+        - If that example is missing another attribute shape, and
+          \(\frac{1}{3}\) of the other examples in that node have shape=circle,
+          then you compute that \(1 + (1/3) * (3/8) = 1 \frac{1}{8}\).
+
+***** Neural Networks
+
+      People typically just use preprocessing, because modifying ANN's is too
+      difficult.
+
+***** Generative Models
+
+      Expectation maximization.
+
+      - For a missing feature in an example, create a random variable $S_i$.
+
+        \begin{align*}
+          \hat{\theta} &= \arg \max_{\theta} \sum_{i} \ln p(\vec{x}_i, y_i; \theta) \\
+          &= \arg \max_{\theta} \sum_{i \in NoMissing} \ln p(\vec{x_i}, y_i; \theta) + \sum_{i \in Missing} \ln \sum_{s_i} p(\vec{x}_i, s_i, y_i; \theta) \\
+          &= MLE_{\text{NoMissing}} + EM
+        \end{align*}
+
+      Steps associated with EM:
+
+      - Initialize the parameters of the probabilistic model randomly.
+      - EM is a two stage optimization process:
+        - E(xpectation): estimate the values of the hidden variables given the
+          data and the current model.
+        - M(aximization): find the MLE estimates of the parameters, given the
+          now complete data.
+      - Iterate until convergence.
+        - Fortunately, this procedure will not cycle, and it will reach an
+          optimal value.  But, there's no guarantee that it will be a global
+          optimum.
+
 * 2015-10-08 Thursday
 
   Naive Bayes Classifier
@@ -461,7 +606,7 @@
       experiment: (he changed slides too quick)
       - Sampling Distribution of $R$
         - Suppose we run $k$ experiment with test samples of size $n$
-        - In the $i$th experiment our learned classifier makes $R=r_i$ errors.
+        - In the \(i\)th experiment our learned classifier makes $R=r_i$ errors.
         - We'll pot a frequency histogram of $R$.
         - What will it look like for $k$ large?
         - We have a Binomial distribution.  In the limit, this actually
