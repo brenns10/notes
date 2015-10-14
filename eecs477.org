@@ -189,6 +189,40 @@
    that by adding a source and sink node, but things aren't working out
    perfectly.
 
+* 2015-10-05 Monday
+** Max Flow
+  **def** Max flow: G = (V, E), with \(\forall (i,j)\:u_{ij},\text{zero costs, supplies,
+  and demands}\). One edge going from source to sink with no upper bound,
+  -1 cost. The optimal solution will maximize the flow from source to sink.
+            
+** Feasible Flow Problem
+   **def** Feasible flow: Given a network with supplies and upper bounds,
+   show that a flow exists.
+
+   Claim: Feasible flow reduces to Max flow.
+
+   Steps:
+   - (remove lower bounds, if needed)
+   - from all sinks, put edge to t with \(u_{it}=-b_{i}\)
+   - to all sources, put edge from s with \(u_{si}=b_{i}\)
+   - set supplies/demands of all nodes to zero
+   - connect t to s, -1 cost, no upperbound
+   - Solve max flow. If all upper bounds met going into t / out of s,
+   (i.e. final supplies/demands are 0) then there is a feasible flow.
+
+** Reductions
+  To prove a reduction from one problem to another, show a 1-to-1 mapping
+  between solutions to each problem.
+
+  Ex. Show feasible flow reduces to max flow:
+  Proof: (\(feasible flow \Rightarrow max flow \)
+  - Let x be a feasible flow. Let \(y_{ij}=\begin{cases}x_{ij}\text{, if}(i,j)\in E \\
+                                                      u_{ij}\text{, if}(i,j)\notin E
+                                        \end{cases}\)
+  - We know the value of the max flow \(\le \sum u_{si}\) and the value of the y
+    flow \(\le \sum y_{si} = \sum b_{i} \mathbb{1}_{bi \ge 0} \ge) vlaue of max flow. So,
+    If val(max flow) == val(y flow), y flow is optimal.
+
 * 2015-10-02 Friday
 
   *MCNF: special cases and applications*
@@ -638,7 +672,8 @@
 
     MCNF is unimodular!
 
-* TODO 2015-09-21 Monday
+* 2015-09-21 Monday
+  Same content as 2015-09-23.
 * 2015-09-18 Friday
 
 ** Integrality
@@ -1427,9 +1462,63 @@
      less powerful (open source) Mathematica.
    - =glpk= function for linear programming.
    - First homework this afternoon, due in two weeks!
-* TODO 2015-08-26 Wednesday
+* 2015-08-26 Wednesday
+** Optimization Problems (cont.)
+  **Definition:** an *Optimization problem* is a set of instances of
+  optimization problems (iops).
 
-  Need to copy over notes from paper.
+  Ex. Minimum Spanning Tree (MST) - give spanning tree \(T'\) of graph \(G\).
+      Minimize \(\sum_{e \in T'}c(e)\), where \(c(e)\) is the cost of an edge.
+
+  Ex. Vertex Cover - (Find \(V' \subseteq V\) s.t. \(\forall (e \in E)\:
+  e \bigcap V \neq \emptyset \). V' is the vertex cover. Minimize \( \vert V' \vert\)).
+
+** Maximization problems
+  What about maximization problems? Well, they can reduce to minimization
+  problems:
+  \[ I_{max} = (X, f) \Rightarrow \tilde{I} = (X, -f)
+    \:( \text{or sometimes }\tilde{I} = \left(X, \frac{1}{f}\right) )
+   \]
+
+   \(\tilde{I}\) is now a minimization problem.
+
+** Approximation Algorithms
+  Let I be an iop with an optimal solution \(x^*\) with an optimal value
+  \(c(x^*) = c^*(I)\). Let \(c(I)\) be the cost accrued by running algorithm
+  A on I. Then, the approximation ratio is:
+  \[ R = max_I \left( \frac{c(I)}{c^*(I)}, \frac{c^*(I)}{c(I)} \right) \]
+
+  (This formulation allows us to use the same ratio function for max and min
+  problems.)
+
+  If for any \(\epsilon > 0 \exists\:A\text{ s.t. }R = 1 + \epsilon \wedge O(n^k)\text{ w.r.t. input size}
+  \) then \(A\) is a **polynomial time approximation scheme** (PTAS).
+
+  If A is polynomial w.r.t. input size and \(\epsilon\), then it is called a fully
+  polynomial time approximation scheme.
+
+  **def**: a k-approximation algorithm is if its result is within k-times the
+  minimum result. e.g. \(\forall G\:|VC| \le 2|VC^*|\) for approx vertex cover.
+
+** Approx Vertex Cover
+  Algorithm: Given \(G = (V,E)\)
+  - repeatedly
+    + choose \( e = (u,v) \in E \)
+    + \(V' = V' \cup e\)
+    + delete all \(d \in E\) incident to \(u,v\)
+  - until \( E = \emptyset \)
+  - return \(V'\)
+
+  Proof of correctness / 2 approx algorithm:
+  - Every edge covered by VC aprx at termination
+  - \(\forall e \in VC_{approx}\)
+    + VC aprx adds at most 2 vertexes to \(V'\)
+    + VC opt contains at least 1 of two vertexes to remain feasible
+  - VC aprx never considers same vertex twice because edges are removed
+  - edges are disjoint \(\Rightarrow\:V'\) can be partitioned by edges added by VC
+    aprc
+  - therefore, 2 aprx algorithm
+
 * 2015-08-24 Monday
 
   - 5 books, get sections from library
