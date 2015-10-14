@@ -2,6 +2,79 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-14 Wednesday
+
+  *Update:* Problem 5 on the homework we went over on Monday did not actually
+  have a solution that involved shortest paths.  Oops!
+
+  Friday is the midterm.  (I'm a bit scared).  So I guess we'll do some review.
+
+  - The "Reading List" syllabus on Blackboard contains all the topics.
+  - There will be four questions.
+  - Easier than the homework (but very similar)
+  - Doubtful that we will have enough time to solve them all.  We won't be
+    graded out of 100% completion.
+  - We should have enough time to "get a start" on them all and "write something
+    meaningful".
+  - Doubtful that we will need to write anything in Octave.
+  - Open books, open notes, open electronics (w/o internet).  Of course, this
+    isn't the most helpful to you if you bring everything, because you won't
+    have time to use it in 50 minutes.
+
+** Back to Equipment Replacement
+
+   - \(c_{ij}\): cost of operating machine from year $i$ to year $j$.  \(1 \le i < j
+     \le n\).
+   - Minimize the total cost s.t.
+     - At every time, the number of running machines \ge 1.
+   - Last time, we got to the point where we had a graph with nodes 1 through
+     $n$.  Each node had an arc to all the future years, with the \(c_{ij}\)'s
+     labeled on it.
+   - Put a supply of 1 on 1, and a supply of -1 on n.  This seems like it would
+     solve the problem, but it doesn't allow for us to have multiple machines
+     operating at one time.
+     - One solution would be to have a single "source" node that connects
+       forward and backward with each year node.  But this allows us to send
+       machines "forward" in time with zero cost.  Bad.
+     - My initial solution to that was to have a set of nodes 1' through n',
+       with edges (i',1) through (i', i-1), and then (i, i').  This allows only
+       backward flow.  This does solve the problem, but wih quadratic arcs.
+     - The next improvement on that was to have each "prime" node connected
+       backward to the previous one, instead of all of the previous regular
+       nodes.  This improved it to linear number of arcs.
+     - Then we realized that each node could just be directly connected to its
+       backward neighbor with cost of zero.  Oops.
+
+** Back to Uniform Cost Parallel Machines
+
+   - $n$ jobs, length \(l_i \le T\), \(\sum_{i=1}^n l_i \le TM\), where $T$ is the
+     time unit, $M$ the number of machines.
+   - We had a max flow solution to assign job segments into time slots, now we
+     need to fill up the machines so that there is no overlap.
+     - To do this: assign the first job into the first machine.  Assign the next
+       job to the remainder of the machine's time.  Then put that job's
+       remainder onto the next machine.  You know it won't overlap because the
+       segment must be \le T.
+     - Yay.
+
+** Midterm Questions
+
+   Now we talk about the midterm.
+
+   - Mostly "solving problems"
+   - They will be "like" homework problems.  Not necessarily "same question,
+     different numbers".  But similar in spirit.
+   - There could be reductions to linear programs.
+   - There could be reductions to shortest paths
+   - Should probably review your linear algebra so it's easier to
+   - (This is only slightly terrifying)
+
+** Final Exam
+
+   - 30-40 minute oral exam!!!
+   - Will be plenty of talk on concepts, explaining yourself, etc.
+   - (This is actually a lot terrifying)
+
 * 2015-10-12 Monday
 
 ** Homework 3 Review
