@@ -189,6 +189,40 @@
    that by adding a source and sink node, but things aren't working out
    perfectly.
 
+* 2015-10-05 Monday
+** Max Flow
+  **def** Max flow: G = (V, E), with \(\forall (i,j)\:u_{ij},\text{zero costs, supplies,
+  and demands}\). One edge going from source to sink with no upper bound,
+  -1 cost. The optimal solution will maximize the flow from source to sink.
+            
+** Feasible Flow Problem
+   **def** Feasible flow: Given a network with supplies and upper bounds,
+   show that a flow exists.
+
+   Claim: Feasible flow reduces to Max flow.
+
+   Steps:
+   - (remove lower bounds, if needed)
+   - from all sinks, put edge to t with \(u_{it}=-b_{i}\)
+   - to all sources, put edge from s with \(u_{si}=b_{i}\)
+   - set supplies/demands of all nodes to zero
+   - connect t to s, -1 cost, no upperbound
+   - Solve max flow. If all upper bounds met going into t / out of s,
+   (i.e. final supplies/demands are 0) then there is a feasible flow.
+
+** Reductions
+  To prove a reduction from one problem to another, show a 1-to-1 mapping
+  between solutions to each problem.
+
+  Ex. Show feasible flow reduces to max flow:
+  Proof: (\(feasible flow \Rightarrow max flow \)
+  - Let x be a feasible flow. Let \(y_{ij}=\begin{cases}x_{ij}\text{, if}(i,j)\in E \\
+                                                      u_{ij}\text{, if}(i,j)\notin E
+                                        \end{cases}\)
+  - We know the value of the max flow \(\le \sum u_{si}\) and the value of the y
+    flow \(\le \sum y_{si} = \sum b_{i} \mathbb{1}_{bi \ge 0} \ge) vlaue of max flow. So,
+    If val(max flow) == val(y flow), y flow is optimal.
+
 * 2015-10-02 Friday
 
   *MCNF: special cases and applications*
