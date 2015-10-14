@@ -638,7 +638,8 @@
 
     MCNF is unimodular!
 
-* TODO 2015-09-21 Monday
+* 2015-09-21 Monday
+  Same content as 2015-09-23.
 * 2015-09-18 Friday
 
 ** Integrality
