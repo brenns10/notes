@@ -1428,9 +1428,63 @@
      less powerful (open source) Mathematica.
    - =glpk= function for linear programming.
    - First homework this afternoon, due in two weeks!
-* TODO 2015-08-26 Wednesday
+* 2015-08-26 Wednesday
+** Optimization Problems (cont.)
+  **Definition:** an *Optimization problem* is a set of instances of
+  optimization problems (iops).
 
-  Need to copy over notes from paper.
+  Ex. Minimum Spanning Tree (MST) - give spanning tree \(T'\) of graph \(G\).
+      Minimize \(\sum_{e \in T'}c(e)\), where \(c(e)\) is the cost of an edge.
+
+  Ex. Vertex Cover - (Find \(V' \subseteq V\) s.t. \(\forall (e \in E)\:
+  e \bigcap V \neq \emptyset \). V' is the vertex cover. Minimize \( \vert V' \vert\)).
+
+** Maximization problems
+  What about maximization problems? Well, they can reduce to minimization
+  problems:
+  \[ I_{max} = (X, f) \Rightarrow \tilde{I} = (X, -f)
+    \:( \text{or sometimes }\tilde{I} = \left(X, \frac{1}{f}\right) )
+   \]
+
+   \(\tilde{I}\) is now a minimization problem.
+
+** Approximation Algorithms
+  Let I be an iop with an optimal solution \(x^*\) with an optimal value
+  \(c(x^*) = c^*(I)\). Let \(c(I)\) be the cost accrued by running algorithm
+  A on I. Then, the approximation ratio is:
+  \[ R = max_I \left( \frac{c(I)}{c^*(I)}, \frac{c^*(I)}{c(I)} \right) \]
+
+  (This formulation allows us to use the same ratio function for max and min
+  problems.)
+
+  If for any \(\epsilon > 0 \exists\:A\text{ s.t. }R = 1 + \epsilon \wedge O(n^k)\text{ w.r.t. input size}
+  \) then \(A\) is a **polynomial time approximation scheme** (PTAS).
+
+  If A is polynomial w.r.t. input size and \(\epsilon\), then it is called a fully
+  polynomial time approximation scheme.
+
+  **def**: a k-approximation algorithm is if its result is within k-times the
+  minimum result. e.g. \(\forall G\:|VC| \le 2|VC^*|\) for approx vertex cover.
+
+** Approx Vertex Cover
+  Algorithm: Given \(G = (V,E)\)
+  - repeatedly
+    + choose \( e = (u,v) \in E \)
+    + \(V' = V' \cup e\)
+    + delete all \(d \in E\) incident to \(u,v\)
+  - until \( E = \emptyset \)
+  - return \(V'\)
+
+  Proof of correctness / 2 approx algorithm:
+  - Every edge covered by VC aprx at termination
+  - \(\forall e \in VC_{approx}\)
+    + VC aprx adds at most 2 vertexes to \(V'\)
+    + VC opt contains at least 1 of two vertexes to remain feasible
+  - VC aprx never considers same vertex twice because edges are removed
+  - edges are disjoint \(\Rightarrow\:V'\) can be partitioned by edges added by VC
+    aprc
+  - therefore, 2 aprx algorithm
+
 * 2015-08-24 Monday
 
   - 5 books, get sections from library
