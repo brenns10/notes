@@ -18,10 +18,9 @@ if [ "$1" != "dry" ]; then
 fi
 
 # Copy in the assorted content.
+set +e
 cp ../$REPO/*.{html,jpg,png,gif} ./
-
-# Add and commit changes.
-
+set -e
 # Add and commit changes.
 git add -A .
 git commit -m "[ci skip] Autodoc commit for $COMMIT."
