@@ -194,7 +194,7 @@
   **def** Max flow: G = (V, E), with \(\forall (i,j)\:u_{ij},\text{zero costs, supplies,
   and demands}\). One edge going from source to sink with no upper bound,
   -1 cost. The optimal solution will maximize the flow from source to sink.
-            
+
 ** Feasible Flow Problem
    **def** Feasible flow: Given a network with supplies and upper bounds,
    show that a flow exists.
@@ -220,7 +220,7 @@
                                                       u_{ij}\text{, if}(i,j)\notin E
                                         \end{cases}\)
   - We know the value of the max flow \(\le \sum u_{si}\) and the value of the y
-    flow \(\le \sum y_{si} = \sum b_{i} \mathbb{1}_{bi \ge 0} \ge) vlaue of max flow. So,
+    flow \(\le \sum y_{si} = \sum b_{i} \mathbb{1}_{bi \ge 0} \ge) value of max flow. So,
     If val(max flow) == val(y flow), y flow is optimal.
 
 * 2015-10-02 Friday
