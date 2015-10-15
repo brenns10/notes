@@ -189,6 +189,56 @@
    that by adding a source and sink node, but things aren't working out
    perfectly.
 
+* 2015-10-07 Wednesday
+** Max Flow Reduction: Matrix Rounding
+
+  A government agency collects data via a census, in the following matrix $A$:
+
+  | 3.1 | 6.8 | 7.3 |
+  | 9.6 | 2.4 | 0.7 |
+  | 3.6 | 1.2 | 6.5 |
+
+  Where zip codes are along the x-axis, and tax brackets are along the y-axis.
+  Given enough such matrices to cross-reference, a nefarious individual would
+  be able to identify exactly which members of their community are in which
+  tax brackets. So, the agency would like to obfuscate the data in the matrix.
+
+  Create a new matrix $B$ such that $b_{ij}$ is either $\floor{a_ij}$ or
+  $\ceil{a_ij}$. However, $B$ should also obfuscate the sums of both the
+  columns and rows of $A$ in the same manner (so, $\sum_{i}b_ij$ should be
+  either $\floor{\sum_{i}a_ij}$ or $\ceil{\sum_{i}a_ij}$, and so on, for each
+  row and column).
+
+  A ``consistent rounding'' satisfies all these constraints.
+
+  Question: Given matrix $A$, find a consistent rounding.
+  Claim: Reduces to max flow.
+
+  See the (hopefully) included image.
+
+  [[../matrix_rounding_max_flow.jpg]]
+
+  Let $r_i$ be the sum of row i, and $c_j$ be the sum of column j.
+
+  The idea is to have a node for each element of $A$, as well as nodes for the
+  column and row sums. Then, make an arc going from $a_{ij}$ to $c_j$, with
+  lower bound of $\floor{a_{ij}}$ and $\ceil{a_{ij}}$. Also, make an arc going
+  from $r_i$ to $a_{ij}$ with the same upper and lower bounds.
+
+  Now, make an arc going from each $c_j$ to a sink node $t$. Each arc will have
+  lower bound $\floor{c_j}$ and upper bound $\ceil{c_j}$. Similarly, make an
+  arc going from a source node $s$ to each $r_i$. Each arc will have upper
+  bound $\floor{r_i}$ and upper bound $\ceil{r_i}$.
+
+  This is sufficient to formulate matrix rounding as a max flow problem. Note
+  that there is actually a second formulation, which reverses the directions
+  of all the arcs.
+
+** Max Flow Reduction: Job Scheduling
+
+  The remainder of class was spent talking about the job scheduling problem,
+  which appears to be described in full on the notes for 2015/10/09.
+
 * 2015-10-05 Monday
 ** Max Flow
   **def** Max flow: G = (V, E), with \(\forall (i,j)\:u_{ij},\text{zero costs, supplies,
