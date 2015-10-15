@@ -18,7 +18,7 @@ if [ "$1" != "dry" ]; then
 fi
 
 # Copy in the assorted content.
-cp ../$REPO/*.(html|jpg|png|gif) ./
+cp ../$REPO/*.{html,jpg,png,gif} ./
 
 # Add and commit changes.
 
