@@ -17,12 +17,8 @@ if [ "$1" != "dry" ]; then
     git config user.email "smb196@case.edu"
 fi
 
-# Copy in the HTML.
-cp ../$REPO/*.html ./
-# And images.
-cp ../$REPO/*.jpg ./
-cp ../$REPO/*.png ./
-cp ../$REPO/*.gif ./
+# Copy in the assorted content.
+cp ../$REPO/*.(html|jpg|png|gif) ./
 
 # Add and commit changes.
 
