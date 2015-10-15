@@ -19,6 +19,10 @@ fi
 
 # Copy in the HTML.
 cp ../$REPO/*.html ./
+# And images.
+cp ../$REPO/*.jpg ./
+cp ../$REPO/*.png ./
+cp ../$REPO/*.gif ./
 
 # Add and commit changes.
 
