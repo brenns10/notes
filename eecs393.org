@@ -2,6 +2,10 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-02 Friday
+
+  We're doing classes.  And object oriented design.
+
 * 2015-09-25 Friday
 
   Uh oh, there's a quiz today!  Better take notes on the last couple weeks of
