@@ -2,6 +2,37 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-21 Wednesday
+
+  Quiz today (OOD).  Notes
+  - Characteristics:
+    - Encapsulation
+    - Inheritance
+    - Polymorphism
+  - Inheritance: must be is-a relationship
+    - Misused to provide partial implementation.  Must use is-a
+    - Fix this misuse w/ composition.
+  - Mutiple Inheritance is complex, ambiguous
+  - Interface: set of operations.  Type is a named interface.
+  - Subtypes are supersets of interfaces.
+  - Polymorphism advantages:
+    - Simplifies definition of clients
+    - Decouples objects from each other
+    - Vary relationships at runtime.
+    - Code can be used with new classes
+  - Interface inheritance vs implementation inheritance :) Should program to
+    interface.
+  - Refinement:
+    - Improve nheritance hierarchies
+      - Use is-a hierarchies.
+      - Factor common responsibilities high.
+    - Analyze collaboration to identify subsystems.
+      - Strongly coupled classes (collaboration graph)
+      - May want to add facade class
+      - Subsystems present interfaces to the rest of the program, and delegate
+        it to different classes.
+    - Then, design methods.
+
 * 2015-10-02 Friday
 
   We're doing classes.  And object oriented design.
