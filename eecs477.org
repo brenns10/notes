@@ -2,6 +2,123 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-21 Monday
+
+** MCNF Algorithms
+
+   Assumptions
+   1. All data is integral (this implies that solutions are integral as well).
+      - An "integral part" of why the solutions are all integral.
+   2. \(c_{ij} \ge 0 \:\:\: \forall (i,j) \in E\)
+      - If you have a path that contains cycles, and all weights are
+        non-negative, you're better off eliminating all cycles.
+   3. \(\forall u,v \in V \:\:\: \exists P: u \to v\) (that is, there is a path from every node
+      to every other one).
+      - Let \(|P| \le n - 1\).  Since \(c_{ij} \ge 0\):
+      - cost of \(P \le n C = n \max_{(i,j)\in E} \{c_{ij}\}\)
+      - I missed the lead up to this, but: "An optimal solution should not send
+        flow through $z$ if $\exists$ another path from $u$ to $v$."
+
+*** Successive Shortest Paths
+
+    Imagine that you have a number line of the objective value.  You take a
+    feasible flow (?), then take its dual and start improving the dual until
+    it's feasible, and then it's optimal (?).
+
+    *Definition:* pseudo-flow $x$ satisfies $u_{ij}$ but not necessarily $b_i$.
+    - EG: $x=0$.  This satisfies the upper bounds, but usually not the supplies
+      and demands.
+    - We can also let \(\pi=0\) in the dual.  This means that the reduced costs
+      \(c_{ij}^\pi = c_{ij} - \pi_i + \pi_j \ge 0\), and the residual is the original
+      network.  This means that $x=0$ and $\pi=0$ are related by complementary
+      slackness.  So this is a starting point for SSP.
+
+    *Definition:* \(e_i \): excess at vertex $i$ w.r.t. pseudo flow $x$:
+
+    \begin{equation}
+      e_i = b_i + \sum_{(j,i) \in E} x_{ji} - \sum_{(i,j) \in E} x_{ij}
+    \end{equation}
+
+    Initially, (at \(x=0\)), $e_i = b_i$.
+
+    Then, we define the:
+    - Excess vertices: \(E = \{i \in V: e_i > 0\}\)
+    - Deficit vertices: \(D = \{i \in V: e_i < 0\}\)
+
+    Assuming we have a feasible solution, \(E \ne \emptyset \leftrightarrow D \ne \emptyset\) (initially?).
+
+    So, if you have two vertices, one in $E$ and one in $D$, you want to send
+    some flow between them.  How do we update the $\pi$ values when you come up
+    with the new $x$?
+
+    *Claim:* Let $x$ be pseudo-flows and $\pi$ be node potentials, satisfying
+    complementary slackness.  We also have \(G(x)=(V, E(x))\), the residual
+    (residuals only use upper bounds and flows, not supplies, so we can have
+    residuals for pseudo-flows).  Finally, let \(c_{ij}^\pi \) be the reduced costs
+    for \((i,j) \in E(x)\).
+    - Define $d_i$ to be the length of the shortest path from \(s \in V\) to $i$
+      (\(\forall i \in V\)) in the residual, with lengths \(c_{ij}^\pi \).  ($s$ is
+      arbitrary but fixed as some special vertex \(s \in V\)).  Since \(c_{ij}^\pi \ge
+      0\), this is well defined.
+
+    OK, two results of all these assumptions and notations:
+    1. $x$, $\pi'$ satisfy complementary slackness, where \(\pi'=\pi-d\)
+    2. \(c_{ij}^\pi = 0 \:\:\: \forall (i,j) \in\) shortest path tree
+
+    Example (initial \(\pi = 0\))
+
+    | i | b_i | d_i | \pi'_i |
+    |---+----+----+-----|
+    | 1 |  4 |  0 |   0 |
+    | 2 |  0 |  2 |  -2 |
+    | 3 |  0 |  2 |  -2 |
+    | 4 | -4 |  2 |  -3 |
+
+    | i | j | c_{ij} | u_{ij} | c_{ij}^\pi | c_{ij}^{\pi'} |
+    |---+---+-----+-----+------+-------|
+    | 1 | 2 |   2 |   4 |    2 |     0 |
+    | 1 | 3 |   2 |   2 |    2 |     0 |
+    | 2 | 3 |   1 |   2 |    1 |     1 |
+    | 2 | 4 |   3 |   3 |    3 |     2 |
+    | 3 | 4 |   1 |   5 |    1 |     0 |
+
+    The shortest path tree is: (1,2), (1,3), (3,4).  The (new) reduced costs for
+    those edges are all 0.  In this case, they are the only edges that have
+    reduced costs 0, but that's not true in the general sense.
+
+    *Proof:*  (I doubt we'll have time to finish this bad boy)
+
+    1. Proof of the first part ($x$, $\pi'$ satisfy complementary slackness):
+       - \(d_j \le d_i + c_{ij}^\pi \:\:\: \forall (i,j) \in E(x)\) (I believe this is
+         a Bellman-Ford inequality)
+         \begin{align*}
+           c_{ij}^{\pi'} &= c_{ij} - \pi_{i}' + \pi_{j}' \\
+                &= c_{ij} - \pi_i + d_i + \pi_j - d_j \\
+                &= c_{ij}^\pi + d_i - d_j \ge 0
+         \end{align*}
+         Well, that was neat.
+
+    2. Proof of second part \((i,j) \in SPT\), \(c_{ij}^\pi = 0\)
+       - If \((i,j) \in SPT\), then...
+       - We have $d_j = d_i + c_{ij}^\pi
+       - And therefore when you do the computation above, you end up with
+         \(c_{ij}^{\pi'} = \dots = c_ij^\pi + d_i - d_j = 0\).  So that was also easier
+         than expected.
+
+    Now we're talking about CS:
+    - \(\alpha_{ij} (u_{ij} - x_{ij}) = 0\)
+    - \(x_{ij} (c_{ij}^\pi + \alpha_{ij}) = 0\)
+
+    When you have $c_{ij}^\pi = 0$, $\alpha_{ij} = 0$, and so both CS conditions are
+    satisfied (for any flow $x$).
+
+    You can send any amount of flow along this SPT, and it will be optimal!  Our
+    job is just to find a flow that satisfies the upper bounds.
+
+* 2015-10-16 Friday
+
+  Midterm was today.
+
 * 2015-10-14 Wednesday
 
   *Update:* Problem 5 on the homework we went over on Monday did not actually
