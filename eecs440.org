@@ -2,6 +2,62 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-22 Thursday
+
+  Today, Burr Settles from Duolingo will be talking about some of the stuff he
+  did during his PhD.  We won't be tested on this stuff, but it'll still be
+  interesting.
+
+  - Text annotation example (for abstracts).
+  - Wants to extract information from citations? (seems like something that
+    could be parsed)
+  - Active learning can help reduce the size of the needed training set size.
+    - Interestingly, it doesn't really reduce annotation time.
+    - Probably because the examples the algorithm "asks for help" on are the
+      hardest to annotate.
+  - Interactive learning:
+    - Human gives "advice" (some rules or generalizations to start from).
+    - ML attempts to "self-train" on unlabeled data (semi-supervised learning)
+    - ML asks for help occasionally
+
+** Active Feature Labeling
+
+   Conditional Random Fields (CRFs).  They take sequential information and learn
+   from them.  (Apply logistic regression to markov processes)
+
+   Each word is something like a feature.  Humans can provide rules to label
+   features.  The algorithm attempts to minimize the Kullback-Liebler Divergence
+   between the feature label distribution and the expected label distribution
+   (from the examples).
+
+   The system chooses features it would like labeled (active learning).  Instead
+   of choosing the ones that maximize some exact information theoretic quantity
+   that encodes the amount of information it holds, they chose to approximate
+   this with the "uncertainty" (i.e. entropy), multiplied by the log of the
+   frequency (so that we choose the common, uncertain features).
+
+** DUALIST: Interactive Classification
+
+   Downsides of the previous algorithm were that it wasn't truly interactive.
+   It was slow, and the user couldn't "volunteer" information and rules they
+   just came up with.  DUALIST (which is pretty neat) did text classification
+   and allowed the user to add words to each label, and also presented words it
+   wanted to know that the user could label as well.  It retrained really
+   quickly, which made it pretty nice and interactive.
+
+   https://github.com/burrsettles/dualist
+
+   Results fairly positive, but a lot of failure cases were due to human error.
+
+** Human Behavior
+
+   Some of the problems with DUALIST were due to human errors.  They used Amazon
+   Mechanical Turk to get larger (n=30) samples for their examples.  They got
+   results that were not positive.  However, it turned out that volunteering
+   feature labels to the model is actually the most important part of getting a
+   good model.  So it takes some good interface design to encourage good input
+   to the model.
+
 * 2015-10-13 Tuesday
 
 ** Part 2: Issues in Machine Learning
