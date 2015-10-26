@@ -2,7 +2,89 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
-* 2015-10-21 Monday
+* 2015-10-26 Monday
+
+** Runtime of Successive Shortest Paths
+
+   - Worst case complexity, as a function of $n$, is sometimes tricky.
+   - We talk about it in terms of "input size", with any /reasonably efficient
+     encoding/.
+   - Some things that look polynomial (e.g. \(n^k \)) are not, because $k$ is an
+     input to the problem.
+   - Some things that don't look polynomial (e.g. \(n \log n\)) are, because
+     they are bounded above by a polynomial function (e.g. \(n^2 \)).
+   - So, with that in mind, let's look at the runtime of SSP.
+
+   The runtime is \(O(n \times U \times S)\), where:
+   - $n$ is the number of vertices
+   - \(U = \max_{i\in V} \{|b_i |\}\)
+   - $S$ is the shortest path runtime
+
+   This is not polynomial!  Let's look at the terms.  We'll assume $S$ is fine.
+   To represent the graph, we need at least $n$ bits (probably some constant
+   multiple of $n$, for the edges and things).  So, $n$ is an input size, and
+   the $n$ term is polynomial.
+
+   However, $U$ is not an /input size/.  It's an /input number/.  It's
+   completely unrelated to the storage of the graph and the input size.  You
+   could make it whatever you'd like.  Because of this, you only need \(\log_2
+   U\) bits to store it.  Thus, $U$ is exponential in the input size.  (A useful
+   counterexample - if \(U=2^n \), then it's \(O(n2^n S)\)).
+
+   It's a pseudo polynomial time algorithm.  If we represented $U$ in unary, it
+   would be polynomial.  But that's not a /reasonably efficient encoding/.
+
+** Capacity Scaling
+
+   - \(\Delta = 2^{\lfloor\log U\rfloor},\dots, 2, 1\)
+   - \(E(\Delta) = \{e_i \ge \Delta: i \in V\}\)
+   - \(D(\Delta) = \{e_i \le -\Delta: i \in V\}\)
+   - \(G(x,\Delta) = (V, E(x,\Delta))\) - the residual network w.r.t. $x$, w/ edges \(r_{ij}
+     \ge \Delta\).
+
+   The idea of this algorithm is that we want to solve the biggest supplies and
+   demands first.
+
+   SSP(\Delta):
+   - /Input:/ \(G(x, \Delta)\) s.t. \(c_{ij}^\pi \ge 0 \:\:\: \forall (i,j) \in E(x,\Delta)\)
+   - \(E(\Delta) \gets \{e_i \ge \Delta: i \in V\}\)
+   - \(D(\Delta) \gets \{e_i \le -\Delta: i \in V\}\)
+   - *while* \(E(\Delta), D(\Delta) \ne \emptyset\):
+     - choose \(k \in E(\Delta)\), \(l \in D(\Delta)\)
+     - find shortest path \(P: k \to l\) in \(G(x, \Delta)\) w/ \(c_{ij}^\pi \)
+     - send \(\Delta\) units of flow along $P$.
+     - \(\pi \gets \pi - d\)
+     - update $x$, $E(\Delta)$, $D(\Delta)$, $G(k,\Delta)$.
+
+   Thinking about this algorithm, we see that each iteration of this will not
+   necessarily remove an edge from the residual.  It could just drop that node
+   out of \(E(x,\Delta)\), while still keeping its residual greater than 0.  So, we
+   need the capacity scaling algorithm below:
+
+   Capacity Scaling:
+   - \(x \gets 0, \pi \gets 0\)
+   - \(\Delta \gets 2^{\lfloor\log U\rfloor}\)
+   - *while* \Delta \ge 1:
+     - *for each* \((i,j) \in G(x)\):
+       - *if* \(c_{ij}^\pi < 0\) *then* arc reversal
+     - SSP($\Delta$)
+     - \(\Delta \gets \Delta / 2\)
+
+   - *Claim:* \(c_{ij}^\pi \ge 0 \:\:\: \forall (i,j) \in E(x,\Delta)\) throughout SSP($\Delta$).
+   - *Proof:* similar to SSP but \(G(x, \Delta)\) ...
+     - Sketch: if we have an edge that is in \(E(x, \Delta)\) but not \(E(x, 2\Delta)\),
+       we cannot guarantee the claim.  But an arc reversal will fix this...
+
+   *Runtime:* \(O(n \times \log U \times S)\)
+   - How do we get that?  Let's look at the total excess right after we adjust
+     $\Delta$.  Due to the termination condition of SSP, we have:
+     - either \(\forall i \in V: 0 < e_i < 2\Delta\),
+     - or \(\forall i \in V: 0 > e_i > -2\Delta\).
+   - These imply:
+     - either: total excess \(\le 2n\Delta\)
+     - or: total deficit \(\ge -2n\Delta\)
+
+* 2015-10-21 Wednesday
 
 ** MCNF Algorithms
 
