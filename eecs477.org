@@ -2,6 +2,91 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-28 Wednesday
+** Capacity Scaling (cont)
+
+   The algorithm:
+   - First, set a flow \(x \gets 0\), \(\pi \gets 0\)
+   - \(\Delta \gets 2^{\lfloor\log U\rfloor}\)
+   - *while* \(\Delta \ge 1\)
+     - Here, we maintain the invariant:
+     - *foreach* \((i,j) \in E\):
+       - if \(c_{ij}^\pi < 0\), then arc reversal
+     - SSP($\Delta$)
+     - \(\Delta \gets \Delta / 2\)
+
+   - The algorithm holds the loop invariant that \(c_{ij}^\pi \ge 0 \:\:\: \forall
+     (i,j) \in E(x,\Delta)\).
+   - SSP($\Delta$) terminates when either \(E(\Delta) = \emptyset\) or \(D(\Delta) = \emptyset\).  So either
+     \(0 \le e_i < \Delta\) or \(0 \ge e_i > -\Delta\).  This means that the total excess \le
+     \(n\Delta\).
+   - After we modify $\Delta$, the total excess \le \(2n\Delta\).
+   - However, the arc reversals introduce a worst case total of \(2m\Delta\) excess,
+     so at the beginning of SSP, we get a total excess \le \(2(n+m)\Delta\).
+   - At \(\Delta=1\), \(G(x,\Delta) = G(x)\), so we are solving the original residuals.
+     - We can think of CS as a logarithmic number of scaling phases to prepare
+       for \(SSP(1)\) (the original problem).
+     - Kinda like Shell Sort!
+
+*** Runtime
+
+    The original SSP took \(O(nUS)\).  It was based on the idea that you would
+    send (in the worst case) 1 unit of flow each time, so you would do $nU$
+    augmentations, multiplied by $S$, the shortest path time.  We have changed
+    our SSP algorithm so that it pushes $\Delta$ units of flow at each iteration.  We
+    said above that at the beginning of SSP, the total excess \le \(2(n+m)\Delta\).  By
+    \(2(n+m)\) iterations, we should have excess set to 0.  So, the runtime is
+    \(O((n+m)S)\) for each SSP, and the total runtime is \(O((n+m)S\log U)\).
+    (for the record, $m$ is the number of edges).  This means that capacity
+    scaling is in fact a polynomial time algorithm!
+
+** Max Flow Min Cut
+
+   Suppose you have a source vertex, and a network without costs but with
+   capacities.  The maximum flow from $s$ to $t$ is equal to the min cut that
+   separates $s$, $t$.  A cut is defined as a partition of the set of vertices.
+   The min cut is the one that minimizes the value of the edges (in this case,
+   capacities) that span the partition.  It actually really makes sense that max
+   flow is equal to min cut, because the min cut is like the smallest "pipe
+   width" you can send flow through.
+
+   Unfortunately, in order to solve min cut you pretty much have to solve max
+   flow.  So there isn't a huge breakthrough due to this property.  It's just
+   interesting and sometimes useful.
+
+** Game Theory!
+
+   We have a game where a professor puts a coin under a cup, and a student
+   guesses whether it's heads or tails.  If the student guesses correctly, they
+   get a point and the professor loses one.  Otherwise, the professor gets a
+   point and the student loses one.  To summarize:
+
+   |                       | Student Guesses Heads  | Student Guesses Tails  |
+   | Professor Picks Heads | Professor-1, Student+1 | Professor+1, Student-1 |
+   | Professor Picks Tails | Professor+1, Student-1 | Professor-1, Student-1 |
+
+   Here is a theoretical definition of a game (in strategic terms):
+   - Set \(N=\{1,2,\dots,n\}\) players.
+   - Set \(S^i \) of pure strategies for the \(i\textsuperscript{th}\) player.
+   - Payoff function \(H: S^1 \times S^2 \times \dots \times S^n \to R^n \)
+   - A strategy profile: \((s_1, s_2, \dots, s_n)\)
+   - \(H_i(s_1, s_2, \dots, \s_n)\) is the payoff for player $i$
+
+   In this coin flipping game, there are two players (player one is professor,
+   player two is student), and \(S^1=S^2=\{h,t\}\).  The table above summarizes
+   the payoff, but I'll do it again in terms of the players and strategies
+   again.
+
+   |        | s_2=h     | s_2=t    |
+   | s_1 = h | (-1, +1) | (+1,-1) |
+   | s_2 = t | (+1, -1) | (-1,+1) |
+
+   *Def:* A /mixed strategy/ of player $i$ is a probability distribution over
+   \(S^i \).
+   - \(\vec{x}\): mixed strategy profile
+     - \(\vec{x} = (x_1, x_2, \dots, x_n)\)
+   - \(Pr[s] = x_1(s_1)x_2(s_2)\dots x_n(s_n)\)
+
 * 2015-10-26 Monday
 
 ** Runtime of Successive Shortest Paths
