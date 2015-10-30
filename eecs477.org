@@ -2,6 +2,69 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-30 Friday
+
+** Games (strategic form)
+
+  - \(N=\{1,2,\dots,n\}\) players
+  - \(S^i\) = set of pure strategies of \(i\)th player.
+  - Payoff function \(H: S^1 \times S^2 \times \dots \times S^N \to R^N\)
+  - \(\vec{s} \in S^1 \times S^2 \times \dots \times S^N\) strategy profile
+  - \(H_i(s)\): payoff of \(i\)th player.
+
+** Mixed Strategies
+
+   - Mixed strategy for \(i\)th player:
+     - $x^i$: probability distribution over \(S^i\).
+   - Mixed strategy profile:
+     - \(\vec{x} = (x^1, x^2, \dots, x^n)\)
+   - Strategy profile $\vec{s} = (s_1, s_2, \dots, s_n)$ has probability
+     \(\vec{x}(\vec{s}) = x^1(s_1)x^2(s_2) \dots x^n(s_n)\).
+   - Expected payoff:
+     - \(H(\vec{x}) = \sum_{s\in S^1 \times S^2 \times \dots \times S^N} \vec{x}(\vec{s}) H(\vec{s})\)
+
+** Games (Behavioral Form)
+
+   There is a tree that shows what the players can do.  Say, the first level is
+   player one, and there is a branch for each move player one can do.  Then, the
+   next level is for the next player, and at each "child node" game state, there
+   is a branch for each move the player can make.
+
+   At the leaves of the tree you have the payoff function.
+
+   - The behavioral form is probably a bit more intuitive.  It represents
+     players' moves as sequential, whereas the strategic form doesn't impose
+     that.
+   - The book has a proof that the behavioral form and strategic form are
+     equivalent.  But we won't be doing much with behavioral form, so we'll just
+     do an example of one.
+
+   Our example of behavioral form was a binary tree with two levels, where
+   player one would first choose between left and right, and then player two
+   would choose between left and right as well.
+
+   We had a bit of a disagreement on how to represent player two's set of pure
+   strategies, and its probability distribution.  Dr. Liberatore represented
+   \(S^2 = \{LL, LR, RL, RR\}\), and created a probability distribution over
+   that.  I disagree; I think that you should represent \(S^2=\{L, R\}\), and
+   that \(x^2\) is just conditioned on \(x^1\).  But, we spent a lot of time on
+   this dispute without getting anything done, so we moved on.
+
+** Two person zero sum game
+
+   - \(n=2\)
+   - \(H_1(\vec{s}) = -H_2(\vec{s})\)
+
+   This means that the first playe'rs maximization is the second player's min.
+
+   - There is/(may be) a saddle point \((i^*, j^*) \in S^1 \times S^2\).
+   - \(H(i,j^*) \le H(i^*,j^*) \le H(i^*,j)\), \(\forall i \in S^1, j \in S^2\)
+     - If player two plays \(j^*\), then player 1 wlog plays \(i^*\).
+     - If player one plays \(i^*\), its payoff is guaranteed to be \(\ge H(i^*,
+       j^*)\).  It could be more if player two makes a mistake.
+   - There doesn't have to be a saddle point, I guess.  For instance, the
+     matching pennies game doesn't have a saddle point.
+
 * 2015-10-28 Wednesday
 ** Capacity Scaling (cont)
 
