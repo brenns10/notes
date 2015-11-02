@@ -64,6 +64,11 @@
        j^*)\).  It could be more if player two makes a mistake.
    - There doesn't have to be a saddle point, I guess.  For instance, the
      matching pennies game doesn't have a saddle point.
+   - Andrew's musings: A saddle point is a
+     [https://en.wikipedia.org/wiki/Nash_equilibrium[Nash equilibrium]]. For
+     pure strategies, there does not have to be a saddle point, but if you
+     allow mixed strategies, then for every two-player, zero sum game, there
+     is always a saddle point (from ECON 329).
 
 * 2015-10-28 Wednesday
 ** Capacity Scaling (cont)
