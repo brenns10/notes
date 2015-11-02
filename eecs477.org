@@ -2,6 +2,81 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-02 Monday
+
+** Dr. Liberatore's Homework
+
+   Last time we talked about games in Behavioral (Extensive?) form, and
+   translating them into Strategic form.  We are still looking at the game tree
+   where Player 1 has choices L and R, and then Player 2 chooses L or R after
+   that.
+
+   - \(S^1 = \{L, R\}\)
+   - \(S^2 = \{(L,L), (L,R), (R,L), (R,R)\}\)
+     - where (x,y) means: if player 1 played L, then x.  If player 1 played R,
+       then y.  (I think I missed this part last lecture!)
+
+   The probability you assign to $S^2$ is the product of the conditional
+   probabilities of each move.  So say player 2 will move left with probability
+   $1/2$ when player 1 moves left, and left with probability $3/4$ if player 1
+   goes right.  In this case, the probability of strategy $s^2=(L,L)$ is
+   $\frac{3}{8}$.
+
+   Computing the probability of each of the payoffs can be done with this setup,
+   you just have to make sure that you add up probabilities for both strategies
+   that allow a certain branch to take.
+
+   Given a game in extensive form:
+   1. Wlog the payoff leaves are distinct (if not, add a player who never gets
+      to move and whose payoff is different from leaf to leaf).
+   2. \(Pr[H(l)]\).  If you have a path from the root to a payoff, then the probability is:
+
+      \begin{equation}
+        Pr[H(l)] = \prod_{e \in \text{Path root} \to l} p(e)
+      \end{equation}
+
+      Here, \(p(e)\) is the probability that edge $e$ is chosen.  We can
+      subdivide this into terms for each player:
+
+      \begin{equation}
+        Pr[H(l)] = \prod_{e \in \text{Path root} \to l} p(e) = \prod_{i=1}^n \prod_{e \in \text{Path root} \to l, e \text{chosen by player } i} p(e)
+      \end{equation}
+
+      When you transform the game to strategic form, a strategy set will be the
+      set of all possible choices for all the players.  To compute the
+      probability of getting to a certain payoff, you do the following:
+
+      \begin{equation}
+        Pr[H(l)] = \prod_{i=1}^n Pr[\text{player }i\text{ contemplates }e_1, e_2, \dots]
+      \end{equation}
+
+      Which evaluates to the same probability.
+
+** Our Homework
+
+*** MCNF and Max Flow
+
+    Can't have negative upper bounds!  For the nurse problem, you had to
+    maximize the number of unused nurses, not try to maximize the negative of
+    the number of nurses used.
+
+*** Successive Shortest Paths
+
+    Negative reduced costs should not happen, they indicate an error in your
+    work.  That's fine if you encounter that and recognize it, but it sounds
+    like a lot of people got negative reduced costs.
+
+    Each iteration, you have \((c_{ij}^\pi, r_{ij})\) for each arc, and \((e_i, \pi_i)\)
+    for each node $i$.
+
+    - You compute the shortest path using the reduced costs.  This assigns $d_i$
+      values.
+    - You determine the shortest path and augment flow.
+    - You draw a new network.  The $\pi_i$'s are updated by \(\pi_i - d_i\).
+    - The topology is changed to to the augmentation.
+    - *However*, the \(c_{ij}^\pi\) are always recomputed with \(c_{ij}^\pi = c_{ij} -
+      \pi_i + \pi_j\), not using the old \(c_{ij}^\pi\)
+
 * 2015-10-30 Friday
 
 ** Games (strategic form)
