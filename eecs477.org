@@ -55,7 +55,7 @@
    - \(n=2\)
    - \(H_1(\vec{s}) = -H_2(\vec{s})\)
 
-   This means that the first playe'rs maximization is the second player's min.
+   This means that the first player's maximization is the second player's min.
 
    - There is/(may be) a saddle point \((i^*, j^*) \in S^1 \times S^2\).
    - \(H(i,j^*) \le H(i^*,j^*) \le H(i^*,j)\), \(\forall i \in S^1, j \in S^2\)
