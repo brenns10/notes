@@ -2,6 +2,147 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-03 Tuesday
+
+** Learning with Prior Knowledge
+
+   - Humans don't just learn by examples and inductive reasoning.  If we did, we
+     would have a really hard time!
+   - Much of how/what we learn is due to prior knowledge.
+   - How to integrate that into machine learning algorithms?
+
+*** Pros of Prior Knowledge
+
+    - Can provide accurate inductive bias.
+    - Can provide good starting points for optimization.
+    - Can reduce the number of examples we need to see to find a good concept.
+
+*** Cons of Prior Knowledge
+
+    - Frequently prior knowledge is /approximate/.  If we provide wrong prior
+      knowledge, it may be worse than no prior knowledge.
+
+*** Inductive and Analytical Learning
+
+    - Inductive Learning (what we've been doing so far): given training data,
+      find the hypothesis from the hypothesis space that best generalizes data.
+      - focuses on generalizing examples to derive a theory
+    - *Analytical Learning:* Given a (logical) "domain theory", find the
+      hypothesis /deduced from theory/ that best /explains/ data
+      - focuses on "specializing" your domain theory to explain data
+
+*** Prior Knowledge and ML
+
+    - An active research area.
+    - Two main directions:
+      - Algorithm-specific approaches for non-probabilistic algorithms.
+      - Bayesian priors for probabilistic algorithms!
+
+*** Learning Problem Setup
+
+    - Given:
+      - A set of training examples and
+      - A /domain/ theory about the learning problem.
+    - Output a hypothesis that best fits both.
+    - Goal: both training examples and prior knowledge are imperfect.
+      - We must try to learn a concept that will do better than concepts
+        produced by either of them in isolation.
+
+*** Rule-Based Prior Knowledge
+
+    - Often, prior knowledge we have is expressed as rules.
+      - EG: "I think any furry scary thing with long teeth is a lion."
+    - Can express this as a logical proposition.
+      - EG: Has-fur \land Long-Teeth \land Scary \to Lion
+    - Here, we only consider propositional theories, but we can also have
+      first-order domain theories.
+
+    Terminology for propositional logic:
+    - Literal: proposition or negation
+    - Clause: disjunction of literals
+    - Horn clause: a clause with at most one unnegated literal
+      - This is special because you can take a horn clause and write it as a
+        logical implication: \(x_1 \lor \lnot x_2 \lor \lnot x_3\) becomes \(x_2
+        \land x_3 \to x_1 \)
+
+*** KBANN Algorithm
+
+    - First, create a network (with sigmoid functions) that perfectly fits the
+      domain theory.
+      - Suppose we have a Horn Clause \(x_2 \land x_3 \to C\):
+        - We can create a network consisting of a single perceptron.  We give a
+          weight of 1 on x_1 and x_2, and we set our activation threshold just
+          below two.
+        - In theory, we could set the weights to be the whatever we'd like, and
+          we could scale the threshold accordingly.  The actual value of the
+          weights doesn't matter for creating a "perfect fit".
+        - The weights do matter for the later backprop step.  If you have large
+          weights, the effect of the examples on the network will be minimal.
+          So you can think of the overall weight assignment as a confidence
+          measurement for the rule.  The more confident you are in a rule, the
+          larger the weights, and the less the training examples can change this
+          aspect of the learned concept.
+      - Suppose we have a more complex domain theory: \(x_2 \land x_3 \to C\),
+        \(x_1 \land x_2 \to C\).  Any of these clauses evaluating to true means
+        the example is labeled with C.
+        - We can create a network with a hidden layer.
+        - The hidden layer contains a perceptron for each clause as above.
+        - The output layer takes the output of the two clauses and acts like an
+          "or gate".  In terms of its weights, this means that the activation
+          threshold is around \(0.5W\), where \(W\) is the weight of its inputs.
+          So, it activates when any of its inputs are activated.
+      - Suppose we have a domain theory which has variables that aren't
+        observable.  EG: \(x_1 \land h \to C\), \(x_3 \land x_4 \to h\)
+        - In this case, we need to have more layers.  The variable \(h\) is
+          "defined" as the output of a perceptron in an earlier layer, and then
+          used in the later layers as we've discussed.
+        - This is equivalent to "substituting" the definition for the variable,
+          but it is likely to simplify the task of the learner.
+    - As an intermediate step, KBANN will take the structure derived above, and
+      it will add in *every* missing edge from the output of a previous layer to
+      the input of the next, with 0 weight.  This is important because our
+      domain theory is assumed to be imperfect, and we would like to give our
+      learner the flexibility to modify the concept beyond what the domain
+      structure initially said.
+      - An interesting question is whether 0 weights give you a chance to encode
+        your confidence in the fact that a given input has no impact on that
+        proposition.  I think it's the difference between 0 and $W$, but you
+        could ask KBANN explicitly not to include edges if you really don't
+        think they should be there.  This is just heuristic.
+    - Then, use backpropagation to refine this network to fit the training
+      examples.
+      - If your prior knowledge was completely consistent with examples,
+        backpropagation will not change anything.  This is because the loss
+        function will be 0, so any backpropagation updates will be multiplied
+        by 0.
+      - If not, this will be a good initial point to fit your data.  The weights
+        chosen previously will affect how "quickly" the input data will make the
+        network converge to the correct concept.
+
+    Refining Prior Knowledge:
+    - You can take the final trained network, and go back and figure out which
+      parts of the prior knowledge were wrong.
+    - Unfortunately, you can't always interpret a network structure and weights
+      as a meaningful horn clause anymore.
+      - There are algorithms to approximately do this (eg TREPAN).
+
+*** KBSVM Algorithm
+
+    This algorithm incorporates prior knowledge into (you guessed it) SVMs.
+    (Fung, Mangasarian, Shavlik 2002)
+
+    - How do we think of prior knowledge in terms of SVMs?  Well, we could think
+      of them as "regions" of the input space that you know belong to one class.
+    - We can define "polyhedrons", regions bounded by hyperplanes.  (Not
+      necessarily completely bounded).
+
+**** Knowledge Sets
+
+     Each region is a knowledge set defined by \(C \cdot \vec{x} \le c\), and it
+     defines an implication: \(C \cdot \vec{x} \le c \to \vec{w} \cdot \vec{x} + b \ge 1\).
+
+     These can be added as constraints into the QP.
+
 * 2015-10-29 Thursday
 
 ** Weighting
