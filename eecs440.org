@@ -2,6 +2,50 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-10-29 Thursday
+
+** Weighting
+
+   Earlier we were talking about boosting, which is a way to "focus attention"
+   on examples that a classifier misclassifies.  In order to do this, we need te
+   weight each example as we train a classifier.
+
+   For pretty much any classifier, you can incorporate a weight parameter into
+   its formulation.  Especially for ANNs and Logistic Regression, where you then
+   simply take the gradient of the loss function, and the weights are baked into
+   the parameter update.
+
+** Why Boosting (Adaboost) Works
+
+   - People aren't really sure - this is an active area of research.
+   - One idea: when you do boosting, you shift the decision surface to emphasize
+     separating certain examples.  Then, if you put multiple boosted classifiers
+     into an ensemble, they will create a much more complex decision surface
+     capable of separating all the examples.
+   - Another idea: Adaboost could instead be viewed as a margin maximization
+     algorithm.  This means that as you continue to boost classifiers, you get
+     more and more generalizable ones.
+
+** Another Perspective of Adaboost
+
+   You can also look at Adaboost as a process that minimizes the exponential
+   loss of an ensemble classifier.
+
+   If you replace the exponential loss function with another one (say, logistic
+   loss), you actually get logistic regression, where each learner in the
+   ensemble will represent a particular feature.
+
+** Other Boosting
+
+   Gradient boosting.  Minimizes squared loss of the gradient (not of the
+   classifier).  This is like cascade correlation in ANNs.
+
+** Mixture of Experts
+
+   - Look at each classifier as an expert in a certain area of the input.
+   - Do weighted votes proportional to how likely the example is to belong to
+     each expert's responsible area.
+
 * 2015-10-22 Thursday
 
   Today, Burr Settles from Duolingo will be talking about some of the stuff he
