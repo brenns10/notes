@@ -2,6 +2,108 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-06 Friday
+
+** Two Person Zero Sum Games (cont)
+
+   Last time, we defined TPZSGs, and saddle points, and we talked about mixed
+   strategies.  We also formulated the problem of designing a mixed strategy to
+   maximize a player's worst case payoff:
+
+   \begin{align*}
+     \max v, &\text{ s.t.} \\
+     \sum_{i=1}^n H(i,j) x_i &\ge v \:\:\: j=1,2,\dots,m \\
+     \sum_{i=1}^n x_i &= 1 \\
+     x_i &\ge 0 \:\:\: i=1,2,\dots,n
+   \end{align*}
+
+   The dual:
+
+   \begin{align*}
+     \min w, &\text{ s.t.} \\
+     \sum_{j=1}^m H(i,j) y_j &\le w \:\:\: i=1,\dots,n\\
+     \sum_{i=1}^m y_i &= 1 \\
+     y_i &\ge 0 \:\:\: j=1,\dots,m\\
+   \end{align*}
+
+   Would you look at that!  The dual is the exact same thing except for the
+   other player.  An due to duality, we know that \(v^* = w^*\), so they will
+   result in the same value.  This is /Loomis's Lemma/ (this guy Loomis proved
+   it before we knew about LP duality, so good for him).
+
+   We can take the constraints of the dual and sum them up like this to get a
+   new expression (for any \(x\)).
+
+   \begin{align*}
+     \sum_{i=1}^n x_i \sum-{j=1}^m H(i,j) y_j^* &\le \sum_{i=1}^n x_i w^* \\
+     \sum_{i=1}^n \sum_{j=1}^m x_i H(i,j) y_j^* &\le w^*
+   \end{align*}
+
+   And similarly for the primal:
+
+   \begin{align*}
+     \sum_{j=1}^m \sum_{i=1}^n x_i^* H(i,j) y_j \ge v^*
+   \end{align*}
+
+   Combining these (and substituting in $x^*$ and $y^*$ respectively, we have:
+
+   \begin{equation}
+     v^* \le \sum_{i=1}^n \sum_{j=1}^m x_i^* H(i,j) y_j^* \le w^*
+   \end{equation}
+
+   By definition, that quantity in the summation is \(H(x^*, y^*)\), and by
+   duality, we know that \(H(x^*, y^*) = v^* = w^*\).  This leads us to the
+   inequality:
+
+   \begin{equation}
+     H(x,y^*) \le H(x^*, y^*) \le H(x^*,y)
+   \end{equation}
+
+   This leads to the theorem (Von Neuman): Every 2 person zero sum game has a
+   (mixed) saddle point.
+
+*** Yao's Principle
+
+    \begin{equation}
+      \max_x \min_j H(x,j) = \min_y \max_i H(i,y) \le \max_i H(i,y) \forall y
+    \end{equation}
+
+    This is a restatement of Loomis's lemma, with a rather obvious addendum.
+    And then we put this into two inequalities that look a bit less obvious.
+
+    \begin{align*}
+      \max_x \min_j H(x,j) &\le \max_i H(i,y) \forall y\\
+      \min_y \max_i H(i,j) &\ge \min_j H(x,j) \forall x
+    \end{align*}
+
+    And I guess that is Yao's Principle.  It is useful for when you want to put
+    an upper bound on the $v^*$ the optimal payoff.  You create a $y$ that has
+    \(\max_i H(i,y) \le b\).
+
+*** Example Time
+
+    Game Tree Evaluation:
+    - Input: game tree.  The game tree root is a maximizing node, its children
+      are minimizing, and the next level are maximizing, etc.  The leaves are
+      labeled with 0 or 1.  The tree has degree $d$, and $k$ rounds (which means
+      that the height of the tree is $2k$).  In our example, $d=2$.
+    - Output: $x$, the value at the root node.
+
+    We would like an algorithm to evaluate this tree, and we would ilke it to
+    minimize the number of leaves visited (which is roughly equivalent to
+    minimizing runtime).
+
+    The total number of leaves in this tree is \(4^k\).
+
+    Depending on the tree, there could be a node that will allow you to skip
+    visiting other nodes.  But with a deterministic algorithm, you can always
+    design a worst-case input that will "hide" that information for as long as
+    possible.
+
+    This already is similar to game theory stuff.  We are one player (trying to
+    find a worst-case input), and our algorithm is the other player (trying to
+    terminate as quickly as possible).
+
 * 2015-11-04 Wednesday
 
 ** Two Person Zero Sum Games
