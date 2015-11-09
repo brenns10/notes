@@ -471,3 +471,63 @@
    - Every open tree branch corresponds to a counterexample.
    - Must show: for each rule, if one of its children is true, then the parent
      is also true.
+* 2015-11-09 Monday
+
+  Review day before FOL quiz!  Let's get ready to rumble.
+
+  A counter example in FOL is a universe of discourse, and probably some other.
+
+  Here is a premise and conclusion:
+  - \(\forall x \exists y Wxy\)
+  - \(\exists x \forall y Wyx\)
+
+  Or the list:
+  - \(\forall x \exists y Wxy\)
+  - \(~\exists x \forall y Wyx\), which is \(\forall x ~\forall y Wyx\).
+
+  To do the tree:
+  1. Since there's no way to get a constant, create $a$ substituted for $x$.
+  2. Now we have:
+     - \(\exists y Way\)
+     - \(~\forall y Wya\)
+  3. Now, we create $b$ substituted for $y$ in the first one:
+     - \(Wab\)
+     - \(\exists y ~Wya\)
+
+  I got a bit lost in this tree stuff.  But here is the counter example, in a
+  way that I believe he'd like it on the quiz:
+
+  - \(UD = \{0,1\}\)
+    - $a$ is a name for 0
+    - $b$ is a name for 1
+  - \(W: \{<0,1>, <1,0>\}\)
+
+  Or you could also use \(W: \{<0,0>, <1,1>\}\).
+
+  Translations?
+
+  "Nobody wrote to everyone taller than them."
+
+  - ~ \exists x (\forall y (Tyx \to Wxy))
+  - Here, Tyx means y is taller than x.
+  - And, Wxy means x wrote to y.
+  - It appears that he'd like us to go quantifier by quantifier, substituting a
+    new sentence inside so that we can show how we went.  For the above:
+  - Nobody wrote to everyone taller than them.
+  - ~ \exists x (x wrote to everyone taller than them)
+  - ~ \exists x (\forall y (if y is taller than x, then x wrote to y))
+  - ~ \exists x (\forall y (Tyx \to Wxy))
+  - This is a pretty darn solid way to do it.
+  - Also, liberally apply parentheses.
+
+  Sally never writes to me.  ~Wsm
+
+  Sally never writes to anyone: ~ \exists x Wsx.  Or just \forall x ~Wsx
+
+  Need to translate and do trees.  The FOL trees will a bit difficult to learn
+  in time.
+
+  List of rules:
+  - Never work inside a sentence when doing a tree.
+  - Never create a constant for a universal (unless there's *no other place* to
+    get one).
