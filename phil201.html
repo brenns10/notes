@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-09 Mon 16:36 -->
+<!-- 2015-11-09 Mon 20:51 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>PHIL 201 Notes</title>
@@ -204,6 +204,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline18">13.4. Condensed Concepts</a></li>
 </ul>
 </li>
+<li><a href="#orgheadline20">14. 2015-11-09 Monday</a></li>
 </ul>
 </div>
 </div>
@@ -1081,10 +1082,117 @@ is also true.</li>
 </div>
 </div>
 </div>
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">14</span> 2015-11-09 Monday</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Review day before FOL quiz!  Let's get ready to rumble.
+</p>
+
+<p>
+A counter example in FOL is a universe of discourse, and probably some other.
+</p>
+
+<p>
+Here is a premise and conclusion:
+</p>
+<ul class="org-ul">
+<li>\(\forall x \exists y Wxy\)</li>
+<li>\(\exists x \forall y Wyx\)</li>
+</ul>
+
+<p>
+Or the list:
+</p>
+<ul class="org-ul">
+<li>\(\forall x \exists y Wxy\)</li>
+<li>\(~\exists x \forall y Wyx\), which is \(\forall x ~\forall y Wyx\).</li>
+</ul>
+
+<p>
+To do the tree:
+</p>
+<ol class="org-ol">
+<li>Since there's no way to get a constant, create \(a\) substituted for \(x\).</li>
+<li>Now we have:
+<ul class="org-ul">
+<li>\(\exists y Way\)</li>
+<li>\(~\forall y Wya\)</li>
+</ul></li>
+<li>Now, we create \(b\) substituted for \(y\) in the first one:
+<ul class="org-ul">
+<li>\(Wab\)</li>
+<li>\(\exists y ~Wya\)</li>
+</ul></li>
+</ol>
+
+<p>
+I got a bit lost in this tree stuff.  But here is the counter example, in a
+way that I believe he'd like it on the quiz:
+</p>
+
+<ul class="org-ul">
+<li>\(UD = \{0,1\}\)
+<ul class="org-ul">
+<li>\(a\) is a name for 0</li>
+<li>\(b\) is a name for 1</li>
+</ul></li>
+<li>\(W: \{<0,1>, <1,0>\}\)</li>
+</ul>
+
+<p>
+Or you could also use \(W: \{<0,0>, <1,1>\}\).
+</p>
+
+<p>
+Translations?
+</p>
+
+<p>
+"Nobody wrote to everyone taller than them."
+</p>
+
+<ul class="org-ul">
+<li>~ &exist; x (&forall; y (Tyx &rarr; Wxy))</li>
+<li>Here, Tyx means y is taller than x.</li>
+<li>And, Wxy means x wrote to y.</li>
+<li>It appears that he'd like us to go quantifier by quantifier, substituting a
+new sentence inside so that we can show how we went.  For the above:</li>
+<li>Nobody wrote to everyone taller than them.</li>
+<li>~ &exist; x (x wrote to everyone taller than them)</li>
+<li>~ &exist; x (&forall; y (if y is taller than x, then x wrote to y))</li>
+<li>~ &exist; x (&forall; y (Tyx &rarr; Wxy))</li>
+<li>This is a pretty darn solid way to do it.</li>
+<li>Also, liberally apply parentheses.</li>
+</ul>
+
+<p>
+Sally never writes to me.  ~Wsm
+</p>
+
+<p>
+Sally never writes to anyone: ~ &exist; x Wsx.  Or just &forall; x ~Wsx
+</p>
+
+<p>
+Need to translate and do trees.  The FOL trees will a bit difficult to learn
+in time.
+</p>
+
+<p>
+List of rules:
+</p>
+<ul class="org-ul">
+<li>Never work inside a sentence when doing a tree.</li>
+<li>Never create a constant for a universal (unless there's <b>no other place</b> to
+get one).</li>
+</ul>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-11-09 Mon 16:36</p>
+<p class="date">Created: 2015-11-09 Mon 20:51</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
