@@ -36,7 +36,7 @@
 
 *** Game Theory Approach to Game Tree Evaluation
 
-    *Question:* Hee's a deterministic algorithm.  Show that it examines all
+    *Question:* Here's a deterministic algorithm.  Show that it examines all
     leaves.
 
     *Answer:* A labeling that forces the examination of all leaves.
@@ -53,13 +53,13 @@
 
 *** Randomized Algorithms
 
-    RA's base ther decisions on a random number generator.
+    RA's base their decisions on a random number generator.
 
     Examples:
     - for Game Tree Evaluation, choose a strategy in S^2 uniformly at random, and
       use it.
     - always use the first strategy (an RA doesn't /have/ to use its RNG).
-    - choose a strategy in S^2 at random, with /any/ probability dsitribution
+    - choose a strategy in S^2 at random, with /any/ probability distribution
       over S^2.
 
     This already feels quite similar to mixed strategies!
