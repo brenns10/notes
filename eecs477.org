@@ -2,6 +2,98 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-09 Monday
+
+** Game Tree Evaluation
+   (continued)
+
+   Recall:
+   - We have a game tree, with internal nodes labeled "min" and "max"
+     alternating layers.  The leaves have payoff values of either 0 or 1.
+   - Some definitions:
+     - $n$: number of leaves (\(=4^K\))
+     - $k$: number of rounds
+     - $h$: height (\(=2k\))
+   - Input: $k$, labeling of leaves.
+   - We were doing a "game theoretic" approach to this problem, where:
+     - One player tries to minimize the number of node visits by designing a
+       smarter algorithm.
+     - The other player tries to maximize the number of node visits by designing
+       a devious tree.
+     - We realized that really any deterministic algorithm will have an input
+       that will force it to visit every node.
+     - We realized that a randomized algorithm was equivalent to a "mixed"
+       strategy, and it may present a better expected runtime
+
+*** Pruned Depth First Search
+
+    This is essentially a depth first search where we avoid expanding branches
+    if we already know the parent's value.  Without loss of generality, any
+    algorithm we design will be of this form.  That is (according to the book):
+    "for any algorithm that examines $L$ leaves, there exists a pruned DFS that
+    examines no more than $L$ leaves."  So it's a bit simpler to think of
+    everything in pruned DFS terms anyway.
+
+*** Game Theory Approach to Game Tree Evaluation
+
+    *Question:* Hee's a deterministic algorithm.  Show that it examines all
+    leaves.
+
+    *Answer:* A labeling that forces the examination of all leaves.
+
+    We have two players:
+    - The Input (worst-case).  Objective: maximize $n$.
+      - Strategies: \(S^1 = \{(0,0,0,0), \dots, (1,1,1,1)\}\)
+      - Some are not useful at all (like the first and last)
+      - So strictly less than 16 (or 15) strategies in the case of \(k=1\).
+    - The Algorithm: Objective: minimize $n$
+      - Strategies: \(S^1 = \{(L,L,L), \dots, (R,R,R)\}\).
+      - Each is an assignment of the "first" direction to each internal node.
+      - These are all unique and potentially useful strategies, so exactly 8.
+
+*** Randomized Algorithms
+
+    RA's base ther decisions on a random number generator.
+
+    Examples:
+    - for Game Tree Evaluation, choose a strategy in S^2 uniformly at random, and
+      use it.
+    - always use the first strategy (an RA doesn't /have/ to use its RNG).
+    - choose a strategy in S^2 at random, with /any/ probability dsitribution
+      over S^2.
+
+    This already feels quite similar to mixed strategies!
+
+    *Note:* random \ne arbitrary.  In depth first search, we arbitrarily select an
+    outgoing edge to expand.  That doesn't mean we're doing it at random.  An
+    arbitrary selection is just a decision made ahead of time, and a random with
+    arbitrary decisions will always run the same, and may have a worst case
+    input.
+
+    Anyway, now that we're looking at this problem as a game, we should also
+    note that the number of strategies of either player is exploding
+    exponentially as a function of the number of rounds.  So we can't expect to
+    be able to use a linear program to come up with a maximized worst case mixed
+    strategy.  But we can still use game theory stuff (such as Yao's principle)
+    to help.
+
+*** Worst Case
+
+    Ok, our previous initial randomized algorithm was to select a strategy from
+    \(S^1\) uniformly at random.  This is equivalent to, when visiting an
+    internal node, go L/R with probability 0.5.
+
+    Let \(W(k)\) be the worst case number of leaves examined by randomized
+    algorithm in the expectation ($k$: number of rounds).
+
+    - Let's look at a "max" node, which will finally evaluate to 0.  We know
+      that both nodes must have been evaluated, so \(W(k) = 2 W(k-1)\).
+    - Now let's look at a "max" node, which will finally evaluate to 1.  This
+      means that at least one of the children will evaluate to 1.  With at least
+      0.5 probability, we will find it, and have \(W(k) = W(k-1)\), and with no
+      more than 0.5 probability, we won't find it, and get \(W(k) = 2W(k-1)\).
+      So, the expected worse case is \(W(k) \le \frac{3}{2} W(k-1)\).
+
 * 2015-11-06 Friday
 
 ** Two Person Zero Sum Games (cont)
