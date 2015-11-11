@@ -2,6 +2,106 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-11 Wednesday
+
+** Game Tree Evaluation (cont)
+
+   Same problem setup - binary tree, alternating min/max, and 0/1 leaves.
+   Recall from last time:
+   - Not proven, but intuitive: for any deterministic algorithm, I can find a
+     labelling that will force the algorithm to visit every single leaf node.
+   - We viewed this as a game situation where the algorithm and the input were
+     adversaries.  In this view, a randomized algorithm could be viewed as a
+     mixed strategy as opposed to any single deterministic (i.e. pure) strategy.
+   - Finally, we were attempting to quantify the expected worst case number of
+     leaves visited, by defining it recursively.  We're looking at a tree with
+     "min" at the top of each round.
+
+   Expected visits for the max layer:
+   - *If max evaluates to 0:* then E[# leaves] = \(2W(k-1)\).
+   - *If max evaluates to 1:* then E[# leaves] \(\le \frac{3}{2} W(k-1)\).
+
+   Now we need to try to quantify \(W(k)\), so we look at the min layer (above
+   the max layer).
+   - *If min evaluates to 0:* then /at least one child/ max evaluates to 0.
+     - With at least 0.5 probability, the algorithm finds it:
+     - \(W(k) \le \frac{1}{2}[2(W(k-1))] + \frac{1}{2}[2W(k-1) + \frac{3}{2}W(k-1)]\)
+     - This is \(< W(k-1)\)
+   - *If min evaluates to 1:* then we know both children evaluated to 1.
+     - \(W(k) \le 2 * \frac{3}{2} W(k-1) = 3 W(k-1)\)
+
+   In all cases, \(W(k) \le 3W(k-1)\le 3^k = 3^{\log_4 n} = n^{\log_4 3} = n^{0.793} = o(n)\).
+   So by randomizing, we have improved from linear in the number of leaves, to
+   sub linear.  Yay us.
+
+   Now, we would like to show that there is not a better randomized algorithm
+   for this problem.  To do this, we will use Yao's principle:
+
+   \begin{equation}
+     \min_y \max_i H(i,y) \ge \min_j H(x,j) \forall x
+   \end{equation}
+
+   In our case, \(H(i,y)\) is the expected number of leaves visited by
+   randomized algorithm $y$ on input tree $i$.  Similarly, \(H(x,j)\) is the
+   expected number of leaves visited by deterministic algorithm $j$ on a tree
+   labelled by probability distribution $x$.
+
+   What Yao's principle gives us here is that our best randomized algorithm has
+   a lower bound determined by the minimum number of leaves expected to be
+   visited by a deterministic algorithm on any input probability distribution
+   $x$.  Interesting.
+
+   We will label a leaf 1 with probability $p$ and 0 with probability \(1-p\).
+   Doesn't matter what $p$ is.  In this case, we have \(p=\frac{3-\sqrt{5}}{2}\)
+
+   Also, instead of doing mins and maxes, since we're guaranteed to have 0's and
+   1's, we know that max nodes are like or's, and min nodes are like ands.  If
+   we replace all nodes with nor's, we get an equivalent tree (viewed from the
+   top).  This is because \(\lnot(\lnot(a \lor b) \lor \lnot (c \lor d)) = (a \lor b) \land (c \lor
+   d)\).  Let's look at the truth table of a nor:
+
+   | a | b | \(\lnot(a \lor b)\) | probability         |
+   | 0 | 0 |                1 | \(1-p)^2 = p\)       |
+   | 0 | 1 |                0 | \(1-(1-p)^2\ = 1-p\) |
+   | 1 | 0 |                0 | same                |
+   | 1 | 1 |                0 | same                |
+
+   Since Dr. Liberatore cleverly solved a quadratic equation, we have a nice
+   property that each node in the whole tree is 1/0 with the exact same
+   probability distribution: $p$ and $1-p$.  Woah.
+
+   Ok, so now we're looking at a tree of depth two, min at the top, max at the
+   next layer, leaves labeled left to right a,b,c,d.  Let a(b,c,d) be the first
+   (second, third, fourth) grandchild(ren) visited by a deterministic algorithm.
+
+   Let's look at cases:
+   | Case                      | \(W(k)\)    | Pr               |
+   |---------------------------+-------------+------------------|
+   | \(a=0 \to b=0\)             | \(2W(k-1)\) | \((1-p)^2 = p\)   |
+   | \(a=0 \to b=1 \to c=0 \to d=?\) | \(4W(k-1)\) | \((1-p^2)p = p^2\) |
+   | \(a=0 \to b=1 \to c=1\)       | \(3W(k-1)\) | \(p^2(1-p)\)      |
+   | \(a=1 \to c=0 \to d=?\)       | \(3W(k-1)\) | \(p(1-p)\)       |
+   | \(a=1 \to c=1\)             | \(2W(k-1)\) | \(p(1-p)\)       |
+
+   To find the expected value of \(W(k)\), we can just sum up each case times
+   its probability, plug it into your favorite numerical/symbolic computing
+   system, and get back an answer.  Or, we could be lazy, and try to avoid that.
+   Guess what we're going to do?  Be lazy!
+
+   We know that the final recurrence will be of the form \(W(k) = c W(k-1)\).
+   "Your book is fearless, and actually calculated the value of $c$." -
+   Dr. Liberatore.
+
+   However, we see that 3 is sort of the "mean" value, and the probability of 2
+   is greater than the probability of 4.  So we know that $c<3$, but more than
+   two.  If you get the exact value of $c$ as the book did, you would find that
+   \(W(k) = \Omega(n^{0.694})\).  The exponent is $\log_4 c$, $c \approx 2.62$.  Our estimation
+   was right on.
+
+   This tells us that a randomized algorithm needs to examine at least that many
+   nodes.  Our randomized algorithm examines more, and it's an open problem to
+   try to close the gap.
+
 * 2015-11-09 Monday
 
 ** Game Tree Evaluation
