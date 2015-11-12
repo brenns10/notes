@@ -2,6 +2,107 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-12 Thursday
+
+  Examples of PAC learnable functions:
+  - Boolean conjunctions over $n$ attributes.
+  - $k$-DNF formulas over $n$ attributes, for fixed $k$.
+  - Arbitrary Boolean functions.  (PAC learnable, but not efficiently due to the
+    fact that it's doubly exponential)
+
+  Assumptions:
+  - Target concept is in the hypothesis class.
+  - Hypothesis class is finite.
+  - No noise
+  - Consistency
+
+  Relaxing the assumptions:
+  - Consistency is tied to the hypothesis class containing the hypothesis class.
+    - Instead, we should bound the difference between the output hypothesis and
+      the /best/ hypothesis.
+    - Let \(E_i = 1\) if output hypothesis makes a mistake on example $i$, 0
+      otherwise.
+    - \(E_i\) is a Bernoulli random variable with parameter \(err(h,f)\).
+    - Our estimate of \(err(h,f)\) is \(err_S(h,f) = \frac{1}{m} \sum_i E_i\)
+    - Chernoff Bound: if a rv can be expressed as a sum of independent indicator
+      rv's, you can use this to bound the deviation of the sum from the true
+      value: \(Pr(|err(h,f)-err_S(h,f)| > \epsilon) \le 2e^{-2m\epsilon^2}\)
+    - When you plug a lot of things in, you get \(m \ge \frac{1}{2\epsilon^2} \log
+      \left(\frac{2|H|}{\delta}\right)\), which ensures that the probability of all
+      hypotheses being good is greater than $\delta$.
+
+  ERM Learners
+  - Empirical risk minimization algorithms output a hypothesis with the least
+    training error.
+    - \(h_{best} = \arg \min_h (err(h,f))\)
+    - \(H_{ERM} = \arg \min_h (err_S(h,f))\)
+  - Observe:
+    \begin{align*}
+      err(h_{ERM}) &\le err_S(h_{ERM}) + \epsilon \text{  by choice of }m\\
+               &\le err_S(h_{best}) + \epsilon \text{  by ERM}\\
+               &\le err(h_{best}) + 2\epsilon \text{  by choice of }m
+    \end{align*}
+  - So the error of $H_{ERM}$ is at most $2\epsilon$.
+  - Importance here is that even when the target concept isn't guaranteed to be
+    in the hypothesis class, we can still guarantee that we can learn something
+    suitably close to best concept.
+
+  Infinite Hypothesis Classes
+  - Many hypothesis classes aren't finite.  For instance, there are infinite
+    choices for a line in R^2
+  - But we have least squares regression, and in general we don't expect that we
+    need more than $O(n)$ examples to fit such a model with $n$ parameters.
+
+  Let's look at an example: Learning axis parallel rectangles in R^2.  The
+  algorithm is to pick the rectangle with the tightest fit to the positives.
+  - This strategy will always produce a rectangle that is within the target
+    rectangle.
+  - To show this is pac learnable, we want to show that the "strip" of the
+    target rectangle to the learned rectangle contains a probability mass of
+    $\epsilon/4$.
+  - We call this region of the rectangle $T$.  The only way we have too much
+    strip on that edge is if none of our examples come from $T$.
+    \begin{align*}
+      Pr(err(R', R) > \epsilon) &= Pr(\text{mass under strips exceeds }\epsilon) \\
+    &\le 4 Pr(\text{mass under 1 strip exceeds }\epsilon/4) \\
+    &\le 4 Pr(\text{no point in }m\text{ samples lies in }T)\\
+    &\le 4\left(1-\frac{\epsilon}{4}\right)^m
+    \end{align*}
+    There was more to the proof, but I couldn't write it all down.  See slides
+
+  This worked because there was a nice geometric shape that allowed some cool
+  tricks.  What about the general case of infinite hypotheses?  We can use a
+  clever trick called "projecting the function onto the data."  We know that
+  there are an infinite number of possible hypotheses, but we also know that on
+  a finite training sample, the behaviors of the infinite set of hypotheses is
+  finite.  We can define equivalence classes based on the performance on the
+  training set.
+
+  Growth Function
+  - For a sample \(S=x_1, \dots, x_m\), let \(F(S) = \{[h(x_1), \dots, h(x_m)],
+    \text{ for all }h\in H\}\)
+  - Growth function: \(G(m) = \max_S |F(S)|\).
+  - If \(G(m) = 2^m\), the classifier can memorize any examples you give it.  We
+    say that it shatters the examples.  Or shatters something.  I'm not sure
+    what it shatters.
+  - The size of the largest set that $H$ can shatter is the Vapnik-Chervonenkis
+    (VC) dimension of $H$.
+  - If \(VC(H) = d\), then there is some set of size $d$ that can be shattered,
+    and
+  - No set of size \(d+1\) can be shattered.
+  - If we can find sets of arbitrary size that can be shattered, \(VC(H) =
+    \infty\).
+
+  Examples:
+  - Suppose $H$ is the class of all intervals on the real line.  What is its VC
+    dimension?
+    - 1? we can shatter that!
+    - 2? we can shatter that too!
+    - 3? nope, no shattering that (say we had +,-,+).
+    - So, the VC dimension is 2
+  - How about linear functions in 2D?
+    - VC dimension is 3.
+
 * 2015-11-03 Tuesday
 
 ** Learning with Prior Knowledge
