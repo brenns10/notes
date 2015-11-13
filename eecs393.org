@@ -2,6 +2,10 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-13 Friday
+
+  Quiz today (Testing)
+
 * 2015-10-21 Wednesday
 
   Quiz today (OOD).  Notes
