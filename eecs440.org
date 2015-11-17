@@ -2,6 +2,140 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-17 Tuesday
+
+** Sequential Supervised Learning
+
+   - So far we've looked at data we could represent as feature vectors.
+   - Now we'd like to go further and look at examples that are sequences of
+     observations.
+   - Examples:
+     - NLP: Text classification, parsing, part-of-speach tagging
+     - Protein family modeling
+     - Speech recognition
+     - Activity recognition
+
+*** Sequential Data
+    - Sequence of observations o_1, o_2, ..., o_n.
+    - Each observation is drawn from a background alphabet/vocabulary
+    - Given this data, we have many types of prediction problems:
+      - Classify the whole sequence
+      - Classify each element
+      - Something in between...
+
+*** Generative Process Model
+    - We hypothesize that there is an underlying generating process we can
+      model.
+    - The process has a state that could be discrete or continuous.
+    - The state evolves over time.
+    - At discrete time points, we observe something about the state.
+      - could be continuous time points, but less common
+
+*** The -1st Approach
+    - Just ignore that the data is sequential, and try to use a normal learning
+      algorithm.
+      - Sometimes this is a reasonable first choice.
+    - This approach has met with some success, especially with Naive Bayes
+      models of text classification.
+      - Spam/ham, sport/finance
+      - Use a "bag-of-words" approach - it doesn't take into account word order.
+
+*** The 0th Approach
+
+    - We'll accept that there is an underlying process, but not process the
+      state.
+    - We'll take into account the position of each feature/item in the model.
+    - Position Specific Scoring Matrix
+    - Need to have a constant length sequence.
+    - Doesn't account for dependence on previous inputs
+
+*** The kth Order Approach
+
+    - Model dependence of order $k$, with a $k$ order hidden markov model.
+    - This will take into account the $k$ previous examples in the "decision"
+    - Essentially, a HMM is a probabilistic FSM that emits output
+      probabilistically in each state.
+    - It's a generative model!
+    - It works by factoring the probability distribution of \(Pr[\{s_1, s_2, \dots,
+      s_n\}, \{o_1, o_2, \dots, o_n\}]\).  This is a *time series*.  A first order HMM
+      factors the distribution into:
+
+      \begin{align*}
+        Pr[\{s_1, s_2, \dots, s_n\}, \{o_1, o_2, \dots, o_n\}] = Pr(s_1)Pr(o_1 |s_1) \prod_{r=2}^n Pr(o_r |
+        s_r) Pr(s_r | s_{r-1})
+      \end{align*}
+
+      In the product, the first probability (\(Pr(o_r | s_r)\))is the "emission
+      probability" (how likely is state $s_r$ to emit observation $o_r$).  The
+      second probability (\(Pr(s_r | s_{r-1})\))is the "transition probability" (how
+      likely is state $s_{r-1}$ to transition into state $s_r$).
+    - Note that with higher order models, you condition on more than just the
+      previous state in the "transition probability".
+    - Aside:
+      - What is "markov" about this?  Only considers the previous $k$ inputs.
+      - What is "hidden"?  The states!
+    - Inference:
+      - What is the probability of a sequence?
+      - What is the most likely sequence of states to produce an observations?
+    - Learning:
+      - How to estimate parameters? (given a model structure)
+      - How to learn a structure?
+
+**** Inference in HMMs
+
+     - How to estimate \(Pr(\vec{o})\)?
+     - Clearly, \(Pr(\vec{o}) = \sum_{\vec{s}} Pr(\vec{o},\vec{s})\) (which we already
+       have above.
+       - Problem: the number of potential state sequences that could generate
+         $\vec{o}$ is pretty huge in general.  Exponential, actually.
+     - Key observation that saves us: Many \(Pr(o, s)\)  functions share
+       "prefixes", which we can store using dynamic programming.
+     - Forward algorithm:
+       - Let \(\alpha_k(i) = Pr(o_1, \dots, o_i, s_i=k)\)
+         - This is the probability that the model has emitted the first $i$
+           observations and is now in state $k$.
+       - We would like to compute \(\alpha_{END}(n)\) (this assumes that we have a dummy
+         end state for convenience).  This is the probability of the entire
+         observation.
+       - Construct a table of size $n$ by $m$, ($n$ is length of observed
+         sequence, $m$ is number of states).
+       - The forward algorithm is a dynamic programming procedure that will fill
+         the table with \alpha values.
+       - Initialize: \(\alpha_{START}(0) = 1\), and \(\alpha_k(0) = 0\) for \(k \ne START\).
+       - Recursion: \(\alpha_k(i) = Pr(o_i | s_i = k) \sum_p \alpha_p(i-1) Pr(s_i=k | s_{i-1} = p)\)
+
+**** Most Likely Path
+
+     Now we are trying to answer the question: which state sequence is most
+     likely to have generated the observations?  In terms of math, we're looking
+     for:
+
+     \begin{equation}
+       \vec{s}^* = \arg \max_{\vec{s}} Pr(\vec{s}|\vec{o})
+     \end{equation}
+
+     - The dumb way to solve it is to enumerate all possible state sequences.
+     - The smart way is to use dynamic programming again, using an algorithm
+       called the Viterbi algorithm:
+
+     *Viterbi Algorithm*
+
+     - Let \(\gamma_k(i) = Pr(o_1, \dots, o_i, s_i^* = k)\)
+       - The probability that the most likely path is at state $k$ after
+         emitting the first $i$ observation.
+     - As frequently happens with DP, this table only gets us the
+       probabilities.  We'll need to maintain a separate table full of pointers
+       if we'd like to get the actual state sequence.  But that's details.
+     - Initialize: \(\gamma_{START}(0) = 1\), and for the other $k$, \(\gamma_k(0)=0\).
+     - Recursion: \(\gamma_{k}(i) = Pr(o_i | s_i^* = k) \max_p \gamma_p(i-1) Pr(s_i^* = k |
+       s_{i-1}^* = p)\)
+       - Critical difference here from the forward algorithm is that we want to
+         choose the most likely path to have gotten us here, so we use a max
+         instead of a sum.
+
+**** Parameter Estimation
+
+     We ain't gonna do that this class.
 * 2015-11-12 Thursday
 
   Examples of PAC learnable functions:
