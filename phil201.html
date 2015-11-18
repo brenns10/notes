@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-11-18 Wed 01:56 -->
+<!-- 2015-11-18 Wed 16:24 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>PHIL 201 Notes</title>
@@ -205,6 +205,7 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#orgheadline20">14. 2015-11-09 Monday</a></li>
+<li><a href="#orgheadline21">15. 2015-11-11 Wednesday</a></li>
 </ul>
 </div>
 </div>
@@ -1189,10 +1190,104 @@ get one).</li>
 </ul>
 </div>
 </div>
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">15</span> 2015-11-11 Wednesday</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+The quiz is not today.  Go figure.  It was postponed due to a study group of 8
+people who said they weren't ready.  Interesting.  So, we'll do some more
+examples.  Maybe I'll get the FOL tree algorithm down.
+</p>
+
+<p>
+Don't forget universe of discourse.  It's important for statements to have
+meaning when you interpret them.  It's less important for logic class, but
+still important to have in mind.
+</p>
+
+<p>
+Vocab:
+</p>
+<ul class="org-ul">
+<li>Gx: x is greek</li>
+<li>Px: x is a poet</li>
+<li>Mx: x is mortal</li>
+</ul>
+
+<p>
+Argument:
+</p>
+<ul class="org-ul">
+<li>All Greeks are Poets.</li>
+<li>Some Poets are Immortal.</li>
+<li>Some Greeks are immortal.</li>
+</ul>
+
+<p>
+Translation:
+</p>
+<ul class="org-ul">
+<li>&forall; x (Gx &rarr; Px)</li>
+<li>&exist; x (Px &and; ~Mx)</li>
+<li>&exist; x (Gx &and; ~Mx)</li>
+</ul>
+
+<p>
+Now the discussion is getting lost in the silly, unimportant details of
+translation.
+</p>
+
+<p>
+Tree:
+</p>
+<ol class="org-ol">
+<li>Start with the second sentence.  Why?  Because that will give us a
+constant.  We define \(a\) such that \(Pa \land ~Ma\).</li>
+<li>Go to the second sentence.  Now, we apply the universal to \(a\), and get
+\(Ga \to Pa\).</li>
+<li>Go to the third sentence.  Do the "rotation', and we get a universal, so we
+can apply it to \(a\): \(~(Ga \land ~Ma)\).</li>
+<li>Now we have checked off all our existentials and applied all our
+universals, so we can start doing a SL tree!
+<ul class="org-ul">
+<li>We have Pa, ~Ma (from the first sentence)
+<ul class="org-ul">
+<li>~Ga (from third sentence).  If we did the second sentence, we would see
+that this branch is left open, so we have a contradiction.</li>
+<li>~~Ma (from third sentence) contradiction, so this closes.</li>
+</ul></li>
+</ul></li>
+</ol>
+
+<p>
+The contradiction:
+</p>
+<ul class="org-ul">
+<li>UD = {a}</li>
+<li>P = {a}</li>
+<li>G = &empty;</li>
+<li>M = &empty;</li>
+</ul>
+
+<p>
+Notes on how FOL trees work:
+</p>
+<ul class="org-ul">
+<li>You close a branch when you encounter anything and its negation (i.e. a
+contradiction).</li>
+<li>You know you have a counter example when everything that can be checked off
+(sentences and existentials) has been, and all universals have been applied
+to all constants, and there are no contradictions.</li>
+<li>You don't check off universals.  You simply mark the substitutions next to
+it.</li>
+<li>You do check off existentials, once you have created a constant for them.</li>
+</ul>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2015-11-18 Wed 01:56</p>
+<p class="date">Created: 2015-11-18 Wed 16:24</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
