@@ -531,3 +531,60 @@
   - Never work inside a sentence when doing a tree.
   - Never create a constant for a universal (unless there's *no other place* to
     get one).
+* 2015-11-11 Wednesday
+
+  The quiz is not today.  Go figure.  It was postponed due to a study group of 8
+  people who said they weren't ready.  Interesting.  So, we'll do some more
+  examples.  Maybe I'll get the FOL tree algorithm down.
+
+  Don't forget universe of discourse.  It's important for statements to have
+  meaning when you interpret them.  It's less important for logic class, but
+  still important to have in mind.
+
+  Vocab:
+  - Gx: x is greek
+  - Px: x is a poet
+  - Mx: x is mortal
+
+  Argument:
+  - All Greeks are Poets.
+  - Some Poets are Immortal.
+  - Some Greeks are immortal.
+
+  Translation:
+  - \forall x (Gx \to Px)
+  - \exists x (Px \land ~Mx)
+  - \exists x (Gx \land ~Mx)
+
+  Now the discussion is getting lost in the silly, unimportant details of
+  translation.
+
+  Tree:
+  1. Start with the second sentence.  Why?  Because that will give us a
+     constant.  We define $a$ such that \(Pa \land ~Ma\).
+  2. Go to the second sentence.  Now, we apply the universal to $a$, and get
+     \(Ga \to Pa\).
+  3. Go to the third sentence.  Do the "rotation', and we get a universal, so we
+     can apply it to $a$: \(~(Ga \land ~Ma)\).
+  4. Now we have checked off all our existentials and applied all our
+     universals, so we can start doing a SL tree!
+     - We have Pa, ~Ma (from the first sentence)
+       - ~Ga (from third sentence).  If we did the second sentence, we would see
+         that this branch is left open, so we have a contradiction.
+       - ~~Ma (from third sentence) contradiction, so this closes.
+
+  The contradiction:
+  - UD = {a}
+  - P = {a}
+  - G = \empty
+  - M = \empty
+
+  Notes on how FOL trees work:
+  - You close a branch when you encounter anything and its negation (i.e. a
+    contradiction).
+  - You know you have a counter example when everything that can be checked off
+    (sentences and existentials) has been, and all universals have been applied
+    to all constants, and there are no contradictions.
+  - You don't check off universals.  You simply mark the substitutions next to
+    it.
+  - You do check off existentials, once you have created a constant for them.
