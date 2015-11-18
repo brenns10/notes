@@ -2,6 +2,139 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-18 Wednesday
+
+** "Math Facts"
+
+   Fact #1:
+
+   \begin{equation}
+     1 - x \le \left(1 - \frac{x}{k}\right)^k \le e^{-x} \:\:\: \forall x \in R, \forall k \in Z^+
+   \end{equation}
+
+   - in the limit as \(k\to\infty\), the right side is equality.
+   - when \(k=1\), the left side is equality.
+
+   Fact #2:
+
+   Let \(x_1, x_2, \dots, x_n \in [0,1]\), s.t. \(\sum_{i=1}^n x_i \ge \zeta \ge 0\).  Then:
+
+   \begin{equation}
+     \prod_{i=1}^n (1-x_i) \le \left(1 - \frac{\zeta}{n}\right)^n
+   \end{equation}
+
+   We'll "sketch" the proof without fully doing it.  Let's look at the case
+   $n=2$, $\zeta=1$.  So, we have:
+   - \(x_1 + x_2 \ge 1\)
+   - Or, \(x_2 \ge 1 - x_1\).
+   The expression we're interested in is:
+
+   \begin{align*}
+     (1 - x_1)(1 - x_2) \le x_2(1-x_2) = f(x_2)
+   \end{align*}
+
+   You can maximize $f$ by looking at its derivative, which will give you \(x_2 =
+   \frac{1}{2} = x_1\).  So, plugging that back in:
+
+   \begin{align*}
+     (1 - x_1)(1 - x_2) \le x_2(1-x_2) \le \left(1 - \frac{1}{2}\right)^2
+   \end{align*}
+
+   Tada!  You can do this generally by induction on $n$, but we won't.
+
+** Back to Hitting Set
+
+   Here's the ILP relaxation of the hitting set problem:
+
+   - \(\min \sum_{e \in E} c_e x_e\), (we'll call this \(c(x)\)) s.t.
+   - \(\sum_{e \in T_i} x_e \ge 1\)
+   - \(0 \le x_e \le 1\)
+
+   Earlier, we interpreted $x_e$ as \(Pr[e\in A]\).  Then, we defined a randomized
+   algorithm to "solve" this problem.  Except it didn't solve it, because its
+   solutions weren't necessarily feasible.  But hey, it performed well!  So,
+   let's look at the probability that this algorithm produces an infeasible
+   solution.  We'l start by looking at the probability that a single set $T_i$
+   isn't "covered":
+
+   \begin{align*}
+     Pr[T_i \cap A \ne \emptyset] &= 1 - Pr[\text{any member is in A}] \\
+     &= 1 - \prod_{e \in T_i} Pr[e \not\in A] \\
+     &= P - \prod_{e \in T_i} (1 - x_e^*)
+   \end{align*}
+
+   For each $T_i$, we have \(\sum_{e \in T_i} x_e^* \ge 1\).  Which means that we can
+   say:
+
+   \begin{align*}
+     Pr[T_i \cap A \ne \emptyset] &= P - \prod_{e \in T_i} (1 - x_e^*) \\
+     &\ge 1 - \left(1 - \frac{1}{|T_i |}\right) \\
+     &\ge 1 - \frac{1}{e} > 0
+   \end{align*}
+
+   Now, suppose we repeat the randomized algorithm $t$ times.  Now, we know that
+   \(e\in A\) iff $\exists$ one trial in which \(e\in A\).  Looking at the expressions
+   above, we know that then:
+
+   \begin{align*}
+     Pr[T_i \cap A = \emptyset] \le \frac{1}{e^t} \le \frac{1}{cp}
+   \end{align*}
+
+   That last bit holds if we choose a \(t \in \Theta(\log p)\).  Now, let's define an
+   indicator random variable $\gamma_i$ which is 1 when $T_i$ is not covered.  Since
+   it's an indicator RV, its expectation is just the probability of its event,
+   which means:
+
+   \begin{align*}
+     E[\gamma_i ] \le \frac{1}{cp}
+   \end{align*}
+
+   Now, we can talk about the expected number of sets not hit after $t$ trials:
+
+   \begin{align*}
+     E[\sum_{i=1}^p \gamma_i ] \le \frac{1}{c}
+   \end{align*}
+
+   This is true due to the linearity of expectation.  It is not true that the
+   $\gamma_i$ are independent.
+
+   So, repeating the algorithm can allow us to bound the number of sets not
+   covered and make it arbitrarily small.  But, this ability comes at a cost.
+   Let's look at the expected cost of the new solution:
+
+   \begin{align*}
+     E[c(A)] = t * c(x^*) \le t* \text{OPTIMAL}
+   \end{align*}
+
+   This leads to the theorem that this repeated randomized algorithm is an
+   \(O(\log p)\)-apx algorithm, and it returns a hitting set with probability
+   \(\ge 1 - \frac{1}{c}\).
+
+   Let's summarize our algorithms for Hitting Set:
+   - Primal/Dual algorithm: apx \(\max |T_i |\) (for vertex cover, this is 2)
+     - both simple and deterministic
+   - Repeated Randomized algorithM: apx \(O(\log p)\)
+     - also simple, but randomized and has a nonzero probability of failure.
+
+** Maximum Satisfiability
+
+   - Have $n$ decision variables, \(x_1, x_2, \dots, x_n \in \{T, F\}\).
+   - Have $c_i$, a bunch of clauses over $x_1, \dots, x_n$.
+     - For example, this could be \(x_1 \lor x_2\), \(x_1 \lor \lnot x_3\), or
+       \(\not x_1 \lor x_2 \lor \lnot x_3\).
+     - In general, a clause may only be a disjunction of variables (or their
+       negations).
+   - We would like to find a truth assignment to $x_1, x_2, \dots, x_n$ that maximizes
+     the number of true clauses.
+
+   Let's imagine right now that each clause contains \(\ge k = 2\) literals.
+   There is an incredibly easy approximation algorithm here: just assign \(x_i =
+   T\) with probability \(\frac{1}{2}\).  The probability of a clause not being
+   satisfied is less than or equal to $\frac{1}{4}$.  The expected number of
+   clauses being satisfied is $\frac{3}{4}p$, (where $p$ is the number of
+   clauses), and you can't do better than $p$.  So this is a $\frac{3}{4}$ apx
+   algorithm.  But it's not so good when $k$ is 1.
+
 * 2015-11-16 Monday
 
 ** Hitting Set
