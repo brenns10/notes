@@ -2,6 +2,179 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-19 Thursday
+
+** Hidden Markov Models
+
+   Last time:
+   - Hidden Markov Models
+   - Forward algorithm for determining probability of an observed sequence.
+   - Viterbi Algorithm for finding most likely sequence of states that could
+     have emitted an observed sequence.
+
+   Now:
+   - Given some observations and a model structure, how to estimate parameters?
+
+*** Learning Model Parameters
+
+    - We have a set of observation sequences.  These sequences are i.i.d., but
+      the elements of the sequences (obviously) are not.
+    - Parameters are:
+      - Emission distribution for each state: \(Pr[a | S = k]\).
+      - Transition probability for each pair of states.
+    - How do we do this?  Maximum Likelihood Estimation!
+
+*** Simpler Problem
+
+    - This is gonna be difficult due to the fact that we don't know the state
+      sequences associated with the observed emissions.
+      - /That's why it's a *Hidden* Markov Model!/
+    - What if, instead we had "annotated" examples?  That is, each observation
+      sequence comes with a list of states.
+    - Then, we can simply count up the emissions for each state, and build a
+      probability distribution out of it.
+    - We can do something similar with the transitions.
+
+*** Baum-Welch Algorithm
+
+    - Sadly, the world is not a nice place, and it doesn't typically give us a
+      state sequence.
+    - This is /missing data/, and for generative probabilistic models, we can
+      handle this with *expectation maximization*!
+      - As a refresher, in the E step, we estimate values of missing values
+      - Then in the M step, we do MLE
+      - Then we iterate this
+    - The algorithm here is Baum-Welch Algorithm.
+
+**** E Step
+
+     - In order to estimate the probability of emitting $b$ in state $k$:
+
+       \begin{align*}
+         E_{k;b} &= \sum_{j \in Sequences} \sum_{i: o_i^j=b} Pr(s_k = k | \vec{o}^j) \\
+         &= \sum_{j \in sequences} \frac{1}{Pr(\vec{o}^j)} \sum_{i: a_i^j=b} Pr(s_i = k, \vec{o}^j) \\
+         &= \sum_{j \in sequences} \sum_{i: a_i^j=b} \frac{\alpha_{k,j}(i) \beta_{k,j}(i)}{\alpha_{END,j}(n)}
+       \end{align*}
+
+       In the formula above, $\alpha$ is defined from the forward algorithm, and $\beta$
+       comes from the backward algorithm, which estimates \(\beta_{k}(i) = Pr(s_i=k |
+       \{o_i, \dots, o_n\}\) in a backwards dynamic programming fashion.  It turns out
+       that due to the Markov property, we can factor the probability into the
+       product of $\alpha$ and $\beta$, which is pretty darn neat.
+
+     - In order to estimate the probability of a transition $k\to l$: for each
+       training sequence, for each time step, find the probability $k \to l$ was
+       used at that point; add up all the probabilities.
+
+       \begin{align*}
+         Pr(s_i = k, s_{i+1} = l | \vec{o}) = \frac{\alpha_k(i)}{} \dots
+       \end{align*}
+
+       Slide change!  Check slides for formula!
+
+**** M Step
+
+     - Once we have the $E$ and $C$ values, the maximum likelihood estimation is
+       simply then taking these expected counts and computing probabilities,
+       just like we did when we had labeled sequences.
+
+*** Handling Labeled Sequences
+
+    - What if we have labeled sequences?  We've dealt with "emissions", but what
+      if the sequence as a whole is labelled?
+    - You just train a model for each class.  (Need to be careful to choose your
+      samples for each class).
+    - Then, to classify, you just get the probability out of each model, and
+      choose the class with the higher probability.
+    - Or, you could combine your structures into a single HMM, with a START
+      state, a POS set of states, a NEG set of states, and then a STOP state.
+      Then, train just that model.  To classify, just run the Viterbi algorithm
+      and inspect the most likely path to see class label.
+
+*** Discriminative HMM
+
+    - Can do a similar discriminative model, if the generative HMM is overkill.
+    - Called Conditional Random Fields.
+
+*** Stochastic CFGs
+
+    - What if the order of dependence cannot be bounded?
+    - You may need a stochastic context free grammar.
+      - you can think of HMM's as stochastic regular grammars.
+    - Like regular/context free languages, HMMs and Stochastic CFGs have tons of
+      similarities.  Algorithms exist to do similar things in both.
+    - In fact, CYK algorithm can be used like the Viterbi algorithm to return
+      the most likely "state" sequence, which is ridiculously cool, since we
+      originally covered in in 343 as just a normal parsing algorithm.
+
+** Discrete Time, Continuous State
+
+   - Not all processes have discrete state.
+   - Examples of processes with continuous state:
+     - Robot that is tracking its location as it moves.
+     - System that is tracking objects on radar.
+
+*** Kalman Filtering
+
+    - Specify process state using continuous variables.
+    - To model the evolution of the process state, need a distribution
+      \(Pr(s_{t+1} | s_t)\).
+    - One possibility is to use a linear function of $s_t$ along with some
+      Gaussian noise.
+
+    Example:
+    - Motion tracking: state has position and velocity.
+      - \(x(t + \Delta t) = x(t) + v_x(t)\Delta t\)
+      - \(y(t + \Delta t) = y(t) + v_y(t)\Delta t\)
+    - Then, you model the probability distribution $X$ like this:
+      \begin{align*}
+        Pr(X(t + \Delta t) = x(t + \Delta t) | x(t), v_x(t)) = N(x(t+\Delta t); \mu = x(t) + v_x(t)\Delta t, \sigma)
+      \end{align*}
+    - Above, we're modeling the next state given observations of the current
+      state.
+    - However, there's no guarantees on our sensors.
+    - So, in general, we can also model the probability we observe $\vec{o}$
+      given that we are in state $\vec{s}$.
+
+*** Online Prediction
+
+    With continuous state problems, we frequently would like to do some
+    predictions "online":
+    - Filtering: what is the current state given the observations so far?
+      \(Pr(s(t) | o(1), \dots, o(t))\)
+    - Prediction: what is the next state I am likely to be in? \(Pr(s(t+k)|o(1),
+      \dots, o(t))\)
+    - Smoothing: How likely was I to have been in some state in the past, given
+      the observations so far? \(Pr(s(t-k)|o(1), \dots, o(t))\).
+    - Most likely path: \(\arg \max_s Pr(s|o(1), \dots, o(t))\).
+
+    In this class, we'll only really talk about filtering.
+
+*** Filtering
+
+    Estimate state at time $t$ as:
+
+    \begin{align*}
+      Pr(s(t) | o(1), \dots, o(t))
+      &= Pr(o(t) | s(t), o(1), \dots, o(t-1)) Pr(s(t) | o(1), \dots, o(t-1)) \text{    Bayes rule}\\
+      &= Pr(o(t) | s(t)) Pr(s(t) | o(1), \dots, o(t-1)) \text{     Markov property} \\
+      &= Pr(o(t) | s(t)) \int_{s(t-1)} Pr(s(t), s(t-1) | o(1), \dots, o(t-1)) ds(t-1)  \text{   total probability}\\
+      &= Pr(o(t) | s(t)) \int_{s(t-1)} Pr(s(t) | s(t-1), o(1), \dots, o(t-1)) Pr(s(t-1) | o(1), \dots, o(t-1)) ds(t-1) \text{   definition of cond. prob}\\
+      &= Pr(o(t) | s(t)) \int_{s(t-1)} Pr(s(t) | s(t-1)) Pr(s(t-1) | o(1), \dots, o(t-1)) ds(t-1)\text{   Markov property}\\
+    \end{align*}
+
+    Woah.
+
+    So, the neat thing here is that the decomposition we just did got us to a
+    point where we had an expression containing:
+    - The sensor distribution
+    - The transition distribution
+    - The output of filtering at the previous state
+
+    This allows everything to happen online.  Plus, if you use a linear
+    gaussian, then it turns out that every filtering step is also linear
+    gaussian.  It's linear gaussians all the way down.
+
 * 2015-11-17 Tuesday
 
 ** Sequential Supervised Learning
