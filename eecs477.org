@@ -2,6 +2,95 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-20 Friday
+
+** MAX SAT
+
+   Recall:
+   - "Maximum Satisfiability"
+   - $n$ boolean variables, \(x_1, \dots, x_n\).
+   - $p$ clauses, \(c_1, \dots, c_p\)
+   - \(c_i = x_1 \lor \bar{x_2} \lor x_3\) (for example)
+
+   Continuing on:
+   - Let \(k(i)\) be the number of literals in clause $i$.
+   - Let \(S_i^+ =\) the set of $x$ variables that are not negated.
+     - For the example $c_i$ above, \(S_i^+ = \{x_1, x_3\}\)
+   - Let \(S_i^- =\) the set of $x$ variables that are negated.
+     - For the example $c_i$ above, \(S_i^+ = \{x_2\}\)
+
+   In max sat, we want to maximize the number of clauses that are satisfied.
+   Our initial randomized algorithm (which we applied when \(k(i) \ge k = 2\))
+   assigned each variable a value with probability \(\frac{1}{2}\).  This gave a
+   $\frac{3}{4}$ approximation algorithm, which is tough to beat.  But the
+   performance is bad when $k=1$.
+
+   So now we'll examine an algorithm based on a linear program.  Let's use the
+   following notation:
+
+   \begin{equation}
+     y_j = \left\{\begin{array}{ll}
+       1 & \text{ if } x_j = T \\
+       0 & \text{ otherwise}
+     \end{array}\right.
+   \end{equation}
+
+   Now, here is the working ILP formulation:
+
+   \begin{align*}
+     \max \sum_{i=1}^p z_i & \text{ s.t.} \\
+     \sum_{j \in S_i^+} y_j + \sum_{j \in S_i^-}(1-y_j) &\ge z_i \\
+     0 \le z_i &\le 1 \\
+     y_j &\in \{0, 1\} \\
+   \end{align*}
+
+   Our $z_i$ are variables such that:
+
+   \begin{equation}
+     z_i = \left\{\begin{array}{ll}
+       1 & \text{ if } c_i = T \\
+       0 & \text{ otherwise}
+     \end{array}\right.
+   \end{equation}
+
+   When we do the LP relaxation, $y_i$ can range from 0 to 1.  Then, our
+   randomized algorithm will have \(Pr(x_j = T) = y_j^*\).  So, the probability
+   that a clause is satisfied is:
+
+   \begin{align*}
+     Pr(C_i = T) &= 1 - \left(\prod_{j \in S_i^+} (1-y_j^*)\right) \left(\prod_{j \in S_i^-} y_j^*\right) \\
+     &\ge \left(1 - \left(1 - \frac{1}{k(i)}\right)^{k(i)}\right)z_i^* \\
+     &\ge \left(1 - \frac{1}{e}\right)z_i^*
+   \end{align*}
+
+   So, the expected number of clauses satisfied is \(\sum_{i=1}^p \left(1 -
+   \frac{1}{e}\right)z_i^*\).  The best you can do is \(\sum_{i=1}^p z_i^*\), so the
+   approximation ratio is \(\left(1 - \frac{1}{e}\right) \approx 0.63\).
+
+   This isn't as good as the original algorithm, which had an approximation
+   ratio of 0.75.  But it deals better with the cases of small $k$.  Of course,
+   the downside is that we have to solve a linear program.  Which kinda stinks.
+   So our best algorithm is just to run both and pick the best.
+
+   OK, what can we say about the expected performance of this "best" algorithm?
+   Well, the algorithm has a performance of \(\max\{n_1, n_2\}\), where the two
+   $n$ variables are the performance of the two algorithms.  Expectations of
+   max's are very hard, so we will just say that:
+
+   \begin{align*}
+     \max\{n_1, n_2\} &\ge \frac{n_1 + n_2}{2}\\
+     &= \frac{1}{2} \left(\sum_{i=1}^p \left(1 - \frac{1}{2^{k(i)}}\right) \sum_{i=1}^p \left(1 - \left(1 - \frac{1}{k(i)}\right)^{k(i)}\right)z_i^*\right) \\
+     &\ge \frac{1}{2} \sum_{i=1}^p z_i^* \left(1 - \frac{1}{2^{k(i)}}\right) \left(1 - \left(1 - \frac{1}{k(i)}\right)^{k(i)}\right)\\
+     &\ge \frac{1}{2} \sum_{i=1}^p z_i^* \frac{3}{2} \\
+     &= \frac{3}{4} \sum_{i=1}^p z_i^* \\
+   \end{align*}
+
+   That step up above where we replaced the big stuff with $\frac{3}{2}$ can
+   actually be proven easily by induction on $k$.  But it's pretty darn cool
+   result, because it's not true in general that the expectation of a max
+   operation is just the max of the respective expectation.  It works out this
+   way because the two algorithms make up for each other's weaknesses (k=1).
+
 * 2015-11-18 Wednesday
 
 ** "Math Facts"
