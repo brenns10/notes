@@ -2,6 +2,84 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-23 Monday
+
+** Max Cut
+
+   - Graph \(G=(V, E)\)
+   - *Def:* A cut is a partition of \(V\) into \(S\) and \(V-S\).
+   - *Def:* An edge \(e = \{u,v\}\)\) crosses cut \(S, V-S\) iff \(u \in S\), \(v
+     \not\in S\).
+   - Let \(a_{ij}\) be the weight (\ge 0) associated with edge \(\{i,j\}\).
+   - The problem is to find a cut that maximizes \(\sum_{i,j\text{ crossing cut}} a_{ij}\)
+
+   This problem is NP-hard, so we'd like to find an approximation algorithm.
+   Note a few things.  First, the max cut for a bipartite graph is just the cut
+   that separates the two sets of edges.  Also, in general, we can assume that
+   we are working with the "complete" graph, and that the edges are 0 if there
+   was no edge in the original graph.
+
+   First Claim: there is a randomized algorithm with an approximation ratio of
+   \(\frac{1}{2}\).
+
+   This algorithm simply assigns each node to $S$ with probability
+   \(\frac{1}{2}\).  The probability that an edge crosses the cut is
+   \(\frac{1}{2}\).  So the expected probability is \(\frac{1}{2} \sum a_{ij}\), which
+   is greater than or equal to half the maximum possible optimal (\(\sum a_{ij}\)).
+
+   Now, let's look at the integer linear program.  First, our variables:
+
+   \begin{equation}
+     x_i = \left\{\begin{array}
+       +1 & \text{ if } i \in S \\
+       -1 & \text{ if  } i \not\in S \\
+     \end{array}\right.
+   \end{equation}
+
+   Here's the "program":
+
+   \begin{align*}
+     \max \sum_{i<j} a_{ij} \frac{1} - x_i x_j}{2}  \text{ s.t. } x_i \in \{\pm1\} \forall i \in V
+   \end{align*}
+
+   Note that \(x_i x_j\) is positive 1 if the edge doesn't cross, and negative 1
+   if it does.  So \(1 - x_i x_j\) is 2 if the edge crosses, and 0 otherwise.  So
+   then we divide by the above to get the "indicator" that the edge crosses the
+   cut.
+
+   This program is a bit of a downer because it's quadratic, *and* linear.
+   We're gonna stick with it, We're going to relax the integer condition on x,
+   in a very weird way.
+
+   Say that instead of $x$ being scalar, we used $\vec{v}$, a vector on the unit
+   sphere in \(R^n\).  If they are opposite each other, then the dot product will
+   be -1, and if they are the same, the dot product will be 1.  And we'll also
+   relax the "integer" constraint on the $\vec{v_i}$.
+
+   Okay.  Let's now say we have \(B = (v_1, v_2, \dots, v_n\).  Let \(y = B^T B\):
+
+   \begin{equation}
+     y = B^T B =
+     \begin{bmatrix} v_1^T \\ v_2^T \\ \vdots \\ v_n^T \end{bmatrix}
+     \begin{bmatrix} v_1 & v_2 & \cdots & v_n \end{bmatrix}
+     =
+     \begin{bmatrix}
+       v_1 \cdot v_1 & v_1 \cdot v_2 & \cdots & v_1 \cdot v_n \\
+       v_2 \cdot v_1 & v_2 \cdot v_2 & \cdots & v_2 \cdot v_n \\
+       \vdots  & \vdots & \ddots & \vdots \\
+       v_n \cdot v_1 & v_n \cdot v_2 & \cdots & v_n \cdot v_n \\
+     \end{bmatrix}
+   \end{equation}
+
+   So now our objective is \(\max \sum_{i\lt j} a_{ij} \frac{1 - y_{ij}}{2}\).  I guess we need
+   that the matrix is positive semidefinite.  So I guess we have a semidefinite
+   program.  We can solve this SDP to within some $\epsilon$ in time polynomial in $n$
+   and \(\log \epsilon\).  Since \epsilon is a constant here, we're good.  This will give us
+   vectors \(v_i^*\).
+
+   Our job will be to separate the vectors into two groups.  Turns out we'll
+   just select a random hyperplane.  Woo randomness.
+
 * 2015-11-20 Friday
 
 ** MAX SAT
