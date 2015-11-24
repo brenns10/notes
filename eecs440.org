@@ -2,6 +2,105 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-24 Tuesday
+** Kalman Filtering
+   - As discused last time, we represent state as a vector of continuous
+     variables.  The observations are modeled as a gaussian of a linear function
+     of the states.  You also have a sensor distribution.
+   - Filtering: estimate the state at time $t$.
+   - The nice aspect of Kalman Filter is that it's linear Gaussian all the way
+     down, so there are closed form solutions.
+   - Parameter estimation can happen via iterative least squares.
+   - There are many variations of Kalman Filters.
+
+** Feature Selection
+   - Classification algorithms need feature vectors.  If important features
+     aren't present, they can't do anything.  Which means we usually take the
+     "kitchen sink" approach - put in *all* the features!
+   - However, including all the features may be bad.  Sampling artifacts may
+     make irrelevant features /look/ relevant, and these will produce
+     classifiers that are less generalizable.
+   - Problem statement: Given a set of examples, find a subset $S$ of features
+     (\(|S| \le D\)) so that, for any other subset \(S' \ne S\), the learned concept
+     that uses $S$ /generalizes better/ than the learned concept that uses $S'$.
+   - Problems with this problem:
+     - Optimal solution is combinatorial.
+     - chicken and egg - "to find relevant features, we need the target concept,
+       but to find the target concept, we need relevant features."
+
+*** Filter Methods
+
+    - "Let's pretend these problems don't exist!  Maybe they'll go away."
+    - Filter Methods don't involve the learning algorithm, so they avoid the
+      chicken & egg problem.
+    - Just apply a procedure before training, then train on the filtered
+      features.
+    - Typical procedure:
+      - Score each feature according to some criterion.
+      - Keep the $k$ highest scoring features.
+    - Common criteria:
+      - Mutual information / information gain
+      - Probably correlation measures such as PCC
+    - Issues:
+      - Sometimes features aren't informative alone but they are together.
+      - Sometimes features are "proxies" for each other, so they'll provide
+        similar, duplicate information. (relevance, not redundancy).
+    - Solutions: Switch to a sequential process, where you start by picking a
+      feature and then add features w.r.t. their adjusted score (conditioned on
+      the existing features).
+    - Downsides:
+      - More "comparisons"
+      - Highly dependent on the initial feature choice -- can go "bad" quickly.
+      - Computing conditional mutual information (\(I(X;Y|S)\) is difficult as
+        the conditioned set of variables $S$ grows.
+    - A more practical criterion is:
+      \begin{equation}
+        \text{Score}(X) = \sum_{X_j \in S} I(X,X_j; Y)
+      \end{equation}
+
+    Pros and Cons of Filter Methods:
+    - Pros:
+      - Generally pretty efficient (due to their simplicity).
+    - Cons:
+      - May produce suboptimal results, due to heuristic scoring functions,
+        calibration, sample sizes, etc.
+      - Ignores the algorithm that will actually do classification
+
+*** Wrapper Methods
+
+    - These methods "search" the space of possible subsets, by repeatedly
+      applying the algorithm and using the performance as a guide.
+    - Can't search exhaustively, so heuristics, here we go!
+    - Forward Feature Selection:
+      - Start with empty set.
+      - Add features as your search operators
+      - Use classifier's generalization error as the cost function.
+      - Termination condition is when the error doesn't improve.
+    - Backward Feature Selection is the reverse - it starts with all the
+      features and works backward
+    - Note on implementation: feature selection needs to be done only on the
+      training data, not on the whole set.  So, it is normal to do feature
+      selection in each fold and get different feature sets.
+    - We can use boosting as a wrapper to select features.  Typically this is
+      with decision stumps as the base learner.  This way you get a "decision"
+      for which feature to add to your set at each iteration.
+      - Note that at each iteration, you get a feature that is best at
+        classifying the examples that were most misclassified with the
+        previously selected features.
+      - Each feature provides new and complementary information (like we tried
+        to do with conditional mutual information before).
+
+    Pros and Cons of Wrapper Methods:
+    - Pros:
+      - Provide very good performance because they are paired with the learner.
+        They solve the chicken and egg problem iteratively.
+      - Robust to missing data.
+    - Cons:
+      - Need lots of data to work well (cross validation)
+      - Very computationally intensive!!
+      - Need to use fast learners.
+      - Boosting is a good middle ground.
+
 * 2015-11-19 Thursday
 
 ** Hidden Markov Models
