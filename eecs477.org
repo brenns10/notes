@@ -2,6 +2,47 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-11-30 Monday
+
+** Homework 5 recap
+
+   Here is a nicer overview of the steps from the capacity scaling algorithm,
+   for when you're actually stepping through it (instead of the algorithm as
+   presented earlier, which is a bit difficult to interpret at times).
+
+   For each delta scaling phase:
+   - Copy over the residual network (nodes and arcs).
+   - Copy over the node potentials (\pi) from the previous iteration, as well as
+     the reduced costs, upper bounds, and excesses.
+   - Any new edges (not in the previous residual) should be drawn, and have
+     their reduced costs computed.  Chances are, some of these will have
+     negative reduced costs.
+     - You do arc reversal on those arcs, which will change the excesses.  This
+       is a good time to redraw the residual.  (at least, this is when
+       Dr. Liberatore redraws it).
+   - Select an excess and deficit vertex to do an augmentation on.  You will
+     then recompute the node potentials (\pi) and the reduced costs (c_{ij}^\pi).
+     Also make sure to add in the reversed edges.
+     - Repeat this until all your excesses and deficits are less than \Delta.
+
+   It seems like the other thing I missed was that you should assume that there
+   is a path from 1 to 8, of very large cost.  In his example (which he started
+   last class), it looks like he made the cost 15.  I'll have to get some input
+   from Jeff on how he did that in class last Wednesday.
+
+** Amortized Analysis
+
+   Binary counter: suppose you have an $n$ bit counter.  Initially, it is set to
+   all 0's.  We will pretend this counter is a data structure that supports only
+   one operation, which is increment.  This does your typical increment
+   operation (flip the bit and carry if it was 1).  An increment operation has a
+   cost defined by the number of bits you flip.
+
+   The worst case cost for an operation is going to be $n$.  However, it looks
+   like most of your costs are going to be much smaller.  Half of them will have
+   cost 1.  So amortized analysis will be a way of doing worst-case analysis
+   that involves finding the cost over an entire sequence of operations.
+
 * 2015-11-23 Monday
 
 ** Max Cut
