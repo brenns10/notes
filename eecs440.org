@@ -2,9 +2,142 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-12-01 Tuesday
+
+  "Turkey part selection."  (aka feature selection)
+
+  We had filter methods and wrapper methods.
+
+** Embedded Methods
+
+   - Alter the objective functions of learning algorithms to simultaneously
+     select features and learn the classifier.
+   - Best of both worlds, but requires altering classifier.
+
+   How do we modify objectives?
+   - Typically objective functions aim to minimize some loss function.
+   - We need to add a criteria to encourage "sparseness" - that is, make more
+     weights zero (zero weights mean you can just get rid of the feature).
+   - Frequently you can modify the objective by adding a "zero-norm" term.  This
+     is the number of weights that are non-zero (which we would like to
+     minimize).
+     - EG: \(L'(w, x, y) = L(w, x, y) + \lambda ||w||_0\)
+   - Unfortunately, this term is not differentiable.  However, it is reminiscent
+     of other overfitting controls (like weight decay).
+
+*** Adapting Overfitting Controls
+
+   Relationship between overfitting control (OC) and feature selection (FS):
+   - These two concepts have very similar objectives!
+   - A classifier that is robust to overfitting will probably use a smaller and
+     more concise (or logical) set of features.
+   - A classifier that uses fewer features will likely be more generalizable.
+
+   What if we used overfitting control techniques for feature selection?
+   - For example, what we had in the ANN: \(L'(w, x, y) = L(w, x, y) +
+     \gamma ||w||^2\)
+   - This is good, but it's possible to do better.
+     - The square function "doesn't care" too much about relatively small
+       values.
+     - It penalizes the very high ones, but it doesn't encourage completely
+       eliminating features.
+   - The \(||w||^2\) term is called the $L_2$ norm.  Let's use a different
+     penalty, the $L_1$ norm, (aka the Lasso).
+   - The $L_1$ norm is simply the sum of the absolute values of the components of
+     a vector.  It's not differentiable, but we can solve this using linear
+     programming.
+     - Instead of having unconstrained optimization using the L_1 norm in the
+       objective, we can drop the L_1 norm into constraints.
+     - The constraints would be of the form \(||w||_1 \le B\) (for L_1) and
+       \(||w||_2 \le B\).  If you think of the geometry of these constraints,
+       they're "cubes" and "spheres" respectively.
+     - Imagine you're doing optimization with these two objectives.  With the L_1
+       norm, it's far more likely that an optimal point will lie on a vertex,
+       which has the special property that at least one of the feature weights
+       is zero.
+     - On the other hand, the L_2 norm's "sphere" typically will find solutions
+       where all weights are nonzero simultaneously.
+     - There are some seriously good figures in the slides to explain this.
+   - Tragically, the Lasso/L_1 is not differentiable (although it has some very
+     desirable qualities).  However, we can take the approach of doing linear
+     constraints and solving with quadratic programming.  It's a bit "awkward"
+     but it will work.
+
+*** Bayesian Approaches
+
+    Bayesian models allow you to express prior knowledge through prior
+    distributions.  We can use a "feature selection" prior distribution, which
+    is normal with mean 0 and variances to be determined for each weight.  If we
+    can get very small variances, that "automatically" indicates that those
+    features are not very important.
+
+    The approach he is talking about is called a Relevance Vector Machine, which
+    is an algorithm where you update hyperparameters, re-estimate the parameters
+    of the model, and continue until convergences.
+
+    The explanation of this stuff is going over my head right now.  I think I
+    really need to do some reading on the whole Bayesian Linear Regression topic
+    so I understand the basics (I must have missed that lecture).
+
+** Dimensionality Reduction
+
+   This is a problem related to feature selection, but different.  The idea is
+   that you want to take a set of features and reduce the number of them.
+   However, in dimensionality reduction, your new set of features is not
+   necessarily a subset of the original ones.  They can be some sort of
+   combination, etc.  Also, dimensionality reduction as a whole is not solely
+   concerned with classification.
+
+   Formal definition:
+   - Given: a set of examples \((\vec{x}_i, y_i)\) over $D$ features.
+   - Do: find a /subspace/ of dimension $d$, $d<D$ ... (see slides)
+
+*** Principal Components Analysis
+
+    - Given: a set of points \(\vec{x}_i\) centered in \(R^D\).
+    - Find: an orthonormal set of $d$ ($<<D$) vectors \(w_j \in R^D\), and the
+      associated coefficients \(z_i \in R^d\) so that the projected points \(p_i =
+      W z_i\) minimize the /reconstruction error/:
+
+      \begin{align*}
+        J(W, Z) &= \frac{1}{N} \sum_{i=1}^N ||x_i - p_i ||^2 \\
+          &= ||X - WZ^T ||_F^2
+      \end{align*}
+
+      (the F is the "Frobenius norm" of the matrix - a fancy way of saying
+      "square all the elements and add them up).
+
+    Solving PCA:
+    - We can solve incrementally by asking for the first projection vector.
+      Turns out that the first projection vector has a closed form solution,
+      which is the eigenvector corresponding with the largest eigenvalue of the
+      covariance matrix of the examples.  The coefficients $z$ follow.
+    - Then you can do this again for the "residuals".  Turns out this also has a
+      closed form solution, which is eigenvector corresponding to the second
+      largest eigenvalue.
+    - This pattern continues.  Nifty.
+
+    Problems with PCA:
+    - PCA doesn't take labels into account.  So you might not find the "axis of
+      variation" that accounts for the difference between the labels.
+    - Can get around this with modifications to the process.
+
+    How to pick the number of dimensions?
+    - Plot the reconstruction error as a function of the number of dimensions.
+
+    Other general PCA notes:
+    - PCA needs standardized inputs.
+    - Ignores class labels.
+    - The components are typically not "sparse" in terms of the input features.
+      So it's not easy to interpret the results or understand what features
+      ought to be dropped.
+    - Although there is a closed form solution, the decomposition is expensive
+      (similar to random walk with restarts...), so there are iterative
+      solutions that converge much faster.
+
 * 2015-11-24 Tuesday
 ** Kalman Filtering
-   - As discused last time, we represent state as a vector of continuous
+   - As discussed last time, we represent state as a vector of continuous
      variables.  The observations are modeled as a gaussian of a linear function
      of the states.  You also have a sensor distribution.
    - Filtering: estimate the state at time $t$.
