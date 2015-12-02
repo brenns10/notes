@@ -2,6 +2,137 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-12-02 Wednesday
+
+** Amortized Analysis (continued)
+
+*** Aggregate Analysis
+   We were doing amortized analysis of the binary counter.  Over all 2^n
+   increments, you'll get the following costs:
+
+   - Cost 1 for 2^{n-1} increments
+   - Cost 2 for 2^{n-2} increments
+   - Cost 3 for 2^{n-3} increments
+   - \dots
+   - Cost n for 2^{n-n} (=1) increments
+
+   So the average cost is:
+
+   \begin{align*}
+     \text{avg. cost} = \frac{1}{2^n} \sum_{i=1}^n 2^{n-i} i
+   \end{align*}
+
+   Actually, the cost n action happens twice.  Let's do this in terms of bits:
+
+   - Bit 1 examined 2^n times
+   - Bit 2 examined 2^{n-1} times
+   - \dots
+   - Bit n examined 1 (+1) times
+
+   So the total and average costs are:
+
+   \begin{align*}
+     \text{total cost} &= 1 + \sum_{i=0}^n 2^i = 2^{n+1} - 1 + 1 = 2^n+1 \\
+     \text{average cost} &= \frac{2^{n+1}}{2^n} = 2
+   \end{align*}
+
+*** Accounting Method
+
+    We associate costs with actions on the data structure.
+
+    - When you increment the counter from 0, you travel to the first bit, and
+      flip it.  You leave a "candy".  Your cost is 1 bit traveled plus 1 candy
+      placed = 2.
+    - When you increment from 1 to 2, you travel to the first bit and flip it to
+      zero, and eat that candy.  Then, you travel to the second bit, flip it to
+      one, and leave a candy there.  Your cost is 2 travel, 1 candy placed, and
+      1 candy eaten, for a total of 2.
+    - When you increment from 2 to 3, you travel to the first bit, flip it to
+      one, and leave a candy.  Your cost is 1 travel, 1 candy, for a total of 2.
+    - When you increment from 3 to 4, you travel to the first bit, flip it to 0,
+      eat the candy.  Same thing at the second.  Finally, at the third, you flip
+      it to one, and leave a candy.  Your cost is 3 travel, 1 candy placed, and
+      2 candy eaten, for a total of 2.
+
+    This pattern continues: no matter whan increment you do, you will always
+    have a cost of (at most) 2, which happens to be the same as we got above.
+
+    How does this work?  The idea is that when you flip a bit to 1, you also
+    account for the fact that later on, you will be flipping it to zero (this is
+    the act of leaving a candy).  Then, when you actually do that operation
+    later on, you "eat the candy", or in other words you don't have to pay that
+    cost.  This is actually really cool.
+
+*** Potential Function Method
+
+    - Data structure D_i: state after $i$th operation.
+    - \Phi: maps state of data structure \to real numbers.  This is a potential
+      function.
+    - c_i: cost of $i$th operation
+
+    The total cost of all operations on the data structure (if there are $m$
+    operations) is simply:
+
+    \begin{align*}
+      \text{total cost} = \frac{1}{m} \sum_{i=1}^m c_i
+    \end{align*}
+
+    Now, we define \(\hat{c}_i\), to be the "amortized" cost of the \(i\)th
+    operation.  We define it as:
+
+    \begin{align*}
+      \hat{c}_i = c_i - \Phi(D_{i-1}) + \Phi(D_i)
+    \end{align*}
+
+    The sum of the amortized costs is:
+
+    \begin{align*}
+      \sum_{i=1}^m \hat{c}_i &= \sum_{i=1}^m (c_i - \Phi(D_{i-1}) + \Phi(D_i)) \\
+                    &= \sum_{i=1}^m c_i - \Phi(D_0) + \Phi(D_m) \\
+                    &\ge \sum_{i=1}^m c_i
+    \end{align*}
+
+    The last inequality holds whenever \(\Phi(D_m) \ge \Phi(D_0)\).  By convention, most
+    papers set \(\Phi(D_0) = 0\), and ensure that \(\Phi(D_m) \ge 0\) at all times.
+
+    With this formulation, we can come up with any potential function we like
+    (that satisfies the above condition), and then sum up the amortized costs
+    instead of the actual costs, and get a bound on the total cost.
+
+    In the binary counter, we let the potential function be the number of 1's in
+    the counter.  We can see that the value of \(\hat{c}_i\) is always 2.
+
+    In this case, the potentials are pretty much the same as the candies in the
+    Accounting Method.  This is not always the case; you can view the potential
+    method as more general than the accounting method, because it can be used in
+    situations where there's no clear way to "assign candies" in strategic
+    locations like we did earlier.
+
+** Paging Problem
+
+   This problem has to do with memory management in operating systems.
+   - We have space in main memory for $k$ pages.
+   - We have a process that has a working set of $n$ pages.
+   - The \(n-k\) pages that are not stored in main memory are stored safely on
+     disk.
+
+   We're going to view the process as an adversary that requests pages out of
+   its working set.  If the OS has it in main memory, nothing needs to happen.
+   Otherwise, it should be loaded from the disk into main memory.  The other
+   problem is that the OS will (probably) have to evict a page from main memory
+   to make room for the page.
+
+   The OS would like to maximize the number of hits, or minimize the number of
+   page faults (where it loads the page from disk).
+
+   Our worst case analysis would be simple - in the worst case, there is a page
+   fault on every request, so we have a cost of 1 disk access for every page
+   request.
+
+   We can see that a randomized algorithm could prevent the worst case for a
+   process.  But maybe we'd like to do an amortized analysis for a deterministic
+   algorithm.  Next time we'll talk about that.
+
 * 2015-11-30 Monday
 
 ** Homework 5 recap
