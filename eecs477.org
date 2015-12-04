@@ -2,6 +2,120 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2015-12-04 Friday
+
+** Paging Continued
+   - $n$ pages in process, main memory holds $k<n$ pages.
+   - Process makes requests for pages, if not in main memory, we need to read
+     from disk and maybe evict a page from main memory.
+   - Need to come up with an strategy for evicting pages that will minimize page
+     faults.
+   - If we knew all the page requests ahead of time, there would be a relatively
+     simple algorithm that could be applied to minimize page faults.
+   - Problem: we don't know page requests ahead of time.  So we can think of
+     this as an adversarial game.
+   - When $k<n$ (the normal case), the process can force the OS to page fault on
+     every single request by simply requesting the page that was just evicted.
+   - So, it seems like there's not much we can do with a deterministic algorithm
+     for the general case.
+
+   We would like to come up with an approximation algorithm and do an amortized
+   analysis.
+   - $c(G)$: number of page faults of algorithm $G$ on sequence $\sigma$.
+   - OPT: optimum page replacement strategy on $\sigma$.
+   - \(c(G) \le \alpha + c(OPT) + \beta \:\:\: \forall \sigma \)
+   - Need an online algorithm (i.e. it has no future knowledge).  OPT has the
+     advantage of future knowledge.
+
+*** Marking Algorithm
+    - Associates a bit with every page in main memory.  Initially, all $k$ slots
+      are unmarked.
+    - When page $p$ is requested:
+      - if $p \not\in$ main memory:
+        - if all pages are marked, unmark all
+        - evict any unmarked page
+        - replace it with $p$
+      - mark p
+
+    Example: $k = 3$
+
+    1. Initial main memory (none are marked):
+       | 1 | 2 | 3 |
+
+    2. Request page 4.  2 is arbitrarily chosen to be evicted
+       | 1 | 4* | 3 |
+
+    3. Request page 2.  1 is arbitrarily chosen to be evicted
+       | 2* | 4* | 3 |
+
+    4. Request page 4.  Nothing changes
+       | 2* | 4* | 3 |
+
+    5. Request page 1.  3 is the only page that can be evicted.
+       | 2* | 4* | 1* |
+
+    6. Request page 3.  All pages must be unmarked, and then 4 is arbitrarily
+       chosen to be evicted.
+       | 2 | 3* | 1 |
+
+    Ok.  Looks pretty darn simple.  This marking algorithm tries to emulate LRU
+    (Least Recently Used), but with only one bit of memory to store how recently
+    used.  Or you could think of it the other way, that M is a generalization of
+    LRU, because M has a choice to evict "any" page, and LRU specifies that the
+    page it evicts is the least recently used.
+
+    For the purpose of analysis, we will define a "Phase".  P_0 is at the start.
+    P_i is a maximal subsequence of requests containing $k$ distinct pages.
+
+    *Theorem:* \(c(M) \le k c(OPT) + k\)
+
+    *Proof:* In each phase, $M$ incurs no mare than $k$ page faults (once a page
+    is marked, it stays in main memory for the rest of the phase).
+
+    For the purpose of analyzing the optimal strategy, we will call the first
+    requested page of phase $q$.  We will define $Q$ to be the remaining page
+    requests of the phase, plus the next one.  $Q$ contains exactly $k$ distinct
+    pages that are not equal to $q$.  By the end of $Q$, OPT will have to incur
+    a page fault (because $q$ is in main memory, and it's impossible to have all
+    $k$ of the other distinct pages in $Q$).
+
+    The sequence of page requests will contain some number $m$ of complete
+    phases, followed maybe by an additional $\sigma$, or maybe not.  So there are $m$
+    complete phases for the marking algorithm, and in the worst case there are
+    $m-1$ regions $Q$.  In each phase, the M algorithm incurs cost \(\le k\) while
+    the optimal incurs cost \(\le 1\).  In the final phase, the M algorithm incurs
+    cost \(\le k\), while the optimal may or may not incur any cost.
+
+    So, we can easily see that \(c(M) \le k c(OPT) + k\)
+
+    Paging has tons of interesting "confluences" of concepts from this class:
+    - primal dual algorithms
+    - randomized algorithms
+    - amortized analysis
+    - Yao's principle
+    - more
+
+    Sadly, we didn't get a chance to cover it all.
+
+** Final
+
+   He will be asking questions about the second part of the course (after the
+   midterm).  You will be pretty screwed if you don't know LP anymore, but there
+   won't be any explicit questions on the content of the first half.  The exam
+   will be open book and note (!!).  Question types:
+
+   - Explain (insert some topic/algorithm/proof).
+     - Open book, so he may ask questions about the proof to show that you do
+       understand the proof, and aren't just reading the proof for the first
+       time.
+   - Simple problems - as in do thing x.
+   - Homework problems may be asked verbatim!  This could be a "personalized"
+     strategy, so you should look at what you did wrong in the homework and make
+     sure you understand what you did wrong.
+
+   The rules about what you can bring are mostly guidelines, cause you'll be
+   solving problems in front of (and with) him.
+
 * 2015-12-02 Wednesday
 
 ** Amortized Analysis (continued)
