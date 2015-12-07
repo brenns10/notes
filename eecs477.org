@@ -2,10 +2,65 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* Final Exam Prep
+
+As discussed on Friday, the final exam will cover topics from the second half of
+the class.  As prep work, I will put here a general listing of topics from the
+second half, as well as internal links to notes about them.
+
+Topics (most recent first):
+
+- Paging: [[paging1][First Day]], [[paging2][Second Day]]
+  - [[marking-algorithm][Marking Algorithm]]
+- Amortized Analysis: [[aa1][First Day]] (mostly introduction), [[aa2][Second Day]]
+  - [[aggregate-analysis][Aggregate Analysis]]
+  - [[accounting-method][Accounting Method]]
+  - [[potential-method][Potential Function Method]]
+- Max Cut: [[maxcut][Lecture]].  The second day was Wednesday before Thanksgiving; was not
+  present.
+- Maximum Satisfiability: [[maxsat1][First Day]], [[maxsat2][Second Day]]
+  - [[random-assignment][Random Assignment Algorithm]]
+  - [[maxsat-randomized][LP-Based Randomized Algorithm]]
+- Hitting Set: [[hittingset1][First Day]] (definition, 2 algorithms), [[hittingset2][Second Day]] (repeated
+  execution and analysis of combined algorithm).
+  - [[hittingset-primaldual][Primal Dual Algorithm]]
+  - [[hittingset-random][Randomized Algorithm (v0.1)]]
+  - [[hittingset-repeatedrandom][Repeated Randomized Algorithm]]
+  - [[hittingset-summary][Summary of Algorithms]]
+- Game Tree Evaluation: [[gte1][First Day]], [[gte2][Second Day]], [[gte3][Third Day]]
+- Two Person Zero Sum Games: [[tpzsg1][First Day]], [[tpzsg3][Second Day]], [[tpzsg4][Third Day]]
+  - [[tpzsg-def][Definition]]
+  - [[tpzsg-saddle][Saddle Points]]
+  - [[tpzsg-mixedsaddle][Mixed Strategy Saddle Points]]
+  - [[tpzsg-lp][Linear Program for Maximum Worst-Case Payoff]] ([[tpzsg4][and again]])
+  - [[tpzsg-vonneuman][Von Neuman Theorem]]
+  - [[yao][Yao's Principle]]
+- Game Theory Intro: [[gt1][First Day]], [[gt2][Second Day]], [[gt3][Third Day]]
+  - [[gt-mixed][Mixed Strategies]] (and the penny game)
+  - [[gt2][Strategic Form]]
+  - [[gt-ext][Behavioral/Extensive Form]]
+- MCNF (some of this was before midterm, but oh well):
+  - [[mcnf1][First Day]] (definition, high level stuff)
+  - [[mcnf2][Second Day]] (transformations, residuals, LP, unimodularity)
+  - [[mcnf3][Third Day]] (duality)
+  - [[mcnf4][Fourth Day]] (duality again)
+  - [[mcnf5][Fifth Day]] (applications to shortest paths, dynamic programming, circulation)
+  - (all MCNF above this point was "pre-midterm", now for "post-midterm",
+    i.e. the algorithms)
+  - [[mcnf6][Sixth Day]] (assumptions of algorithms, SSP)
+  - [[mcnf7][Seventh Day]] (Runtime of SSP, Capacity Scaling Algorithm)
+  - [[mcnf8][Eighth Day]] (CS algorithm, plus runtime)
+- [[maxflowmincut][Max Flow == Min Cut]]
+
+[[dual-shortcut][Shortcut table for taking duals.]]
+
 * 2015-12-04 Friday
 
 ** Paging Continued
-   - $n$ pages in process, main memory holds $k<n$ pages.
+
+   <<paging2>>
+
+   - $n$ pages in process, main memory holds \(k<n\) pages.
    - Process makes requests for pages, if not in main memory, we need to read
      from disk and maybe evict a page from main memory.
    - Need to come up with an strategy for evicting pages that will minimize page
@@ -14,8 +69,9 @@
      simple algorithm that could be applied to minimize page faults.
    - Problem: we don't know page requests ahead of time.  So we can think of
      this as an adversarial game.
-   - When $k<n$ (the normal case), the process can force the OS to page fault on
-     every single request by simply requesting the page that was just evicted.
+   - When \(k<n\) (the normal case), the process can force the OS to page fault
+     on every single request by simply requesting the page that was just
+     evicted.
    - So, it seems like there's not much we can do with a deterministic algorithm
      for the general case.
 
@@ -28,6 +84,7 @@
      advantage of future knowledge.
 
 *** Marking Algorithm
+    <<marking-algorithm>>
     - Associates a bit with every page in main memory.  Initially, all $k$ slots
       are unmarked.
     - When page $p$ is requested:
@@ -120,7 +177,10 @@
 
 ** Amortized Analysis (continued)
 
+   <<aa2>>
+
 *** Aggregate Analysis
+    <<aggregate-analysis>>
    We were doing amortized analysis of the binary counter.  Over all 2^n
    increments, you'll get the following costs:
 
@@ -151,6 +211,7 @@
    \end{align*}
 
 *** Accounting Method
+    <<accounting-method>>
 
     We associate costs with actions on the data structure.
 
@@ -178,6 +239,7 @@
     cost.  This is actually really cool.
 
 *** Potential Function Method
+    <<potential-method>>
 
     - Data structure D_i: state after $i$th operation.
     - \Phi: maps state of data structure \to real numbers.  This is a potential
@@ -223,6 +285,8 @@
     locations like we did earlier.
 
 ** Paging Problem
+
+   <<paging1>>
 
    This problem has to do with memory management in operating systems.
    - We have space in main memory for $k$ pages.
@@ -277,6 +341,8 @@
 
 ** Amortized Analysis
 
+   <<aa1>>
+
    Binary counter: suppose you have an $n$ bit counter.  Initially, it is set to
    all 0's.  We will pretend this counter is a data structure that supports only
    one operation, which is increment.  This does your typical increment
@@ -291,6 +357,7 @@
 * 2015-11-23 Monday
 
 ** Max Cut
+   <<maxcut>>
 
    - Graph \(G=(V, E)\)
    - *Def:* A cut is a partition of \(V\) into \(S\) and \(V-S\).
@@ -369,6 +436,7 @@
 * 2015-11-20 Friday
 
 ** MAX SAT
+   <<maxsat2>>
 
    Recall:
    - "Maximum Satisfiability"
@@ -417,6 +485,8 @@
      \end{array}\right.
    \end{equation}
 
+   <<maxsat-randomized>>
+
    When we do the LP relaxation, $y_i$ can range from 0 to 1.  Then, our
    randomized algorithm will have \(Pr(x_j = T) = y_j^*\).  So, the probability
    that a clause is satisfied is:
@@ -456,6 +526,7 @@
    way because the two algorithms make up for each other's weaknesses (k=1).
 
 * 2015-11-18 Wednesday
+  <<hittingset2>>
 
 ** "Math Facts"
 
@@ -525,6 +596,7 @@
      &\ge 1 - \frac{1}{e} > 0
    \end{align*}
 
+   <<hittingset-repeatedrandom>>
    Now, suppose we repeat the randomized algorithm $t$ times.  Now, we know that
    \(e\in A\) iff $\exists$ one trial in which \(e\in A\).  Looking at the expressions
    above, we know that then:
@@ -563,6 +635,7 @@
    \(O(\log p)\)-apx algorithm, and it returns a hitting set with probability
    \(\ge 1 - \frac{1}{c}\).
 
+   <<hittingset-summary>>
    Let's summarize our algorithms for Hitting Set:
    - Primal/Dual algorithm: apx \(\max |T_i |\) (for vertex cover, this is 2)
      - both simple and deterministic
@@ -570,6 +643,7 @@
      - also simple, but randomized and has a nonzero probability of failure.
 
 ** Maximum Satisfiability
+   <<maxsat1>>
 
    - Have $n$ decision variables, \(x_1, x_2, \dots, x_n \in \{T, F\}\).
    - Have $c_i$, a bunch of clauses over $x_1, \dots, x_n$.
@@ -579,6 +653,8 @@
        negations).
    - We would like to find a truth assignment to $x_1, x_2, \dots, x_n$ that maximizes
      the number of true clauses.
+
+   <<random-assignment>>
 
    Let's imagine right now that each clause contains \(\ge k = 2\) literals.
    There is an incredibly easy approximation algorithm here: just assign \(x_i =
@@ -591,6 +667,7 @@
 * 2015-11-16 Monday
 
 ** Hitting Set
+   <<hittingset1>>
 
    - Given $E$, \(c_e \ge 0 \:\: \forall e \in E\), \(T_1, T_2, \dots, T_p \subseteq E\)
    - Find \(A \subseteq E\) w/ min \(c(A) = \sum_{e \in A} c_e\)
@@ -617,6 +694,7 @@
    stronger.
 
 ** Primal Dual Algorithm for HS
+   <<hittingset-primaldual>>
 
    We start with an integral primal and a feasible dual, which are relataed by
    complementary slackness.  In MCNF, we could start with $x=0$, and $\pi=0$.
@@ -669,6 +747,7 @@
    \end{align*}
 
 ** Randomized Approximation Algorithm
+   <<hittingset-random>>
 
    LP:
    - \(\min \sum_{e \in E} c_e x_e\), s.t.
@@ -695,6 +774,7 @@
 * 2015-11-11 Wednesday
 
 ** Game Tree Evaluation (cont)
+   <<gte3>>
 
    Same problem setup - binary tree, alternating min/max, and 0/1 leaves.
    Recall from last time:
@@ -795,6 +875,8 @@
 * 2015-11-09 Monday
 
 ** Game Tree Evaluation
+   <<gte2>>
+
    (continued)
 
    Recall:
@@ -887,6 +969,7 @@
 * 2015-11-06 Friday
 
 ** Two Person Zero Sum Games (cont)
+   <<tpzsg4>>
 
    Last time, we defined TPZSGs, and saddle points, and we talked about mixed
    strategies.  We also formulated the problem of designing a mixed strategy to
@@ -941,11 +1024,12 @@
      H(x,y^*) \le H(x^*, y^*) \le H(x^*,y)
    \end{equation}
 
+   <<tpzsg-vonneuman>>
    This leads to the theorem (Von Neuman): Every 2 person zero sum game has a
    (mixed) saddle point.
 
 *** Yao's Principle
-
+    <<yao>>
     \begin{equation}
       \max_x \min_j H(x,j) = \min_y \max_i H(i,y) \le \max_i H(i,y) \forall y
     \end{equation}
@@ -963,6 +1047,7 @@
     \(\max_i H(i,y) \le b\).
 
 *** Example Time
+    <<gte1>>
 
     Game Tree Evaluation:
     - Input: game tree.  The game tree root is a maximizing node, its children
@@ -989,11 +1074,13 @@
 * 2015-11-04 Wednesday
 
 ** Two Person Zero Sum Games
+   <<tpzsg3>>
 
    Recall: a TPZSG is a game with 2 players, and the payoff of player 1 is the
    opposite of the payoff of player 2.  We will define \(H(i,j)\) to be the
    payoff for player 1 of strategies $i$, $j$.
 
+   <<tpzsg-saddle>>
    *Definition:* A saddle point is strategies \(i^*\) (first player), \(j^*\)
    (second player) s.t.:
    - \(\forall i \in S^1\), \(\forall j \in S^2\): \(H(i, j^*) \le H(i^*, j^*) \le H(i^*, j)\)
@@ -1021,7 +1108,7 @@
    inequalities!  Since you would simply choose $i^*$ and $j^*$.
 
 ** Saddle Points for Mixed Strategies
-
+   <<tpzsg-mixedsaddle>>
    *Definition:* A saddle point \((x^*, y^*)\) has the property that \(\forall x,y H(x,
    y^*) \le H(x^*, y^*) \le H(x^*, y)\).
 
@@ -1052,6 +1139,8 @@
    minimum payoff.  We also need to ensure that \(\sum_{i=1}^n x_i = 1\)., and \(x_i \ge
    0 \forall i\).  The overall LP:
 
+   <<tpzsg-lp>>
+
    - \(\max v\), s.t.
    - \(-\sum_{i=1}^n x_i H(i,j) + v \le 0 \:\: \forall j\)
    - \(\sum_{i=1}^n x_i = 1\)
@@ -1067,6 +1156,7 @@
 * 2015-11-02 Monday
 
 ** Dr. Liberatore's Homework
+   <<gt3>>
 
    Last time we talked about games in Behavioral (Extensive?) form, and
    translating them into Strategic form.  We are still looking at the game tree
@@ -1142,6 +1232,7 @@
 * 2015-10-30 Friday
 
 ** Games (strategic form)
+   <<gt2>>
 
   - \(N=\{1,2,\dots,n\}\) players
   - \(S^i\) = set of pure strategies of \(i\)th player.
@@ -1161,6 +1252,7 @@
      - \(H(\vec{x}) = \sum_{s\in S^1 \times S^2 \times \dots \times S^N} \vec{x}(\vec{s}) H(\vec{s})\)
 
 ** Games (Behavioral Form)
+   <<gt-ext>>
 
    There is a tree that shows what the players can do.  Say, the first level is
    player one, and there is a branch for each move player one can do.  Then, the
@@ -1188,11 +1280,12 @@
    this dispute without getting anything done, so we moved on.
 
 ** Two person zero sum game
+   <<tpzsg1>> <<tpzsg-def>>
 
    - \(n=2\)
    - \(H_1(\vec{s}) = -H_2(\vec{s})\)
 
-   This means that the first playe'rs maximization is the second player's min.
+   This means that the first player's maximization is the second player's min.
 
    - There is/(may be) a saddle point \((i^*, j^*) \in S^1 \times S^2\).
    - \(H(i,j^*) \le H(i^*,j^*) \le H(i^*,j)\), \(\forall i \in S^1, j \in S^2\)
@@ -1203,6 +1296,7 @@
      matching pennies game doesn't have a saddle point.
 
 * 2015-10-28 Wednesday
+  <<mcnf8>>
 ** Capacity Scaling (cont)
 
    The algorithm:
@@ -1241,6 +1335,7 @@
     scaling is in fact a polynomial time algorithm!
 
 ** Max Flow Min Cut
+   <<maxflowmincut>>
 
    Suppose you have a source vertex, and a network without costs but with
    capacities.  The maximum flow from $s$ to $t$ is equal to the min cut that
@@ -1255,6 +1350,7 @@
    interesting and sometimes useful.
 
 ** Game Theory!
+   <<gt1>>
 
    We have a game where a professor puts a coin under a cup, and a student
    guesses whether it's heads or tails.  If the student guesses correctly, they
@@ -1267,10 +1363,10 @@
 
    Here is a theoretical definition of a game (in strategic terms):
    - Set \(N=\{1,2,\dots,n\}\) players.
-   - Set \(S^i \) of pure strategies for the \(i\textsuperscript{th}\) player.
+   - Set \(S^i \) of pure strategies for the \(i^{\text{th}}\) player.
    - Payoff function \(H: S^1 \times S^2 \times \dots \times S^n \to R^n \)
    - A strategy profile: \((s_1, s_2, \dots, s_n)\)
-   - \(H_i(s_1, s_2, \dots, \s_n)\) is the payoff for player $i$
+   - \(H_i(s_1, s_2, \dots, s_n)\) is the payoff for player $i$
 
    In this coin flipping game, there are two players (player one is professor,
    player two is student), and \(S^1=S^2=\{h,t\}\).  The table above summarizes
@@ -1281,6 +1377,7 @@
    | s_1 = h | (-1, +1) | (+1,-1) |
    | s_2 = t | (+1, -1) | (-1,+1) |
 
+   <<gt-mixed>>
    *Def:* A /mixed strategy/ of player $i$ is a probability distribution over
    \(S^i \).
    - \(\vec{x}\): mixed strategy profile
@@ -1288,6 +1385,7 @@
    - \(Pr[s] = x_1(s_1)x_2(s_2)\dots x_n(s_n)\)
 
 * 2015-10-26 Monday
+  <<mcnf7>>
 
 ** Runtime of Successive Shortest Paths
 
@@ -1372,6 +1470,7 @@
 * 2015-10-21 Wednesday
 
 ** MCNF Algorithms
+   <<mcnf6>>
 
    Assumptions
    1. All data is integral (this implies that solutions are integral as well).
@@ -1761,6 +1860,7 @@
     If val(max flow) == val(y flow), y flow is optimal.
 
 * 2015-10-02 Friday
+  <<mcnf5>>
 
   *MCNF: special cases and applications*
 
@@ -1888,6 +1988,7 @@
 * 2015-09-30 Wednesday
 
 ** MCNF Duality
+   <<mcnf4>>
 
    Recall from last time:
    - \pi_i: node potential at node i \in V
@@ -2016,6 +2117,7 @@
 
 * 2015-09-25 Friday
 ** MCNF Duality
+   <<mcnf3>>
 
    Assume for simplicity, \forall (i,j) \in E, 0 < u_{ij} < \infty.  This condition doesn't
    provide any algorithmic restrictions, it just makes our notation simpler.
@@ -2093,6 +2195,7 @@
 * 2015-09-23 Wednesday
 
 ** MCNF: Transformations
+   <<mcnf2>>
 
    Have an instance of MCNF, and I want to transform it into another instance
    which is equivalent.
@@ -2268,6 +2371,7 @@
    - So, $A$ must be unimodular.
 
 ** Minimum Cost Network Flow
+   <<mcnf1>>
 
    Woo?
 
@@ -2373,6 +2477,7 @@
    - A_j^T \pi \le c_j
    - A_j^T \pi = c_j
 
+   <<dual-shortcut>>
    | Primal           | Dual             |
    | min              | max              |
    | c^T x             | b^T \pi             |
