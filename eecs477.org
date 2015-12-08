@@ -1000,7 +1000,7 @@ Topics (most recent first):
    new expression (for any \(x\)).
 
    \begin{align*}
-     \sum_{i=1}^n x_i \sum-{j=1}^m H(i,j) y_j^* &\le \sum_{i=1}^n x_i w^* \\
+     \sum_{i=1}^n x_i \sum_{j=1}^m H(i,j) y_j^* &\le \sum_{i=1}^n x_i w^* \\
      \sum_{i=1}^n \sum_{j=1}^m x_i H(i,j) y_j^* &\le w^*
    \end{align*}
 
