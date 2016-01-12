@@ -1,0 +1,92 @@
+# -*- mode: Org; eval: (auto-fill-mode); eval: (flyspell-mode) -*-
+#+TITLE: EECS 435 Notes
+#+AUTHOR: Stephen Brennan
+#+SETUPFILE: config.setup
+
+* 2016-01-12 Tuesday
+
+** Introductory Material
+
+  I was late (and probably will be late frequently due to another class).
+  Hopefully I didn't miss too much.
+
+  Grading:
+  - 30% paper presentation
+  - 10% attendance, participation
+  - 60% project
+
+  Paper presentation:
+  - Group of two
+  - Present one or two papers.
+  - Lead discussion.
+  - May be helpful to read a few references.
+
+  Project:
+  - Best to come up with your own ideas, but he does have some ideas on his
+    slides.
+  - Project proposal (3-5 pages, due Feb 16) should include:
+    - Title, idea, survey of related work, data source, key
+      algorithms/technology, and what you expect to submit at the end of the
+      semester.
+  - Final report (1-20 pages, due April 21) must include:
+    - Comprehensive description of your project
+    - Project idea, extended survey of related work, result, etc.
+    - What worked, what didn't work, what surprised you, etc.
+
+  Data mining conferences:
+  - ACM-SIGKDD
+  - IEEE-ICDM
+  - SIAM-DM
+  - PKDD
+  - PAKDD
+
+  Journal:
+  - Data Mining and Knowledge Discovery
+  - KDD Explorations
+
+  Other references can be found in the conferences and journals for the fields:
+  - Database systems
+  - Artificial Intelligence
+  - Statistics
+  - Bioinformatics
+
+** Chapter 5
+   *Mining Frequent Patterns, Association, and Correlations*
+
+   - Original slides at: http://www.cs.uiuc.edu/homes/hanj/bk2/slidesindex.htm
+     (broken link).
+   - Frequent pattern analysis - finding items, subsequences, substructures,
+     etc, that occur frequently in a data set.
+     - Related - frequent itemsets, association rule mining
+     - Agrawal, Imielinski, and Swami '93 introduced these ideas
+   - Motivation is to find regularities, rules, etc that give you insight into
+     data.  For instance:
+     - Beer and diapers are frequently purchased together.
+     - What are subsequent purchases after a PC?
+   - Itemset: a set of items
+   - k-itemset: an itemset containing k items
+   - Call the set of all items \(I = \{I_1, \dots, I_m\}\)
+   - \(T \subseteq I\) is a transaction, and has a transaction id.
+   - An association rule is of the form \(A \to B\), with minimum support and
+     confidence, where \(A \subset I\), \(B \subset I\), \(A \cap B =
+     \emptyset\).
+   - Support (for \(A \to B\)) is \(Pr[A \cup B \subseteq T]\).
+     - That is, the probability that a transaction contains all of A and B.
+     - As a percentage, also referred to as relative support.
+     - As a number, referred to as the absolute support
+   - Confidence (for \(A \to B\)) is \(Pr[B \subset T | A \subset T]\)
+     - That is, the conditional probability that a transaction contains B, given
+       it contains A.
+     - \(Pr[B \subset T | A \subset T] = \frac{Pr[B \cup A \subseteq T]}{Pr[A
+       \subset T]} = \frac{support(A \cup B)}{support(A)}\)
+   - Confidence can be easily derived from the support of \(A\) and \(A \cup
+     B\).  Which means you can "reduce" this problem to finding itemsets with
+     high confidence, and then looking for disjoint pairs with high confidence.
+   - Big patterns have lots of subsets, and therefore lots of other frequent
+     patterns.  So, you want to find closed patterns and max-patterns.
+   - Closed pattern: X is closed if X is frequent and there is no super-pattern
+     \(Y \supset X\) with the same support as X.
+   - An itemset X is a max-pattern if X is frequent and there is no frequent
+     super-pattern \(Y \supset X\).
+     - A "maximal" frequent super-pattern.
+     - All max-patterns are closed.
