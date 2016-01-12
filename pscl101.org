@@ -1,0 +1,14 @@
+#+TITLE: PSCL 101 Notes
+#+AUTHOR: Stephen Brennan
+#+SETUPFILE: config.setup
+
+* 2016-01-11 Monday
+
+  Intro: stand up, pat your head, jump up and down.  Why did we do that?
+  Because the person we thought was the professor told us to.  A bunch of social
+  and cognitive "stuff" goes into that.
+
+  Optical illusion pictures - the ones you can see multiple ways.  Your mind
+  takes information, organizes, combines, and interprets things in different
+  ways.  The same thing happens when you go to movies and discuss them with
+  friends.  Or when you relate an experience to someone else.

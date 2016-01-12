@@ -9,6 +9,12 @@
 For some reason I thought it would be a good idea to publish my class notes
 online.  So here they are:
 
+Spring 2016:
+
+- [[file:pscl101.html][PSCL 101: Psychology 101]]
+
+Fall 2015:
+
 - [[file:eecs440.html][EECS 440: Machine Learning]]
 - [[file:eecs477.html][EECS 477: Advanced Algorithms]]
 - [[file:eecs393.html][EECS 393: Software Engineering]]
