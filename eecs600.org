@@ -1,0 +1,153 @@
+#+TITLE: EECS 600 (Internet Security) Notes
+#+AUTHOR: Stephen Brennan
+#+SETUPFILE: config.setup
+
+* 2016-01-12 Tuesday
+
+** Logistics
+
+  Goals:
+  - Many subfields of networking are fleeting, but a few like Security and
+    Measurements are long-term.  So the topic of Security is a prudent one to
+    study.
+  - We will prepare for research in this area by reading papers, presenting
+    them, and undertaking a research project.
+  - This is not computer security:
+    - We will not study buffer overflows, Sql injection, etc.  Nothing that
+      allows someone to take over a computer.
+    - Instead, we will cover attacks that don't require compromising the
+      computer, just the network.
+
+  I'm sure topics will be available online, and we'll get to them soon enough.
+
+  Tasks:
+  - Read papers, write summaries (which "isn't as easy as you think").
+  - Present a paper and lead the discussion on it.
+  - Final exam = project + presentation
+
+  Paper Summaries:
+  - Topic
+    - 1-2 sentence summary of the topic.
+    - Is it a "mechanisms" or "characterizations" paper?
+      - Mechanisms: proposes some new technique
+      - Characterizations: measures some property of the internet
+      - Sometimes it's both
+  - Key Ideas/Observations
+    - 1-2 most important ideas
+    - For mechanisms, the ideas behind the mechanisms
+    - For characterizations, the key observations.
+  - Flaws (1 or 2)
+  - Open Questions (1 or 2)
+    - Where can you take the research from here?
+  - My Impressions
+    - 1-2 sentences with your impression (is it good or not, why?)
+
+  Your summaries must follow these sections exactly.  Some may be absent, but
+  everything must have a section.  Due before class so we can discuss (submitted
+  online via email in plain text).  Note that this is mostly a summary!  Your
+  opinions on the paper only belong in the small "My Impressions" section.
+
+   Some questions to ask about the paper, to identify flaws.
+
+   - Can someone else replicate the results using the paper?
+   - Are the assumptions clear enough?  (Careful, we're not assessing, just
+     learning).  Do the assumptions potentially bias the paper?
+   - Does the research eliminate alternative explanations of results?
+   - Do conclusions follow logically from evidence.
+
+   Dos and don'ts in paper summaries:
+
+   - Not a review.
+   - Inappropriate characterizations are "comprehensive", or "insufficient
+     references".
+   - This is what you need to remember 10 years from now.
+   - Value conciseness.
+   - Value specificity: focus on "how", not "what"
+
+   Discussion guidelines:
+
+   - Lecture for about 30-40 minutes.
+     - Allocate 2 minutes per slide.  You expect they will be quicker, but
+       usually your explanations.
+   - Discussion for 30-40 minutes
+   - Wrap up (5 mins)
+
+   Grading:
+   - 20% paper presentation.
+   - 40% paper summaries
+   - 10% class participation (attendance + discussions)
+   - 30% final
+
+   Office hours 2:40-3:40 Thursday, or by appointment.  Prefix email subject
+   lines with "eecs600".
+
+** Encryption and Authentication
+
+   This content will be a brief overview of the basics.  Just enough for our
+   subsequent discussions on security.
+
+   Two varieties of encryption: symmetric and asymmetric
+
+*** Symmetric encryption:
+   - Two parties share a secret.
+   - Encryption/decryption algorithms scramble/unscramble plaintext using the
+     key.
+   - Typically very fast, and the key is very small.
+   - However, it is very difficult to distribute keys securely.
+
+   Diffie-Hellman's protocol:
+
+   1. Alice and Bob agree to use a prime number p and a base g (which have some
+      properties we won't discuss).
+   2. Alice chooses secret integer a, then sends Bob \(A = g^a \mod p\).  It
+      turns out that it's very difficult to guess a from A.
+   3. Bob chooses secret integer b, then sends Alice \(B = g^b \mod p\).
+   4. Alice computes \(s = B^a \mod p = g^{ba} \mod p\)
+   5. Bob computes \(s = A^b \mod p = g^{ab} \mod p\).
+   6. Alice and Bob now share the secret \(s\).
+
+   Invented in 1976!!
+
+*** Asymmetric encryption
+
+    - Pair of keys, (S,P).  You encrypt with one and decrypt with the other.
+    - With asymmetric encryption, the key exchange is very similar.  We make one
+      of our keys public, and we simply encrypt messages to others using their
+      public keys.
+
+    Two types of asymmetric key types:
+    - RSA
+      - Large (1-4 kbits)
+      - Efficient
+    - Elliptic curve
+      - Small (about 160 bits)
+      - Expensive
+
+*** Uses of Encryption
+
+    - Message Encryption - make it so that only owners of a key can read it.
+    - Message Signature
+      - Message may be distributed in the clear.
+      - Only the key owner could have signed it.
+      - Verifies authenticity and that the message has not been modified.
+
+    Authentication (signing) using symmetric keys.
+
+    1. Append the key to the message.
+    2. Hash that to get a "message authentication code", and append that to your
+       original message, and send it.
+    3. Recipient can duplicate your actions and verify the message.
+
+    Message Authentication using asymmetric keys
+
+    1. Hash the message, and encrypt it with your private key.  Include that as
+       the signature.
+    2. Recipient can decrypt your signature using the public key, hash the
+       message, and compare the two hashes.
+
+    Interesting side note: the signature will necessarily be the same size as
+    the asymmetric key, which is inconvenient for large keys.
+
+    Sadly, with asymmetric keys, it's difficult to be certain that a key belongs
+    to somebody (and isn't being spoofed).  So you need to get keys certified by
+    a trusted third party.

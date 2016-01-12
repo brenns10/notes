@@ -12,6 +12,7 @@ online.  So here they are:
 Spring 2016:
 
 - [[file:pscl101.html][PSCL 101: Psychology 101]]
+- [[file:eecs600.html][EECS 600: Introduction to Security]]
 
 Fall 2015:
 
