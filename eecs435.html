@@ -6,7 +6,7 @@
 <!-- 2016-01-12 Tue 22:17 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>PSCL 101 Notes</title>
+<title>EECS 435 Notes</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Stephen Brennan" />
 <style type="text/css">
@@ -146,34 +146,184 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://orgmode.org/mathjax/MathJax.js"></script>
 </head>
 <body>
 <div id="content">
-<h1 class="title">PSCL 101 Notes</h1>
+<h1 class="title">EECS 435 Notes</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 2016-01-11 Monday</a></li>
+<li><a href="#orgheadline3">1. 2016-01-12 Tuesday</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Introductory Material</a></li>
+<li><a href="#orgheadline2">1.2. Chapter 5</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-11 Monday</h2>
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> 2016-01-12 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Introductory Material</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
-Intro: stand up, pat your head, jump up and down.  Why did we do that?
-Because the person we thought was the professor told us to.  A bunch of social
-and cognitive "stuff" goes into that.
+I was late (and probably will be late frequently due to another class).
+Hopefully I didn't miss too much.
 </p>
 
 <p>
-Optical illusion pictures - the ones you can see multiple ways.  Your mind
-takes information, organizes, combines, and interprets things in different
-ways.  The same thing happens when you go to movies and discuss them with
-friends.  Or when you relate an experience to someone else.
+Grading:
 </p>
+<ul class="org-ul">
+<li>30% paper presentation</li>
+<li>10% attendance, participation</li>
+<li>60% project</li>
+</ul>
+
+<p>
+Paper presentation:
+</p>
+<ul class="org-ul">
+<li>Group of two</li>
+<li>Present one or two papers.</li>
+<li>Lead discussion.</li>
+<li>May be helpful to read a few references.</li>
+</ul>
+
+<p>
+Project:
+</p>
+<ul class="org-ul">
+<li>Best to come up with your own ideas, but he does have some ideas on his
+slides.</li>
+<li>Project proposal (3-5 pages, due Feb 16) should include:
+<ul class="org-ul">
+<li>Title, idea, survey of related work, data source, key
+algorithms/technology, and what you expect to submit at the end of the
+semester.</li>
+</ul></li>
+<li>Final report (1-20 pages, due April 21) must include:
+<ul class="org-ul">
+<li>Comprehensive description of your project</li>
+<li>Project idea, extended survey of related work, result, etc.</li>
+<li>What worked, what didn't work, what surprised you, etc.</li>
+</ul></li>
+</ul>
+
+<p>
+Data mining conferences:
+</p>
+<ul class="org-ul">
+<li>ACM-SIGKDD</li>
+<li>IEEE-ICDM</li>
+<li>SIAM-DM</li>
+<li>PKDD</li>
+<li>PAKDD</li>
+</ul>
+
+<p>
+Journal:
+</p>
+<ul class="org-ul">
+<li>Data Mining and Knowledge Discovery</li>
+<li>KDD Explorations</li>
+</ul>
+
+<p>
+Other references can be found in the conferences and journals for the fields:
+</p>
+<ul class="org-ul">
+<li>Database systems</li>
+<li>Artificial Intelligence</li>
+<li>Statistics</li>
+<li>Bioinformatics</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Chapter 5</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>Mining Frequent Patterns, Association, and Correlations</b>
+</p>
+
+<ul class="org-ul">
+<li>Original slides at: <a href="http://www.cs.uiuc.edu/homes/hanj/bk2/slidesindex.htm">http://www.cs.uiuc.edu/homes/hanj/bk2/slidesindex.htm</a>
+     (broken link).</li>
+<li>Frequent pattern analysis - finding items, subsequences, substructures,
+etc, that occur frequently in a data set.
+<ul class="org-ul">
+<li>Related - frequent itemsets, association rule mining</li>
+<li>Agrawal, Imielinski, and Swami '93 introduced these ideas</li>
+</ul></li>
+<li>Motivation is to find regularities, rules, etc that give you insight into
+data.  For instance:
+<ul class="org-ul">
+<li>Beer and diapers are frequently purchased together.</li>
+<li>What are subsequent purchases after a PC?</li>
+</ul></li>
+<li>Itemset: a set of items</li>
+<li>k-itemset: an itemset containing k items</li>
+<li>Call the set of all items \(I = \{I_1, \dots, I_m\}\)</li>
+<li>\(T \subseteq I\) is a transaction, and has a transaction id.</li>
+<li>An association rule is of the form \(A \to B\), with minimum support and
+confidence, where \(A \subset I\), \(B \subset I\), \(A \cap B =
+     \emptyset\).</li>
+<li>Support (for \(A \to B\)) is \(Pr[A \cup B \subseteq T]\).
+<ul class="org-ul">
+<li>That is, the probability that a transaction contains all of A and B.</li>
+<li>As a percentage, also referred to as relative support.</li>
+<li>As a number, referred to as the absolute support</li>
+</ul></li>
+<li>Confidence (for \(A \to B\)) is \(Pr[B \subset T | A \subset T]\)
+<ul class="org-ul">
+<li>That is, the conditional probability that a transaction contains B, given
+it contains A.</li>
+<li>\(Pr[B \subset T | A \subset T] = \frac{Pr[B \cup A \subseteq T]}{Pr[A
+       \subset T]} = \frac{support(A \cup B)}{support(A)}\)</li>
+</ul></li>
+<li>Confidence can be easily derived from the support of \(A\) and \(A \cup
+     B\).  Which means you can "reduce" this problem to finding itemsets with
+high confidence, and then looking for disjoint pairs with high confidence.</li>
+<li>Big patterns have lots of subsets, and therefore lots of other frequent
+patterns.  So, you want to find closed patterns and max-patterns.</li>
+<li>Closed pattern: X is closed if X is frequent and there is no super-pattern
+\(Y \supset X\) with the same support as X.</li>
+<li>An itemset X is a max-pattern if X is frequent and there is no frequent
+super-pattern \(Y \supset X\).
+<ul class="org-ul">
+<li>A "maximal" frequent super-pattern.</li>
+<li>All max-patterns are closed.</li>
+</ul></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
