@@ -2,6 +2,100 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-14 Thursday
+
+** Encryption: Message Authentication Problem
+
+   As we saw last time, if I want to send an encrypted message to Misha, I can
+   probably easily find a private key associated with him.  However, I have no
+   way of being certain that the private key I find belongs to him.  Someone
+   could have maliciously crafted that key so that they could intercept my
+   encrypted messages to him.
+
+   One solution to this is to enlist a third-party to help.  If we all trust
+   this third party, then I can send my public key to them, have them sign it
+   (encrypt the hash with their private key), and then include that signature
+   with my key when I send it to Misha.  Misha could verify the signature, and
+   if he trusts the third party, he can be certain that the certificate belongs
+   to me.
+
+   This third party is called a Root Certificate Authority.  These third parties
+   can, as they sign a public key, delegate the CA power to other entities,
+   giving them the power to sign keys for themselves.  This creates a trust
+   hierarchy.  We also have revocation lists for certificates that should no
+   longer be trusted.
+
+** HTTPS
+
+   HTTP:
+   - No privacy
+   - No authentication
+   - No message integrity
+   - Vulnerable to hijacking
+
+   Need a way to improve this situation.  Enter HTTPS!  HTTPS = HTTP over
+   TLS. HTTPS Connection startup:
+   - Client \to Server: opens connection with Server
+   - Server \to Client: responds with signed certificate and session ID
+   - Client \to Server: sends some bits (encrypted with Server's public key), also
+     sends their public key
+   - Server \to Client: adds their own bits, generates a random master key, and
+     sends that back, encrypted with client public key
+   - Client \to Server: encrypts with the master key a hash of all messages sent
+     previously, guaranteeing they were the one the server was talking to all
+     along.
+
+   HTTP Benefits;
+   - Authentication - somewhat.  If we can trust our third parties in the
+     certificate authority hierarchy, we can generally trust for authentication.
+   - Privacy - encrypted communication means people can't listen in after the
+     initial negotiation
+
+** DNS
+
+   Negative Response Rewriting
+   - When you do a DNS query with your local DNS resolver (typically operated by
+     an ISP), and the result is an error (failure), the resolver may rewrite the
+     error message with their own message.
+   - ISP responds with a record pointing to a "buy this domain?" page or a
+     "search" page for you.  How helpful! :(
+   - My ISP (time warner cable) does this >:(
+
+   Search Engine Hijacking
+   - ISP redirects www.google.com to their own servers, which communicate with
+     google for searches, but modify the results, advertise, etc.
+   - Not widespread anymore, because ISPs were caught doing it.
+
+   Kaminsky Attack
+   - What if DNS resolver is honest?  Well, it can still be subverted.
+   - An attacker can send queries to DNS servers for random subdomains of
+     existing domains.
+   - Then, it can spoof the Authoritative DNS server of that domain, and send
+     back a response that includes a NS record assigning the new nameserver to
+     be the attacker's.
+   - If the resolver accepts the fake NS record, its cache is polluted, and
+     everyone who uses that resolver gets records resolved by a fake ADNS
+     server.
+   - Kaminsky showed that, even with 16-bit transaction identifiers, it is only
+     a matter of minutes before the attacker can correctly guess the txid and
+     poison a cache.  Which is not a bad cost at all if you can poison a cache
+     for a long time.
+   - However, if DNS resolver uses ephemeral ports for receiving the response,
+     that adds 16 bits more entropy, which makes the attach pretty much
+     impossible.
+
+   Preplay attack
+   - DNS resolvers on home routers can be pretty dumb.
+   - Some don't check for the IP address of the RDNS, or the transaction ID, or
+     the destination port!
+   - So, the attacker can simply send a request and then an answer, no guessing
+     required, and poison that household's DNS cache.
+
+   You can also use the WiFi DNS forwarders to conduct Kaminsky attacks on ISP
+   DNS servers that don't accept external queries.  So that's a downer.  The
+   number of open forwarders has been declining (was 30 million, now is 17
+   million), but still isn't great.
+
 * 2016-01-12 Tuesday
 
 ** Logistics
