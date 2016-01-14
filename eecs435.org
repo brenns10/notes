@@ -3,6 +3,72 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-14 Thursday
+
+  *Illustration of Closed Patterns, Max-Patterns*
+
+  - If your DB is {<a_1, ..., a_100>, <a_1, ..., a_50>}, and your minimum (absolute)
+    support is 1:
+  - Closed itemsets:
+    - <a_1, ..., a_100>
+    - <a_1, ..., a_50>
+  - Max itemsets:
+    - <a_1, ..., a_100>
+
+  *Algorithm*
+  - Subsets of frequent itemsets are frequent as well.
+  - So itemsets which are infrequent should not have their supersets generated
+    or tested.
+  - Method (Apriori Algorithm):
+    - Initially, scan DB once to get frequent 1-itemsets
+    - Generate length (k+1) candidate itemsets from length k frequent itemsets
+    - Test the candidates against DB
+    - Terminate when no frequent or candidate set can be generated
+  - Seems simple, but there are lost of detail on the algorithm.
+  - How to generate candidates?  Two steps:
+    - Step 1: self-joining
+    - Step 2: pruning
+  - Example of candidate generation:
+    - l_3 = {abc, abd, acd, ace, bcd}
+    - First, compute L_3 * L_3 (cartesian product, sort of)
+    - abcd from abc and abd
+    - acde from acd and ace
+    - However, groups like acde are removed because their superset (ade) are not
+      in the previous frequent itemset.
+  - There was some Candidate Generation pseudo-code written in a SQL-like syntax
+    that was rather confusing.
+  - The pruning is pretty simple because you just need to check the k subsets of
+    size k-1 to make sure they are all frequent.
+  - Counting support of candidates:
+    - Candidates are stored in a hash-tree
+    - A leaf node contains a list of itemsets and counts.
+    - Interior node contains a hash table of something (I hope the slides go up
+      soon)
+  - The issues for frequent pattern mining are:
+    - Multiple scans of transaction database
+    - Huge number of candidates
+    - Tedious workload of support counting for candidates.
+  - The improvements to the algorithm aim to address these concerns.
+  - Partitioning:
+    - Itemsets that are potentially frequent must be frequent in at least one of
+      the partitions.
+  - DHP: Reduce the number of candidates
+    - A k-itemset whose corresponding hashing bucket count is below the
+      threshold cannot be frequent.
+
+  Multiple-Level Association Rules
+  - Items frequently form hierarchies, eg milk can be whole, skim, 2%, etc.
+  - May want to have different support thresholds for lower levels of the
+    hierarchy.
+  - Need to filter "redundant" association rules where child items are involved
+    but they add no more information to the parent rule.
+
+  Constraint based mining
+  - Anti-monotone constraint: when an itemset S violates a constraint, so do all
+    supersets of S.
+  - Monotone constraint: when an itemset S satisfies a constraint, so do all
+    supersets of S.
+
 * 2016-01-12 Tuesday
 
 ** Introductory Material
