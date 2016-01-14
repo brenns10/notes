@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-13 Wed 15:21 -->
+<!-- 2016-01-14 Thu 16:20 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 600 (Internet Security) Notes</title>
@@ -176,14 +176,21 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline6">1. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline4">1. 2016-01-14 Thursday</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Logistics</a></li>
-<li><a href="#orgheadline5">1.2. Encryption and Authentication</a>
+<li><a href="#orgheadline1">1.1. Encryption: Message Authentication Problem</a></li>
+<li><a href="#orgheadline2">1.2. HTTPS</a></li>
+<li><a href="#orgheadline3">1.3. DNS</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">2. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline2">1.2.1. Symmetric encryption:</a></li>
-<li><a href="#orgheadline3">1.2.2. Asymmetric encryption</a></li>
-<li><a href="#orgheadline4">1.2.3. Uses of Encryption</a></li>
+<li><a href="#orgheadline5">2.1. Logistics</a></li>
+<li><a href="#orgheadline9">2.2. Encryption and Authentication</a>
+<ul>
+<li><a href="#orgheadline6">2.2.1. Symmetric encryption:</a></li>
+<li><a href="#orgheadline7">2.2.2. Asymmetric encryption</a></li>
+<li><a href="#orgheadline8">2.2.3. Uses of Encryption</a></li>
 </ul>
 </li>
 </ul>
@@ -192,12 +199,153 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">1</span> 2016-01-12 Tuesday</h2>
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">1</span> 2016-01-14 Thursday</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Logistics</h3>
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Encryption: Message Authentication Problem</h3>
 <div class="outline-text-3" id="text-1-1">
+<p>
+As we saw last time, if I want to send an encrypted message to Misha, I can
+probably easily find a private key associated with him.  However, I have no
+way of being certain that the private key I find belongs to him.  Someone
+could have maliciously crafted that key so that they could intercept my
+encrypted messages to him.
+</p>
+
+<p>
+One solution to this is to enlist a third-party to help.  If we all trust
+this third party, then I can send my public key to them, have them sign it
+(encrypt the hash with their private key), and then include that signature
+with my key when I send it to Misha.  Misha could verify the signature, and
+if he trusts the third party, he can be certain that the certificate belongs
+to me.
+</p>
+
+<p>
+This third party is called a Root Certificate Authority.  These third parties
+can, as they sign a public key, delegate the CA power to other entities,
+giving them the power to sign keys for themselves.  This creates a trust
+hierarchy.  We also have revocation lists for certificates that should no
+longer be trusted.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> HTTPS</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+HTTP:
+</p>
+<ul class="org-ul">
+<li>No privacy</li>
+<li>No authentication</li>
+<li>No message integrity</li>
+<li>Vulnerable to hijacking</li>
+</ul>
+
+<p>
+Need a way to improve this situation.  Enter HTTPS!  HTTPS = HTTP over
+TLS. HTTPS Connection startup:
+</p>
+<ul class="org-ul">
+<li>Client &rarr; Server: opens connection with Server</li>
+<li>Server &rarr; Client: responds with signed certificate and session ID</li>
+<li>Client &rarr; Server: sends some bits (encrypted with Server's public key), also
+sends their public key</li>
+<li>Server &rarr; Client: adds their own bits, generates a random master key, and
+sends that back, encrypted with client public key</li>
+<li>Client &rarr; Server: encrypts with the master key a hash of all messages sent
+previously, guaranteeing they were the one the server was talking to all
+along.</li>
+</ul>
+
+<p>
+HTTP Benefits;
+</p>
+<ul class="org-ul">
+<li>Authentication - somewhat.  If we can trust our third parties in the
+certificate authority hierarchy, we can generally trust for authentication.</li>
+<li>Privacy - encrypted communication means people can't listen in after the
+initial negotiation</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> DNS</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Negative Response Rewriting
+</p>
+<ul class="org-ul">
+<li>When you do a DNS query with your local DNS resolver (typically operated by
+an ISP), and the result is an error (failure), the resolver may rewrite the
+error message with their own message.</li>
+<li>ISP responds with a record pointing to a "buy this domain?" page or a
+"search" page for you.  How helpful! :(</li>
+<li>My ISP (time warner cable) does this &gt;:(</li>
+</ul>
+
+<p>
+Search Engine Hijacking
+</p>
+<ul class="org-ul">
+<li>ISP redirects www.google.com to their own servers, which communicate with
+google for searches, but modify the results, advertise, etc.</li>
+<li>Not widespread anymore, because ISPs were caught doing it.</li>
+</ul>
+
+<p>
+Kaminsky Attack
+</p>
+<ul class="org-ul">
+<li>What if DNS resolver is honest?  Well, it can still be subverted.</li>
+<li>An attacker can send queries to DNS servers for random subdomains of
+existing domains.</li>
+<li>Then, it can spoof the Authoritative DNS server of that domain, and send
+back a response that includes a NS record assigning the new nameserver to
+be the attacker's.</li>
+<li>If the resolver accepts the fake NS record, its cache is polluted, and
+everyone who uses that resolver gets records resolved by a fake ADNS
+server.</li>
+<li>Kaminsky showed that, even with 16-bit transaction identifiers, it is only
+a matter of minutes before the attacker can correctly guess the txid and
+poison a cache.  Which is not a bad cost at all if you can poison a cache
+for a long time.</li>
+<li>However, if DNS resolver uses ephemeral ports for receiving the response,
+that adds 16 bits more entropy, which makes the attach pretty much
+impossible.</li>
+</ul>
+
+<p>
+Preplay attack
+</p>
+<ul class="org-ul">
+<li>DNS resolvers on home routers can be pretty dumb.</li>
+<li>Some don't check for the IP address of the RDNS, or the transaction ID, or
+the destination port!</li>
+<li>So, the attacker can simply send a request and then an answer, no guessing
+required, and poison that household's DNS cache.</li>
+</ul>
+
+<p>
+You can also use the WiFi DNS forwarders to conduct Kaminsky attacks on ISP
+DNS servers that don't accept external queries.  So that's a downer.  The
+number of open forwarders has been declining (was 30 million, now is 17
+million), but still isn't great.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">2</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.1</span> Logistics</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 Goals:
 </p>
@@ -323,9 +471,9 @@ lines with "eecs600".
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">1.2</span> Encryption and Authentication</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">2.2</span> Encryption and Authentication</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 This content will be a brief overview of the basics.  Just enough for our
 subsequent discussions on security.
@@ -336,9 +484,9 @@ Two varieties of encryption: symmetric and asymmetric
 </p>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2"><span class="section-number-4">1.2.1</span> Symmetric encryption:</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">2.2.1</span> Symmetric encryption:</h4>
+<div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>Two parties share a secret.</li>
 <li>Encryption/decryption algorithms scramble/unscramble plaintext using the
@@ -368,9 +516,9 @@ Invented in 1976!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-4">
-<h4 id="orgheadline3"><span class="section-number-4">1.2.2</span> Asymmetric encryption</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">2.2.2</span> Asymmetric encryption</h4>
+<div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li>Pair of keys, (S,P).  You encrypt with one and decrypt with the other.</li>
 <li>With asymmetric encryption, the key exchange is very similar.  We make one
@@ -396,9 +544,9 @@ Two types of asymmetric key types:
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4"><span class="section-number-4">1.2.3</span> Uses of Encryption</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">2.2.3</span> Uses of Encryption</h4>
+<div class="outline-text-4" id="text-2-2-3">
 <ul class="org-ul">
 <li>Message Encryption - make it so that only owners of a key can read it.</li>
 <li>Message Signature
@@ -448,7 +596,7 @@ a trusted third party.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-13 Wed 15:21</p>
+<p class="date">Created: 2016-01-14 Thu 16:20</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
