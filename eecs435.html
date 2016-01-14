@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-14 Thu 16:19 -->
+<!-- 2016-01-14 Thu 22:18 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 435 Notes</title>
@@ -176,22 +176,126 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline3">1. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline1">1. 2016-01-14 Thursday</a></li>
+<li><a href="#orgheadline4">2. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Introductory Material</a></li>
-<li><a href="#orgheadline2">1.2. Chapter 5</a></li>
+<li><a href="#orgheadline2">2.1. Introductory Material</a></li>
+<li><a href="#orgheadline3">2.2. Chapter 5</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">1</span> 2016-01-12 Tuesday</h2>
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-14 Thursday</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Introductory Material</h3>
-<div class="outline-text-3" id="text-1-1">
+<p>
+<b>Illustration of Closed Patterns, Max-Patterns</b>
+</p>
+
+<ul class="org-ul">
+<li>If your DB is {&lt;a<sub>1</sub>, &#x2026;, a<sub>100</sub>&gt;, &lt;a<sub>1</sub>, &#x2026;, a<sub>50</sub>&gt;}, and your minimum (absolute)
+support is 1:</li>
+<li>Closed itemsets:
+<ul class="org-ul">
+<li>&lt;a<sub>1</sub>, &#x2026;, a<sub>100</sub>&gt;</li>
+<li>&lt;a<sub>1</sub>, &#x2026;, a<sub>50</sub>&gt;</li>
+</ul></li>
+<li>Max itemsets:
+<ul class="org-ul">
+<li>&lt;a<sub>1</sub>, &#x2026;, a<sub>100</sub>&gt;</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Algorithm</b>
+</p>
+<ul class="org-ul">
+<li>Subsets of frequent itemsets are frequent as well.</li>
+<li>So itemsets which are infrequent should not have their supersets generated
+or tested.</li>
+<li>Method (Apriori Algorithm):
+<ul class="org-ul">
+<li>Initially, scan DB once to get frequent 1-itemsets</li>
+<li>Generate length (k+1) candidate itemsets from length k frequent itemsets</li>
+<li>Test the candidates against DB</li>
+<li>Terminate when no frequent or candidate set can be generated</li>
+</ul></li>
+<li>Seems simple, but there are lost of detail on the algorithm.</li>
+<li>How to generate candidates?  Two steps:
+<ul class="org-ul">
+<li>Step 1: self-joining</li>
+<li>Step 2: pruning</li>
+</ul></li>
+<li>Example of candidate generation:
+<ul class="org-ul">
+<li>l<sub>3</sub> = {abc, abd, acd, ace, bcd}</li>
+<li>First, compute L<sub>3</sub> * L<sub>3</sub> (cartesian product, sort of)</li>
+<li>abcd from abc and abd</li>
+<li>acde from acd and ace</li>
+<li>However, groups like acde are removed because their superset (ade) are not
+in the previous frequent itemset.</li>
+</ul></li>
+<li>There was some Candidate Generation pseudo-code written in a SQL-like syntax
+that was rather confusing.</li>
+<li>The pruning is pretty simple because you just need to check the k subsets of
+size k-1 to make sure they are all frequent.</li>
+<li>Counting support of candidates:
+<ul class="org-ul">
+<li>Candidates are stored in a hash-tree</li>
+<li>A leaf node contains a list of itemsets and counts.</li>
+<li>Interior node contains a hash table of something (I hope the slides go up
+soon)</li>
+</ul></li>
+<li>The issues for frequent pattern mining are:
+<ul class="org-ul">
+<li>Multiple scans of transaction database</li>
+<li>Huge number of candidates</li>
+<li>Tedious workload of support counting for candidates.</li>
+</ul></li>
+<li>The improvements to the algorithm aim to address these concerns.</li>
+<li>Partitioning:
+<ul class="org-ul">
+<li>Itemsets that are potentially frequent must be frequent in at least one of
+the partitions.</li>
+</ul></li>
+<li>DHP: Reduce the number of candidates
+<ul class="org-ul">
+<li>A k-itemset whose corresponding hashing bucket count is below the
+threshold cannot be frequent.</li>
+</ul></li>
+</ul>
+
+<p>
+Multiple-Level Association Rules
+</p>
+<ul class="org-ul">
+<li>Items frequently form hierarchies, eg milk can be whole, skim, 2%, etc.</li>
+<li>May want to have different support thresholds for lower levels of the
+hierarchy.</li>
+<li>Need to filter "redundant" association rules where child items are involved
+but they add no more information to the parent rule.</li>
+</ul>
+
+<p>
+Constraint based mining
+</p>
+<ul class="org-ul">
+<li>Anti-monotone constraint: when an itemset S violates a constraint, so do all
+supersets of S.</li>
+<li>Monotone constraint: when an itemset S satisfies a constraint, so do all
+supersets of S.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">2</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Introductory Material</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 I was late (and probably will be late frequently due to another class).
 Hopefully I didn't miss too much.
@@ -267,9 +371,9 @@ Other references can be found in the conferences and journals for the fields:
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Chapter 5</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Chapter 5</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 <b>Mining Frequent Patterns, Association, and Correlations</b>
 </p>
@@ -329,7 +433,7 @@ super-pattern \(Y \supset X\).
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-14 Thu 16:19</p>
+<p class="date">Created: 2016-01-14 Thu 22:18</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
