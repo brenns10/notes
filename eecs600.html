@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-14 Thu 22:19 -->
+<!-- 2016-01-19 Tue 16:15 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 600 (Internet Security) Notes</title>
@@ -176,21 +176,27 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline4">1. 2016-01-14 Thursday</a>
+<li><a href="#orgheadline3">1. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Encryption: Message Authentication Problem</a></li>
-<li><a href="#orgheadline2">1.2. HTTPS</a></li>
-<li><a href="#orgheadline3">1.3. DNS</a></li>
+<li><a href="#orgheadline1">1.1. DNSSEC</a></li>
+<li><a href="#orgheadline2">1.2. X.509 Overview</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline10">2. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline7">2. 2016-01-14 Thursday</a>
 <ul>
-<li><a href="#orgheadline5">2.1. Logistics</a></li>
-<li><a href="#orgheadline9">2.2. Encryption and Authentication</a>
+<li><a href="#orgheadline4">2.1. Encryption: Message Authentication Problem</a></li>
+<li><a href="#orgheadline5">2.2. HTTPS</a></li>
+<li><a href="#orgheadline6">2.3. DNS</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">3. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline6">2.2.1. Symmetric encryption:</a></li>
-<li><a href="#orgheadline7">2.2.2. Asymmetric encryption</a></li>
-<li><a href="#orgheadline8">2.2.3. Uses of Encryption</a></li>
+<li><a href="#orgheadline8">3.1. Logistics</a></li>
+<li><a href="#orgheadline12">3.2. Encryption and Authentication</a>
+<ul>
+<li><a href="#orgheadline9">3.2.1. Symmetric encryption:</a></li>
+<li><a href="#orgheadline10">3.2.2. Asymmetric encryption</a></li>
+<li><a href="#orgheadline11">3.2.3. Uses of Encryption</a></li>
 </ul>
 </li>
 </ul>
@@ -199,12 +205,162 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">1</span> 2016-01-14 Thursday</h2>
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> 2016-01-19 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Encryption: Message Authentication Problem</h3>
+<p>
+<b>Defense for DNS</b>
+</p>
+<ul class="org-ul">
+<li>Close resolvers to outside queries!
+<ul class="org-ul">
+<li>But, WiFi routers frequently offer a "trap door" to indirectly query
+resolvers even when they're closed.</li>
+<li>Some need to be open (Google public DNS)</li>
+</ul></li>
+<li>Ultimate solution to DNS security: DNSSEC</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> DNSSEC</h3>
 <div class="outline-text-3" id="text-1-1">
+<p>
+<b>Goals</b>
+</p>
+<ul class="org-ul">
+<li>Origin Authentication: make sure that a response really came from the
+authoritative "zone"</li>
+<li>Integrity: make sure that the response hasn't been changed</li>
+</ul>
+
+<p>
+<b>Main Ideas</b>
+</p>
+<ul class="org-ul">
+<li>Each zone gets a public/private key.</li>
+<li>Public key goes into a DNSKEY record.</li>
+<li>Private key is used to sign records, and since records are typically
+static, ideally the private key will be kept offline.</li>
+<li>Signature is stored in RRSIG record.</li>
+</ul>
+
+<p>
+<b>Authenticity of DNSKEY</b>
+</p>
+<ul class="org-ul">
+<li>Get your key signed by your parent's ADNS.
+<ul class="org-ul">
+<li>When you get authority for your zone, you get your key signed.</li>
+<li>Your parent ADNS keeps NS record for your ADNS.</li>
+<li>They also keep a DS (Delegation Signature) record to</li>
+</ul></li>
+<li>Somewhat similar to a CA hierarchy.</li>
+</ul>
+
+<p>
+<b>Non-Existing Name</b>
+</p>
+<ul class="org-ul">
+<li>When you query for a non-existing name, you return a NXDOMAIN record.</li>
+<li>How to trust that, when a man in the middle could simply capture a record
+signed once and feed it back to queries for each query?</li>
+<li>You would have to sign each NXDOMAIN query individually, which would
+require an online private key.</li>
+<li>Instead, we use an NSEC record, which specifies a "bracket" between
+subdomains (e.g. "a.case.edu" through "d.case.edu"), and says that there
+are no valid domains in between them.</li>
+<li>All signatures expire (so that this will become invalid after a while).</li>
+<li>So, an invalid query would return NXDOMAIN, plus the correct bracket around
+the invalid domain.</li>
+<li>Sadly, this introduces the problem that now you can easily enumerate all
+DNS names in a zone.</li>
+<li>Instead, we can hash the valid names, and order those.  We use those
+brackets instead!  NSEC3 records!</li>
+</ul>
+
+<p>
+<b>Chain of Trust</b>
+</p>
+<ul class="org-ul">
+<li>We now have two different trust hierarchies: DNSSEC, and X.509 (that is,
+PKI, or the SSL certificate hierarchy).  (There is actually a third
+hierarchy for router advertisements, based on the hierarchy of ISP's, etc).</li>
+</ul>
+
+<p>
+<b>Problems</b>
+</p>
+<ul class="org-ul">
+<li>Although DNSSEC solves authentication and integrity, it makes DNS
+reflection attacks worse.
+<ul class="org-ul">
+<li>This is because it makes responses even bigger, providing a bigger
+amplification for reflection attacks.</li>
+</ul></li>
+<li>Responses are too big for UDP.</li>
+<li>As a result, deployment is very low.
+<ul class="org-ul">
+<li>This may change if we are able to prevent forged source IP addresses.</li>
+<li>Or, if a high-profile DNS poisoning attack occurs (e.g. Google).</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> X.509 Overview</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Correction of TLS handshake:
+</p>
+<ul class="org-ul">
+<li>The 5th exchange of the TLS handshake presented last time indicated that
+the server sends back a master key encrypted with the client's public key.</li>
+<li>However, this would allow a hijacking!</li>
+<li>Instead, each side generates some random bits, and they are exchanged in
+the first two exchanges.  Then, the client sends some bits to the server
+encrypted with the server's public key.</li>
+<li>Both sides compute the master key from those bits.</li>
+</ul>
+
+<p>
+<b>Holz, Braun, Kammenhuber, Carle: SSL Landscape (IMC'11)</b>
+</p>
+
+<ul class="org-ul">
+<li>Analysis of certificates in the wild.</li>
+<li>Datasets:
+<ul class="org-ul">
+<li>Top million Alexa sites. (from 9 vantage points)</li>
+<li>Third-party scan of the whole internet.</li>
+<li>Passive monitoring of a research institution's 10Gb link.</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Weaknesses of X.509</b>
+</p>
+<ul class="org-ul">
+<li>Any compromised CA can sign a certificate for any domain.
+<ul class="org-ul">
+<li>DigiNotar attack (2011)</li>
+</ul></li>
+<li>A compromised EE (end entity) can have an attacker masquerade as it.</li>
+<li>If browser doesn't keep up to date with revocation, etc, or if it doesn't
+validate at all, they can connect to fraudulent sites.</li>
+<li>If users ignore warnings, they can get screwed too.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">2</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Encryption: Message Authentication Problem</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 As we saw last time, if I want to send an encrypted message to Misha, I can
 probably easily find a private key associated with him.  However, I have no
@@ -232,9 +388,9 @@ longer be trusted.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> HTTPS</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.2</span> HTTPS</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 HTTP:
 </p>
@@ -273,9 +429,9 @@ initial negotiation</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">1.3</span> DNS</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.3</span> DNS</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 Negative Response Rewriting
 </p>
@@ -340,12 +496,12 @@ million), but still isn't great.
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10"><span class="section-number-2">2</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">2.1</span> Logistics</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">3</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.1</span> Logistics</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Goals:
 </p>
@@ -471,9 +627,9 @@ lines with "eecs600".
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">2.2</span> Encryption and Authentication</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">3.2</span> Encryption and Authentication</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 This content will be a brief overview of the basics.  Just enough for our
 subsequent discussions on security.
@@ -484,9 +640,9 @@ Two varieties of encryption: symmetric and asymmetric
 </p>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-4">
-<h4 id="orgheadline6"><span class="section-number-4">2.2.1</span> Symmetric encryption:</h4>
-<div class="outline-text-4" id="text-2-2-1">
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">3.2.1</span> Symmetric encryption:</h4>
+<div class="outline-text-4" id="text-3-2-1">
 <ul class="org-ul">
 <li>Two parties share a secret.</li>
 <li>Encryption/decryption algorithms scramble/unscramble plaintext using the
@@ -516,9 +672,9 @@ Invented in 1976!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-4">
-<h4 id="orgheadline7"><span class="section-number-4">2.2.2</span> Asymmetric encryption</h4>
-<div class="outline-text-4" id="text-2-2-2">
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">3.2.2</span> Asymmetric encryption</h4>
+<div class="outline-text-4" id="text-3-2-2">
 <ul class="org-ul">
 <li>Pair of keys, (S,P).  You encrypt with one and decrypt with the other.</li>
 <li>With asymmetric encryption, the key exchange is very similar.  We make one
@@ -544,9 +700,9 @@ Two types of asymmetric key types:
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-4">
-<h4 id="orgheadline8"><span class="section-number-4">2.2.3</span> Uses of Encryption</h4>
-<div class="outline-text-4" id="text-2-2-3">
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">3.2.3</span> Uses of Encryption</h4>
+<div class="outline-text-4" id="text-3-2-3">
 <ul class="org-ul">
 <li>Message Encryption - make it so that only owners of a key can read it.</li>
 <li>Message Signature
@@ -596,7 +752,7 @@ a trusted third party.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-14 Thu 22:19</p>
+<p class="date">Created: 2016-01-19 Tue 16:15</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
