@@ -3,6 +3,168 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-19 Tuesday
+
+  *Constraints + Apriori Algorithm*
+
+  - For anti-monotone constraints, you can prevent candidates from being
+    generated when you know they and their successors will not satisfy the
+    constraint.
+
+** Preprocessing
+
+   - Data mining is based on existing databases
+   - In the real world, data is dirty:
+     - Incomplete (lacking attribute values)
+     - Noisy (containing errors or outliers)
+     - Inconsistent (may have contradictions or discrepancies)
+   - Quality of data mining relies on quality of data.
+     - Garbage in, garbage out!
+
+   *Types of Preprocessing*
+   - Cleaning:
+     - Fill in missing values, smooth noisy data, identify or remove outliers,
+       resolve inconsistencies.
+   - Integration
+     - Integrating multiple databases, data cubes, or files
+   - Transformation
+     - Normalization, aggregation
+   - Reduction
+     - Reduce number of records, attributes, attribute values
+     - (maybe use bagging/boosting, feature selection, dimensionality reduction?
+       -- Dr. Soumya Ray, EECS 440, last semester!)
+
+*** Missing Data
+   - Missing data may be due to (not sure why this matters for us):
+     - Equipment malfunction
+     - Inconsistent, and therefore deleted
+     - Not entered.
+     - Data taken at different times.
+     - Etc.
+   - Strategies:
+     - Delete entries with missing data
+     - Fill in missing data.  How?
+       - Manually?  Could be tedious.
+       - Default value (e.g. unknown)
+       - Average data (mean imputation, that is)
+       - Most probable value (i.e. model-based imputation, perhaps using a
+         Bayesian/other probabilistic model)
+
+   *Noisy Data*
+   - Binning:
+     - partition continuous data into discrete "bins"
+     - more details in next section
+   - Regression:
+     - Smooth by fitting a regression function, then use that.
+   - Clustering
+     - Could be used to bin things.
+     - Could also be used to detect outliers.
+   - Human + Computer
+     - Examine records manually?
+
+   *Binning*
+   - Equal width:
+     - divide range into N intervals of equal size.
+     - simple, but outliers may dominate your result.
+   - Equal depth:
+     - sort data, divide into N groups with approximately the same number of
+       records
+     - handles skewed data better
+   - After partitioning, you can smooth the bins by giving each member the mean
+     value of the bin, or you can use the boundaries of the bin (whichever the
+     record is closest to)
+
+   *Regression*
+   - Replace noisy or missing values by predicted values.
+   - Of course, this requires some model of the relationship between
+     attributes.  And you might be wrong.
+     - Especially since if you have a solid model of the relationships between
+       these attributes, you may be less likely to do data mining!
+   - Useful both for smoothing and for handling missing data.
+
+   Looks like we're skipping over clustering et al. and moving on to the next
+   form of preprocessing:
+
+*** Data Integration
+
+    Want to identify duplicates, can use automated methods for comparing text,
+    numbers, etc, for approximate equality.
+
+    Could use information theoretic approaches to determine how much information
+    each record adds to the database.
+
+*** Data Transformation
+
+    - Normalization: makes different records comparable.
+    - Discretization: make continuous attributes discrete so we can apply
+      methods that require discrete input
+    - Attribute/feature construction: maybe new attributes created from the
+      given ones are more useful for our purposes than ones given.
+    - Map into vector space (awwww yeah)
+
+    *Normalization*
+    - min-max normalization
+      \begin{equation}
+        v' = \frac{v - min}{max - min}
+      \end{equation}
+    - z-score normalization
+      \begin{equation}
+        v' = \frac{v - \mu}{\sigma}
+      \end{equation}
+    - another one I missed
+
+    *Discretization*
+    - Three types of attributes:
+      - Nominal (categorical) - values from an unordered set
+      - Ordinal - values from an ordered set (presumably either finite or
+        countably infinite, but not certain)
+      - Continuous - values chosen from a continuous range (presumably
+        uncountably infinite set).
+    - Methods:
+      - Binning
+      - Clustering
+      - Entropy-based approaches
+
+    *Entropy-Based Discretization*
+    - Binary discretization:
+      - determine a boundary to partition the data into two intervals
+      - pick the boundary that minimizes the entropy
+      - this doesn't make sense to me, wouldn't this just partition into a set
+        containing one, and a set containing the rest (this minimizes entropy)
+        - google this later
+
+    *Mapping Into Vector Space*
+    - take "objects" or whatever our data is
+    - determine attributes (e.g. counts of particular words, etc)
+    - put these attributes as a vector
+
+    *Data Reduction: Feature Selection*
+    - sometimes additional information is hurting your performance
+    - maybe cleaner data would help!
+    - you want to select the attributes that give you the important information,
+      get rid of the ones that are duplicate
+    - could do greedy top-down or bottom up approaches that add/remove the next
+      "best" feature
+      - requires some measure of feature quality, and typically a cutoff
+      - measure is typically information theory based: conditional entropy
+      - heuristic: may not return the optimal feature set according to your
+        criteria.
+    - "branch and bound"
+      - optimal, but takes longer
+      - requires "monotone" shape of feature space (??)
+
+    *Principle Component Analysis*
+    - Projects vectors from d-dimensional space into a smaller (c \lt d) space.
+    - Chooses first the dimension that minimizes "reproduction error".
+    - Then the dimension that minimizes the error from the residuals, etc.
+    - drawbacks:
+      - difficult to interpret
+      - requires numeric data
+
+    *Sampling*
+    - Random sampling can be used to reduce data (I guess).
+    - You can choose with or without replacement
+
 * 2016-01-14 Thursday
 
   *Illustration of Closed Patterns, Max-Patterns*
