@@ -2,6 +2,95 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-19 Tuesday
+
+  *Defense for DNS*
+  - Close resolvers to outside queries!
+    - But, WiFi routers frequently offer a "trap door" to indirectly query
+      resolvers even when they're closed.
+    - Some need to be open (Google public DNS)
+  - Ultimate solution to DNS security: DNSSEC
+
+** DNSSEC
+
+   *Goals*
+   - Origin Authentication: make sure that a response really came from the
+     authoritative "zone"
+   - Integrity: make sure that the response hasn't been changed
+
+   *Main Ideas*
+   - Each zone gets a public/private key.
+   - Public key goes into a DNSKEY record.
+   - Private key is used to sign records, and since records are typically
+     static, ideally the private key will be kept offline.
+   - Signature is stored in RRSIG record.
+
+   *Authenticity of DNSKEY*
+   - Get your key signed by your parent's ADNS.
+     - When you get authority for your zone, you get your key signed.
+     - Your parent ADNS keeps NS record for your ADNS.
+     - They also keep a DS (Delegation Signature) record to
+   - Somewhat similar to a CA hierarchy.
+
+   *Non-Existing Name*
+   - When you query for a non-existing name, you return a NXDOMAIN record.
+   - How to trust that, when a man in the middle could simply capture a record
+     signed once and feed it back to queries for each query?
+   - You would have to sign each NXDOMAIN query individually, which would
+     require an online private key.
+   - Instead, we use an NSEC record, which specifies a "bracket" between
+     subdomains (e.g. "a.case.edu" through "d.case.edu"), and says that there
+     are no valid domains in between them.
+   - All signatures expire (so that this will become invalid after a while).
+   - So, an invalid query would return NXDOMAIN, plus the correct bracket around
+     the invalid domain.
+   - Sadly, this introduces the problem that now you can easily enumerate all
+     DNS names in a zone.
+   - Instead, we can hash the valid names, and order those.  We use those
+     brackets instead!  NSEC3 records!
+
+   *Chain of Trust*
+   - We now have two different trust hierarchies: DNSSEC, and X.509 (that is,
+     PKI, or the SSL certificate hierarchy).  (There is actually a third
+     hierarchy for router advertisements, based on the hierarchy of ISP's, etc).
+
+   *Problems*
+   - Although DNSSEC solves authentication and integrity, it makes DNS
+     reflection attacks worse.
+     - This is because it makes responses even bigger, providing a bigger
+       amplification for reflection attacks.
+   - Responses are too big for UDP.
+   - As a result, deployment is very low.
+     - This may change if we are able to prevent forged source IP addresses.
+     - Or, if a high-profile DNS poisoning attack occurs (e.g. Google).
+
+** X.509 Overview
+
+   Correction of TLS handshake:
+   - The 5th exchange of the TLS handshake presented last time indicated that
+     the server sends back a master key encrypted with the client's public key.
+   - However, this would allow a hijacking!
+   - Instead, each side generates some random bits, and they are exchanged in
+     the first two exchanges.  Then, the client sends some bits to the server
+     encrypted with the server's public key.
+   - Both sides compute the master key from those bits.
+
+   *Holz, Braun, Kammenhuber, Carle: SSL Landscape (IMC'11)*
+
+   - Analysis of certificates in the wild.
+   - Datasets:
+     - Top million Alexa sites. (from 9 vantage points)
+     - Third-party scan of the whole internet.
+     - Passive monitoring of a research institution's 10Gb link.
+
+   *Weaknesses of X.509*
+   - Any compromised CA can sign a certificate for any domain.
+     - DigiNotar attack (2011)
+   - A compromised EE (end entity) can have an attacker masquerade as it.
+   - If browser doesn't keep up to date with revocation, etc, or if it doesn't
+     validate at all, they can connect to fraudulent sites.
+   - If users ignore warnings, they can get screwed too.
+
 * 2016-01-14 Thursday
 
 ** Encryption: Message Authentication Problem
