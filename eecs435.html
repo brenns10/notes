@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-19 Tue 16:15 -->
+<!-- 2016-01-19 Tue 22:18 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 435 Notes</title>
@@ -176,20 +176,319 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 2016-01-14 Thursday</a></li>
-<li><a href="#orgheadline4">2. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline5">1. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline2">2.1. Introductory Material</a></li>
-<li><a href="#orgheadline3">2.2. Chapter 5</a></li>
+<li><a href="#orgheadline4">1.1. Preprocessing</a>
+<ul>
+<li><a href="#orgheadline1">1.1.1. Missing Data</a></li>
+<li><a href="#orgheadline2">1.1.2. Data Integration</a></li>
+<li><a href="#orgheadline3">1.1.3. Data Transformation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline6">2. 2016-01-14 Thursday</a></li>
+<li><a href="#orgheadline9">3. 2016-01-12 Tuesday</a>
+<ul>
+<li><a href="#orgheadline7">3.1. Introductory Material</a></li>
+<li><a href="#orgheadline8">3.2. Chapter 5</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-14 Thursday</h2>
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">1</span> 2016-01-19 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+<b>Constraints + Apriori Algorithm</b>
+</p>
+
+<ul class="org-ul">
+<li>For anti-monotone constraints, you can prevent candidates from being
+generated when you know they and their successors will not satisfy the
+constraint.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.1</span> Preprocessing</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Data mining is based on existing databases</li>
+<li>In the real world, data is dirty:
+<ul class="org-ul">
+<li>Incomplete (lacking attribute values)</li>
+<li>Noisy (containing errors or outliers)</li>
+<li>Inconsistent (may have contradictions or discrepancies)</li>
+</ul></li>
+<li>Quality of data mining relies on quality of data.
+<ul class="org-ul">
+<li>Garbage in, garbage out!</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Types of Preprocessing</b>
+</p>
+<ul class="org-ul">
+<li>Cleaning:
+<ul class="org-ul">
+<li>Fill in missing values, smooth noisy data, identify or remove outliers,
+resolve inconsistencies.</li>
+</ul></li>
+<li>Integration
+<ul class="org-ul">
+<li>Integrating multiple databases, data cubes, or files</li>
+</ul></li>
+<li>Transformation
+<ul class="org-ul">
+<li>Normalization, aggregation</li>
+</ul></li>
+<li>Reduction
+<ul class="org-ul">
+<li>Reduce number of records, attributes, attribute values</li>
+<li>(maybe use bagging/boosting, feature selection, dimensionality reduction?
+&#x2013; Dr. Soumya Ray, EECS 440, last semester!)</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-4">
+<h4 id="orgheadline1"><span class="section-number-4">1.1.1</span> Missing Data</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<ul class="org-ul">
+<li>Missing data may be due to (not sure why this matters for us):
+<ul class="org-ul">
+<li>Equipment malfunction</li>
+<li>Inconsistent, and therefore deleted</li>
+<li>Not entered.</li>
+<li>Data taken at different times.</li>
+<li>Etc.</li>
+</ul></li>
+<li>Strategies:
+<ul class="org-ul">
+<li>Delete entries with missing data</li>
+<li>Fill in missing data.  How?
+<ul class="org-ul">
+<li>Manually?  Could be tedious.</li>
+<li>Default value (e.g. unknown)</li>
+<li>Average data (mean imputation, that is)</li>
+<li>Most probable value (i.e. model-based imputation, perhaps using a
+Bayesian/other probabilistic model)</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+<b>Noisy Data</b>
+</p>
+<ul class="org-ul">
+<li>Binning:
+<ul class="org-ul">
+<li>partition continuous data into discrete "bins"</li>
+<li>more details in next section</li>
+</ul></li>
+<li>Regression:
+<ul class="org-ul">
+<li>Smooth by fitting a regression function, then use that.</li>
+</ul></li>
+<li>Clustering
+<ul class="org-ul">
+<li>Could be used to bin things.</li>
+<li>Could also be used to detect outliers.</li>
+</ul></li>
+<li>Human + Computer
+<ul class="org-ul">
+<li>Examine records manually?</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Binning</b>
+</p>
+<ul class="org-ul">
+<li>Equal width:
+<ul class="org-ul">
+<li>divide range into N intervals of equal size.</li>
+<li>simple, but outliers may dominate your result.</li>
+</ul></li>
+<li>Equal depth:
+<ul class="org-ul">
+<li>sort data, divide into N groups with approximately the same number of
+records</li>
+<li>handles skewed data better</li>
+</ul></li>
+<li>After partitioning, you can smooth the bins by giving each member the mean
+value of the bin, or you can use the boundaries of the bin (whichever the
+record is closest to)</li>
+</ul>
+
+<p>
+<b>Regression</b>
+</p>
+<ul class="org-ul">
+<li>Replace noisy or missing values by predicted values.</li>
+<li>Of course, this requires some model of the relationship between
+attributes.  And you might be wrong.
+<ul class="org-ul">
+<li>Especially since if you have a solid model of the relationships between
+these attributes, you may be less likely to do data mining!</li>
+</ul></li>
+<li>Useful both for smoothing and for handling missing data.</li>
+</ul>
+
+<p>
+Looks like we're skipping over clustering et al. and moving on to the next
+form of preprocessing:
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2"><span class="section-number-4">1.1.2</span> Data Integration</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+Want to identify duplicates, can use automated methods for comparing text,
+numbers, etc, for approximate equality.
+</p>
+
+<p>
+Could use information theoretic approaches to determine how much information
+each record adds to the database.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">1.1.3</span> Data Transformation</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<ul class="org-ul">
+<li>Normalization: makes different records comparable.</li>
+<li>Discretization: make continuous attributes discrete so we can apply
+methods that require discrete input</li>
+<li>Attribute/feature construction: maybe new attributes created from the
+given ones are more useful for our purposes than ones given.</li>
+<li>Map into vector space (awwww yeah)</li>
+</ul>
+
+<p>
+<b>Normalization</b>
+</p>
+<ul class="org-ul">
+<li><p>
+min-max normalization
+</p>
+\begin{equation}
+  v' = \frac{v - min}{max - min}
+\end{equation}</li>
+<li><p>
+z-score normalization
+</p>
+\begin{equation}
+  v' = \frac{v - \mu}{\sigma}
+\end{equation}</li>
+<li>another one I missed</li>
+</ul>
+
+<p>
+<b>Discretization</b>
+</p>
+<ul class="org-ul">
+<li>Three types of attributes:
+<ul class="org-ul">
+<li>Nominal (categorical) - values from an unordered set</li>
+<li>Ordinal - values from an ordered set (presumably either finite or
+countably infinite, but not certain)</li>
+<li>Continuous - values chosen from a continuous range (presumably
+uncountably infinite set).</li>
+</ul></li>
+<li>Methods:
+<ul class="org-ul">
+<li>Binning</li>
+<li>Clustering</li>
+<li>Entropy-based approaches</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Entropy-Based Discretization</b>
+</p>
+<ul class="org-ul">
+<li>Binary discretization:
+<ul class="org-ul">
+<li>determine a boundary to partition the data into two intervals</li>
+<li>pick the boundary that minimizes the entropy</li>
+<li>this doesn't make sense to me, wouldn't this just partition into a set
+containing one, and a set containing the rest (this minimizes entropy)
+<ul class="org-ul">
+<li>google this later</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+<b>Mapping Into Vector Space</b>
+</p>
+<ul class="org-ul">
+<li>take "objects" or whatever our data is</li>
+<li>determine attributes (e.g. counts of particular words, etc)</li>
+<li>put these attributes as a vector</li>
+</ul>
+
+<p>
+<b>Data Reduction: Feature Selection</b>
+</p>
+<ul class="org-ul">
+<li>sometimes additional information is hurting your performance</li>
+<li>maybe cleaner data would help!</li>
+<li>you want to select the attributes that give you the important information,
+get rid of the ones that are duplicate</li>
+<li>could do greedy top-down or bottom up approaches that add/remove the next
+"best" feature
+<ul class="org-ul">
+<li>requires some measure of feature quality, and typically a cutoff</li>
+<li>measure is typically information theory based: conditional entropy</li>
+<li>heuristic: may not return the optimal feature set according to your
+criteria.</li>
+</ul></li>
+<li>"branch and bound"
+<ul class="org-ul">
+<li>optimal, but takes longer</li>
+<li>requires "monotone" shape of feature space (??)</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Principle Component Analysis</b>
+</p>
+<ul class="org-ul">
+<li>Projects vectors from d-dimensional space into a smaller (c &lt; d) space.</li>
+<li>Chooses first the dimension that minimizes "reproduction error".</li>
+<li>Then the dimension that minimizes the error from the residuals, etc.</li>
+<li>drawbacks:
+<ul class="org-ul">
+<li>difficult to interpret</li>
+<li>requires numeric data</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Sampling</b>
+</p>
+<ul class="org-ul">
+<li>Random sampling can be used to reduce data (I guess).</li>
+<li>You can choose with or without replacement</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">2</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 <b>Illustration of Closed Patterns, Max-Patterns</b>
 </p>
@@ -290,12 +589,12 @@ supersets of S.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">2</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Introductory Material</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.1</span> Introductory Material</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 I was late (and probably will be late frequently due to another class).
 Hopefully I didn't miss too much.
@@ -371,9 +670,9 @@ Other references can be found in the conferences and journals for the fields:
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Chapter 5</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.2</span> Chapter 5</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 <b>Mining Frequent Patterns, Association, and Correlations</b>
 </p>
@@ -433,7 +732,7 @@ super-pattern \(Y \supset X\).
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-19 Tue 16:15</p>
+<p class="date">Created: 2016-01-19 Tue 22:18</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
