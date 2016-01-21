@@ -37,3 +37,27 @@
   - Theory - a logically consistent model that is supported by data
   - Hypothesis - a proposed explanation for something
   - Variables
+
+
+* 2016-01-20 Wednesday
+
+  Still doing "scientific method" stuff.
+  - Independent Variable - factor assumed to influence
+  - Dependent Variable - factor expected to change as a result of the
+    independent variable
+
+  Need to "operationally define" what I mean by the variables.  Define in terms
+  of what you're going to do in your experiment.
+
+  - Operational definitions: statements that describe the exact operation or
+    method used to define each variable
+
+  Descriptive Research:
+  - Case studies
+  - Naturalistic observation
+  - Survey research
+
+  Correlational Research: determines the degree to which variables are related
+  - Correlation coefficient (r) ranges from -1 to 1.
+
+  Wait.  Correlation /isn't/ causation??  My world is *shattered.*
