@@ -2,6 +2,16 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-21 Thursday
+
+  Points from "SSL Landscape - A Thorough Analysis of the X.509 PKI Using Active
+  and Passive Measurements".
+
+  (Note I would like to discuss at end of class: revocation lists - why aren't
+  they signed (to address Google's concern about revocation lists)).
+
+  Read the paper.  The points were from there.
+
 * 2016-01-19 Tuesday
 
   *Defense for DNS*
