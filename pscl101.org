@@ -61,3 +61,75 @@
   - Correlation coefficient (r) ranges from -1 to 1.
 
   Wait.  Correlation /isn't/ causation??  My world is *shattered.*
+
+* 2016-01-25 Monday
+
+  We're going to talk about the brain and the things that go on in it.
+
+  - Cerebral cortex - outer portion of the brain, roughly 80%.  Contains
+    millions of nerves (neurons)
+  - Neuron - basic cell that specializes in electrically transmitting
+    information through the brain
+    - Cell body - makes new components, etc.
+    - Dendrite - tendrils coming off the cell body, they receive information
+      from other cells.
+    - Axon - a *longer* branch from the cell body, which transmits information
+      to other cells.
+    - Myelin Sheath - helps speed up/insulate the transmission of impulses
+    - At the end of the axon (the terminal buttons), you find Synapses
+    - When a signal "fires" through the axon, some chemicals are released which
+      cross the synapse and start the impulse in the next neuron
+  - Neural Communication
+    - Within the neuron, transmission is electrical
+    - Between the neurons, transmission is chemical
+  - Neurotransmitters
+    - Serotonin - regulates mood and depression, appetite, sleep, sensory stuff
+      - People who suffer from depressions frequently report disruptions in
+        appetite and sleep
+    - Acetylcholine - involved in voluntary movement, learning, sleep
+      - Too much can be associated with depression
+      - Too little in the hippocampus (?) can be associated with dimensia
+    - Dopamine - makes you feel "good" - part of the "reward system".  Also
+      involved with motor control.
+    - Endorphins - part of pain management system
+      - painkillers are similar in structure to endorphins
+  - Three types of neurons:
+    - Sensory neurons
+    - Motor neurons
+      - mirror: "feel" what other people are feeling, empathy, etc.
+    - Interneurons
+  - Nervous System
+    - Central Nervous System (CNS) = nerves within the brain and spinal cord
+    - Peripheral Nervous System (PNS) = nerves outside brain and spinal cord
+      - Somatic or Voluntary (skeletal muscles)
+      - Autonomic (smooth and cardiac muscles and glands)
+        - Parasympathetic branch (homeostasis, daily maintenance)
+        - Sympathetic branch (alert system)
+  - Major areas of the brain
+    - forebrain
+      - frontal lobe - planning, organizing, "executive functions", emotions,
+        social judgements, etc
+      - temporal lobe -
+      - parietal lobe - sensory & perceptual info,
+      - occipital lobe -
+    - midbrain
+      - helps respond to visual/audio stimuli with muscle movements
+      - some memory
+    - hindbrain - most primitive, but essential part of the brain
+      - regulates air, blood, consciousness, etc.
+  - We have those "lobes" on both sides of the brain, but we also have two
+    "hemispheres"
+    - each side is responsible for the opposite side's motion.
+    - Left Hemisphere: language & speech, motor functions of the right hand &
+      leg, sensory functions of the right hand & leg;
+      - infants will do more thumb sucking when language is heard in their right
+        ear (which is sent to the left hemisphere)
+    - Right Hemisphere: spatial & non-verbal, (plus motor/sensory functions of
+      left side).
+      - Aprosodia - condition where you are unable to detect or produce
+        intonation and tones in people's voices.
+        - damaged right frontal lobe = you can't "produce" variation
+        - damaged right temporal lobe = you can't interpret/receive this
+          variation.
+    - Corpus callosum - a band of fibers through which information can be
+      transferred between hemispheres
