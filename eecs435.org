@@ -3,6 +3,44 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-21 Thursday
+
+  Clustering
+  - Group things together into groups based on "similarity".
+  - No class labels, so this is unsupervised learning (kind of...)
+  - Can be used as a stand-alone tool to gain insight on data.
+  - Can be used as a preprocessing step for other algorithms.
+
+  What is a good clustering algorithm?
+  - gives you high intra-cluster similarity, low extra-cluster similarity.
+  - Need a similarity metric (some sort of function) to determine this
+
+  Ideal properties of a clustering algorithm:
+  - Scalable
+  - Able to deal with different types of attributes
+  - Able to handle "dynamic" (changing) data
+  - Can discover clusters with arbitrary shapes
+  - Requires minimal domain knowledge to determine input parameters
+  - Able to deal with noise and outliers
+  - Insensitive to order of input records
+  - High dimensionality
+  - Incorporation of user specified constraints
+  - Interpretability and usability
+
+  Data structures for clustering:
+  - data matrix, n by p, contains each record
+  - dissimilarity matrix, n by n, triangular, uses the similarity/dissimilarity
+    metric on all pairs of records
+
+  Types of clustering:
+  - partitioning
+  - hierarchical
+  - density-based
+  - grid-based
+  - model-based
+  - frequent pattern-based
+  - user-guided or constraint-based
+
 * 2016-01-19 Tuesday
 
   *Constraints + Apriori Algorithm*
