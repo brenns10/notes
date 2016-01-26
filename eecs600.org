@@ -2,6 +2,91 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-26 Tuesday
+
+  Today: IPSec, Firewalls.  Next time: Intrusion Detection Systems.  Next
+  Tuesday: my paper discussion.  Also, be thinking about project ideas (Thu-Tue
+  after my presentation).
+
+** Virtual Private Networks
+
+   - Institution would like to have completely separate, private network for
+     security.
+   - But it's expensive to geographically link multiple far apart branches, and
+     it's nearly impossible (without a really big retractable cable) to connect
+     roaming employees securely.
+   - So, VPNs provide encrypted transfer across the internet, making things look
+     like you're connected to the same network.
+
+   Can use many technologies to create VPN:
+   - IPsec
+   - TLS
+   - DTLS (datagram TLS = TLS for UDP)
+
+   IPsec
+   - data integrity
+   - origin authentication
+   - replay attack prevention
+   - confidentiality
+   - blanket coverage (encrypts all types of packets)
+   - can use it in many different ways
+     - one is at the border routers to tunnel to other places
+
+   Security Associations (SA)
+   - state information (including keys) for one direction of communication over
+     IPsec. Contains:
+     - IP addresses of both sides of communication
+     - enryption algorithm and key
+     - type of integrity check used along with authentication key (for signing)
+   - Security Association Database (SAD) is used to store that state information
+   - Security Policy Database (SPD) is used to determine the rules for which
+     data grams are "subjected"" to IPsec, and which ones can just go on to the
+     "secure" side of a IPsec gateway.
+
+   IPsec packet structure (went over in class, wasn't really good for writing
+   down).
+
+   Summary of IPsec services: a man in the middle
+   - can't see the original contents of a datagram
+   - can't flip bits without detection
+   - can't masquerade as either party by using their IP address
+   - can't replay a datagram
+   - can see the source and destination IP address
+
+   Key Exchange??  IKE = Internet Key Exchange
+   - First, Diffie-Helmann a secure channel between two people
+   - Then, do authentication (could be through a variety of ways)
+   - Finally, create two SA's.
+
+** Firewalls
+
+   Firewall: Isolates organization's internal network from larger Internet,
+   allowing some packets to pass, blocking others.
+
+   Three types:
+   - Statetless
+   - Stateful
+   - Application gateway
+
+   Stateless packet filtering:
+   - Only makes decision based on info within the packet
+     - source/destination IP address
+     - IP protocol
+     - source/destination port (for UDP and TCP)
+     - other fields from headers
+   - Examples:
+     - block by port numbers to block services like Telnet
+     - block TCP segments with ACK=0, to prevent external hosts from opening TCP
+       connections with internal hosts
+     - block incoming/outgoing DNS except from approved DNS resolver
+
+   Stateful
+   - EG, TCP connection tracking (yo.... PyWall!!!)
+
+   Application Gateways
+   - Filters packets by application data as well as their header fields
+   - for example, a web filter
+
 * 2016-01-21 Thursday
 
   Points from "SSL Landscape - A Thorough Analysis of the X.509 PKI Using Active
