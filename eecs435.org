@@ -3,6 +3,48 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-26 Tuesday
+
+  Clustering still.
+
+  I got here while discussing PAM.  It is apparently n^2 per iteration, so there
+  is CLARA, which is a sampling-based technique.  And therefore more scalable
+  than PAM.  But since I don't know what that was, it's not too helpful.  But,
+  that concludes the discussion of partitioning-based algorithms.
+
+  Now, Hierarchical Clustering.  Two ways:
+  - Agglomerative (AGNES = Agglomerative Nesting): start with individuals and
+    merge things into clusters.
+    - At each iteration, merge the two "nodes" (clusters, which could be
+      individuals) that have the least dissimilarity.
+    - Uses the Single-Link method (i.e. the shortest distance between
+      individuals in the clusters).
+    - This method gives you a dendrogram, which shows how the individuals were
+      merged over time.
+  - DIANA (= Divisive Analysis):
+    - Initially, there is one large cluster consisting of all n objects.
+    - Find the object which has the highest average dissimilarity to all other
+      objects.  This object initiates a new cluster, S.
+    - For each object i outside the S, compute D_i = (average distance to
+      elements not in S) - (average distance to elements in S).
+    - If D_i > 0, put this element into S.
+
+  Neither of these methods scale well.  So, more recent algorithms aim to do
+  better:
+  - BIRCH: Balanced Iterative Reducing and Clustering Using Hierarchies
+    - Idea: creates a "clustering feature" (CF) tree incrementally.
+    - Phase 1: Scan DB to build initial tree
+    - Phase 2: use an arbitrary clustering algorithm to cluster leaf nodes
+    - This scales well.
+    - Similarity metrics used:
+      - Centroid: take all feature vectors, find the average.
+      - Radius: average distance from member points to centroid
+      - Diameter: average pairwise distance between members
+    - Clustering Feature: (N, LS, SS) = (number of features, linear sum, square
+      sum)
+      - Has enough information to compute the above distance metrics.
+      - Can be merged simply by vector addition.
+
 * 2016-01-21 Thursday
 
   Clustering
