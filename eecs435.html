@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-25 Mon 15:20 -->
+<!-- 2016-01-27 Wed 14:35 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 435 Notes</title>
@@ -176,31 +176,161 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline5">1. 2016-01-19 Tuesday</a>
+<li><a href="#orgheadline1">1. 2016-01-26 Tuesday</a></li>
+<li><a href="#orgheadline2">2. 2016-01-21 Thursday</a></li>
+<li><a href="#orgheadline7">3. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline4">1.1. Preprocessing</a>
+<li><a href="#orgheadline6">3.1. Preprocessing</a>
 <ul>
-<li><a href="#orgheadline1">1.1.1. Missing Data</a></li>
-<li><a href="#orgheadline2">1.1.2. Data Integration</a></li>
-<li><a href="#orgheadline3">1.1.3. Data Transformation</a></li>
+<li><a href="#orgheadline3">3.1.1. Missing Data</a></li>
+<li><a href="#orgheadline4">3.1.2. Data Integration</a></li>
+<li><a href="#orgheadline5">3.1.3. Data Transformation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline6">2. 2016-01-14 Thursday</a></li>
-<li><a href="#orgheadline9">3. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline8">4. 2016-01-14 Thursday</a></li>
+<li><a href="#orgheadline11">5. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline7">3.1. Introductory Material</a></li>
-<li><a href="#orgheadline8">3.2. Chapter 5</a></li>
+<li><a href="#orgheadline9">5.1. Introductory Material</a></li>
+<li><a href="#orgheadline10">5.2. Chapter 5</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">1</span> 2016-01-19 Tuesday</h2>
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-26 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Clustering still.
+</p>
+
+<p>
+I got here while discussing PAM.  It is apparently n<sup>2</sup> per iteration, so there
+is CLARA, which is a sampling-based technique.  And therefore more scalable
+than PAM.  But since I don't know what that was, it's not too helpful.  But,
+that concludes the discussion of partitioning-based algorithms.
+</p>
+
+<p>
+Now, Hierarchical Clustering.  Two ways:
+</p>
+<ul class="org-ul">
+<li>Agglomerative (AGNES = Agglomerative Nesting): start with individuals and
+merge things into clusters.
+<ul class="org-ul">
+<li>At each iteration, merge the two "nodes" (clusters, which could be
+individuals) that have the least dissimilarity.</li>
+<li>Uses the Single-Link method (i.e. the shortest distance between
+individuals in the clusters).</li>
+<li>This method gives you a dendrogram, which shows how the individuals were
+merged over time.</li>
+</ul></li>
+<li>DIANA (= Divisive Analysis):
+<ul class="org-ul">
+<li>Initially, there is one large cluster consisting of all n objects.</li>
+<li>Find the object which has the highest average dissimilarity to all other
+objects.  This object initiates a new cluster, S.</li>
+<li>For each object i outside the S, compute D<sub>i</sub> = (average distance to
+elements not in S) - (average distance to elements in S).</li>
+<li>If D<sub>i</sub> &gt; 0, put this element into S.</li>
+</ul></li>
+</ul>
+
+<p>
+Neither of these methods scale well.  So, more recent algorithms aim to do
+better:
+</p>
+<ul class="org-ul">
+<li>BIRCH: Balanced Iterative Reducing and Clustering Using Hierarchies
+<ul class="org-ul">
+<li>Idea: creates a "clustering feature" (CF) tree incrementally.</li>
+<li>Phase 1: Scan DB to build initial tree</li>
+<li>Phase 2: use an arbitrary clustering algorithm to cluster leaf nodes</li>
+<li>This scales well.</li>
+<li>Similarity metrics used:
+<ul class="org-ul">
+<li>Centroid: take all feature vectors, find the average.</li>
+<li>Radius: average distance from member points to centroid</li>
+<li>Diameter: average pairwise distance between members</li>
+</ul></li>
+<li>Clustering Feature: (N, LS, SS) = (number of features, linear sum, square
+sum)
+<ul class="org-ul">
+<li>Has enough information to compute the above distance metrics.</li>
+<li>Can be merged simply by vector addition.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-01-21 Thursday</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Clustering
+</p>
+<ul class="org-ul">
+<li>Group things together into groups based on "similarity".</li>
+<li>No class labels, so this is unsupervised learning (kind of&#x2026;)</li>
+<li>Can be used as a stand-alone tool to gain insight on data.</li>
+<li>Can be used as a preprocessing step for other algorithms.</li>
+</ul>
+
+<p>
+What is a good clustering algorithm?
+</p>
+<ul class="org-ul">
+<li>gives you high intra-cluster similarity, low extra-cluster similarity.</li>
+<li>Need a similarity metric (some sort of function) to determine this</li>
+</ul>
+
+<p>
+Ideal properties of a clustering algorithm:
+</p>
+<ul class="org-ul">
+<li>Scalable</li>
+<li>Able to deal with different types of attributes</li>
+<li>Able to handle "dynamic" (changing) data</li>
+<li>Can discover clusters with arbitrary shapes</li>
+<li>Requires minimal domain knowledge to determine input parameters</li>
+<li>Able to deal with noise and outliers</li>
+<li>Insensitive to order of input records</li>
+<li>High dimensionality</li>
+<li>Incorporation of user specified constraints</li>
+<li>Interpretability and usability</li>
+</ul>
+
+<p>
+Data structures for clustering:
+</p>
+<ul class="org-ul">
+<li>data matrix, n by p, contains each record</li>
+<li>dissimilarity matrix, n by n, triangular, uses the similarity/dissimilarity
+metric on all pairs of records</li>
+</ul>
+
+<p>
+Types of clustering:
+</p>
+<ul class="org-ul">
+<li>partitioning</li>
+<li>hierarchical</li>
+<li>density-based</li>
+<li>grid-based</li>
+<li>model-based</li>
+<li>frequent pattern-based</li>
+<li>user-guided or constraint-based</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">3</span> 2016-01-19 Tuesday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 <b>Constraints + Apriori Algorithm</b>
 </p>
@@ -212,9 +342,9 @@ constraint.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">1.1</span> Preprocessing</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Preprocessing</h3>
+<div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li>Data mining is based on existing databases</li>
 <li>In the real world, data is dirty:
@@ -255,9 +385,9 @@ resolve inconsistencies.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-4">
-<h4 id="orgheadline1"><span class="section-number-4">1.1.1</span> Missing Data</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">3.1.1</span> Missing Data</h4>
+<div class="outline-text-4" id="text-3-1-1">
 <ul class="org-ul">
 <li>Missing data may be due to (not sure why this matters for us):
 <ul class="org-ul">
@@ -346,9 +476,9 @@ form of preprocessing:
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-4">
-<h4 id="orgheadline2"><span class="section-number-4">1.1.2</span> Data Integration</h4>
-<div class="outline-text-4" id="text-1-1-2">
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">3.1.2</span> Data Integration</h4>
+<div class="outline-text-4" id="text-3-1-2">
 <p>
 Want to identify duplicates, can use automated methods for comparing text,
 numbers, etc, for approximate equality.
@@ -361,9 +491,9 @@ each record adds to the database.
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-4">
-<h4 id="orgheadline3"><span class="section-number-4">1.1.3</span> Data Transformation</h4>
-<div class="outline-text-4" id="text-1-1-3">
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">3.1.3</span> Data Transformation</h4>
+<div class="outline-text-4" id="text-3-1-3">
 <ul class="org-ul">
 <li>Normalization: makes different records comparable.</li>
 <li>Discretization: make continuous attributes discrete so we can apply
@@ -486,9 +616,9 @@ criteria.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">2</span> 2016-01-14 Thursday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">4</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 <b>Illustration of Closed Patterns, Max-Patterns</b>
 </p>
@@ -589,12 +719,12 @@ supersets of S.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9"><span class="section-number-2">3</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">3.1</span> Introductory Material</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">5</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">5.1</span> Introductory Material</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 I was late (and probably will be late frequently due to another class).
 Hopefully I didn't miss too much.
@@ -670,9 +800,9 @@ Other references can be found in the conferences and journals for the fields:
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">3.2</span> Chapter 5</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">5.2</span> Chapter 5</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 <b>Mining Frequent Patterns, Association, and Correlations</b>
 </p>
@@ -732,7 +862,7 @@ super-pattern \(Y \supset X\).
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-25 Mon 15:20</p>
+<p class="date">Created: 2016-01-27 Wed 14:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

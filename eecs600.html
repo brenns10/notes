@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-25 Mon 15:20 -->
+<!-- 2016-01-27 Wed 14:36 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 600 (Internet Security) Notes</title>
@@ -176,28 +176,34 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 2016-01-21 Thursday</a></li>
-<li><a href="#orgheadline4">2. 2016-01-19 Tuesday</a>
+<li><a href="#orgheadline3">1. 2016-01-26 Tuesday</a>
 <ul>
-<li><a href="#orgheadline2">2.1. DNSSEC</a></li>
-<li><a href="#orgheadline3">2.2. X.509 Overview</a></li>
+<li><a href="#orgheadline1">1.1. Virtual Private Networks</a></li>
+<li><a href="#orgheadline2">1.2. Firewalls</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline8">3. 2016-01-14 Thursday</a>
+<li><a href="#orgheadline4">2. 2016-01-21 Thursday</a></li>
+<li><a href="#orgheadline7">3. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline5">3.1. Encryption: Message Authentication Problem</a></li>
-<li><a href="#orgheadline6">3.2. HTTPS</a></li>
-<li><a href="#orgheadline7">3.3. DNS</a></li>
+<li><a href="#orgheadline5">3.1. DNSSEC</a></li>
+<li><a href="#orgheadline6">3.2. X.509 Overview</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline14">4. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline11">4. 2016-01-14 Thursday</a>
 <ul>
-<li><a href="#orgheadline9">4.1. Logistics</a></li>
-<li><a href="#orgheadline13">4.2. Encryption and Authentication</a>
+<li><a href="#orgheadline8">4.1. Encryption: Message Authentication Problem</a></li>
+<li><a href="#orgheadline9">4.2. HTTPS</a></li>
+<li><a href="#orgheadline10">4.3. DNS</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline17">5. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline10">4.2.1. Symmetric encryption:</a></li>
-<li><a href="#orgheadline11">4.2.2. Asymmetric encryption</a></li>
-<li><a href="#orgheadline12">4.2.3. Uses of Encryption</a></li>
+<li><a href="#orgheadline12">5.1. Logistics</a></li>
+<li><a href="#orgheadline16">5.2. Encryption and Authentication</a>
+<ul>
+<li><a href="#orgheadline13">5.2.1. Symmetric encryption:</a></li>
+<li><a href="#orgheadline14">5.2.2. Asymmetric encryption</a></li>
+<li><a href="#orgheadline15">5.2.3. Uses of Encryption</a></li>
 </ul>
 </li>
 </ul>
@@ -206,9 +212,155 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-21 Thursday</h2>
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> 2016-01-26 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Today: IPSec, Firewalls.  Next time: Intrusion Detection Systems.  Next
+Tuesday: my paper discussion.  Also, be thinking about project ideas (Thu-Tue
+after my presentation).
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Virtual Private Networks</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Institution would like to have completely separate, private network for
+security.</li>
+<li>But it's expensive to geographically link multiple far apart branches, and
+it's nearly impossible (without a really big retractable cable) to connect
+roaming employees securely.</li>
+<li>So, VPNs provide encrypted transfer across the internet, making things look
+like you're connected to the same network.</li>
+</ul>
+
+<p>
+Can use many technologies to create VPN:
+</p>
+<ul class="org-ul">
+<li>IPsec</li>
+<li>TLS</li>
+<li>DTLS (datagram TLS = TLS for UDP)</li>
+</ul>
+
+<p>
+IPsec
+</p>
+<ul class="org-ul">
+<li>data integrity</li>
+<li>origin authentication</li>
+<li>replay attack prevention</li>
+<li>confidentiality</li>
+<li>blanket coverage (encrypts all types of packets)</li>
+<li>can use it in many different ways
+<ul class="org-ul">
+<li>one is at the border routers to tunnel to other places</li>
+</ul></li>
+</ul>
+
+<p>
+Security Associations (SA)
+</p>
+<ul class="org-ul">
+<li>state information (including keys) for one direction of communication over
+IPsec. Contains:
+<ul class="org-ul">
+<li>IP addresses of both sides of communication</li>
+<li>enryption algorithm and key</li>
+<li>type of integrity check used along with authentication key (for signing)</li>
+</ul></li>
+<li>Security Association Database (SAD) is used to store that state information</li>
+<li>Security Policy Database (SPD) is used to determine the rules for which
+data grams are "subjected"" to IPsec, and which ones can just go on to the
+"secure" side of a IPsec gateway.</li>
+</ul>
+
+<p>
+IPsec packet structure (went over in class, wasn't really good for writing
+down).
+</p>
+
+<p>
+Summary of IPsec services: a man in the middle
+</p>
+<ul class="org-ul">
+<li>can't see the original contents of a datagram</li>
+<li>can't flip bits without detection</li>
+<li>can't masquerade as either party by using their IP address</li>
+<li>can't replay a datagram</li>
+<li>can see the source and destination IP address</li>
+</ul>
+
+<p>
+Key Exchange??  IKE = Internet Key Exchange
+</p>
+<ul class="org-ul">
+<li>First, Diffie-Helmann a secure channel between two people</li>
+<li>Then, do authentication (could be through a variety of ways)</li>
+<li>Finally, create two SA's.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Firewalls</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Firewall: Isolates organization's internal network from larger Internet,
+allowing some packets to pass, blocking others.
+</p>
+
+<p>
+Three types:
+</p>
+<ul class="org-ul">
+<li>Statetless</li>
+<li>Stateful</li>
+<li>Application gateway</li>
+</ul>
+
+<p>
+Stateless packet filtering:
+</p>
+<ul class="org-ul">
+<li>Only makes decision based on info within the packet
+<ul class="org-ul">
+<li>source/destination IP address</li>
+<li>IP protocol</li>
+<li>source/destination port (for UDP and TCP)</li>
+<li>other fields from headers</li>
+</ul></li>
+<li>Examples:
+<ul class="org-ul">
+<li>block by port numbers to block services like Telnet</li>
+<li>block TCP segments with ACK=0, to prevent external hosts from opening TCP
+connections with internal hosts</li>
+<li>block incoming/outgoing DNS except from approved DNS resolver</li>
+</ul></li>
+</ul>
+
+<p>
+Stateful
+</p>
+<ul class="org-ul">
+<li>EG, TCP connection tracking (yo&#x2026;. PyWall!!!)</li>
+</ul>
+
+<p>
+Application Gateways
+</p>
+<ul class="org-ul">
+<li>Filters packets by application data as well as their header fields</li>
+<li>for example, a web filter</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">2</span> 2016-01-21 Thursday</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Points from "SSL Landscape - A Thorough Analysis of the X.509 PKI Using Active
 and Passive Measurements".
@@ -225,9 +377,9 @@ Read the paper.  The points were from there.
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">2</span> 2016-01-19 Tuesday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">3</span> 2016-01-19 Tuesday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 <b>Defense for DNS</b>
 </p>
@@ -242,9 +394,9 @@ resolvers even when they're closed.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">2.1</span> DNSSEC</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">3.1</span> DNSSEC</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 <b>Goals</b>
 </p>
@@ -328,9 +480,9 @@ amplification for reflection attacks.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">2.2</span> X.509 Overview</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.2</span> X.509 Overview</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Correction of TLS handshake:
 </p>
@@ -375,12 +527,12 @@ validate at all, they can connect to fraudulent sites.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8"><span class="section-number-2">3</span> 2016-01-14 Thursday</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">3.1</span> Encryption: Message Authentication Problem</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">4</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">4.1</span> Encryption: Message Authentication Problem</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 As we saw last time, if I want to send an encrypted message to Misha, I can
 probably easily find a private key associated with him.  However, I have no
@@ -408,9 +560,9 @@ longer be trusted.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">3.2</span> HTTPS</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.2</span> HTTPS</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 HTTP:
 </p>
@@ -449,9 +601,9 @@ initial negotiation</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">3.3</span> DNS</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.3</span> DNS</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 Negative Response Rewriting
 </p>
@@ -516,12 +668,12 @@ million), but still isn't great.
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-2">
-<h2 id="orgheadline14"><span class="section-number-2">4</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">4.1</span> Logistics</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">5</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">5.1</span> Logistics</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 Goals:
 </p>
@@ -647,9 +799,9 @@ lines with "eecs600".
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13"><span class="section-number-3">4.2</span> Encryption and Authentication</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">5.2</span> Encryption and Authentication</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 This content will be a brief overview of the basics.  Just enough for our
 subsequent discussions on security.
@@ -660,9 +812,9 @@ Two varieties of encryption: symmetric and asymmetric
 </p>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-4">
-<h4 id="orgheadline10"><span class="section-number-4">4.2.1</span> Symmetric encryption:</h4>
-<div class="outline-text-4" id="text-4-2-1">
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">5.2.1</span> Symmetric encryption:</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <ul class="org-ul">
 <li>Two parties share a secret.</li>
 <li>Encryption/decryption algorithms scramble/unscramble plaintext using the
@@ -692,9 +844,9 @@ Invented in 1976!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-4">
-<h4 id="orgheadline11"><span class="section-number-4">4.2.2</span> Asymmetric encryption</h4>
-<div class="outline-text-4" id="text-4-2-2">
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">5.2.2</span> Asymmetric encryption</h4>
+<div class="outline-text-4" id="text-5-2-2">
 <ul class="org-ul">
 <li>Pair of keys, (S,P).  You encrypt with one and decrypt with the other.</li>
 <li>With asymmetric encryption, the key exchange is very similar.  We make one
@@ -720,9 +872,9 @@ Two types of asymmetric key types:
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-4">
-<h4 id="orgheadline12"><span class="section-number-4">4.2.3</span> Uses of Encryption</h4>
-<div class="outline-text-4" id="text-4-2-3">
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">5.2.3</span> Uses of Encryption</h4>
+<div class="outline-text-4" id="text-5-2-3">
 <ul class="org-ul">
 <li>Message Encryption - make it so that only owners of a key can read it.</li>
 <li>Message Signature
@@ -772,7 +924,7 @@ a trusted third party.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-25 Mon 15:20</p>
+<p class="date">Created: 2016-01-27 Wed 14:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
