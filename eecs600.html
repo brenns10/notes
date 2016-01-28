@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-27 Wed 15:24 -->
+<!-- 2016-01-28 Thu 17:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 600 (Internet Security) Notes</title>
@@ -176,34 +176,35 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline3">1. 2016-01-26 Tuesday</a>
+<li><a href="#orgheadline1">1. 2016-01-28 Thursday</a></li>
+<li><a href="#orgheadline4">2. 2016-01-26 Tuesday</a>
 <ul>
-<li><a href="#orgheadline1">1.1. Virtual Private Networks</a></li>
-<li><a href="#orgheadline2">1.2. Firewalls</a></li>
+<li><a href="#orgheadline2">2.1. Virtual Private Networks</a></li>
+<li><a href="#orgheadline3">2.2. Firewalls</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline4">2. 2016-01-21 Thursday</a></li>
-<li><a href="#orgheadline7">3. 2016-01-19 Tuesday</a>
+<li><a href="#orgheadline5">3. 2016-01-21 Thursday</a></li>
+<li><a href="#orgheadline8">4. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline5">3.1. DNSSEC</a></li>
-<li><a href="#orgheadline6">3.2. X.509 Overview</a></li>
+<li><a href="#orgheadline6">4.1. DNSSEC</a></li>
+<li><a href="#orgheadline7">4.2. X.509 Overview</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline11">4. 2016-01-14 Thursday</a>
+<li><a href="#orgheadline12">5. 2016-01-14 Thursday</a>
 <ul>
-<li><a href="#orgheadline8">4.1. Encryption: Message Authentication Problem</a></li>
-<li><a href="#orgheadline9">4.2. HTTPS</a></li>
-<li><a href="#orgheadline10">4.3. DNS</a></li>
+<li><a href="#orgheadline9">5.1. Encryption: Message Authentication Problem</a></li>
+<li><a href="#orgheadline10">5.2. HTTPS</a></li>
+<li><a href="#orgheadline11">5.3. DNS</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline17">5. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline18">6. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline12">5.1. Logistics</a></li>
-<li><a href="#orgheadline16">5.2. Encryption and Authentication</a>
+<li><a href="#orgheadline13">6.1. Logistics</a></li>
+<li><a href="#orgheadline17">6.2. Encryption and Authentication</a>
 <ul>
-<li><a href="#orgheadline13">5.2.1. Symmetric encryption:</a></li>
-<li><a href="#orgheadline14">5.2.2. Asymmetric encryption</a></li>
-<li><a href="#orgheadline15">5.2.3. Uses of Encryption</a></li>
+<li><a href="#orgheadline14">6.2.1. Symmetric encryption:</a></li>
+<li><a href="#orgheadline15">6.2.2. Asymmetric encryption</a></li>
+<li><a href="#orgheadline16">6.2.3. Uses of Encryption</a></li>
 </ul>
 </li>
 </ul>
@@ -212,9 +213,199 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">1</span> 2016-01-26 Tuesday</h2>
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-28 Thursday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Last time - firewall.  Distinguishing feature: interposed in your path to the
+network.
+</p>
+
+<p>
+Today: Intrusion Detection System.  These inspect packets, do "deep packet
+inspection", and try to correlate them together to identify attacks and
+intrusion attempts.
+</p>
+
+<ul class="org-ul">
+<li>May have multiple IDS's.  For instance, you may set up a DMZ for publicly
+accessible servers, and have a IDS for them.  Then, in the private network,
+another IDS.  Finally, you may put further IDS's closer to valuable assets
+in order to improve your chances of detection.</li>
+<li>Taxonomy of IDS's:
+<ul class="org-ul">
+<li>Signature based vs anomaly detection
+<ul class="org-ul">
+<li>Signature based: has classifiers for several different attack types.  If
+incoming traffic is classified as an attack, raise an alarm.
+<ul class="org-ul">
+<li>These can be more accurate, because they can describe specific attacks
+that may not look anomalous.</li>
+<li>However, they cannot detect new attacks.</li>
+</ul></li>
+<li>Anomaly detection: creates statistical models for "normal" traffic.
+Then raises an alarm when traffic "sticks out" from the normal model.
+<ul class="org-ul">
+<li>Can detect new attacks</li>
+<li>So many false positives</li>
+</ul></li>
+</ul></li>
+<li>Network IDS vs Host IDS
+<ul class="org-ul">
+<li>NIDS: sniff packets on a whole network.  Requires lots of computing
+power.  But, this means that they are monitoring an entire network
+segment.</li>
+<li>HIDES: Analyzes only at the host-level.  Can use OS-level events (even
+TCP state tracking).  Usually deployed on high-value targets.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+Evasion
+</p>
+<ul class="org-ul">
+<li>Searching for text or patterns within TCP connections is hard.
+<ul class="org-ul">
+<li>Can't look just for text in a packet (could be spread across multiple)</li>
+<li>Can't look just for text in sequential packets (could be reordered)</li>
+<li>Could we reassemble the byte stream?  Tricky&#x2026;</li>
+</ul></li>
+<li>Defining patterns to search for is hard
+<ul class="org-ul">
+<li>For directory names, could substitute a ton of variations on valid path
+names.</li>
+<li>Or could use character escapes.</li>
+</ul></li>
+<li>Packet fragmentation!</li>
+<li>As an attacker, any of these variations can be combined.</li>
+<li>Additionally, IDS's fail "open", such that the network traffic continues to
+flow if an IDS is overwhelmed.  So one common attack is to disable the IDS
+by volume or some other way, and then carry on your actual attack without
+detection.</li>
+<li>TTL Exploit:
+<ul class="org-ul">
+<li>An attacker may send multiple TCP segments with the same sequence
+number, but different payloads, and different TTL fields.</li>
+<li>The ones with lower TTL fields will be dropped, so the end host will
+only see their intended text.</li>
+<li>But IDS will see all the different segments, and have trouble piecing
+together the true message.</li>
+</ul></li>
+<li>Fragmentation Attack:
+<ul class="org-ul">
+<li>Overlap:
+<ul class="org-ul">
+<li>Send IP fragment F1 and F2, where F2 overlaps the end of F1.</li>
+<li>This is "prohibited" - it should never happen.</li>
+<li>But, OS's deal with it in different ways.
+<ul class="org-ul">
+<li>Some use the data from F1</li>
+<li>Some use the data from F2</li>
+<li>Some use the first packet to arrive.</li>
+</ul></li>
+<li>IDS can't guess behavior of every end system</li>
+</ul></li>
+<li>Reassembly:
+<ul class="org-ul">
+<li>Network stacks need to hold onto packets that are fragmented, so that
+when they receive the next one, they can piece them together.</li>
+<li>They have a timeout on their buffers, so that they don't hold them
+indefinitely.</li>
+<li>If the end host has a longer timer than the IDS:
+<ul class="org-ul">
+<li>Send F1, wait for the IDS to timeout, then send F2</li>
+</ul></li>
+<li>If the IDS has a longer timer than the end-host:
+<ul class="org-ul">
+<li>Prepare fragments F1, F2, F2', such that F1F2 is an attack, but
+F1F2' looks ok.</li>
+<li>Send F1</li>
+<li>Wait for end-host to timeout.</li>
+<li>Send F2'</li>
+<li>&#x2026; (slides)</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+Port Scan Evasion:
+</p>
+<ul class="org-ul">
+<li>If a computer (Patsy) has deterministic IP IDs, an attacker can send a ping
+stream to view the IP ID state.  Then, they can send TCP SYN's to a victim,
+spoofed as the Patsy.</li>
+<li>If the Victim's port is open, they will SYN ACK to the Patsy, and the PATSY
+will RESET back, which uses in IP ID.  The attacker can observe this and
+have good evidence that the port is open.</li>
+</ul>
+
+<p>
+IDS Guidelines
+</p>
+<ul class="org-ul">
+<li>Preventing TTL attacks:
+<ul class="org-ul">
+<li>Deploy as close to destination hosts as possible</li>
+</ul></li>
+<li>Preventing fragmentation attacks:
+<ul class="org-ul">
+<li>Drop fragmented packets at entry</li>
+<li>Not a great solution!  What about tunneling?  Fragmentation regularly
+happens when tunneling traffic.</li>
+</ul></li>
+<li>Bifurcation attacks
+<ul class="org-ul">
+<li>Try to analyze all possibilities.</li>
+<li>Also not a good solution.</li>
+</ul></li>
+</ul>
+
+<p>
+Traffic Normalizer
+</p>
+<ul class="org-ul">
+<li>Sit in the path of traffic, and resolves ambiguities.</li>
+<li>For fragments, it will use the shortest reassembly timer, and drop the next
+packet fragments after the timeout so nobody gets them (either IDS or end
+host)</li>
+<li>Always rewrite TTL to fixed value.</li>
+<li>Always resolve fragment ambiguities in a particular way.</li>
+<li>Limitations
+<ul class="org-ul">
+<li>Can't know application behavior</li>
+<li>EG: TCP urgent pointer
+<ul class="org-ul">
+<li>Some system calls may not return "urgent" data without a special
+command.</li>
+<li>So, one way you might read "robot", another way may read "root".</li>
+<li>The IDS/normalizer can't know how the socket is being used, so it can't
+tell about these things.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+On the bright side, traffic normalizer fails closed, which is good for
+preventing attacks, but bad if the attacker wants to cut off internet access.
+</p>
+
+<p>
+Summary:
+</p>
+<ul class="org-ul">
+<li>NIDS performs stateful deep packet inspection</li>
+<li>Difficult - must obtain same view of traffic as the destination.</li>
+<li>When IDS view diverges from hosts, problems happen</li>
+<li>Normalizers can help keep these views synchronized</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">2</span> 2016-01-26 Tuesday</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Today: IPSec, Firewalls.  Next time: Intrusion Detection Systems.  Next
 Tuesday: my paper discussion.  Also, be thinking about project ideas (Thu-Tue
@@ -222,9 +413,9 @@ after my presentation).
 </p>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Virtual Private Networks</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Virtual Private Networks</h3>
+<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Institution would like to have completely separate, private network for
 security.</li>
@@ -303,9 +494,9 @@ Key Exchange??  IKE = Internet Key Exchange
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Firewalls</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Firewalls</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 Firewall: Isolates organization's internal network from larger Internet,
 allowing some packets to pass, blocking others.
@@ -358,9 +549,9 @@ Application Gateways
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">2</span> 2016-01-21 Thursday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">3</span> 2016-01-21 Thursday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Points from "SSL Landscape - A Thorough Analysis of the X.509 PKI Using Active
 and Passive Measurements".
@@ -377,9 +568,9 @@ Read the paper.  The points were from there.
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">3</span> 2016-01-19 Tuesday</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">4</span> 2016-01-19 Tuesday</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 <b>Defense for DNS</b>
 </p>
@@ -394,9 +585,9 @@ resolvers even when they're closed.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5"><span class="section-number-3">3.1</span> DNSSEC</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">4.1</span> DNSSEC</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 <b>Goals</b>
 </p>
@@ -480,9 +671,9 @@ amplification for reflection attacks.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6"><span class="section-number-3">3.2</span> X.509 Overview</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">4.2</span> X.509 Overview</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 Correction of TLS handshake:
 </p>
@@ -527,12 +718,12 @@ validate at all, they can connect to fraudulent sites.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11"><span class="section-number-2">4</span> 2016-01-14 Thursday</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">4.1</span> Encryption: Message Authentication Problem</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">5</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">5.1</span> Encryption: Message Authentication Problem</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 As we saw last time, if I want to send an encrypted message to Misha, I can
 probably easily find a private key associated with him.  However, I have no
@@ -560,9 +751,9 @@ longer be trusted.
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-3">
-<h3 id="orgheadline9"><span class="section-number-3">4.2</span> HTTPS</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">5.2</span> HTTPS</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 HTTP:
 </p>
@@ -601,9 +792,9 @@ initial negotiation</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10"><span class="section-number-3">4.3</span> DNS</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">5.3</span> DNS</h3>
+<div class="outline-text-3" id="text-5-3">
 <p>
 Negative Response Rewriting
 </p>
@@ -668,12 +859,12 @@ million), but still isn't great.
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-2">
-<h2 id="orgheadline17"><span class="section-number-2">5</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-5">
-</div><div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">5.1</span> Logistics</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">6</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">6.1</span> Logistics</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 Goals:
 </p>
@@ -799,9 +990,9 @@ lines with "eecs600".
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">5.2</span> Encryption and Authentication</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">6.2</span> Encryption and Authentication</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 This content will be a brief overview of the basics.  Just enough for our
 subsequent discussions on security.
@@ -812,9 +1003,9 @@ Two varieties of encryption: symmetric and asymmetric
 </p>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-4">
-<h4 id="orgheadline13"><span class="section-number-4">5.2.1</span> Symmetric encryption:</h4>
-<div class="outline-text-4" id="text-5-2-1">
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">6.2.1</span> Symmetric encryption:</h4>
+<div class="outline-text-4" id="text-6-2-1">
 <ul class="org-ul">
 <li>Two parties share a secret.</li>
 <li>Encryption/decryption algorithms scramble/unscramble plaintext using the
@@ -844,9 +1035,9 @@ Invented in 1976!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline14" class="outline-4">
-<h4 id="orgheadline14"><span class="section-number-4">5.2.2</span> Asymmetric encryption</h4>
-<div class="outline-text-4" id="text-5-2-2">
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">6.2.2</span> Asymmetric encryption</h4>
+<div class="outline-text-4" id="text-6-2-2">
 <ul class="org-ul">
 <li>Pair of keys, (S,P).  You encrypt with one and decrypt with the other.</li>
 <li>With asymmetric encryption, the key exchange is very similar.  We make one
@@ -872,9 +1063,9 @@ Two types of asymmetric key types:
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-4">
-<h4 id="orgheadline15"><span class="section-number-4">5.2.3</span> Uses of Encryption</h4>
-<div class="outline-text-4" id="text-5-2-3">
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">6.2.3</span> Uses of Encryption</h4>
+<div class="outline-text-4" id="text-6-2-3">
 <ul class="org-ul">
 <li>Message Encryption - make it so that only owners of a key can read it.</li>
 <li>Message Signature
@@ -924,7 +1115,7 @@ a trusted third party.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-01-27 Wed 15:24</p>
+<p class="date">Created: 2016-01-28 Thu 17:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
