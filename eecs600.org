@@ -2,6 +2,127 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-28 Thursday
+
+  Last time - firewall.  Distinguishing feature: interposed in your path to the
+  network.
+
+  Today: Intrusion Detection System.  These inspect packets, do "deep packet
+  inspection", and try to correlate them together to identify attacks and
+  intrusion attempts.
+
+  - May have multiple IDS's.  For instance, you may set up a DMZ for publicly
+    accessible servers, and have a IDS for them.  Then, in the private network,
+    another IDS.  Finally, you may put further IDS's closer to valuable assets
+    in order to improve your chances of detection.
+  - Taxonomy of IDS's:
+    - Signature based vs anomaly detection
+      - Signature based: has classifiers for several different attack types.  If
+        incoming traffic is classified as an attack, raise an alarm.
+        - These can be more accurate, because they can describe specific attacks
+          that may not look anomalous.
+        - However, they cannot detect new attacks.
+      - Anomaly detection: creates statistical models for "normal" traffic.
+        Then raises an alarm when traffic "sticks out" from the normal model.
+        - Can detect new attacks
+        - So many false positives
+    - Network IDS vs Host IDS
+      - NIDS: sniff packets on a whole network.  Requires lots of computing
+        power.  But, this means that they are monitoring an entire network
+        segment.
+      - HIDES: Analyzes only at the host-level.  Can use OS-level events (even
+        TCP state tracking).  Usually deployed on high-value targets.
+
+  Evasion
+  - Searching for text or patterns within TCP connections is hard.
+    - Can't look just for text in a packet (could be spread across multiple)
+    - Can't look just for text in sequential packets (could be reordered)
+    - Could we reassemble the byte stream?  Tricky...
+  - Defining patterns to search for is hard
+    - For directory names, could substitute a ton of variations on valid path
+      names.
+    - Or could use character escapes.
+  - Packet fragmentation!
+  - As an attacker, any of these variations can be combined.
+  - Additionally, IDS's fail "open", such that the network traffic continues to
+    flow if an IDS is overwhelmed.  So one common attack is to disable the IDS
+    by volume or some other way, and then carry on your actual attack without
+    detection.
+  - TTL Exploit:
+    - An attacker may send multiple TCP segments with the same sequence
+      number, but different payloads, and different TTL fields.
+    - The ones with lower TTL fields will be dropped, so the end host will
+      only see their intended text.
+    - But IDS will see all the different segments, and have trouble piecing
+      together the true message.
+  - Fragmentation Attack:
+    - Overlap:
+      - Send IP fragment F1 and F2, where F2 overlaps the end of F1.
+      - This is "prohibited" - it should never happen.
+      - But, OS's deal with it in different ways.
+        - Some use the data from F1
+        - Some use the data from F2
+        - Some use the first packet to arrive.
+      - IDS can't guess behavior of every end system
+    - Reassembly:
+      - Network stacks need to hold onto packets that are fragmented, so that
+        when they receive the next one, they can piece them together.
+      - They have a timeout on their buffers, so that they don't hold them
+        indefinitely.
+      - If the end host has a longer timer than the IDS:
+        - Send F1, wait for the IDS to timeout, then send F2
+      - If the IDS has a longer timer than the end-host:
+        - Prepare fragments F1, F2, F2', such that F1F2 is an attack, but
+          F1F2' looks ok.
+        - Send F1
+        - Wait for end-host to timeout.
+        - Send F2'
+        - ... (slides)
+
+  Port Scan Evasion:
+  - If a computer (Patsy) has deterministic IP IDs, an attacker can send a ping
+    stream to view the IP ID state.  Then, they can send TCP SYN's to a victim,
+    spoofed as the Patsy.
+  - If the Victim's port is open, they will SYN ACK to the Patsy, and the PATSY
+    will RESET back, which uses in IP ID.  The attacker can observe this and
+    have good evidence that the port is open.
+
+  IDS Guidelines
+  - Preventing TTL attacks:
+    - Deploy as close to destination hosts as possible
+  - Preventing fragmentation attacks:
+    - Drop fragmented packets at entry
+    - Not a great solution!  What about tunneling?  Fragmentation regularly
+      happens when tunneling traffic.
+  - Bifurcation attacks
+    - Try to analyze all possibilities.
+    - Also not a good solution.
+
+  Traffic Normalizer
+  - Sit in the path of traffic, and resolves ambiguities.
+  - For fragments, it will use the shortest reassembly timer, and drop the next
+    packet fragments after the timeout so nobody gets them (either IDS or end
+    host)
+  - Always rewrite TTL to fixed value.
+  - Always resolve fragment ambiguities in a particular way.
+  - Limitations
+    - Can't know application behavior
+    - EG: TCP urgent pointer
+      - Some system calls may not return "urgent" data without a special
+        command.
+      - So, one way you might read "robot", another way may read "root".
+      - The IDS/normalizer can't know how the socket is being used, so it can't
+        tell about these things.
+
+  On the bright side, traffic normalizer fails closed, which is good for
+  preventing attacks, but bad if the attacker wants to cut off internet access.
+
+  Summary:
+  - NIDS performs stateful deep packet inspection
+  - Difficult - must obtain same view of traffic as the destination.
+  - When IDS view diverges from hosts, problems happen
+  - Normalizers can help keep these views synchronized
+
 * 2016-01-26 Tuesday
 
   Today: IPSec, Firewalls.  Next time: Intrusion Detection Systems.  Next
