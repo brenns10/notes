@@ -154,3 +154,34 @@
   - 25 multiple choice (wow :P)
   - 20 minutes.
   - Study guidelines, etc, on blackboard.
+* 2015-02-01 Monday
+
+  Three Principles of Sensation & Perception
+  - Adaptive processes
+    - once you see something a certain way (eg. the cow picture), it's hard to
+      see it any other way
+  - Discrepancy between physical & psychological
+  - Active processes
+    - changes as you look
+
+  Gestalt Principles of Form Perception
+  - Similarity - We group things by their similarity to each other
+  - Proximity - we group things by their proximity
+  - Good continuation - we combine things into larger items
+  - Simplicity
+  - Common Fate - as things move, if they move together, we perceive them as a
+    single unit.
+  - Closure - we tend to interpret things with depth and "close" shapes
+
+  Perceptual Constancy
+  - Color - tendency to perceive an object's color as stable even though they're
+    changing.  EG the colors due to light and shadow are different, but we
+    perceive them as th same because we compensate for the shadow.
+  - Shape - the tendency for an object's shape to appear consistent and
+    constant.  The examples here were all objects in different 3D orientations,
+    but we perceive them as all the same shape.
+  - Size - again, we compensate for depth in images, and we make adjustments for
+    size.
+
+  Depth Perception
+  - we will have a guest lecturer in the next class
