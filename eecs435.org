@@ -3,6 +3,10 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-01-28 Thursday
+
+  OPTICS.
+
 * 2016-01-26 Tuesday
 
   Clustering still.
