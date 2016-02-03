@@ -38,7 +38,6 @@
   - Hypothesis - a proposed explanation for something
   - Variables
 
-
 * 2016-01-20 Wednesday
 
   Still doing "scientific method" stuff.
@@ -185,3 +184,60 @@
 
   Depth Perception
   - we will have a guest lecturer in the next class
+* 2015-02-03 Wednesday
+
+  Depth Perception, by Dr. Bendis
+
+  Depth Perception
+  - Reality is about perception.
+  - Perception is about putting together cues.
+
+  Types of Cues
+  - Oculomotor Cues
+    - Physical
+    - Muscular contractions in the eye
+    - Biological feedback to th ebrain
+    - Kinesthetic cues
+  - Visual cues
+    - from the images
+    - Interpreted by the brain
+  - Binocular Cues
+  - Monocular Cues
+  - Static Cues
+  - Motion Cues
+
+  Retinal Disparity / Binocular Parallax
+  - Woah.  It's like your eyes aren't in the same place.
+  - Your brain takes two images and combines them into a 3D image.
+  - This is called "stereopsis"
+  - It's the biggest, but not the only part of depth perception
+  - Convergence: the closer something is, the more your eyes bend together.
+
+  Accomodation
+  - If you change focus near/far, you'll feel it in your eyes.
+
+  Perspective
+  - Linear: parallel lines appear to converge in the distance.
+  - Texture: more detailed up close, smaller far away
+  - Atmospheric:
+    - Blueish tint.
+    - Haze
+  - Aerial: the higher something is (in your field of view), the farther away it
+    is.
+
+  Shadows and Shading
+  - We're talking about this in intro to film too, so it must be pretty
+    important.
+
+  Relative Brightness
+
+  Motion Parallax
+  - It's like trees from a car.
+
+  Metamers
+  - When two things are perceptually identical.
+  - For example, small box and large box - are they in the same plane, or in
+    different planes with the same size.
+
+  Illusions
+  - We're doing lots of them.  It's somewhat fun.
