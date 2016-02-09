@@ -2,6 +2,12 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-02-09 Tuesday
+
+  *Exit from Hell? Reducing the Impact of Amplification DDoS Attacks*
+
+  Read dat paper yo.
+
 * 2016-01-28 Thursday
 
   Last time - firewall.  Distinguishing feature: interposed in your path to the
