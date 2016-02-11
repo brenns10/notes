@@ -2,6 +2,112 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-02-11 Thursday
+
+  *Web Timeouts and Their Implications*
+
+  Types of (D)Dos
+  - Application attacks
+    - frequently HTTP
+    - grab-and-hold
+  - TCP SYN
+  - Reflection attacks
+    - ICMP, TCP SYN, DNS, NTP
+    - Amplification
+
+  Recent Trends
+  - Purpose of this class: to dispel the false sense of security that "we have
+    the security measures, we are fine."
+  - Security is not a solved problem, it's an ongoing battle
+  - Further, /we are not winning/
+    - As federal spending on "cyber defense" increases linearly, the amount of
+      security incidents against federal agencies increases super-linearly.
+    - Corporate attacks are very common, and cost huge amounts of money.
+    - Attacks on national infrastructure are becoming much more common.
+  - With impending integration of our everyday lives on the Internet ("Internet
+    of Things"), this could be a "disaster in the making".
+  - Top 85% of attacks
+    - HTTP Flood, TCP Flood, and DNS Flood
+    - DNS flood is the top attack (42% of all attacks)
+
+  Claim and Hold DoS Attacks
+  - The idea
+    - Claim a resource on the server, and hold onto it for a long time.
+    - Because the request is well formed, it is difficult to filter out.
+  - Examples
+    - Slowlory: attacks HTTP servers, sending requests one byte at a time.
+    - Slowdroid: Attacks any TCP server by sending an endless sequence of spaces
+  - Web server example:
+    - Opportunities:
+      - Send a SYN, wait for completed handshake.
+      - After handshake is completed, start transmitting request s-l-o-w-l-y
+      - After request is completed, consume the response s-l-o-w-l-y (using TCP
+        small receive window, and small amounts of acknowledgements).
+      - After response is completed, hold onto the the connection as long as
+        possible.
+    - Server has to combat these attacks with timeouts:
+      - Application timeout: time from completing handshake to receiving first
+        byte of request
+      - Request timeout: time from receiving first to last byte of request
+      - Response timeout: time for the client to consume the entire response
+      - TCP timeout: time the server holds onto the connection without receiving
+        ACKs.
+      - Keep-Alive timeout: time the server will keep a connection alive after
+        the response is completed.
+
+  TCP Timeout
+  - Time server allows for client to ACK a data packet.
+  - Send a HTTP request, disappear, and measure one of the following
+    - Time of last retransmission (this is a lower bound on the timeout, 61% of
+      servers).
+      - The majority of these servers persist over 100 seconds!
+    - Or FIN (9% of servers).
+      - The majority of these persist under 10 seconds, but some go longer.
+    - Or RST (30% of servers).
+      - The majority of these servers persist over 100 seconds as well!
+  - To measure the effect of reducing the TCP timeout, two web servers were
+    deployed:
+    - One which used the regular Linux TCP timeout: 15 retransmissions,
+      exponential backoff, 13-30 minutes total!
+    - One which used 3 retransmissions, ~600 ms (each?).
+    - Dropped connections due to timeouts increased by 0.16%.  So barely at all.
+
+  Application Timeout
+  - Time the server allows from completing the connection handshake until
+    receiving the first byte of the HTTP request.
+  - Method: Open a TCP connection, don't send a request, and observe how long we
+    can keep it open.
+  - About 36% of sites don't terminate after 20 minutes of waiting.  This may be
+    due to the TCP DEFER ACCEPT option of TCP stacks, which allows the server to
+    defer "accepting" the TCP connection until the first byte of the request
+    comes in.
+  - Many sites have timeouts over 100s.
+  - 99% of requests happen within a second of the handshake completion.  This is
+    a huge disconnect from the allowed timeouts.
+
+  Request Timeout
+  - Time from receiving first byte of the HTTP request to receiving the last
+    byte of the request.
+  - Method: open connection, send 1000-bytes HTTP GET request, one byte per
+    segmet, one segment per second.  Observe if (or when) the connection is
+    terminated.
+  - Majority of sites didn't close connection.
+  - 85% of requests fit within 1 packet.
+  - 99.9% of requests take less than 1 second to be transmitted.
+
+  Response Timeout
+  - Time for client to consume entire response (bytes/second)
+  - Method: open a connection, send a request, consume the response at 100
+    bytes/sec.  Observe if server terminates the question.
+  - Only 24% of sites impose a limit on response rate.
+    - This corresponds to roughly the fraction of IIS servers in the population,
+      which is the only web server known to impose a response rate limit.
+  - Almost 99% of responses are consumed at a rate of at least 10 Kbps.
+
+  Keep-Alive
+  - This is much better addressed, since many people are aware of this timeout
+    and restrict it.
+
 * 2016-02-09 Tuesday
 
   *Exit from Hell? Reducing the Impact of Amplification DDoS Attacks*
