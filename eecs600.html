@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-02-09 Tue 16:42 -->
+<!-- 2016-02-11 Thu 17:46 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 600 (Internet Security) Notes</title>
@@ -176,36 +176,37 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 2016-02-09 Tuesday</a></li>
-<li><a href="#orgheadline2">2. 2016-01-28 Thursday</a></li>
-<li><a href="#orgheadline5">3. 2016-01-26 Tuesday</a>
+<li><a href="#orgheadline1">1. 2016-02-11 Thursday</a></li>
+<li><a href="#orgheadline2">2. 2016-02-09 Tuesday</a></li>
+<li><a href="#orgheadline3">3. 2016-01-28 Thursday</a></li>
+<li><a href="#orgheadline6">4. 2016-01-26 Tuesday</a>
 <ul>
-<li><a href="#orgheadline3">3.1. Virtual Private Networks</a></li>
-<li><a href="#orgheadline4">3.2. Firewalls</a></li>
+<li><a href="#orgheadline4">4.1. Virtual Private Networks</a></li>
+<li><a href="#orgheadline5">4.2. Firewalls</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline6">4. 2016-01-21 Thursday</a></li>
-<li><a href="#orgheadline9">5. 2016-01-19 Tuesday</a>
+<li><a href="#orgheadline7">5. 2016-01-21 Thursday</a></li>
+<li><a href="#orgheadline10">6. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline7">5.1. DNSSEC</a></li>
-<li><a href="#orgheadline8">5.2. X.509 Overview</a></li>
+<li><a href="#orgheadline8">6.1. DNSSEC</a></li>
+<li><a href="#orgheadline9">6.2. X.509 Overview</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline13">6. 2016-01-14 Thursday</a>
+<li><a href="#orgheadline14">7. 2016-01-14 Thursday</a>
 <ul>
-<li><a href="#orgheadline10">6.1. Encryption: Message Authentication Problem</a></li>
-<li><a href="#orgheadline11">6.2. HTTPS</a></li>
-<li><a href="#orgheadline12">6.3. DNS</a></li>
+<li><a href="#orgheadline11">7.1. Encryption: Message Authentication Problem</a></li>
+<li><a href="#orgheadline12">7.2. HTTPS</a></li>
+<li><a href="#orgheadline13">7.3. DNS</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline19">7. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline20">8. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline14">7.1. Logistics</a></li>
-<li><a href="#orgheadline18">7.2. Encryption and Authentication</a>
+<li><a href="#orgheadline15">8.1. Logistics</a></li>
+<li><a href="#orgheadline19">8.2. Encryption and Authentication</a>
 <ul>
-<li><a href="#orgheadline15">7.2.1. Symmetric encryption:</a></li>
-<li><a href="#orgheadline16">7.2.2. Asymmetric encryption</a></li>
-<li><a href="#orgheadline17">7.2.3. Uses of Encryption</a></li>
+<li><a href="#orgheadline16">8.2.1. Symmetric encryption:</a></li>
+<li><a href="#orgheadline17">8.2.2. Asymmetric encryption</a></li>
+<li><a href="#orgheadline18">8.2.3. Uses of Encryption</a></li>
 </ul>
 </li>
 </ul>
@@ -215,8 +216,181 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-02-09 Tuesday</h2>
+<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-02-11 Thursday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+<b>Web Timeouts and Their Implications</b>
+</p>
+
+<p>
+Types of (D)Dos
+</p>
+<ul class="org-ul">
+<li>Application attacks
+<ul class="org-ul">
+<li>frequently HTTP</li>
+<li>grab-and-hold</li>
+</ul></li>
+<li>TCP SYN</li>
+<li>Reflection attacks
+<ul class="org-ul">
+<li>ICMP, TCP SYN, DNS, NTP</li>
+<li>Amplification</li>
+</ul></li>
+</ul>
+
+<p>
+Recent Trends
+</p>
+<ul class="org-ul">
+<li>Purpose of this class: to dispel the false sense of security that "we have
+the security measures, we are fine."</li>
+<li>Security is not a solved problem, it's an ongoing battle</li>
+<li>Further, <i>we are not winning</i>
+<ul class="org-ul">
+<li>As federal spending on "cyber defense" increases linearly, the amount of
+security incidents against federal agencies increases super-linearly.</li>
+<li>Corporate attacks are very common, and cost huge amounts of money.</li>
+<li>Attacks on national infrastructure are becoming much more common.</li>
+</ul></li>
+<li>With impending integration of our everyday lives on the Internet ("Internet
+of Things"), this could be a "disaster in the making".</li>
+<li>Top 85% of attacks
+<ul class="org-ul">
+<li>HTTP Flood, TCP Flood, and DNS Flood</li>
+<li>DNS flood is the top attack (42% of all attacks)</li>
+</ul></li>
+</ul>
+
+<p>
+Claim and Hold DoS Attacks
+</p>
+<ul class="org-ul">
+<li>The idea
+<ul class="org-ul">
+<li>Claim a resource on the server, and hold onto it for a long time.</li>
+<li>Because the request is well formed, it is difficult to filter out.</li>
+</ul></li>
+<li>Examples
+<ul class="org-ul">
+<li>Slowlory: attacks HTTP servers, sending requests one byte at a time.</li>
+<li>Slowdroid: Attacks any TCP server by sending an endless sequence of spaces</li>
+</ul></li>
+<li>Web server example:
+<ul class="org-ul">
+<li>Opportunities:
+<ul class="org-ul">
+<li>Send a SYN, wait for completed handshake.</li>
+<li>After handshake is completed, start transmitting request s-l-o-w-l-y</li>
+<li>After request is completed, consume the response s-l-o-w-l-y (using TCP
+small receive window, and small amounts of acknowledgements).</li>
+<li>After response is completed, hold onto the the connection as long as
+possible.</li>
+</ul></li>
+<li>Server has to combat these attacks with timeouts:
+<ul class="org-ul">
+<li>Application timeout: time from completing handshake to receiving first
+byte of request</li>
+<li>Request timeout: time from receiving first to last byte of request</li>
+<li>Response timeout: time for the client to consume the entire response</li>
+<li>TCP timeout: time the server holds onto the connection without receiving
+ACKs.</li>
+<li>Keep-Alive timeout: time the server will keep a connection alive after
+the response is completed.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+TCP Timeout
+</p>
+<ul class="org-ul">
+<li>Time server allows for client to ACK a data packet.</li>
+<li>Send a HTTP request, disappear, and measure one of the following
+<ul class="org-ul">
+<li>Time of last retransmission (this is a lower bound on the timeout, 61% of
+servers).
+<ul class="org-ul">
+<li>The majority of these servers persist over 100 seconds!</li>
+</ul></li>
+<li>Or FIN (9% of servers).
+<ul class="org-ul">
+<li>The majority of these persist under 10 seconds, but some go longer.</li>
+</ul></li>
+<li>Or RST (30% of servers).
+<ul class="org-ul">
+<li>The majority of these servers persist over 100 seconds as well!</li>
+</ul></li>
+</ul></li>
+<li>To measure the effect of reducing the TCP timeout, two web servers were
+deployed:
+<ul class="org-ul">
+<li>One which used the regular Linux TCP timeout: 15 retransmissions,
+exponential backoff, 13-30 minutes total!</li>
+<li>One which used 3 retransmissions, ~600 ms (each?).</li>
+<li>Dropped connections due to timeouts increased by 0.16%.  So barely at all.</li>
+</ul></li>
+</ul>
+
+<p>
+Application Timeout
+</p>
+<ul class="org-ul">
+<li>Time the server allows from completing the connection handshake until
+receiving the first byte of the HTTP request.</li>
+<li>Method: Open a TCP connection, don't send a request, and observe how long we
+can keep it open.</li>
+<li>About 36% of sites don't terminate after 20 minutes of waiting.  This may be
+due to the TCP DEFER ACCEPT option of TCP stacks, which allows the server to
+defer "accepting" the TCP connection until the first byte of the request
+comes in.</li>
+<li>Many sites have timeouts over 100s.</li>
+<li>99% of requests happen within a second of the handshake completion.  This is
+a huge disconnect from the allowed timeouts.</li>
+</ul>
+
+<p>
+Request Timeout
+</p>
+<ul class="org-ul">
+<li>Time from receiving first byte of the HTTP request to receiving the last
+byte of the request.</li>
+<li>Method: open connection, send 1000-bytes HTTP GET request, one byte per
+segmet, one segment per second.  Observe if (or when) the connection is
+terminated.</li>
+<li>Majority of sites didn't close connection.</li>
+<li>85% of requests fit within 1 packet.</li>
+<li>99.9% of requests take less than 1 second to be transmitted.</li>
+</ul>
+
+<p>
+Response Timeout
+</p>
+<ul class="org-ul">
+<li>Time for client to consume entire response (bytes/second)</li>
+<li>Method: open a connection, send a request, consume the response at 100
+bytes/sec.  Observe if server terminates the question.</li>
+<li>Only 24% of sites impose a limit on response rate.
+<ul class="org-ul">
+<li>This corresponds to roughly the fraction of IIS servers in the population,
+which is the only web server known to impose a response rate limit.</li>
+</ul></li>
+<li>Almost 99% of responses are consumed at a rate of at least 10 Kbps.</li>
+</ul>
+
+<p>
+Keep-Alive
+</p>
+<ul class="org-ul">
+<li>This is much better addressed, since many people are aware of this timeout
+and restrict it.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-02-09 Tuesday</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 <b>Exit from Hell? Reducing the Impact of Amplification DDoS Attacks</b>
 </p>
@@ -227,9 +401,9 @@ Read dat paper yo.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-01-28 Thursday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> 2016-01-28 Thursday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Last time - firewall.  Distinguishing feature: interposed in your path to the
 network.
@@ -417,9 +591,9 @@ Summary:
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">3</span> 2016-01-26 Tuesday</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">4</span> 2016-01-26 Tuesday</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Today: IPSec, Firewalls.  Next time: Intrusion Detection Systems.  Next
 Tuesday: my paper discussion.  Also, be thinking about project ideas (Thu-Tue
@@ -427,9 +601,9 @@ after my presentation).
 </p>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Virtual Private Networks</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">4.1</span> Virtual Private Networks</h3>
+<div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>Institution would like to have completely separate, private network for
 security.</li>
@@ -508,9 +682,9 @@ Key Exchange??  IKE = Internet Key Exchange
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4"><span class="section-number-3">3.2</span> Firewalls</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">4.2</span> Firewalls</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 Firewall: Isolates organization's internal network from larger Internet,
 allowing some packets to pass, blocking others.
@@ -563,9 +737,9 @@ Application Gateways
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">4</span> 2016-01-21 Thursday</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">5</span> 2016-01-21 Thursday</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 Points from "SSL Landscape - A Thorough Analysis of the X.509 PKI Using Active
 and Passive Measurements".
@@ -582,9 +756,9 @@ Read the paper.  The points were from there.
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9"><span class="section-number-2">5</span> 2016-01-19 Tuesday</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">6</span> 2016-01-19 Tuesday</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 <b>Defense for DNS</b>
 </p>
@@ -599,9 +773,9 @@ resolvers even when they're closed.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">5.1</span> DNSSEC</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">6.1</span> DNSSEC</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 <b>Goals</b>
 </p>
@@ -685,9 +859,9 @@ amplification for reflection attacks.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">5.2</span> X.509 Overview</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">6.2</span> X.509 Overview</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 Correction of TLS handshake:
 </p>
@@ -732,12 +906,12 @@ validate at all, they can connect to fraudulent sites.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13"><span class="section-number-2">6</span> 2016-01-14 Thursday</h2>
-<div class="outline-text-2" id="text-6">
-</div><div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10"><span class="section-number-3">6.1</span> Encryption: Message Authentication Problem</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">7</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">7.1</span> Encryption: Message Authentication Problem</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 As we saw last time, if I want to send an encrypted message to Misha, I can
 probably easily find a private key associated with him.  However, I have no
@@ -765,9 +939,9 @@ longer be trusted.
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">6.2</span> HTTPS</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">7.2</span> HTTPS</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
 HTTP:
 </p>
@@ -806,9 +980,9 @@ initial negotiation</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">6.3</span> DNS</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">7.3</span> DNS</h3>
+<div class="outline-text-3" id="text-7-3">
 <p>
 Negative Response Rewriting
 </p>
@@ -873,12 +1047,12 @@ million), but still isn't great.
 </div>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-2">
-<h2 id="orgheadline19"><span class="section-number-2">7</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-7">
-</div><div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">7.1</span> Logistics</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">8</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">8.1</span> Logistics</h3>
+<div class="outline-text-3" id="text-8-1">
 <p>
 Goals:
 </p>
@@ -1004,9 +1178,9 @@ lines with "eecs600".
 </div>
 </div>
 
-<div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18"><span class="section-number-3">7.2</span> Encryption and Authentication</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">8.2</span> Encryption and Authentication</h3>
+<div class="outline-text-3" id="text-8-2">
 <p>
 This content will be a brief overview of the basics.  Just enough for our
 subsequent discussions on security.
@@ -1017,9 +1191,9 @@ Two varieties of encryption: symmetric and asymmetric
 </p>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-4">
-<h4 id="orgheadline15"><span class="section-number-4">7.2.1</span> Symmetric encryption:</h4>
-<div class="outline-text-4" id="text-7-2-1">
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">8.2.1</span> Symmetric encryption:</h4>
+<div class="outline-text-4" id="text-8-2-1">
 <ul class="org-ul">
 <li>Two parties share a secret.</li>
 <li>Encryption/decryption algorithms scramble/unscramble plaintext using the
@@ -1049,9 +1223,9 @@ Invented in 1976!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-4">
-<h4 id="orgheadline16"><span class="section-number-4">7.2.2</span> Asymmetric encryption</h4>
-<div class="outline-text-4" id="text-7-2-2">
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">8.2.2</span> Asymmetric encryption</h4>
+<div class="outline-text-4" id="text-8-2-2">
 <ul class="org-ul">
 <li>Pair of keys, (S,P).  You encrypt with one and decrypt with the other.</li>
 <li>With asymmetric encryption, the key exchange is very similar.  We make one
@@ -1077,9 +1251,9 @@ Two types of asymmetric key types:
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-4">
-<h4 id="orgheadline17"><span class="section-number-4">7.2.3</span> Uses of Encryption</h4>
-<div class="outline-text-4" id="text-7-2-3">
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">8.2.3</span> Uses of Encryption</h4>
+<div class="outline-text-4" id="text-8-2-3">
 <ul class="org-ul">
 <li>Message Encryption - make it so that only owners of a key can read it.</li>
 <li>Message Signature
@@ -1129,7 +1303,7 @@ a trusted third party.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-02-09 Tue 16:42</p>
+<p class="date">Created: 2016-02-11 Thu 17:46</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
