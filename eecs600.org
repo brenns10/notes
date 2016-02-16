@@ -662,3 +662,6 @@
     Sadly, with asymmetric keys, it's difficult to be certain that a key belongs
     to somebody (and isn't being spoofed).  So you need to get keys certified by
     a trusted third party.
+* 2016-01-16 Tuesday
+
+  *DDoS Defense by Offense*
