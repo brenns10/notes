@@ -241,3 +241,107 @@
 
   Illusions
   - We're doing lots of them.  It's somewhat fun.
+* 2015-02-05 Friday
+
+  - Attention - the gateway to conscious awareness
+  - Stimulus Thresholds:
+    - Absolute Threshold - 50/50, where we may be able hear it, but it's not
+      more likely than not.
+    - Difference Threshold - level at which we can detect a change in the input
+  - Signal detection: perceptual judgment = sensory processes + decision
+    processes.
+
+* 2015-02-10 Wednesday
+
+  Quiz 2 was today.
+
+  Music (especially in movies) has emotional effects.  We can learn to associate
+  what happens in music with what happens on screen.  Then next time we hear the
+  music we physically/emotionally respond.
+
+  This process is classical conditioning.
+
+  - Unconditioned Stimulus - stimulus that we don't learn (eg person getting
+    ripped apart)
+  - Unconditioned Response - response to stimulus that we don't need to learn.
+  - Neutral stimulus - something we don't have a learned/unconditioned response
+    for.
+  - conditioned stimulus - something we have learned a response for.
+  - conditioned response - response we have learned.
+
+  Pavlov's Dog!
+  - meat: UCS
+  - bell: neutral stimulus
+  - after conditioning, the bell was a conditioned stimulus
+* 2015-02-17 Wednesday
+
+  |                      | Increase Target Behavior  | Decrease Target Behavior |
+  |----------------------+---------------------------+--------------------------|
+  | Apply a Consequence  | A. Positive Reinforcement | C. Punishment.           |
+  | Remove a Consequence | B. Negative Reinforcement | D. Time Out              |
+
+  Schedules:
+  - Continuous
+  - Intermittent
+* 2015-02-22 Monday
+
+  Sensory memory.
+
+  Iconic storage
+  - visual
+  - duration of .5 - 2 seconds.
+  - flip-o-rama
+
+  Echoic storage
+  - auditory
+  - duration of 3-4 seconds
+
+  Information Processing Model
+  - Stimuli first go to sensory registers.  If we do nothing with it, the
+    information is lost.
+  - If we decide to do something with it, it goes into our short-term memory
+    (STM).
+    - From STM, if you continue to rehearse it, you can maintain it in short
+      term memory.  *maintenance rehearsal*
+  - Long Term Memory (LTM)
+    - You can retrieve items from LTM into STM
+
+  Short Term Memory (STM)
+  - Holds the information to which we are consciously attending.
+  - Short term memory task
+
+  XNBCPHDSATCBSX
+
+  Chunking
+  - group information into large chunks.  For example, in the above string of
+    letters:
+  - X NBC PHD SAT CBS X
+  - Only 5 pieces of information
+  - Facilitates moving into LTM by relating to information you already know.
+
+  Short-term memory and long-term memory are not the same as recent and remote.
+
+  Organizing information in Long-Term Memory
+  - Parallel Distributed Processing (PDP) Model
+    - Represent information/details as nodes in a graph.
+  - Spreading activation theory.
+
+  Types of long-term memory
+  - Explicit (conscious)
+    - Processed in hippocampus
+    - Facts - general knowledge (semantic)
+    - Personal experience (episodic)
+    - "Declarative"
+  - Implicit (unconscious)
+    - Processed in cerebellum
+    - Skills - motor and cognitive.
+    - Condition effects.
+    - Procedural.
+
+  Loss of info from LTM
+  - Decay theory - "it just fades"
+  - Interference theory - "something is blocking you from being able to recall."
+    - "It's on the tip of my tongue!"
+  - Motivated forgetting - "we'll get to this later"
+
+  3.141592653897942384
