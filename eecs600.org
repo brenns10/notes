@@ -2,6 +2,107 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-02-23 Tuesday
+
+  *Content Delivery Networks: Protection or Threat?*
+
+  CDNs claim to provide protection against "flash crowds" as well as against
+  application-level DDoS attacks.  We will see that their claims are a bit
+  overblown, and that CDNs can in fact be brought down by DDoS attacks.
+
+  CDN Background
+  - Main site (example.com) delegates one or more domain to the CDN via DNS
+    CNAME.
+  - CDN has distributed network of edge servers, and clients are directed to an
+    edge server by their DNS.
+  - CDN serves "additional" files such as JS, CSS, images, etc.  Some amount of
+    dynamic content usually must be served by the edge server, but the rest is
+    cached by the CDN.
+
+  Contribution of this paper: an attack that penetrates CDNs, and actually uses
+  them as accomplices in an amplification attack:
+  - Need to be able to scan the CDN platform to discover edge servers.
+  - Need to be able to obtain service from an arbitrary edge server (not just
+    the one the CDN chooses for you).
+  - Need to penetrate the CDN cache, ensuring that the origin server is
+    contacted each time.
+  - Finally, the attack should provide amplification.
+
+  Enumerating edge servers:
+  - Simply perform DNS resolutions all over the world.
+
+  Penetrating the edge server cache:
+  - First idea: HTTP Cache-Control header.  Instruct edge server not to use
+    cache.
+    - Many CDNs do not honor the header.
+  - Solution: add random string after the =?=.  The CDN cache may treat the
+    whole URL path as a key into their cache, including the parameters.  So a
+    random string would cause a cache miss.
+  - To test this hypothesis, run three tests:
+    - Prewarm cache for a particular object by making a request.  Then make many
+      subsequent requests and record throughput.
+    - Make an initial request for the object with a random string.  Record
+      throughput.
+    - Make a subsequent request for the object with the same random string.
+      Record throughput.
+    - Hypothesis: first and second tests would have different means (t-test), as
+      well as second and third.  First and third would have the same mean.
+    - Hypothesis was confirmed.
+  - This avenue for attack can be used against both the CDN as well as the
+    origin site:
+    - Repeated requests with random strings could pollute cache, eventually
+      evicting valid resources and degrading performance.  It is possible for
+      the CDN to mitigate this attack (using hashes, bloom filters, etc), but
+      intuition says that they might not right now.
+    - Repeated requests against the same origin can be used to take down origin
+      site.
+
+  Amplification!
+  - There are many ways to reduce your own bandwidth consumed during this
+    attack:
+    - Advertise small receive window to throttle connection to CDN.
+    - Or, just cut (RST) connection once you start receiving data from the CDN
+      (ensuring that they are now consuming origin's bandwidth).
+    - Do both, (advertising 256 byte window), and you can ensure that you are
+      using very minimal bandwidth from your own computer.
+    - Meanwhile, if you can confirm that the requested object is present in the
+      cache, you can confirm that the edge server has downloaded the object in
+      full from the origin, consuming much more bandwidth.  We can use the same
+      test as above (based on throughput) to confirm that the object does in
+      fact get cached.
+
+  So, full attack description:
+  1. Get the list of IP addresses of the edge servers.
+  2. Determine a good-sized object on the victim site.
+  3. Attacker sends requests with random strings appended to each of the edge
+     servers.
+  4. Attacker also sets receive window to 256 bytes, and resets connections
+     after receiving the first data segment.
+
+  In order to test this, the researcher also hosts the victim server, and can
+  monitor the web server for its quality of service.
+
+  Used Coral CDN, which is a research CDN that can be used for this purpose.
+  Two attacks: sustained and burst.  Burst tripped rate limiting of CDN, but
+  sustained attack was not rate limited.
+
+  The sustained attack achieved 71x decrease in responsiveness from the server.
+  The burst attack achieved 3 orders of magnitude (1000x) decrease for a shorter
+  period of time.  The amplification was an order of magnitude.
+
+  Response from Akamai:
+  - They provide an API to give URL patterns that should be cached.  So, a
+    website could instruct Akamai not to forward requests with additional GET
+    parameters on URLs which are not expected to have GET parameters.
+
+* 2016-02-16 Tuesday
+
+  *DDoS Defense by Offense*
+
+* 2016-02-18 Thursday
+
+  *Thinning Akamai*
+
 * 2016-02-11 Thursday
 
   *Web Timeouts and Their Implications*
@@ -662,6 +763,3 @@
     Sadly, with asymmetric keys, it's difficult to be certain that a key belongs
     to somebody (and isn't being spoofed).  So you need to get keys certified by
     a trusted third party.
-* 2016-01-16 Tuesday
-
-  *DDoS Defense by Offense*
