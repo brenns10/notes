@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-02-23 Tue 16:13 -->
+<!-- 2016-03-01 Tue 16:17 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 600 (Internet Security) Notes</title>
@@ -176,40 +176,42 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 2016-02-23 Tuesday</a></li>
-<li><a href="#orgheadline2">2. 2016-02-16 Tuesday</a></li>
-<li><a href="#orgheadline3">3. 2016-02-18 Thursday</a></li>
-<li><a href="#orgheadline4">4. 2016-02-11 Thursday</a></li>
-<li><a href="#orgheadline5">5. 2016-02-09 Tuesday</a></li>
-<li><a href="#orgheadline6">6. 2016-01-28 Thursday</a></li>
-<li><a href="#orgheadline9">7. 2016-01-26 Tuesday</a>
+<li><a href="#orgheadline1">1. 2016-03-01 Tuesday</a></li>
+<li><a href="#orgheadline2">2. 2016-02-25 Thursday</a></li>
+<li><a href="#orgheadline3">3. 2016-02-23 Tuesday</a></li>
+<li><a href="#orgheadline4">4. 2016-02-16 Tuesday</a></li>
+<li><a href="#orgheadline5">5. 2016-02-18 Thursday</a></li>
+<li><a href="#orgheadline6">6. 2016-02-11 Thursday</a></li>
+<li><a href="#orgheadline7">7. 2016-02-09 Tuesday</a></li>
+<li><a href="#orgheadline8">8. 2016-01-28 Thursday</a></li>
+<li><a href="#orgheadline11">9. 2016-01-26 Tuesday</a>
 <ul>
-<li><a href="#orgheadline7">7.1. Virtual Private Networks</a></li>
-<li><a href="#orgheadline8">7.2. Firewalls</a></li>
+<li><a href="#orgheadline9">9.1. Virtual Private Networks</a></li>
+<li><a href="#orgheadline10">9.2. Firewalls</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline10">8. 2016-01-21 Thursday</a></li>
-<li><a href="#orgheadline13">9. 2016-01-19 Tuesday</a>
+<li><a href="#orgheadline12">10. 2016-01-21 Thursday</a></li>
+<li><a href="#orgheadline15">11. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline11">9.1. DNSSEC</a></li>
-<li><a href="#orgheadline12">9.2. X.509 Overview</a></li>
+<li><a href="#orgheadline13">11.1. DNSSEC</a></li>
+<li><a href="#orgheadline14">11.2. X.509 Overview</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline17">10. 2016-01-14 Thursday</a>
+<li><a href="#orgheadline19">12. 2016-01-14 Thursday</a>
 <ul>
-<li><a href="#orgheadline14">10.1. Encryption: Message Authentication Problem</a></li>
-<li><a href="#orgheadline15">10.2. HTTPS</a></li>
-<li><a href="#orgheadline16">10.3. DNS</a></li>
+<li><a href="#orgheadline16">12.1. Encryption: Message Authentication Problem</a></li>
+<li><a href="#orgheadline17">12.2. HTTPS</a></li>
+<li><a href="#orgheadline18">12.3. DNS</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline23">11. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline25">13. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline18">11.1. Logistics</a></li>
-<li><a href="#orgheadline22">11.2. Encryption and Authentication</a>
+<li><a href="#orgheadline20">13.1. Logistics</a></li>
+<li><a href="#orgheadline24">13.2. Encryption and Authentication</a>
 <ul>
-<li><a href="#orgheadline19">11.2.1. Symmetric encryption:</a></li>
-<li><a href="#orgheadline20">11.2.2. Asymmetric encryption</a></li>
-<li><a href="#orgheadline21">11.2.3. Uses of Encryption</a></li>
+<li><a href="#orgheadline21">13.2.1. Symmetric encryption:</a></li>
+<li><a href="#orgheadline22">13.2.2. Asymmetric encryption</a></li>
+<li><a href="#orgheadline23">13.2.3. Uses of Encryption</a></li>
 </ul>
 </li>
 </ul>
@@ -219,8 +221,300 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-02-23 Tuesday</h2>
+<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-03-01 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+<b>Spam, Continued</b>
+</p>
+
+<p>
+Forging email from addresses.
+</p>
+<ul class="org-ul">
+<li>You can forge a from address in the SMTP <code>MAIL FROM</code> command.  This is used
+by each SMTP server along the delivery path.  Each of the servers can use
+this <code>MAIL FROM</code> command to bounce messages when necessary.  This address is
+saved in the <code>Return-Path</code> header, so that mail servers can send bounced
+messages back to the "correct" sender.</li>
+<li>You can also forge a from address by putting it in the <code>From</code> header.  This
+is usually what's presented to the user, and this can deceive users.</li>
+</ul>
+
+<p>
+Reflection attacks using forgery:
+</p>
+<ol class="org-ol">
+<li>Send a message spoofing the <code>MAIL FROM</code> to an invalid address.</li>
+<li>The destination mail server will "bounce" the message back to the return
+path.</li>
+<li>It will send a bounce message to the spoofed address.</li>
+</ol>
+
+<p>
+This technique can be used to deliver spam, and also pollute the storage of
+mail servers.
+</p>
+
+<p>
+There are techniques to validate both the <code>MAIL FROM</code> command and the <code>From</code>
+header.
+</p>
+
+<p>
+Sender Policy Framework (SPF)
+</p>
+<ul class="org-ul">
+<li>This technique protects the <code>MAIL FROM</code> command.</li>
+<li>When a SMTP client says <code>MAIL FROM: person@example.com</code>, the server verifies
+the client IP address is allowed to send mail from <code>example.com</code>.</li>
+<li>To do this, there is a SPF DNS record that will contain IP addresses of
+outbound MTAs for a domain.</li>
+<li>Problem: what about using relays?  Say, there's a MTA in between sender MTA
+and recipient MTA?  In that case, the relay MTA will not pass SPF.
+<ul class="org-ul">
+<li>Well, the relay can construct a new email address at their domain, and
+then deploy SPF on their domain.  This is called envelope rewrite.</li>
+<li>However, this means that the recipient MTA will have to trust that the
+relay MTA has done their due diligence for checking SPF.  They cannot
+verify the origin MTA's SPF.</li>
+</ul></li>
+<li>Other limitations:
+<ul class="org-ul">
+<li>Doesn't prevent forgery of "From:" header.</li>
+<li>Doesn't prevent forgery of addresses within the origin domain.</li>
+<li>Single broken (non SPF verifying) relay defeats the whole scheme.</li>
+</ul></li>
+</ul>
+
+<p>
+Domain Keys (Aka DKIM)
+</p>
+<ul class="org-ul">
+<li>This technique protects the <code>From</code> header.</li>
+<li>Sender publishes their DKIM key using DNS.</li>
+<li>Sender adds a <code>DKIM-Signature</code> header, which gives a signature of the
+message.
+<ul class="org-ul">
+<li>Includes the signature algorithm, as well as a list of headers (in order)
+that should be prepended to the message before verifying the signature.</li>
+</ul></li>
+<li>Limitations (mirroring SPF's limitations):
+<ul class="org-ul">
+<li>Doesn't check SMTP commands: return-path, or recipients.  So even though
+the <code>To</code> header is included in the signature, the <code>RCPT TO</code> command is not
+verified.</li>
+<li>This means that if a spammer succeeds in getting a single message signed,
+they can send it out to tons of recipients, and it'll appear valid.</li>
+</ul></li>
+</ul>
+
+<p>
+Other Techniques
+</p>
+<ul class="org-ul">
+<li>Detect spam based on campaigns - when the same message is sent many times.
+<ul class="org-ul">
+<li>Server can store hashes of messages and note when multiple recipients get
+the same message.</li>
+<li>Server can also do P2P messages to other MTAs to verify whether other
+recipients at those servers have received a message with the same hash.</li>
+</ul></li>
+<li>Phishing Detection
+<ul class="org-ul">
+<li>Fetch referenced page.</li>
+<li>Extract 5 representative terms out of the page (TF-IDF).</li>
+<li>Google search them, and compare the hostname of the link to the top 30
+Google results.</li>
+</ul></li>
+</ul>
+
+<p>
+<b>Web Spam</b>
+</p>
+<ul class="org-ul">
+<li>Goal: attract a viewer through search.</li>
+<li>Grey area: search engine optimizers.</li>
+<li>Two attacks: boost your search result, or hide other search result.</li>
+</ul>
+
+<p>
+Boosting:
+</p>
+<ul class="org-ul">
+<li>Term spamming
+<ul class="org-ul">
+<li>Putting terms into text fields and headers of the page.</li>
+<li>Put it into the URL.</li>
+<li>Put it into links pointing at the page.</li>
+<li>Put lots of terms in the page, to make it relevant to many queries.</li>
+<li>Or, repeat a term many times to make your page rank higher for that term.</li>
+</ul></li>
+<li>Link spamming
+<ul class="org-ul">
+<li>Publish lots of blog entries that link to your URL.</li>
+<li>Create websites and pages that link to you.  There is a market for selling
+links from your pages to other people's pages, in return for getting
+people to link to your page.</li>
+<li>Honeypot: put a useful resource online, and include hidden links to spam
+pages.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-02-25 Thursday</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+We're finished with Denial of Service Attacks.  Now, we're going to talk about
+spam.
+</p>
+
+<p>
+<b>Spam, Ham, Scam</b>
+</p>
+
+<p>
+In particular, today we'll talk about email spam.
+</p>
+<ul class="org-ul">
+<li>Spam = unwanted mail, containing ads, phishing, or anything else that will
+get you to click and get infected.</li>
+<li>It has a low uptake rate - about 1%.  Spammers don't seem to mind, they just
+increase volume.</li>
+<li>Techniques for blacklisting:
+<ul class="org-ul">
+<li>Blacklist email addresses.
+<ul class="org-ul">
+<li>Can be spoofed</li>
+</ul></li>
+<li>By IP address of sending machine
+<ul class="org-ul">
+<li>difficult to spoof</li>
+<li>Can be circumvented with botnets, etc</li>
+</ul></li>
+<li>Block website
+<ul class="org-ul">
+<li>Can be circumvented by fast-flux networks.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>
+Spam Protection
+</p>
+<ul class="org-ul">
+<li>Content filtering</li>
+<li>Message filtering
+<ul class="org-ul">
+<li>That is, filtering base on non-content features.</li>
+<li>For instance, distance between sender and recipient.</li>
+<li>Non-content features are harder for attackers to spoof.</li>
+</ul></li>
+<li>Transfer-time games
+<ul class="org-ul">
+<li>Receiver may increase download time for message.</li>
+<li>For normal senders, this isn't a big deal.</li>
+<li>For spammers, time is money.</li>
+</ul></li>
+<li>Monetary approaches
+<ul class="org-ul">
+<li>Make the sender pay to send.</li>
+<li>Make the sender post a bond that is forfeited if the recipient claims
+spam.</li>
+</ul></li>
+<li>Originator blacklisting</li>
+</ul>
+
+<p>
+Content &amp; Message Filtering
+</p>
+<ul class="org-ul">
+<li>Run software on your receiving SMTP server.  Extracts features and
+classifies as messages come in.</li>
+<li>Content-based features:
+<ul class="org-ul">
+<li>HTML w/ lots of hyperlinks</li>
+<li>Lots of heavy formatting, red text, big fonts, etc</li>
+<li>Exclamation marks</li>
+<li>Lots of misspelling</li>
+<li>Specific keywords</li>
+</ul></li>
+<li>Transport-based features.
+<ul class="org-ul">
+<li>Path latency, bandwidth
+<ul class="org-ul">
+<li>Latency correlates with distance, bandwidth correlates with location
+(home vs server)</li>
+</ul></li>
+<li>Inter-packet arrival jitter</li>
+<li>Times that a zero-window was advertised (interesting&#x2026;)</li>
+</ul></li>
+<li>Network-based
+<ul class="org-ul">
+<li>Dynamic originator address</li>
+<li>Source AS number</li>
+<li>Distance of source from recipient</li>
+<li>Residual TTL in IP header.</li>
+</ul></li>
+<li>Per-message features</li>
+<li>Aggregate features
+<ul class="org-ul">
+<li>Per-sender: sender age, sending patterns</li>
+<li>Across senders: common content</li>
+<li>Cross recipients: cooperative filtering</li>
+</ul></li>
+</ul>
+
+<p>
+Spam Filter Pro/Con
+</p>
+<ul class="org-ul">
+<li>Pro
+<ul class="org-ul">
+<li>Autonomously applied</li>
+<li>Effective</li>
+<li>Killer app for machine learning (naive bayes woo!)</li>
+</ul></li>
+<li>Con
+<ul class="org-ul">
+<li>Constant arms race</li>
+<li>False negatives - Lets some spam through (encourages more spam)</li>
+<li>False positives - block legitimate mail (change email usage)</li>
+</ul></li>
+</ul>
+
+<p>
+Blacklisting
+</p>
+<ul class="org-ul">
+<li>As discussed above, based on email, IP, etc.</li>
+<li>Open-relay SMTP servers are very prized by spammers, very heavily
+blacklisted.</li>
+<li>Blacklists can be maintained via DNS:
+<ul class="org-ul">
+<li>Query: A 12-34-56-78.emailblacklist.com?</li>
+<li>Response (OK): 12-34-56-78.emailblacklist.com A 10.0.0.0</li>
+<li>Response (BL): 12-34-56-78.emailblacklist.com A 10.0.0.1</li>
+</ul></li>
+</ul>
+
+<p>
+Address Aliasing
+</p>
+<ul class="org-ul">
+<li>Multiple email addresses, something we commonly do.</li>
+<li>There are actually services that create email addresses with policies
+(number of emails, length of time valid, etc).  These services will enforce
+these policies, forward messages that adhere, and take care of everything
+for you.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> 2016-02-23 Tuesday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 <b>Content Delivery Networks: Protection or Threat?</b>
 </p>
@@ -360,27 +654,27 @@ parameters on URLs which are not expected to have GET parameters.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-02-16 Tuesday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">4</span> 2016-02-16 Tuesday</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 <b>DDoS Defense by Offense</b>
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> 2016-02-18 Thursday</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">5</span> 2016-02-18 Thursday</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 <b>Thinning Akamai</b>
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">4</span> 2016-02-11 Thursday</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">6</span> 2016-02-11 Thursday</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 <b>Web Timeouts and Their Implications</b>
 </p>
@@ -551,9 +845,9 @@ and restrict it.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">5</span> 2016-02-09 Tuesday</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">7</span> 2016-02-09 Tuesday</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 <b>Exit from Hell? Reducing the Impact of Amplification DDoS Attacks</b>
 </p>
@@ -564,9 +858,9 @@ Read dat paper yo.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">6</span> 2016-01-28 Thursday</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">8</span> 2016-01-28 Thursday</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 Last time - firewall.  Distinguishing feature: interposed in your path to the
 network.
@@ -754,9 +1048,9 @@ Summary:
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9"><span class="section-number-2">7</span> 2016-01-26 Tuesday</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">9</span> 2016-01-26 Tuesday</h2>
+<div class="outline-text-2" id="text-9">
 <p>
 Today: IPSec, Firewalls.  Next time: Intrusion Detection Systems.  Next
 Tuesday: my paper discussion.  Also, be thinking about project ideas (Thu-Tue
@@ -764,9 +1058,9 @@ after my presentation).
 </p>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">7.1</span> Virtual Private Networks</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">9.1</span> Virtual Private Networks</h3>
+<div class="outline-text-3" id="text-9-1">
 <ul class="org-ul">
 <li>Institution would like to have completely separate, private network for
 security.</li>
@@ -845,9 +1139,9 @@ Key Exchange??  IKE = Internet Key Exchange
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8"><span class="section-number-3">7.2</span> Firewalls</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">9.2</span> Firewalls</h3>
+<div class="outline-text-3" id="text-9-2">
 <p>
 Firewall: Isolates organization's internal network from larger Internet,
 allowing some packets to pass, blocking others.
@@ -900,9 +1194,9 @@ Application Gateways
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10"><span class="section-number-2">8</span> 2016-01-21 Thursday</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">10</span> 2016-01-21 Thursday</h2>
+<div class="outline-text-2" id="text-10">
 <p>
 Points from "SSL Landscape - A Thorough Analysis of the X.509 PKI Using Active
 and Passive Measurements".
@@ -919,9 +1213,9 @@ Read the paper.  The points were from there.
 </div>
 </div>
 
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13"><span class="section-number-2">9</span> 2016-01-19 Tuesday</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">11</span> 2016-01-19 Tuesday</h2>
+<div class="outline-text-2" id="text-11">
 <p>
 <b>Defense for DNS</b>
 </p>
@@ -936,9 +1230,9 @@ resolvers even when they're closed.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">9.1</span> DNSSEC</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">11.1</span> DNSSEC</h3>
+<div class="outline-text-3" id="text-11-1">
 <p>
 <b>Goals</b>
 </p>
@@ -1022,9 +1316,9 @@ amplification for reflection attacks.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12"><span class="section-number-3">9.2</span> X.509 Overview</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">11.2</span> X.509 Overview</h3>
+<div class="outline-text-3" id="text-11-2">
 <p>
 Correction of TLS handshake:
 </p>
@@ -1069,12 +1363,12 @@ validate at all, they can connect to fraudulent sites.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline17" class="outline-2">
-<h2 id="orgheadline17"><span class="section-number-2">10</span> 2016-01-14 Thursday</h2>
-<div class="outline-text-2" id="text-10">
-</div><div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14"><span class="section-number-3">10.1</span> Encryption: Message Authentication Problem</h3>
-<div class="outline-text-3" id="text-10-1">
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">12</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-12">
+</div><div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">12.1</span> Encryption: Message Authentication Problem</h3>
+<div class="outline-text-3" id="text-12-1">
 <p>
 As we saw last time, if I want to send an encrypted message to Misha, I can
 probably easily find a private key associated with him.  However, I have no
@@ -1102,9 +1396,9 @@ longer be trusted.
 </div>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15"><span class="section-number-3">10.2</span> HTTPS</h3>
-<div class="outline-text-3" id="text-10-2">
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">12.2</span> HTTPS</h3>
+<div class="outline-text-3" id="text-12-2">
 <p>
 HTTP:
 </p>
@@ -1143,9 +1437,9 @@ initial negotiation</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16"><span class="section-number-3">10.3</span> DNS</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">12.3</span> DNS</h3>
+<div class="outline-text-3" id="text-12-3">
 <p>
 Negative Response Rewriting
 </p>
@@ -1210,12 +1504,12 @@ million), but still isn't great.
 </div>
 </div>
 
-<div id="outline-container-orgheadline23" class="outline-2">
-<h2 id="orgheadline23"><span class="section-number-2">11</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-11">
-</div><div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18"><span class="section-number-3">11.1</span> Logistics</h3>
-<div class="outline-text-3" id="text-11-1">
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">13</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-13">
+</div><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">13.1</span> Logistics</h3>
+<div class="outline-text-3" id="text-13-1">
 <p>
 Goals:
 </p>
@@ -1341,9 +1635,9 @@ lines with "eecs600".
 </div>
 </div>
 
-<div id="outline-container-orgheadline22" class="outline-3">
-<h3 id="orgheadline22"><span class="section-number-3">11.2</span> Encryption and Authentication</h3>
-<div class="outline-text-3" id="text-11-2">
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">13.2</span> Encryption and Authentication</h3>
+<div class="outline-text-3" id="text-13-2">
 <p>
 This content will be a brief overview of the basics.  Just enough for our
 subsequent discussions on security.
@@ -1354,9 +1648,9 @@ Two varieties of encryption: symmetric and asymmetric
 </p>
 </div>
 
-<div id="outline-container-orgheadline19" class="outline-4">
-<h4 id="orgheadline19"><span class="section-number-4">11.2.1</span> Symmetric encryption:</h4>
-<div class="outline-text-4" id="text-11-2-1">
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">13.2.1</span> Symmetric encryption:</h4>
+<div class="outline-text-4" id="text-13-2-1">
 <ul class="org-ul">
 <li>Two parties share a secret.</li>
 <li>Encryption/decryption algorithms scramble/unscramble plaintext using the
@@ -1386,9 +1680,9 @@ Invented in 1976!!
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-4">
-<h4 id="orgheadline20"><span class="section-number-4">11.2.2</span> Asymmetric encryption</h4>
-<div class="outline-text-4" id="text-11-2-2">
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">13.2.2</span> Asymmetric encryption</h4>
+<div class="outline-text-4" id="text-13-2-2">
 <ul class="org-ul">
 <li>Pair of keys, (S,P).  You encrypt with one and decrypt with the other.</li>
 <li>With asymmetric encryption, the key exchange is very similar.  We make one
@@ -1414,9 +1708,9 @@ Two types of asymmetric key types:
 </div>
 </div>
 
-<div id="outline-container-orgheadline21" class="outline-4">
-<h4 id="orgheadline21"><span class="section-number-4">11.2.3</span> Uses of Encryption</h4>
-<div class="outline-text-4" id="text-11-2-3">
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">13.2.3</span> Uses of Encryption</h4>
+<div class="outline-text-4" id="text-13-2-3">
 <ul class="org-ul">
 <li>Message Encryption - make it so that only owners of a key can read it.</li>
 <li>Message Signature
@@ -1466,7 +1760,7 @@ a trusted third party.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-02-23 Tue 16:13</p>
+<p class="date">Created: 2016-03-01 Tue 16:17</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
