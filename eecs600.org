@@ -2,6 +2,95 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-02-25 Thursday
+
+  We're finished with Denial of Service Attacks.  Now, we're going to talk about
+  spam.
+
+  *Spam, Ham, Scam*
+
+  In particular, today we'll talk about email spam.
+  - Spam = unwanted mail, containing ads, phishing, or anything else that will
+    get you to click and get infected.
+  - It has a low uptake rate - about 1%.  Spammers don't seem to mind, they just
+    increase volume.
+  - Techniques for blacklisting:
+    - Blacklist email addresses.
+      - Can be spoofed
+    - By IP address of sending machine
+      - difficult to spoof
+      - Can be circumvented with botnets, etc
+    - Block website
+      - Can be circumvented by fast-flux networks.
+
+  Spam Protection
+  - Content filtering
+  - Message filtering
+    - That is, filtering base on non-content features.
+    - For instance, distance between sender and recipient.
+    - Non-content features are harder for attackers to spoof.
+  - Transfer-time games
+    - Receiver may increase download time for message.
+    - For normal senders, this isn't a big deal.
+    - For spammers, time is money.
+  - Monetary approaches
+    - Make the sender pay to send.
+    - Make the sender post a bond that is forfeited if the recipient claims
+      spam.
+  - Originator blacklisting
+
+  Content & Message Filtering
+  - Run software on your receiving SMTP server.  Extracts features and
+    classifies as messages come in.
+  - Content-based features:
+    - HTML w/ lots of hyperlinks
+    - Lots of heavy formatting, red text, big fonts, etc
+    - Exclamation marks
+    - Lots of misspelling
+    - Specific keywords
+  - Transport-based features.
+    - Path latency, bandwidth
+      - Latency correlates with distance, bandwidth correlates with location
+        (home vs server)
+    - Inter-packet arrival jitter
+    - Times that a zero-window was advertised (interesting...)
+  - Network-based
+    - Dynamic originator address
+    - Source AS number
+    - Distance of source from recipient
+    - Residual TTL in IP header.
+  - Per-message features
+  - Aggregate features
+    - Per-sender: sender age, sending patterns
+    - Across senders: common content
+    - Cross recipients: cooperative filtering
+
+  Spam Filter Pro/Con
+  - Pro
+    - Autonomously applied
+    - Effective
+    - Killer app for machine learning (naive bayes woo!)
+  - Con
+    - Constant arms race
+    - False negatives - Lets some spam through (encourages more spam)
+    - False positives - block legitimate mail (change email usage)
+
+  Blacklisting
+  - As discussed above, based on email, IP, etc.
+  - Open-relay SMTP servers are very prized by spammers, very heavily
+    blacklisted.
+  - Blacklists can be maintained via DNS:
+    - Query: A 12-34-56-78.emailblacklist.com?
+    - Response (OK): 12-34-56-78.emailblacklist.com A 10.0.0.0
+    - Response (BL): 12-34-56-78.emailblacklist.com A 10.0.0.1
+
+  Address Aliasing
+  - Multiple email addresses, something we commonly do.
+  - There are actually services that create email addresses with policies
+    (number of emails, length of time valid, etc).  These services will enforce
+    these policies, forward messages that adhere, and take care of everything
+    for you.
+
 * 2016-02-23 Tuesday
 
   *Content Delivery Networks: Protection or Threat?*
