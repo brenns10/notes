@@ -345,3 +345,43 @@
   - Motivated forgetting - "we'll get to this later"
 
   3.141592653897942384
+* 2015-02-26 Friday
+
+  We had a quiz yo.
+
+* 2015-02-29 Monday
+
+  Happy leap day!
+
+  Yesterday:
+  - Listen to Tumblin' Dice (Rolling Stones) and try to write down lyrics.
+  - Then, listen again with the lyrics on the screen.
+  - You can actually understand the words you're hearing when you can also see
+    them on the screen.
+  - This is due to top-down processing, where your brain uses information you
+    already know in processing sensory inputs.
+
+  Top-Down Processing vs Bottom-Up Processing
+
+  - FINEK -> KNIFE
+  - OPONS -> SPOON
+  - KROF -> FORK
+  - UPC -> CUP
+  - ECUSAR -> SAUCER
+  - LTEPA -> PLATE
+
+  Once you figure out the theme, the anagrams become much easier to solve.
+
+  Problem Solving Strategies
+  - Algorithms (systematic approach).
+  - Heuristics (cognitive shortcuts)
+
+  Heuristic approaches reduce the number of candidates you consider, leading you
+  to be less "open-minded".
+
+  Impediments to problem-solving
+  - mental sets
+  - irrelevant information
+  - functional fixedness
+  - confirmation bias
+
