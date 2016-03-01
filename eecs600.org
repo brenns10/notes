@@ -2,6 +2,95 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-03-01 Tuesday
+
+  *Spam, Continued*
+
+  Forging email from addresses.
+  - You can forge a from address in the SMTP =MAIL FROM= command.  This is used
+    by each SMTP server along the delivery path.  Each of the servers can use
+    this =MAIL FROM= command to bounce messages when necessary.  This address is
+    saved in the =Return-Path= header, so that mail servers can send bounced
+    messages back to the "correct" sender.
+  - You can also forge a from address by putting it in the =From= header.  This
+    is usually what's presented to the user, and this can deceive users.
+
+  Reflection attacks using forgery:
+  1. Send a message spoofing the =MAIL FROM= to an invalid address.
+  2. The destination mail server will "bounce" the message back to the return
+     path.
+  3. It will send a bounce message to the spoofed address.
+
+  This technique can be used to deliver spam, and also pollute the storage of
+  mail servers.
+
+  There are techniques to validate both the =MAIL FROM= command and the =From=
+  header.
+
+  Sender Policy Framework (SPF)
+  - This technique protects the =MAIL FROM= command.
+  - When a SMTP client says =MAIL FROM: person@example.com=, the server verifies
+    the client IP address is allowed to send mail from =example.com=.
+  - To do this, there is a SPF DNS record that will contain IP addresses of
+    outbound MTAs for a domain.
+  - Problem: what about using relays?  Say, there's a MTA in between sender MTA
+    and recipient MTA?  In that case, the relay MTA will not pass SPF.
+    - Well, the relay can construct a new email address at their domain, and
+      then deploy SPF on their domain.  This is called envelope rewrite.
+    - However, this means that the recipient MTA will have to trust that the
+      relay MTA has done their due diligence for checking SPF.  They cannot
+      verify the origin MTA's SPF.
+  - Other limitations:
+    - Doesn't prevent forgery of "From:" header.
+    - Doesn't prevent forgery of addresses within the origin domain.
+    - Single broken (non SPF verifying) relay defeats the whole scheme.
+
+  Domain Keys (Aka DKIM)
+  - This technique protects the =From= header.
+  - Sender publishes their DKIM key using DNS.
+  - Sender adds a =DKIM-Signature= header, which gives a signature of the
+    message.
+    - Includes the signature algorithm, as well as a list of headers (in order)
+      that should be prepended to the message before verifying the signature.
+  - Limitations (mirroring SPF's limitations):
+    - Doesn't check SMTP commands: return-path, or recipients.  So even though
+      the =To= header is included in the signature, the =RCPT TO= command is not
+      verified.
+    - This means that if a spammer succeeds in getting a single message signed,
+      they can send it out to tons of recipients, and it'll appear valid.
+
+  Other Techniques
+  - Detect spam based on campaigns - when the same message is sent many times.
+    - Server can store hashes of messages and note when multiple recipients get
+      the same message.
+    - Server can also do P2P messages to other MTAs to verify whether other
+      recipients at those servers have received a message with the same hash.
+  - Phishing Detection
+    - Fetch referenced page.
+    - Extract 5 representative terms out of the page (TF-IDF).
+    - Google search them, and compare the hostname of the link to the top 30
+      Google results.
+
+  *Web Spam*
+  - Goal: attract a viewer through search.
+  - Grey area: search engine optimizers.
+  - Two attacks: boost your search result, or hide other search result.
+
+  Boosting:
+  - Term spamming
+    - Putting terms into text fields and headers of the page.
+    - Put it into the URL.
+    - Put it into links pointing at the page.
+    - Put lots of terms in the page, to make it relevant to many queries.
+    - Or, repeat a term many times to make your page rank higher for that term.
+  - Link spamming
+    - Publish lots of blog entries that link to your URL.
+    - Create websites and pages that link to you.  There is a market for selling
+      links from your pages to other people's pages, in return for getting
+      people to link to your page.
+    - Honeypot: put a useful resource online, and include hidden links to spam
+      pages.
+
 * 2016-02-25 Thursday
 
   We're finished with Denial of Service Attacks.  Now, we're going to talk about
