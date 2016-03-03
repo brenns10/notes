@@ -2,6 +2,87 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-03-03 Thursday
+
+  *Web Scams Continued*
+
+  Hiding Content
+  - Can conditionally serve different content by using the user-agent field.
+  - Hide content from user by making their spammed terms/text invisible.
+  - Hide content from search engine by:
+    - Redirecting - using a =refresh= meta tag.
+    - Redirecting - using a script
+    - Or, probably just dynamically loading content using JS frameworks :/
+
+  Fast-Flux Service Network (FFSN)
+  - Hiding web servers (this is especially relevant for phishing)
+  - Use botnets as CDNs
+  - Almost 30% of all domains advertised in spam are FFSN.
+
+  *Privacy, Anonymity, Tor*
+
+  Internet is a public network.  Spoofing is pretty easy to do through a variety
+  of ways.  The routing information necessary for the internet is public.  Even
+  encryption doesn't help that much, because it encrypts the payload of your
+  communication, but not the source/destination.  And the source/destination of
+  your traffic is pretty revealing already.
+
+  Anonymity = the people who are communicating cannot be identified.  This is
+  different from confidentiality, where the content of your communication is
+  secret.
+
+  Onion Routing
+  - Sender chooses a sequence of routers
+  - Some of these routers may not be trusted, but that's okay
+  - The sender encrypts the routing information in a layer-wise fashion, such
+    that each router only knows the next router, and a piece of encrypted
+    information to send to the next one.
+  - You always need at least three intermediaries.
+  - Also, a proper router should wait until it has a few messages to send at the
+    same time, so that an observer can't just look at its traffic and determine
+    the path for a person's message.
+  - Both of the above considerations incur heavy latency.
+
+  Tor
+  - An implementation of onion routing, focusing on anonymous communication.
+  - Not steganographic - it's easy to know that a client is using Tor.
+  - Also, not difficult for a censor to identify all Tor nodes and block them.
+    - Either by enumerating nodes from directory.
+    - Or by simply probing IP addresses to see who runs Tor.
+  - Tor is an overlay network, and communication between nodes happens with
+    TLS on TCP.
+
+  To create a Tor virtual circuit:
+  - Talk to entry node, do Diffie-Helmann to agree upon a symmetric key.
+  - Then, proxied through the entry node, do Diffie-Helmann with your next
+    selected node to agree upon another symmetric key.
+  - Continue doing this, proxying through your existing VC, adding new nodes to
+    your circuit, until you're happy.
+
+  To send message:
+  - Client builds circuit as above.
+  - Client then encrypts the message with each symmetric key in reverse path
+    order.  Then sends message through TLS to first node.
+
+  Usage:
+  - Many applications can share a circuit, since making a circuit takes time.
+  - Tor routers don't need root.
+  - You're safe so long as not all of your routers are controlled by the same
+    adversary.
+  - Sybil attack is when an adversary submits a lot of routers to the directory
+    in order to increase the likelihood of controlling all nodes in a path.
+
+  Hidden Services
+  - You want to host a site that nobody can find.
+  - Your service is identified by a public key.
+  - You choose a bunch of introduction points and set up onion routes to each.
+  - Clients up a route to a "rendezvous point" (special piece of software)
+  - Then, client communicates that information to an introduction point
+    (probably also through an onion route), which conveys it to you.
+  - You set up your own onion route to the rendezvous point.
+  - The rendezvous point "splices" the communications together, and you're
+    talking.
+
 * 2016-03-01 Tuesday
 
   *Spam, Continued*
