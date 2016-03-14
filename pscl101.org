@@ -385,3 +385,6 @@
   - functional fixedness
   - confirmation bias
 
+* 2015-03-02 Wednesday
+
+  Confirmation Bias, Yay!
