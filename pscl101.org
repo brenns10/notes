@@ -388,3 +388,52 @@
 * 2015-03-02 Wednesday
 
   Confirmation Bias, Yay!
+* 2015-03-14 Monday
+
+  Spring Break is over :((((
+
+  *Intelligence*
+
+  It's complicated to define intelligence.  Theorists have apparently argued
+  about it for a long time.  Over time, people have recognized that it is
+  multi-faceted.  And apparently these are some of the facets:
+  - Knowledge: we tend to think that people who know a lot are smart.  We
+    recognize that how much you know isn't the only part of intelligence, but
+    frequently knowledge corresponds with interest and intellectual discipline
+    that we respect as parts of Intelligence as well.
+  - Culture: Different cultures respect different mental capabilities.
+  - Problem Solving
+  - Social Intuitions & Skills: good at communicating with people in a way that
+    can get them to agree with their arguments.
+
+  Psychometric Approach
+  - Statistical techniques \to intellectual skills and abilities
+  - IQ = (Mental Age / Chronological Age) \times 100
+  - People execute tasks and get ranked on their mental age (based on statistics
+    of other people's performances).  This is used to get their IQ
+  - Wechsler Intelligence Scales: Full Scale IQ \to Verbal IQ, Performance IQ
+  - So, lots of statistics on people's performance on tests.
+
+  Understanding Intelligence
+  - Psychometric Approach
+  - Information-Processing Approach
+  - Multiple Intelligences
+
+  Information Processing Approach
+  - Knowledge Base
+  - Speed of Processing
+  - Acquisition & Application
+
+  Multiple Intelligences Approach
+  - "Intelligence is a function of multiple systems."
+    - Kind of like how there are different types of IQ scores that contribute to
+      the full-scale IQ.
+  - The idea is that these different "intelligences" or skills frequently go
+    together; that is, somebody who has high verbal skills will tend to score
+    higher in other areas as well.
+  - However, the MI approach also seems to suggest (unlike Psychometric
+    Approach) that these intelligence areas also stand on their own, and aren't
+    necessarily part of a larger general intelligence score.
+
+  Nature vs Nurture Controversy
+  - Heritability of IQ
