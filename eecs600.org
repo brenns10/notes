@@ -2,6 +2,73 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-04-12 Tuesday
+
+New Internet Architectures
+- We've looked at new architectures that prevent DDoS traffic.
+- However, there are plenty of other unwanted types of traffic online.
+- We should try to design architectures that solve as many of these problems as
+  possible.
+
+Desired qualities of a new architecture:
+- Un-spoof-able
+- Destination gets control over what traffic it receives
+- Unwanted traffic is dropped closer to the sender (so that it doesn't consume
+  too many network/destination resources)
+
+Background: Capabilities
+- Capabilities are the basic idea behind the two papers we read on new
+  architectures so far (TVA and Portcullis).
+- Capability = authorization to communicate with a host.
+  - Issued by the recipient.  Specific to the path the traffic takes, and
+    enforced by routers.  Expires quickly.
+- Fundamental flaw: need to request a capability.  By definition, the capability
+  request traffic can't be protected by capabilities, and thus is vulnerable to
+  a denial of capability attack (flooding the capability request channel to
+  starve out legitimate ones).
+  - TVA tries to address this by using fair queueing.
+    - Conference paper just used the incoming link of the router for fair
+      queueing.
+    - Journal paper used hierarchical fair queueing, which uses the path tags to
+      queue requests.
+  - Portcullis tries to address this with proof-of-work traffic.
+
+Evasive Internet (EIP)
+- The only way you can talk to a host is with a capability.
+- Hosts themselves don't handle the capability request, DNS architecture does!
+- DNS servers are hosts as well, so you need capabilities to speak with them
+  too!
+  - You get capabilities to speak with a DNS server from a higher-level DNS
+    server.
+- Roots are left "unprotected" since they are actually quite well provisioned
+  due to multicast routing.
+- In order to talk to a host, you request a capability from DNS.
+- In other words, a capability is identified by a "transient" address.
+- T-Address:
+  - Contains source/destination IP, as well as capabilities.
+  - Bound together by a cryptographic signature from RPKI.
+- A host may issue a T-address, or a host's authoritative DNS server may do it.
+- Communication flow:
+  - Host gets IP address, LDNS, certificate from DHCP server.  Maybe even gets a
+    T-address for the LDNS to ease things.
+  - Host asks LDNS for T-address for a hostname.
+  - LDNS can go to ADNS for permission, or it can have permission delegated to
+    it so that it can sign T-addresses for itself.
+  - There is a source/destination t-addr pair.
+  - The initial packet contains t-address.  Subsequent packets are type 2
+    frames, which only have a 16B flow label.
+- Questions
+  - MTU:
+    - Bandwidth and MTU sizes are reaching the point that it won't be an issue.
+      But right now, with some finagling, everything can fit into 1500 bytes.
+      There is a wasted packet though.
+  - Traffic overhead
+    - Around a max of 6% overhead in traffic.
+  - Computation overhead
+    - Not really answerable without resources to do hardware for this.  Initial
+      results are on server, implemented in software on top of linux +
+      netfilter.
+
 * 2016-03-03 Thursday
 
   *Web Scams Continued*
