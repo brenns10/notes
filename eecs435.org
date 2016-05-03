@@ -3,6 +3,28 @@
 #+AUTHOR: Stephen Brennan
 #+SETUPFILE: config.setup
 
+* 2016-02-02 Tuesday
+
+  Classification
+
+  - Things to consider
+    - Accuracy
+    - Robustness
+    - Interpretability
+    - (among others)
+  - Observations O, want to classify unknown data.
+    - Train and test - partition O into two sets, train on one, test on the
+      others.
+      - Bad for small O
+    - m-fold cross validation - partition into m subsets.  For each subset,
+      train on the other subsets, and test on that subset.  Average together the
+      results of the m classifiers.
+      - Special case - leave-one-out, where m = |O|
+  - Accuracy definition, error rate definition.
+  - Precision: fraction of items you predict positive, which are actually
+    positive.
+  - Recall: fraction of actual positives, which you predict positive
+
 * 2016-01-28 Thursday
 
   OPTICS.
