@@ -437,3 +437,128 @@
 
   Nature vs Nurture Controversy
   - Heritability of IQ
+* 2015-03-17 Friday
+
+  Piaget's Stages of Development
+  - Sensorimotor: birth to two years
+  - Preoperational thought: 2-7 years
+  - Concrete operational stage: 7-12 years
+  - Formal operational thought: begins 12+
+
+* 2015-03-21 Monday
+
+  Quiz today.  Woo.
+
+  *Personality*
+
+  Woo
+
+  Topographical Model:
+  - Conscious, Preconscious, Unconscious
+  - Unconscious mind contains memories, wishes, fears, etc.  We can usually
+    bring things from unconscious mind into conscious.
+  - Freud was particularly interested in things that were in the unconscious
+    mind and stayed there, because our preconscious minds repress them, or
+    something along those lines.
+* 2015-03-28 Monday
+
+  Personality
+
+  - Personality is what predicts your "default" behavior.
+  - Things people observe (your behavior, how you treat people, etc) are
+    observations that can allow someone to predict your personality.
+
+  Personality Types
+  - A/B: Type A = heavily organized and structured, Type B = not so heavily
+    organized or structured.
+  - Introvert/Extrovert: Introvert = somebody who "finds their energy" by being
+    alone, extrovert = somebody who "recharges" by being around people.
+  - Astrology (predictions about your personality based on your birth
+    month/year)
+  - Buzzfeed "personality quizzes".  These are symptomatic of how our culture
+    views personality, as something you can observe and then assign labels to.
+  - Myers-Briggs personality types.
+
+  Critiques of Typologies
+  - Not reliable - frequently they'll give you different answers, or they'll
+    change or time.
+    - Especially if personality is supposed to be stable.
+  - False dichotomies don't allow for variation (e.g. introverts may sometimes
+    be energized by interaction with others)
+
+  Personality Flexibility is Important
+  - Intra-Personally
+    - Introverts need to be able to interact, extroverts need to be able to
+      spend time alone
+    - Inflexible personality is a hallmark of personality disorder
+  - Inter-Personally
+    - Societies need different kinds of people.
+
+  Trait Models
+  - Allow for variation along a spectrum of traits.
+  - These spectra frequently look something like a normal distribution.  Most
+    people are "boring", see 68-95-99.7.
+    - However, although not mentioned in this lecture, I would also say that
+      even though most people are in the average, the Law of Averages says that
+      people are rarely "completely average".  It's pretty darn unlikely to be
+      average in every single trait, so it's pretty normal for people to have a
+      couple defining characteristics, even though overall, they're "normal" or
+      average.
+
+  Where do Trait Models Come From
+  - Lexical hypothesis: all salient and socially relevant personality
+    differences appear in language.
+  - Factor analysis: groups highly correlated items.
+    - 16 primary traits according to Cattell
+    - 5 global traits according to most everyone else.
+  - These are just "trait" adjectives.
+
+  Big Five
+  - Openness to experience: (inventive/curious vs consistent/cautious)
+    - High Openness:
+      - Criteria: Wide interests, original, curious, artistic, imaginitive
+    - Low Openness:
+      - Criteria: Conventional, simple
+  - Conscientiousness
+  - Extroversion/Introversion
+    - High extroversion:
+      - Pros: broad social network, abundant energy, protection vs depression.
+      - Cons: conspicuousness, heavy attention needs, etc.
+  - Agreeableness
+  - Neuroticism vs Emotional Stability
+    - High Neuroticism:
+      - Criteria: depressed, moody, tense, worrisome
+      - Benefits: caution, reactivity to faint danger signals, sensitivity to
+        others' emotions
+      - Costs: stress, anxiety, etc
+    - Low Neuroticism:
+      - Criteria: emotionally stable, calm
+
+  Big 5 Model Mnemonic: OCEAN
+
+  Other personality theory
+  - There's a ton of them.  Welcome to 101 class.
+
+* 2015-04-22 Friday
+
+  I'm going to be honest, I haven't spent much time in this class.
+
+  Final:
+  - We'll get a list of essay questions.  Only one will be used on the final.
+    - On Thursday ish.
+
+  Cognitive Dissonance: when two things in your mind don't "add up", and so you
+  try to come up with reasons to explain away the difference (rationalizing).
+  For instance if you're paid very little for a mind-numbingly boring job, you
+  tend to rationalize it and say that the job was better than it really was.
+* 2015-04-25 Monday
+
+Exam:
+- 85 multiple choice, one 15 point essay.
+- Thursday night or Friday, 4/5 potential essay questions will be posted.  Only
+  one will be chosen for the exam.
+- Only two hours.
+- Study guides on Blackboard.  Social psych, which didn't have a quiz, will be a
+  bit more represented on the exam.  Other than that, cumulative.
+
+Bystander Intervention
