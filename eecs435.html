@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-04-12 Tue 15:33 -->
+<!-- 2016-05-03 Tue 14:17 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 435 Notes</title>
@@ -176,25 +176,26 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. 2016-01-28 Thursday</a></li>
-<li><a href="#orgheadline2">2. 2016-01-26 Tuesday</a></li>
-<li><a href="#orgheadline3">3. 2016-01-21 Thursday</a></li>
-<li><a href="#orgheadline8">4. 2016-01-19 Tuesday</a>
+<li><a href="#orgheadline1">1. 2016-02-02 Tuesday</a></li>
+<li><a href="#orgheadline2">2. 2016-01-28 Thursday</a></li>
+<li><a href="#orgheadline3">3. 2016-01-26 Tuesday</a></li>
+<li><a href="#orgheadline4">4. 2016-01-21 Thursday</a></li>
+<li><a href="#orgheadline9">5. 2016-01-19 Tuesday</a>
 <ul>
-<li><a href="#orgheadline7">4.1. Preprocessing</a>
+<li><a href="#orgheadline8">5.1. Preprocessing</a>
 <ul>
-<li><a href="#orgheadline4">4.1.1. Missing Data</a></li>
-<li><a href="#orgheadline5">4.1.2. Data Integration</a></li>
-<li><a href="#orgheadline6">4.1.3. Data Transformation</a></li>
+<li><a href="#orgheadline5">5.1.1. Missing Data</a></li>
+<li><a href="#orgheadline6">5.1.2. Data Integration</a></li>
+<li><a href="#orgheadline7">5.1.3. Data Transformation</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline9">5. 2016-01-14 Thursday</a></li>
-<li><a href="#orgheadline12">6. 2016-01-12 Tuesday</a>
+<li><a href="#orgheadline10">6. 2016-01-14 Thursday</a></li>
+<li><a href="#orgheadline13">7. 2016-01-12 Tuesday</a>
 <ul>
-<li><a href="#orgheadline10">6.1. Introductory Material</a></li>
-<li><a href="#orgheadline11">6.2. Chapter 5</a></li>
+<li><a href="#orgheadline11">7.1. Introductory Material</a></li>
+<li><a href="#orgheadline12">7.2. Chapter 5</a></li>
 </ul>
 </li>
 </ul>
@@ -202,17 +203,54 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-01-28 Thursday</h2>
+<h2 id="orgheadline1"><span class="section-number-2">1</span> 2016-02-02 Tuesday</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Classification
+</p>
+
+<ul class="org-ul">
+<li>Things to consider
+<ul class="org-ul">
+<li>Accuracy</li>
+<li>Robustness</li>
+<li>Interpretability</li>
+<li>(among others)</li>
+</ul></li>
+<li>Observations O, want to classify unknown data.
+<ul class="org-ul">
+<li>Train and test - partition O into two sets, train on one, test on the
+others.
+<ul class="org-ul">
+<li>Bad for small O</li>
+</ul></li>
+<li>m-fold cross validation - partition into m subsets.  For each subset,
+train on the other subsets, and test on that subset.  Average together the
+results of the m classifiers.
+<ul class="org-ul">
+<li>Special case - leave-one-out, where m = |O|</li>
+</ul></li>
+</ul></li>
+<li>Accuracy definition, error rate definition.</li>
+<li>Precision: fraction of items you predict positive, which are actually
+positive.</li>
+<li>Recall: fraction of actual positives, which you predict positive</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-01-28 Thursday</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 OPTICS.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> 2016-01-26 Tuesday</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> 2016-01-26 Tuesday</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Clustering still.
 </p>
@@ -277,9 +315,9 @@ sum)
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> 2016-01-21 Thursday</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">4</span> 2016-01-21 Thursday</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Clustering
 </p>
@@ -338,9 +376,9 @@ Types of clustering:
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8"><span class="section-number-2">4</span> 2016-01-19 Tuesday</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">5</span> 2016-01-19 Tuesday</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 <b>Constraints + Apriori Algorithm</b>
 </p>
@@ -352,9 +390,9 @@ constraint.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">4.1</span> Preprocessing</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">5.1</span> Preprocessing</h3>
+<div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li>Data mining is based on existing databases</li>
 <li>In the real world, data is dirty:
@@ -395,9 +433,9 @@ resolve inconsistencies.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4"><span class="section-number-4">4.1.1</span> Missing Data</h4>
-<div class="outline-text-4" id="text-4-1-1">
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">5.1.1</span> Missing Data</h4>
+<div class="outline-text-4" id="text-5-1-1">
 <ul class="org-ul">
 <li>Missing data may be due to (not sure why this matters for us):
 <ul class="org-ul">
@@ -486,9 +524,9 @@ form of preprocessing:
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-4">
-<h4 id="orgheadline5"><span class="section-number-4">4.1.2</span> Data Integration</h4>
-<div class="outline-text-4" id="text-4-1-2">
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">5.1.2</span> Data Integration</h4>
+<div class="outline-text-4" id="text-5-1-2">
 <p>
 Want to identify duplicates, can use automated methods for comparing text,
 numbers, etc, for approximate equality.
@@ -501,9 +539,9 @@ each record adds to the database.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-4">
-<h4 id="orgheadline6"><span class="section-number-4">4.1.3</span> Data Transformation</h4>
-<div class="outline-text-4" id="text-4-1-3">
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">5.1.3</span> Data Transformation</h4>
+<div class="outline-text-4" id="text-5-1-3">
 <ul class="org-ul">
 <li>Normalization: makes different records comparable.</li>
 <li>Discretization: make continuous attributes discrete so we can apply
@@ -626,9 +664,9 @@ criteria.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9"><span class="section-number-2">5</span> 2016-01-14 Thursday</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">6</span> 2016-01-14 Thursday</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 <b>Illustration of Closed Patterns, Max-Patterns</b>
 </p>
@@ -729,12 +767,12 @@ supersets of S.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12"><span class="section-number-2">6</span> 2016-01-12 Tuesday</h2>
-<div class="outline-text-2" id="text-6">
-</div><div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10"><span class="section-number-3">6.1</span> Introductory Material</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">7</span> 2016-01-12 Tuesday</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">7.1</span> Introductory Material</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 I was late (and probably will be late frequently due to another class).
 Hopefully I didn't miss too much.
@@ -810,9 +848,9 @@ Other references can be found in the conferences and journals for the fields:
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11"><span class="section-number-3">6.2</span> Chapter 5</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">7.2</span> Chapter 5</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
 <b>Mining Frequent Patterns, Association, and Correlations</b>
 </p>
@@ -872,7 +910,7 @@ super-pattern \(Y \supset X\).
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-04-12 Tue 15:33</p>
+<p class="date">Created: 2016-05-03 Tue 14:17</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
