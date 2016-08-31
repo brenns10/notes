@@ -127,3 +127,138 @@ Integrity constraints:
     chosen for primary key.
   - Specify candidate key in SQL with UNIQUE, primary with PRIMARY
   - Specify that you want an index built with KEY
+
+* 2016-08-31 Wednesday
+
+From last time: integrity constraints:
+- Primary key constraints, uniqueness
+
+** Relational Model
+*** Foreign Key Constraints
+
+*foreign key* - fields in one relation referring to a tuple in another
+relation.  Like a "logical pointer".
+
+Must have /referential integrity/, which means that when a foreign key refers to
+a tuple in another relation, that tuple should exist in the other relation.
+
+How to enforce:
+- Imagine relations "Student" and "Enrolled", where the attribute =sid= of
+  Enrolled is a foreign key referring to Student.
+- On insertion of an Enrolled tuple where =sid= refers to a non-existing
+  Student, /reject/ that insertion.
+- On deletion of a Student where a tuple in Enrolled refers to it:
+  - Reject the deletion until the Enrolled tuple is deleted
+  - "Cascade" the deletion, removing all tuples in other relations (like
+    Enrolled) that refer to it.
+  - Replace all instances of =sid= with NULL in referring tuples.
+
+*** Relational Query Languages
+
+Advantage of relational model is that it can be intuitively queried.
+- Languages can allow extensive reordering of operations so long as the result
+  is semantically the same.
+
+*SQL* woo
+
+Semantics of SQL Query:
+1. FROM clause: compute the cross product of the relations queried
+2. WHERE clause: filter these tuples by a condition
+3. SELECT clause: output only certain attributes of a tuple
+
+*** Summary
+
+- tabular representation
+- relationships between tuples
+- integrity constraints keep data "nice"
+- queried easily thanks to SQL
+
+** Formal Relational Query Languages
+
+There are two query languages which form the theoretical basis of SQL:
+- Relational Algebra (the operational language)
+- Relational Calculus (the semantic language)
+
+*** Relational Algebra
+
+What is an algebra?
+- Mathematical system consisting of
+  - /operands/ - variables or values from which new values can be produced. In
+    relational algebra, operands are relations or variables representing them.
+  - /operators/ - operations that can be performed on operands. In RA, these are
+    the common database operations performed on relations (see below).
+
+Operators:
+- Union, Intersection, Difference
+  - Have their usual meaning, but must relations must have same schema
+- Selection: picking certain rows
+  - R_1 = \sigma_C(R_2) - select tuples from R_2 according to condition C, assign
+    them to R_1.
+- Projection: picking certain columns
+  - R_1 = \pi_L(R_2) - L is a list of attributes from the schema of R_2, here we only
+    include those tuples in R_1.
+  - Extended projection allows L to contain arithmetic on attributes, or some
+    other arbitrary expressions which could even add attributes. EG:
+    \pi_{A+B\to{}C,A,B}(R_1).
+- Products
+  - R_3 = R_1 \times R_2 - pair each tuple of R_1 with each tuple from R_2, schema is
+    combination of attributes (rename to R_{1}.attribute if there are collisions)
+- Theta Joins: (not a *basic*) operator.
+  - operator looks like bowtie, has any condition as a subscript
+  - Simply a product \times followed by a selection \sigma
+- Natural join:
+  - looks like bowtie, but no subscript
+  - performs a join on two relations, on all attributes having the same name.
+  - projects out only one copy of the joined columns
+  - EG: Sells(bar, beer, price), Bars(bar, addr)
+    - Sells (bowtie) Bars has schema (bar beer, price, addr)
+- Renaming of relations and attributes
+  - \rho operator gives new schema, typically for renaming
+
+Building RA expressions:
+- Can combine using precedence
+  1. \sigma, \pi, \rho
+  2. \times, (bowtie)
+  3. \cap
+  4. \cup, \minus
+- Grouping with parentheses
+- Can also have multiple statements with assignment (similar to compiler
+  intermediate form)
+- Can also use expression trees (also similar to compilers)
+
+EG: find the bars that sell two different beers at the same time
+- use a self join!
+- \pi_{bar} \sigma_{beer\ne{}beer1} (Sells (bowtie) \rho_{S(bar,beer1,price)} Sells)
+
+*Division Operator*
+- Useful for expressing universal quantification (e.g. Find students who
+  enrolled in all courses).
+- Imagine R(A,B), S(B).
+- R / S contains all A-tuples such that for every B-tuple in S, there is an (A,
+  B) tuple in R.
+- EG: Enroll(sid, cid), Course(cid): Enroll / Course is the set of all sids
+  where for each cid in Course, there exists (sid, cid) in Enroll.
+- Equivalent expression: let t be the set of attributes in R not in S, and s be
+  the set of attributes of s:
+
+  R / S = \pi_t R \minus \pi_{t} (R \times S \minus R (bowtie) S )
+
+*** Relational Algebra for Bags
+
+Bags allow duplicates.
+
+- Selection: effect is the same on bags as sets. Selecting a set will produce a
+  set, etc.
+- Projection: when operating on a set, duplicates are removed. When operating on
+  bags, duplicates are not removed.
+- Products/joins aren't really affected by bags.
+- Bag Union: doesn't remove duplicates, so if an item occurs n times in the left
+  operand, and m times in the right, the result will have that item n+m times.
+- Bag Intersection: not really intuitive. An item will occur the minimum of the
+  number of times it occurs in either operand (including 0)
+- Bag Difference: item occurs max(n-m, 0) times.
+
+*Beware:* not all algebraic set laws apply to bags!
+- R \cup S = S \cup R  /holds/ for bags
+- S \cup S \ne S for bags (but it is equal for sets)
+  - EG {1} \cup {1} = {1,1}
