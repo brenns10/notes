@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-08-31 Wed 20:37 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>EECS 433 Notes</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Stephen Brennan" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">EECS 433 Notes</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline5">1. 2016-08-29 Monday</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Course Logistics</a></li>
+<li><a href="#orgheadline4">1.2. Review of Undergraduate Concepts</a>
+<ul>
+<li><a href="#orgheadline2">1.2.1. Data Models, DBMS</a></li>
+<li><a href="#orgheadline3">1.2.2. Relational Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline13">2. 2016-08-31 Wednesday</a>
+<ul>
+<li><a href="#orgheadline9">2.1. Relational Model</a>
+<ul>
+<li><a href="#orgheadline6">2.1.1. Foreign Key Constraints</a></li>
+<li><a href="#orgheadline7">2.1.2. Relational Query Languages</a></li>
+<li><a href="#orgheadline8">2.1.3. Summary</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline12">2.2. Formal Relational Query Languages</a>
+<ul>
+<li><a href="#orgheadline10">2.2.1. Relational Algebra</a></li>
+<li><a href="#orgheadline11">2.2.2. Relational Algebra for Bags</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">1</span> 2016-08-29 Monday</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Course Logistics</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Office hours: M-W 1:30-2:30 PM, Olin 511</li>
+<li>TA: George Hodulik: 1:30-2:30 PM, Olin 503</li>
+<li>&exist; a Blackboard site</li>
+<li>Grading:
+<ul class="org-ul">
+<li>Midterm - 30%</li>
+<li>Project - 35%</li>
+<li>Quizzes - 30%</li>
+<li>Participation - 5%</li>
+</ul></li>
+<li>Dates:
+<ul class="org-ul">
+<li>Midterm: Wed, Oct 19</li>
+<li>Project Proposal: Oct 5</li>
+<li>Project Progress Report: Nov 2</li>
+<li>Project Progress Presentation: Nov 7, 9</li>
+<li>Final Project Reports: Dec 8</li>
+<li>Project Presentations: Last week of class (Dec 5, 7)</li>
+</ul></li>
+<li>Projects are in group.</li>
+<li>Textbooks:
+<ul class="org-ul">
+<li>Database Systems: The Complete Book (Meral likes this best)</li>
+<li>Database System Concepts / other undergrad textbook acceptable</li>
+<li>Papers</li>
+</ul></li>
+<li>Topics:
+<ul class="org-ul">
+<li>Basic RA, SQL, relational query optimization (undegrad)</li>
+<li>Object-Oriented Databases</li>
+<li>Semistructured Data, XML, XPath, XQuery (odd)</li>
+<li>RDF, SparQL</li>
+<li>Parallel &amp; Distributed Databases</li>
+<li>Information Integration, data warehouses, OLAP</li>
+<li>No-SQL, Graph databases as time allows</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.2</span> Review of Undergraduate Concepts</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Database - stored, structured data modeling the real world. Usually with
+entities and relationships.</li>
+<li>DBMS - software designed to maintain/manage the database</li>
+<li>Data Models for Structuring Data
+<ul class="org-ul">
+<li>Entity-Relationship Model (general first step)</li>
+<li>Hierarchical Data Model (legacy)</li>
+<li>Network Data Model (legacy)</li>
+<li>Relational Data Model (major use)</li>
+<li>Object-Oriented Data Model (specialized use) - usually in-memory only</li>
+<li>Object-Relational Data Model (more common)</li>
+<li>XML</li>
+<li>RDF</li>
+</ul></li>
+<li>Query languages:
+<ul class="org-ul">
+<li>Symbolic-Logic Based:
+<ul class="org-ul">
+<li>Relational Calculus: 1st-order predicate calculus</li>
+<li>Datalog: high-order predicate calculus (recursion!)</li>
+<li>Dedalus (datalog w/ aggregation functions)</li>
+</ul></li>
+<li>Algebra-based:
+<ul class="org-ul">
+<li>Relational Algebra</li>
+<li>Object-Algebra (relational algebra plus object manipulation)</li>
+</ul></li>
+<li>SQL: "industry standard", sometimes horrifying, Meral would say "a mess".
+Basics are important, and most extensions are imported from the other query
+languages and their ideas.</li>
+<li>XPATH, XQUERY (borrows from SQL and uses XPATH)</li>
+<li>SPARQL - querying for RDF</li>
+<li>Graphical query languages</li>
+</ul></li>
+<li>Database Design Theory
+<ul class="org-ul">
+<li>Restructuring the relations at design time</li>
+<li>Has bad reputation, but extensive theory</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2"><span class="section-number-4">1.2.1</span> Data Models, DBMS</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<ul class="org-ul">
+<li><b>data model</b> - collection of concepts for describing data</li>
+<li><b>schema</b> - a description of a particular collection of data, using a data
+model</li>
+<li>DDL/DML</li>
+<li>Levels of abstraction:
+<ul class="org-ul">
+<li><b>views</b> - how the user sees the data. many of these</li>
+<li><b>conceptual schema</b> - defines the logical structure of the data</li>
+<li><b>physical schema</b> - how the data is stored</li>
+</ul></li>
+<li>Independence:
+<ul class="org-ul">
+<li><b>logical data independence</b> - application protected from changes in
+<i>logical</i> structure of data (new columns, etc). Limited benefits only.</li>
+<li><b>physical data independence</b> - application protected from the way the data
+is stored. DBMS gives big benefits here.</li>
+</ul></li>
+<li>Concurrency control:
+<ul class="org-ul">
+<li>Allow interleaving of many different users' actions, giving the impression
+of a single-user system</li>
+<li>Interleaving can lead to inconsistency; must control that</li>
+<li><b>transaction</b> - atomic sequence of actions</li>
+<li>Scheduling transactions {T<sub>1</sub>, T<sub>2</sub>, &hellip;, T<sub>n</sub>} concurrently requires the DBMS to
+ensure that the concurrent execution is equivalent to some <i>serial</i>
+execution.</li>
+<li><b>2PL Locking</b> - transaction must request a lock before reading/writing an
+objects, and release when finished
+<ul class="org-ul">
+<li>Granularity: row?, column?, table?, file?</li>
+<li>deadlocks? (may not be a problem)</li>
+</ul></li>
+</ul></li>
+<li>ACID
+<ul class="org-ul">
+<li>Atomicity
+<ul class="org-ul">
+<li>keep a <i>log</i> of all actions carried out while executing</li>
+<li>on startup, look for incomplete (crashed) transactions and roll back</li>
+</ul></li>
+<li>Consistency</li>
+<li>Isolation</li>
+<li>Durability</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">1.2.2</span> Relational Model</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+Why know?  Foundation of others!
+</p>
+
+<ul class="org-ul">
+<li><b>relational database</b> - a set of relations</li>
+<li><b>relation</b>
+<ul class="org-ul">
+<li><b>instance</b> - a table with rows, columns
+<ul class="org-ul">
+<li><i>cardinality</i> - number of rows</li>
+<li><i>degree</i> - number of columns</li>
+</ul></li>
+<li><b>schema</b> - description of a relation</li>
+</ul></li>
+</ul>
+
+<p>
+SQL basics - CREATE TABLE, INSERT, etc.
+</p>
+
+<p>
+Integrity constraints:
+</p>
+<ul class="org-ul">
+<li>conditions that must be true for all instances of a relation</li>
+<li>specified on schema definition, verified on modification of data</li>
+<li>e.g. NOT NULL, key constraints, uniqueness,</li>
+<li><b>primary key constraints</b> (these apply to sets of attributes)
+<ul class="org-ul">
+<li>(1) no duplicates: no two tuples have the same values in all attributes</li>
+<li>(2) nonredundancy: property (1) is not true for any subset (otherwise,
+"superkey")</li>
+<li>all sets of attributes satisfying both are candidate keys, only one is
+chosen for primary key.</li>
+<li>Specify candidate key in SQL with UNIQUE, primary with PRIMARY</li>
+<li>Specify that you want an index built with KEY</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">2</span> 2016-08-31 Wednesday</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+From last time: integrity constraints:
+</p>
+<ul class="org-ul">
+<li>Primary key constraints, uniqueness</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">2.1</span> Relational Model</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">2.1.1</span> Foreign Key Constraints</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+<b>foreign key</b> - fields in one relation referring to a tuple in another
+relation.  Like a "logical pointer".
+</p>
+
+<p>
+Must have <i>referential integrity</i>, which means that when a foreign key refers to
+a tuple in another relation, that tuple should exist in the other relation.
+</p>
+
+<p>
+How to enforce:
+</p>
+<ul class="org-ul">
+<li>Imagine relations "Student" and "Enrolled", where the attribute <code>sid</code> of
+Enrolled is a foreign key referring to Student.</li>
+<li>On insertion of an Enrolled tuple where <code>sid</code> refers to a non-existing
+Student, <i>reject</i> that insertion.</li>
+<li>On deletion of a Student where a tuple in Enrolled refers to it:
+<ul class="org-ul">
+<li>Reject the deletion until the Enrolled tuple is deleted</li>
+<li>"Cascade" the deletion, removing all tuples in other relations (like
+Enrolled) that refer to it.</li>
+<li>Replace all instances of <code>sid</code> with NULL in referring tuples.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">2.1.2</span> Relational Query Languages</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+Advantage of relational model is that it can be intuitively queried.
+</p>
+<ul class="org-ul">
+<li>Languages can allow extensive reordering of operations so long as the result
+is semantically the same.</li>
+</ul>
+
+<p>
+<b>SQL</b> woo
+</p>
+
+<p>
+Semantics of SQL Query:
+</p>
+<ol class="org-ol">
+<li>FROM clause: compute the cross product of the relations queried</li>
+<li>WHERE clause: filter these tuples by a condition</li>
+<li>SELECT clause: output only certain attributes of a tuple</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">2.1.3</span> Summary</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<ul class="org-ul">
+<li>tabular representation</li>
+<li>relationships between tuples</li>
+<li>integrity constraints keep data "nice"</li>
+<li>queried easily thanks to SQL</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">2.2</span> Formal Relational Query Languages</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+There are two query languages which form the theoretical basis of SQL:
+</p>
+<ul class="org-ul">
+<li>Relational Algebra (the operational language)</li>
+<li>Relational Calculus (the semantic language)</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">2.2.1</span> Relational Algebra</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+What is an algebra?
+</p>
+<ul class="org-ul">
+<li>Mathematical system consisting of
+<ul class="org-ul">
+<li><i>operands</i> - variables or values from which new values can be produced. In
+relational algebra, operands are relations or variables representing them.</li>
+<li><i>operators</i> - operations that can be performed on operands. In RA, these are
+the common database operations performed on relations (see below).</li>
+</ul></li>
+</ul>
+
+<p>
+Operators:
+</p>
+<ul class="org-ul">
+<li>Union, Intersection, Difference
+<ul class="org-ul">
+<li>Have their usual meaning, but must relations must have same schema</li>
+</ul></li>
+<li>Selection: picking certain rows
+<ul class="org-ul">
+<li>R<sub>1</sub> = &sigma;<sub>C</sub>(R<sub>2</sub>) - select tuples from R<sub>2</sub> according to condition C, assign
+them to R<sub>1</sub>.</li>
+</ul></li>
+<li>Projection: picking certain columns
+<ul class="org-ul">
+<li>R<sub>1</sub> = &pi;<sub>L</sub>(R<sub>2</sub>) - L is a list of attributes from the schema of R<sub>2</sub>, here we only
+include those tuples in R<sub>1</sub>.</li>
+<li>Extended projection allows L to contain arithmetic on attributes, or some
+other arbitrary expressions which could even add attributes. EG:
+&pi;<sub>A+B&rarr;C,A,B</sub>(R<sub>1</sub>).</li>
+</ul></li>
+<li>Products
+<ul class="org-ul">
+<li>R<sub>3</sub> = R<sub>1</sub> &times; R<sub>2</sub> - pair each tuple of R<sub>1</sub> with each tuple from R<sub>2</sub>, schema is
+combination of attributes (rename to R<sub>1</sub>.attribute if there are collisions)</li>
+</ul></li>
+<li>Theta Joins: (not a <b>basic</b>) operator.
+<ul class="org-ul">
+<li>operator looks like bowtie, has any condition as a subscript</li>
+<li>Simply a product &times; followed by a selection &sigma;</li>
+</ul></li>
+<li>Natural join:
+<ul class="org-ul">
+<li>looks like bowtie, but no subscript</li>
+<li>performs a join on two relations, on all attributes having the same name.</li>
+<li>projects out only one copy of the joined columns</li>
+<li>EG: Sells(bar, beer, price), Bars(bar, addr)
+<ul class="org-ul">
+<li>Sells (bowtie) Bars has schema (bar beer, price, addr)</li>
+</ul></li>
+</ul></li>
+<li>Renaming of relations and attributes
+<ul class="org-ul">
+<li>&rho; operator gives new schema, typically for renaming</li>
+</ul></li>
+</ul>
+
+<p>
+Building RA expressions:
+</p>
+<ul class="org-ul">
+<li>Can combine using precedence
+<ol class="org-ol">
+<li>&sigma;, &pi;, &rho;</li>
+<li>&times;, (bowtie)</li>
+<li>&cap;</li>
+<li>&cup;, &minus;</li>
+</ol></li>
+<li>Grouping with parentheses</li>
+<li>Can also have multiple statements with assignment (similar to compiler
+intermediate form)</li>
+<li>Can also use expression trees (also similar to compilers)</li>
+</ul>
+
+<p>
+EG: find the bars that sell two different beers at the same time
+</p>
+<ul class="org-ul">
+<li>use a self join!</li>
+<li>&pi;<sub>bar</sub> &sigma;<sub>beer&ne;beer1</sub> (Sells (bowtie) &rho;<sub>S(bar,beer1,price)</sub> Sells)</li>
+</ul>
+
+<p>
+<b>Division Operator</b>
+</p>
+<ul class="org-ul">
+<li>Useful for expressing universal quantification (e.g. Find students who
+enrolled in all courses).</li>
+<li>Imagine R(A,B), S(B).</li>
+<li>R / S contains all A-tuples such that for every B-tuple in S, there is an (A,
+B) tuple in R.</li>
+<li>EG: Enroll(sid, cid), Course(cid): Enroll / Course is the set of all sids
+where for each cid in Course, there exists (sid, cid) in Enroll.</li>
+<li><p>
+Equivalent expression: let t be the set of attributes in R not in S, and s be
+the set of attributes of s:
+</p>
+
+<p>
+R / S = &pi;<sub>t</sub> R &minus; &pi;<sub>t</sub> (R &times; S &minus; R (bowtie) S )
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">2.2.2</span> Relational Algebra for Bags</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+Bags allow duplicates.
+</p>
+
+<ul class="org-ul">
+<li>Selection: effect is the same on bags as sets. Selecting a set will produce a
+set, etc.</li>
+<li>Projection: when operating on a set, duplicates are removed. When operating on
+bags, duplicates are not removed.</li>
+<li>Products/joins aren't really affected by bags.</li>
+<li>Bag Union: doesn't remove duplicates, so if an item occurs n times in the left
+operand, and m times in the right, the result will have that item n+m times.</li>
+<li>Bag Intersection: not really intuitive. An item will occur the minimum of the
+number of times it occurs in either operand (including 0)</li>
+<li>Bag Difference: item occurs max(n-m, 0) times.</li>
+</ul>
+
+<p>
+<b>Beware:</b> not all algebraic set laws apply to bags!
+</p>
+<ul class="org-ul">
+<li>R &cup; S = S &cup; R  <i>holds</i> for bags</li>
+<li>S &cup; S &ne; S for bags (but it is equal for sets)
+<ul class="org-ul">
+<li>EG {1} &cup; {1} = {1,1}</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Stephen Brennan</p>
+<p class="date">Created: 2016-08-31 Wed 20:37</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
