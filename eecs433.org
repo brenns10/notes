@@ -1,0 +1,129 @@
+#+TITLE: EECS 433 Notes
+#+AUTHOR: Stephen Brennan
+#+SETUPFILE: config.setup
+
+* 2016-08-29 Monday
+
+** Course Logistics
+
+- Office hours: M-W 1:30-2:30 PM, Olin 511
+- TA: George Hodulik: 1:30-2:30 PM, Olin 503
+- \exists a Blackboard site
+- Grading:
+  - Midterm - 30%
+  - Project - 35%
+  - Quizzes - 30%
+  - Participation - 5%
+- Dates:
+  - Midterm: Wed, Oct 19
+  - Project Proposal: Oct 5
+  - Project Progress Report: Nov 2
+  - Project Progress Presentation: Nov 7, 9
+  - Final Project Reports: Dec 8
+  - Project Presentations: Last week of class (Dec 5, 7)
+- Projects are in group.
+- Textbooks:
+  - Database Systems: The Complete Book (Meral likes this best)
+  - Database System Concepts / other undergrad textbook acceptable
+  - Papers
+- Topics:
+  - Basic RA, SQL, relational query optimization (undegrad)
+  - Object-Oriented Databases
+  - Semistructured Data, XML, XPath, XQuery (odd)
+  - RDF, SparQL
+  - Parallel & Distributed Databases
+  - Information Integration, data warehouses, OLAP
+  - No-SQL, Graph databases as time allows
+
+** Review of Undergraduate Concepts
+
+- Database - stored, structured data modeling the real world. Usually with
+  entities and relationships.
+- DBMS - software designed to maintain/manage the database
+- Data Models for Structuring Data
+  - Entity-Relationship Model (general first step)
+  - Hierarchical Data Model (legacy)
+  - Network Data Model (legacy)
+  - Relational Data Model (major use)
+  - Object-Oriented Data Model (specialized use) - usually in-memory only
+  - Object-Relational Data Model (more common)
+  - XML
+  - RDF
+- Query languages:
+  - Symbolic-Logic Based:
+    - Relational Calculus: 1st-order predicate calculus
+    - Datalog: high-order predicate calculus (recursion!)
+    - Dedalus (datalog w/ aggregation functions)
+  - Algebra-based:
+    - Relational Algebra
+    - Object-Algebra (relational algebra plus object manipulation)
+  - SQL: "industry standard", sometimes horrifying, Meral would say "a mess".
+    Basics are important, and most extensions are imported from the other query
+    languages and their ideas.
+  - XPATH, XQUERY (borrows from SQL and uses XPATH)
+  - SPARQL - querying for RDF
+  - Graphical query languages
+- Database Design Theory
+  - Restructuring the relations at design time
+  - Has bad reputation, but extensive theory
+
+*** Data Models, DBMS
+
+- *data model* - collection of concepts for describing data
+- *schema* - a description of a particular collection of data, using a data
+  model
+- DDL/DML
+- Levels of abstraction:
+  - *views* - how the user sees the data. many of these
+  - *conceptual schema* - defines the logical structure of the data
+  - *physical schema* - how the data is stored
+- Independence:
+  - *logical data independence* - application protected from changes in
+    /logical/ structure of data (new columns, etc). Limited benefits only.
+  - *physical data independence* - application protected from the way the data
+    is stored. DBMS gives big benefits here.
+- Concurrency control:
+  - Allow interleaving of many different users' actions, giving the impression
+    of a single-user system
+  - Interleaving can lead to inconsistency; must control that
+  - *transaction* - atomic sequence of actions
+  - Scheduling transactions {T_1, T_2, \dots, T_n} concurrently requires the DBMS to
+    ensure that the concurrent execution is equivalent to some /serial/
+    execution.
+  - *2PL Locking* - transaction must request a lock before reading/writing an
+    objects, and release when finished
+    - Granularity: row?, column?, table?, file?
+    - deadlocks? (may not be a problem)
+- ACID
+  - Atomicity
+    - keep a /log/ of all actions carried out while executing
+    - on startup, look for incomplete (crashed) transactions and roll back
+  - Consistency
+  - Isolation
+  - Durability
+
+*** Relational Model
+
+Why know?  Foundation of others!
+
+- *relational database* - a set of relations
+- *relation*
+  - *instance* - a table with rows, columns
+    - /cardinality/ - number of rows
+    - /degree/ - number of columns
+  - *schema* - description of a relation
+
+SQL basics - CREATE TABLE, INSERT, etc.
+
+Integrity constraints:
+- conditions that must be true for all instances of a relation
+- specified on schema definition, verified on modification of data
+- e.g. NOT NULL, key constraints, uniqueness,
+- *primary key constraints* (these apply to sets of attributes)
+  - (1) no duplicates: no two tuples have the same values in all attributes
+  - (2) nonredundancy: property (1) is not true for any subset (otherwise,
+    "superkey")
+  - all sets of attributes satisfying both are candidate keys, only one is
+    chosen for primary key.
+  - Specify candidate key in SQL with UNIQUE, primary with PRIMARY
+  - Specify that you want an index built with KEY
