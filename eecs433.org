@@ -262,3 +262,86 @@ Bags allow duplicates.
 - R \cup S = S \cup R  /holds/ for bags
 - S \cup S \ne S for bags (but it is equal for sets)
   - EG {1} \cup {1} = {1,1}
+
+* 2016-09-07 Wednesday
+
+Review of last lecture:
+- Relational query languages, algebra, bag algebra, etc.
+
+Today:
+- exercise from last class
+- Tuple Relational Calculus
+- TRC is declarative, expressing what is the query answer rather than how it
+  will be evaluated.
+- SQL is "sugar coated TRC"
+
+** Expressing Division in Relational Algebra
+- My solution from last class is nearly correct.
+- Definitions: R(A,B) and S(B), where A and B are sets of attributes, and t and
+  u are tuples over attributes A and B respectively.
+- R / S has all tuples t such that for all tuples u in S tu is in R.
+
+- Tuples that "do not qualify": \pi_A (\pi_A (R) \times S - R)
+  - cartesian product of all t and u tuples, minus the ones that actually exist
+    in R.
+- Then, you can find the actual division: \pi_A (R) - \pi_A (\pi_A (R) \times S - R)
+
+** Tuple Relational Calculus
+Queries of the form {t | P(t)}, where P(t) is a predicate that must be satisfied
+by each tuple.
+
+Predicate Calculus:
+- Variables and Constants
+- Comparison operators (<, \le, =, \ne, >, \ge)
+- Connectives: \land \lor \not
+- Implication: x \to y, equivalent to \not x \lor y
+- Quantifiers: \exists, \forall
+
+Examples:
+- Find ID, name, dept-name, salary for instructors whose salary is greater than
+  $80,000.
+  {t| t \in instructor \land t[salary] > 80000}
+- Same as before, but only ID output:
+  {t| (\exists s) (s \in instructor \land t[ID] = s[ID] \land s[salary] > 80000)}
+
+We call the output variables free variables, and any others we introduce are
+"bounded" variables.
+
+- Find the names of all instructors whose department is in Olin building.
+
+  {t| \exists s \in instructor (t[name] = s[name] \land \exists u \in department (u[dept-name] = s[dept-name] \land u[building]="Olin"))}
+
+- B(bid, bname, color), R(sid, bid, day), S(sid, sname, rating, age)
+- Find names of sailors who've reserved a red boat: {t| (\exists s)(\exists r)(\exists b) (S(s) \land s[name]=t[1] \land R(r) \land B(b) \land r[sid]=s[sid] \land r[bid] = b[bid] \land b[color]="red")}
+
+** Semi Join
+
+In relational algebra, you can have a semi-join, which is like a natural join,
+but it is projected onto the schema of the left relation. It is represented by a
+bowtie with its right hand side missing.
+
+
+Question: in TRC, is there any convenience predicate that states that "the
+attributes of s and t with the same names are equal", similar to the natural
+join condition in RA?
+
+** Safety of TRC Expressions
+
+- Can write TRC expressions that generate infinite relations.
+- It is undecidable which expressions are safe or unsafe.
+- So we call "safe" expressions ones that satisfy a set of conditions that
+  guarantee safety.
+- An expression {t|P(t)} in TRC is /safe/ if every component of t appears in one
+  of the relations, tuples, or constant expressions in P(t)
+
+** Division isn't always good enough
+
+Students(sid, sname, major)
+Courses(cid, cname, dept)
+Enroll(sid, cid, sem, year)
+
+1. Find student id's of students who enrolled in all courses in Fall 2016.
+2. Find student id's of students who enrolled in all courses offered by their
+   major.
+
+   EXERCISE FOR MONDAY: try to write these!
