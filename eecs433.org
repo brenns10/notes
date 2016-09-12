@@ -312,7 +312,7 @@ We call the output variables free variables, and any others we introduce are
   {t| \exists s \in instructor (t[name] = s[name] \land \exists u \in department (u[dept-name] = s[dept-name] \land u[building]="Olin"))}
 
 - B(bid, bname, color), R(sid, bid, day), S(sid, sname, rating, age)
-- Find names of sailors who've reserved a red boat: {t| (\exists s)(\exists r)(\exists b) (S(s) \land s[name]=t[1] \land R(r) \land B(b) \land r[sid]=s[sid] \land r[bid] = b[bid] \land b[color]="red")}
+- Find names of sailors who've reserved a red boat: {t| (\exists s)(\exists r)(\exists b) (S(s) \land s[name]=t[1 ] \land R(r) \land B(b) \land r[sid]=s[sid] \land r[bid] = b[bid] \land b[color]="red")}
 
 ** Semi Join
 
