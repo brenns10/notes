@@ -345,3 +345,65 @@ Enroll(sid, cid, sem, year)
    major.
 
    EXERCISE FOR MONDAY: try to write these!
+
+* 2016-09-12 Monday
+
+** Solution to Exercise
+
+These are my solutions before class:
+
+1. Student ID's of students who enrolled in all courses in Fall 2016:
+
+   \pi_{sid,cid} (\sigma_{sem=fall \land year=2016} Enroll) / \pi_{cid} (Courses)
+
+   Calculus:
+
+   {t^{(1)} | \exists (s) (Student(s) \land t(1)=s[sid] \land
+                 (\forall c) (Course(c) \to (\exists e) (Enroll(e) \land
+                                           e[sid]=s[sid] \land
+                                           e[cid]=c[cid] \land
+                                           e[sem]=fall \land e[year]=2016)))}
+
+2. Student ID's of students who enrolled in all courses offered by their major:
+
+   \pi_{sid}(Students) - \pi_{sid}(\pi_{sid,cid}(Students ⨝_{major=dept} Courses) - \pi_{sid,cid} Enroll)
+
+** Domain Relational Calculus
+
+Similar to TRC, but each query looks like: {<x_1, x_2, \dots, x_n> | P(x_1, x_2, \dots, x_n)}.
+The x variables are "domain variables" instead of tuples.
+
+So you can do stuff like:
+
+{<i, n, d, s> | <i, n, d, s> \in instructor \land s > 80000}
+
+Or just output a name:
+
+{<n> | <i, n, d, s> \in instructor \land s > 80000}
+
+We skipped the existential quantifier above for n, d, and s. It is more formal
+to include quantifiers for the bound variables. However a nice shortcut is to
+simply stick a placeholder in the bound variables you're not going to use, and
+only use variable names for bound variables that you will put conditions or
+joins on.  An example for this:
+
+{<i> | (\exists s) (<i,\star,\star,s> \in instructor \land s > 80000)}
+
+Pretty similar to TRC!
+
+Quiz Wed on RA, TRC, maybe a bit of DRC.
+
+** Intro to SQL
+
+SQL NULL Values exist, and they kinda stink. Comparisons:
+- 3-valued: TRUE, FALSE, NULL
+- Compare anything to NULL yields UNKNOWN.
+- Tuples only included in results if expression is TRUE (not FALSE or UNKNOWN).
+- NOT(UNKNOWN) = UNKNOWN
+- Think of TRUE=1, FALSE=0, UNKNOWN=1/2.  Then, AND=MIN, OR=MAX, NOT(x)=1-x
+
+Funny example:
+- SELECT bar FROM Sells WHERE price < 2.00 OR price >= 2.00;
+- in a relation containing price=NULL will not return that tuple!
+- *law of excluded middle:* p or NOT p should be TRUE, but when p is UNKNOWN,
+  then p OR NOT p is UNKNOWN.
