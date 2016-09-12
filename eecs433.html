@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-09-07 Wed 02:27 -->
+<!-- 2016-09-12 Mon 18:27 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 433 Notes</title>
@@ -180,6 +180,15 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline11">2.2.2. Relational Algebra for Bags</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#orgheadline19">3. 2016-09-07 Wednesday</a>
+<ul>
+<li><a href="#orgheadline14">3.1. Expressing Division in Relational Algebra</a></li>
+<li><a href="#orgheadline15">3.2. Tuple Relational Calculus</a></li>
+<li><a href="#orgheadline16">3.3. Semi Join</a></li>
+<li><a href="#orgheadline17">3.4. Safety of TRC Expressions</a></li>
+<li><a href="#orgheadline18">3.5. Division isn't always good enough</a></li>
 </ul>
 </li>
 </ul>
@@ -620,10 +629,157 @@ number of times it occurs in either operand (including 0)</li>
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">3</span> 2016-09-07 Wednesday</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Review of last lecture:
+</p>
+<ul class="org-ul">
+<li>Relational query languages, algebra, bag algebra, etc.</li>
+</ul>
+
+<p>
+Today:
+</p>
+<ul class="org-ul">
+<li>exercise from last class</li>
+<li>Tuple Relational Calculus</li>
+<li>TRC is declarative, expressing what is the query answer rather than how it
+will be evaluated.</li>
+<li>SQL is "sugar coated TRC"</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">3.1</span> Expressing Division in Relational Algebra</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>My solution from last class is nearly correct.</li>
+<li>Definitions: R(A,B) and S(B), where A and B are sets of attributes, and t and
+u are tuples over attributes A and B respectively.</li>
+<li>R / S has all tuples t such that for all tuples u in S tu is in R.</li>
+
+<li>Tuples that "do not qualify": &pi;<sub>A</sub> (&pi;<sub>A</sub> (R) &times; S - R)
+<ul class="org-ul">
+<li>cartesian product of all t and u tuples, minus the ones that actually exist
+in R.</li>
+</ul></li>
+<li>Then, you can find the actual division: &pi;<sub>A</sub> (R) - &pi;<sub>A</sub> (&pi;<sub>A</sub> (R) &times; S - R)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">3.2</span> Tuple Relational Calculus</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Queries of the form {t | P(t)}, where P(t) is a predicate that must be satisfied
+by each tuple.
+</p>
+
+<p>
+Predicate Calculus:
+</p>
+<ul class="org-ul">
+<li>Variables and Constants</li>
+<li>Comparison operators (&lt;, &le;, =, &ne;, &gt;, &ge;)</li>
+<li>Connectives: &and; &or; &not;</li>
+<li>Implication: x &rarr; y, equivalent to &not; x &or; y</li>
+<li>Quantifiers: &exist;, &forall;</li>
+</ul>
+
+<p>
+Examples:
+</p>
+<ul class="org-ul">
+<li>Find ID, name, dept-name, salary for instructors whose salary is greater than
+$80,000.
+{t| t &isin; instructor &and; t[salary] &gt; 80000}</li>
+<li>Same as before, but only ID output:
+{t| (&exist; s) (s &isin; instructor &and; t[ID] = s[ID] &and; s[salary] &gt; 80000)}</li>
+</ul>
+
+<p>
+We call the output variables free variables, and any others we introduce are
+"bounded" variables.
+</p>
+
+<ul class="org-ul">
+<li><p>
+Find the names of all instructors whose department is in Olin building.
+</p>
+
+<p>
+{t| &exist; s &isin; instructor (t[name] = s[name] &and; &exist; u &isin; department (u[dept-name] = s[dept-name] &and; u[building]="Olin"))}
+</p></li>
+
+<li>B(bid, bname, color), R(sid, bid, day), S(sid, sname, rating, age)</li>
+<li>Find names of sailors who've reserved a red boat: {t| (&exist; s)(&exist; r)(&exist; b) (S(s) &and; s[name]=t[1 ] &and; R(r) &and; B(b) &and; r[sid]=s[sid] &and; r[bid] = b[bid] &and; b[color]="red")}</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">3.3</span> Semi Join</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+In relational algebra, you can have a semi-join, which is like a natural join,
+but it is projected onto the schema of the left relation. It is represented by a
+bowtie with its right hand side missing.
+</p>
+
+
+<p>
+Question: in TRC, is there any convenience predicate that states that "the
+attributes of s and t with the same names are equal", similar to the natural
+join condition in RA?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">3.4</span> Safety of TRC Expressions</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li>Can write TRC expressions that generate infinite relations.</li>
+<li>It is undecidable which expressions are safe or unsafe.</li>
+<li>So we call "safe" expressions ones that satisfy a set of conditions that
+guarantee safety.</li>
+<li>An expression {t|P(t)} in TRC is <i>safe</i> if every component of t appears in one
+of the relations, tuples, or constant expressions in P(t)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">3.5</span> Division isn't always good enough</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Students(sid, sname, major)
+Courses(cid, cname, dept)
+Enroll(sid, cid, sem, year)
+</p>
+
+<ol class="org-ol">
+<li>Find student id's of students who enrolled in all courses in Fall 2016.</li>
+<li><p>
+Find student id's of students who enrolled in all courses offered by their
+major.
+</p>
+
+<p>
+EXERCISE FOR MONDAY: try to write these!
+</p></li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-09-07 Wed 02:27</p>
+<p class="date">Created: 2016-09-12 Mon 18:27</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
