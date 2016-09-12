@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-09-12 Mon 18:27 -->
+<!-- 2016-09-12 Mon 20:33 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>EECS 433 Notes</title>
@@ -189,6 +189,13 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline16">3.3. Semi Join</a></li>
 <li><a href="#orgheadline17">3.4. Safety of TRC Expressions</a></li>
 <li><a href="#orgheadline18">3.5. Division isn't always good enough</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline23">4. 2016-09-12 Monday</a>
+<ul>
+<li><a href="#orgheadline20">4.1. Solution to Exercise</a></li>
+<li><a href="#orgheadline21">4.2. Domain Relational Calculus</a></li>
+<li><a href="#orgheadline22">4.3. Intro to SQL</a></li>
 </ul>
 </li>
 </ul>
@@ -776,10 +783,125 @@ EXERCISE FOR MONDAY: try to write these!
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">4</span> 2016-09-12 Monday</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">4.1</span> Solution to Exercise</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+These are my solutions before class:
+</p>
+
+<ol class="org-ol">
+<li><p>
+Student ID's of students who enrolled in all courses in Fall 2016:
+</p>
+
+<p>
+&pi;<sub>sid,cid</sub> (&sigma;<sub>sem=fall &and; year=2016</sub> Enroll) / &pi;<sub>cid</sub> (Courses)
+</p>
+
+<p>
+Calculus:
+</p>
+
+<p>
+{t<sup>(1)</sup> | &exist; (s) (Student(s) &and; t(1)=s[sid] &and;
+              (&forall; c) (Course(c) &rarr; (&exist; e) (Enroll(e) &and;
+                                        e[sid]=s[sid] &and;
+                                        e[cid]=c[cid] &and;
+                                        e[sem]=fall &and; e[year]=2016)))}
+</p></li>
+
+<li><p>
+Student ID's of students who enrolled in all courses offered by their major:
+</p>
+
+<p>
+&pi;<sub>sid</sub>(Students) - &pi;<sub>sid</sub>(&pi;<sub>sid,cid</sub>(Students ⨝<sub>major=dept</sub> Courses) - &pi;<sub>sid,cid</sub> Enroll)
+</p></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">4.2</span> Domain Relational Calculus</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Similar to TRC, but each query looks like: {&lt;x<sub>1</sub>, x<sub>2</sub>, &hellip;, x<sub>n</sub>&gt; | P(x<sub>1</sub>, x<sub>2</sub>, &hellip;, x<sub>n</sub>)}.
+The x variables are "domain variables" instead of tuples.
+</p>
+
+<p>
+So you can do stuff like:
+</p>
+
+<p>
+{&lt;i, n, d, s&gt; | &lt;i, n, d, s&gt; &isin; instructor &and; s &gt; 80000}
+</p>
+
+<p>
+Or just output a name:
+</p>
+
+<p>
+{&lt;n&gt; | &lt;i, n, d, s&gt; &isin; instructor &and; s &gt; 80000}
+</p>
+
+<p>
+We skipped the existential quantifier above for n, d, and s. It is more formal
+to include quantifiers for the bound variables. However a nice shortcut is to
+simply stick a placeholder in the bound variables you're not going to use, and
+only use variable names for bound variables that you will put conditions or
+joins on.  An example for this:
+</p>
+
+<p>
+{&lt;i&gt; | (&exist; s) (&lt;i,*,*,s&gt; &isin; instructor &and; s &gt; 80000)}
+</p>
+
+<p>
+Pretty similar to TRC!
+</p>
+
+<p>
+Quiz Wed on RA, TRC, maybe a bit of DRC.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">4.3</span> Intro to SQL</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+SQL NULL Values exist, and they kinda stink. Comparisons:
+</p>
+<ul class="org-ul">
+<li>3-valued: TRUE, FALSE, NULL</li>
+<li>Compare anything to NULL yields UNKNOWN.</li>
+<li>Tuples only included in results if expression is TRUE (not FALSE or UNKNOWN).</li>
+<li>NOT(UNKNOWN) = UNKNOWN</li>
+<li>Think of TRUE=1, FALSE=0, UNKNOWN=1/2.  Then, AND=MIN, OR=MAX, NOT(x)=1-x</li>
+</ul>
+
+<p>
+Funny example:
+</p>
+<ul class="org-ul">
+<li>SELECT bar FROM Sells WHERE price &lt; 2.00 OR price &gt;= 2.00;</li>
+<li>in a relation containing price=NULL will not return that tuple!</li>
+<li><b>law of excluded middle:</b> p or NOT p should be TRUE, but when p is UNKNOWN,
+then p OR NOT p is UNKNOWN.</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-09-12 Mon 18:27</p>
+<p class="date">Created: 2016-09-12 Mon 20:33</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
