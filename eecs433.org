@@ -407,3 +407,27 @@ Funny example:
 - in a relation containing price=NULL will not return that tuple!
 - *law of excluded middle:* p or NOT p should be TRUE, but when p is UNKNOWN,
   then p OR NOT p is UNKNOWN.
+
+* 2016-09-19 Monday
+
+Last class, we had a quiz. Today we went over it. Now we will do SQL and RA
+aggregations.
+
+** SQL
+
+- Beers(*name*, manf)
+- Bars(*name*, addr, license)
+- Drinkers(*name*, addr, phone)
+- Likes(*drinker*, *beer*)
+- Sells(*bar*, beer, price)
+- Frequents(*drinker*, bar)
+
+Drinkers who frequent bars that sells only beers they like.
+
+(SELECT name FROM drinkers)
+EXCEPT
+(SELECT drinker
+ FROM Frequents, Sells, Likes
+ WHERE Frequents.drinker=Likes.drinker AND
+       Frequents.bar=Sells.bar AND
+       Sells.beer=Likes.beer;)
