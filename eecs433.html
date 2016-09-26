@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<!-- 2016-09-12 Mon 20:33 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2016-09-26 Mon 20:35 -->
+<meta  charset="utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>EECS 433 Notes</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Stephen Brennan" />
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="Stephen Brennan">
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -94,12 +92,12 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="assets/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="assets/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
-<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript" src="assets/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="assets/readtheorg.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -146,6 +144,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 <body>
 <div id="content">
@@ -196,6 +216,27 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline20">4.1. Solution to Exercise</a></li>
 <li><a href="#orgheadline21">4.2. Domain Relational Calculus</a></li>
 <li><a href="#orgheadline22">4.3. Intro to SQL</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">5. 2016-09-19 Monday</a>
+<ul>
+<li><a href="#orgheadline24">5.1. SQL</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline29">6. 2016-09-21 Wednesday</a>
+<ul>
+<li><a href="#orgheadline26">6.1. Exercise from last time</a></li>
+<li><a href="#orgheadline27">6.2. SQL Join Expressions</a></li>
+<li><a href="#orgheadline28">6.3. Extended Relational Algebra</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline35">7. 2016-09-26 Monday</a>
+<ul>
+<li><a href="#orgheadline30">7.1. Intro to Datalog</a></li>
+<li><a href="#orgheadline31">7.2. Safety of Datalog Rules</a></li>
+<li><a href="#orgheadline32">7.3. Datalog programs</a></li>
+<li><a href="#orgheadline33">7.4. Recursion</a></li>
+<li><a href="#orgheadline34">7.5. Recursion in SQL</a></li>
 </ul>
 </li>
 </ul>
@@ -517,30 +558,31 @@ Operators:
 </ul></li>
 <li>Selection: picking certain rows
 <ul class="org-ul">
-<li>R<sub>1</sub> = &sigma;<sub>C</sub>(R<sub>2</sub>) - select tuples from R<sub>2</sub> according to condition C, assign
+<li>\(R_1 = \sigma_C(R_2)\) - select tuples from R<sub>2</sub> according to condition C, assign
 them to R<sub>1</sub>.</li>
 </ul></li>
 <li>Projection: picking certain columns
 <ul class="org-ul">
-<li>R<sub>1</sub> = &pi;<sub>L</sub>(R<sub>2</sub>) - L is a list of attributes from the schema of R<sub>2</sub>, here we only
-include those tuples in R<sub>1</sub>.</li>
+<li>\(R_1 = \pi_L(R_2)\) - L is a list of attributes from the schema of R<sub>2</sub>, here we
+only include those tuples in R<sub>1</sub>.</li>
 <li>Extended projection allows L to contain arithmetic on attributes, or some
 other arbitrary expressions which could even add attributes. EG:
-&pi;<sub>A+B&rarr;C,A,B</sub>(R<sub>1</sub>).</li>
+\(\pi_{A+B\to{}C,A,B}(R_1)\).</li>
 </ul></li>
 <li>Products
 <ul class="org-ul">
-<li>R<sub>3</sub> = R<sub>1</sub> &times; R<sub>2</sub> - pair each tuple of R<sub>1</sub> with each tuple from R<sub>2</sub>, schema is
-combination of attributes (rename to R<sub>1</sub>.attribute if there are collisions)</li>
+<li>\(R_3 = R_1 \times R_2\) - pair each tuple of R<sub>1</sub> with each tuple from R<sub>2</sub>,
+schema is combination of attributes (rename to R<sub>1</sub>.attribute if there are
+collisions)</li>
 </ul></li>
 <li>Theta Joins: (not a <b>basic</b>) operator.
 <ul class="org-ul">
-<li>operator looks like bowtie, has any condition as a subscript</li>
+<li>\(\Join_{\theta}\)</li>
 <li>Simply a product &times; followed by a selection &sigma;</li>
 </ul></li>
 <li>Natural join:
 <ul class="org-ul">
-<li>looks like bowtie, but no subscript</li>
+<li>looks like bowtie, but no subscript: \(\Join\)</li>
 <li>performs a join on two relations, on all attributes having the same name.</li>
 <li>projects out only one copy of the joined columns</li>
 <li>EG: Sells(bar, beer, price), Bars(bar, addr)
@@ -561,7 +603,7 @@ Building RA expressions:
 <li>Can combine using precedence
 <ol class="org-ol">
 <li>&sigma;, &pi;, &rho;</li>
-<li>&times;, (bowtie)</li>
+<li>&times;, \(\Join\)</li>
 <li>&cap;</li>
 <li>&cup;, &minus;</li>
 </ol></li>
@@ -576,7 +618,7 @@ EG: find the bars that sell two different beers at the same time
 </p>
 <ul class="org-ul">
 <li>use a self join!</li>
-<li>&pi;<sub>bar</sub> &sigma;<sub>beer&ne;beer1</sub> (Sells (bowtie) &rho;<sub>S(bar,beer1,price)</sub> Sells)</li>
+<li>\(\pi_{bar} \sigma_{beer\ne{}beer1} (\text{Sells} \Join \rho_{S(bar,beer1,price)} \text{Sells})\)</li>
 </ul>
 
 <p>
@@ -596,7 +638,7 @@ the set of attributes of s:
 </p>
 
 <p>
-R / S = &pi;<sub>t</sub> R &minus; &pi;<sub>t</sub> (R &times; S &minus; R (bowtie) S )
+\(R / S = \pi_t R \minus \pi_{t} (R \times S \minus R \Join S )\)
 </p></li>
 </ul>
 </div>
@@ -668,12 +710,12 @@ will be evaluated.</li>
 u are tuples over attributes A and B respectively.</li>
 <li>R / S has all tuples t such that for all tuples u in S tu is in R.</li>
 
-<li>Tuples that "do not qualify": &pi;<sub>A</sub> (&pi;<sub>A</sub> (R) &times; S - R)
+<li>Tuples that "do not qualify": \(\pi_A (\pi_A (R) \times S - R)\)
 <ul class="org-ul">
 <li>cartesian product of all t and u tuples, minus the ones that actually exist
 in R.</li>
 </ul></li>
-<li>Then, you can find the actual division: &pi;<sub>A</sub> (R) - &pi;<sub>A</sub> (&pi;<sub>A</sub> (R) &times; S - R)</li>
+<li>Then, you can find the actual division: \(\pi_A (R) - \pi_A (\pi_A (R) \times S - R)\)</li>
 </ul>
 </div>
 </div>
@@ -682,8 +724,8 @@ in R.</li>
 <h3 id="orgheadline15"><span class="section-number-3">3.2</span> Tuple Relational Calculus</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
-Queries of the form {t | P(t)}, where P(t) is a predicate that must be satisfied
-by each tuple.
+Queries of the form \(\{t | P(t)\}\), where \(P(t)\) is a predicate that must be
+satisfied by each tuple.
 </p>
 
 <p>
@@ -703,9 +745,9 @@ Examples:
 <ul class="org-ul">
 <li>Find ID, name, dept-name, salary for instructors whose salary is greater than
 $80,000.
-{t| t &isin; instructor &and; t[salary] &gt; 80000}</li>
+\(\{t| t \in \text{instructor} \land t[\text{salary}] > 80000\}\)</li>
 <li>Same as before, but only ID output:
-{t| (&exist; s) (s &isin; instructor &and; t[ID] = s[ID] &and; s[salary] &gt; 80000)}</li>
+\(\{t| (\exists s) (s \in \text{instructor} \land t[\text{ID}] = s[\text{ID}] \land s[\text{salary}] > 80000)\}\)</li>
 </ul>
 
 <p>
@@ -714,19 +756,21 @@ We call the output variables free variables, and any others we introduce are
 </p>
 
 <ul class="org-ul">
-<li><p>
-Find the names of all instructors whose department is in Olin building.
-</p>
+<li>Find the names of all instructors whose department is in Olin building.</li>
+</ul>
+
 
 <p>
-{t| &exist; s &isin; instructor (t[name] = s[name] &and; &exist; u &isin; department (u[dept-name] = s[dept-name] &and; u[building]="Olin"))}
-</p></li>
+\(\{t| \exists s \in \text{instructor} (t[\text{name}] = s[\text{name}] \land \exists u \in \text{department} (u[\text{dept-name}] = s[\text{dept-name}] \land u[\text{building}]=\text{"Olin"}))\}\)
+</p>
 
+<ul class="org-ul">
 <li>B(bid, bname, color), R(sid, bid, day), S(sid, sname, rating, age)</li>
-<li>Find names of sailors who've reserved a red boat: {t| (&exist; s)(&exist; r)(&exist; b) (S(s) &and; s[name]=t[1 ] &and; R(r) &and; B(b) &and; r[sid]=s[sid] &and; r[bid] = b[bid] &and; b[color]="red")}</li>
+<li>Find names of sailors who've reserved a red boat: \(\{t| (\exists s)(\exists r)(\exists b) (S(s) \land s[\text{name}]=t[1 ] \land R(r) \land B(b) \land r[\text{sid}]=s[\text{sid}] \land r[\text{bid}] = b[\text{bid}] \land b[\text{color}]=\text{"red"})\}\)</li>
 </ul>
 </div>
 </div>
+
 
 <div id="outline-container-orgheadline16" class="outline-3">
 <h3 id="orgheadline16"><span class="section-number-3">3.3</span> Semi Join</h3>
@@ -754,8 +798,8 @@ join condition in RA?
 <li>It is undecidable which expressions are safe or unsafe.</li>
 <li>So we call "safe" expressions ones that satisfy a set of conditions that
 guarantee safety.</li>
-<li>An expression {t|P(t)} in TRC is <i>safe</i> if every component of t appears in one
-of the relations, tuples, or constant expressions in P(t)</li>
+<li>An expression \(\{t|P(t)\}\) in TRC is <i>safe</i> if every component of t appears
+in one of the relations, tuples, or constant expressions in P(t)</li>
 </ul>
 </div>
 </div>
@@ -763,11 +807,13 @@ of the relations, tuples, or constant expressions in P(t)</li>
 <div id="outline-container-orgheadline18" class="outline-3">
 <h3 id="orgheadline18"><span class="section-number-3">3.5</span> Division isn't always good enough</h3>
 <div class="outline-text-3" id="text-3-5">
-<p>
-Students(sid, sname, major)
+<div class="org-src-container">
+
+<pre class="src src-text">Students(sid, sname, major)
 Courses(cid, cname, dept)
 Enroll(sid, cid, sem, year)
-</p>
+</pre>
+</div>
 
 <ol class="org-ol">
 <li>Find student id's of students who enrolled in all courses in Fall 2016.</li>
@@ -800,7 +846,7 @@ Student ID's of students who enrolled in all courses in Fall 2016:
 </p>
 
 <p>
-&pi;<sub>sid,cid</sub> (&sigma;<sub>sem=fall &and; year=2016</sub> Enroll) / &pi;<sub>cid</sub> (Courses)
+\(\pi_{sid,cid} (\sigma_{sem=fall \land year=2016} Enroll) / \pi_{cid} (Courses)\)
 </p>
 
 <p>
@@ -808,11 +854,11 @@ Calculus:
 </p>
 
 <p>
-{t<sup>(1)</sup> | &exist; (s) (Student(s) &and; t(1)=s[sid] &and;
-              (&forall; c) (Course(c) &rarr; (&exist; e) (Enroll(e) &and;
-                                        e[sid]=s[sid] &and;
-                                        e[cid]=c[cid] &and;
-                                        e[sem]=fall &and; e[year]=2016)))}
+\(\{t^{(1)} | \exists (s) (Student(s) \land t(1)=s[sid] \land
+                 (\forall c) (Course(c) \to (\exists e) (Enroll(e) \land
+                                           e[sid]=s[sid] \land
+                                           e[cid]=c[cid] \land
+                                           e[sem]=fall \land e[year]=2016)))\}\)
 </p></li>
 
 <li><p>
@@ -820,7 +866,7 @@ Student ID's of students who enrolled in all courses offered by their major:
 </p>
 
 <p>
-&pi;<sub>sid</sub>(Students) - &pi;<sub>sid</sub>(&pi;<sub>sid,cid</sub>(Students ⨝<sub>major=dept</sub> Courses) - &pi;<sub>sid,cid</sub> Enroll)
+\(\pi_{sid}(Students) - \pi_{sid}(\pi_{sid,cid}(Students ⨝_{major=dept} Courses) - \pi_{sid,cid} Enroll)\)
 </p></li>
 </ol>
 </div>
@@ -839,7 +885,7 @@ So you can do stuff like:
 </p>
 
 <p>
-{&lt;i, n, d, s&gt; | &lt;i, n, d, s&gt; &isin; instructor &and; s &gt; 80000}
+\(\{(i, n, d, s) | (i, n, d, s) \in \text{instructor} \land s > 80000\}\)
 </p>
 
 <p>
@@ -847,7 +893,7 @@ Or just output a name:
 </p>
 
 <p>
-{&lt;n&gt; | &lt;i, n, d, s&gt; &isin; instructor &and; s &gt; 80000}
+\(\{(n) | (i, n, d, s) \in instructor \land s > 80000\}\)
 </p>
 
 <p>
@@ -859,7 +905,7 @@ joins on.  An example for this:
 </p>
 
 <p>
-{&lt;i&gt; | (&exist; s) (&lt;i,*,*,s&gt; &isin; instructor &and; s &gt; 80000)}
+\(\{(i) | (\exists s) ((i,\star,\star,s) \in \text{instructor} \land s > 80000)\}\)
 </p>
 
 <p>
@@ -890,7 +936,7 @@ SQL NULL Values exist, and they kinda stink. Comparisons:
 Funny example:
 </p>
 <ul class="org-ul">
-<li>SELECT bar FROM Sells WHERE price &lt; 2.00 OR price &gt;= 2.00;</li>
+<li><code>SELECT bar FROM Sells WHERE price &lt; 2.00 OR price &gt;</code> 2.00;=</li>
 <li>in a relation containing price=NULL will not return that tuple!</li>
 <li><b>law of excluded middle:</b> p or NOT p should be TRUE, but when p is UNKNOWN,
 then p OR NOT p is UNKNOWN.</li>
@@ -898,10 +944,362 @@ then p OR NOT p is UNKNOWN.</li>
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">5</span> 2016-09-19 Monday</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Last class, we had a quiz. Today we went over it. Now we will do SQL and RA
+aggregations.
+</p>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">5.1</span> SQL</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>Beers(<b>name</b>, manf)</li>
+<li>Bars(<b>name</b>, addr, license)</li>
+<li>Drinkers(<b>name</b>, addr, phone)</li>
+<li>Likes(<b>drinker</b>, <b>beer</b>)</li>
+<li>Sells(<b>bar</b>, beer, price)</li>
+<li>Frequents(<b>drinker</b>, bar)</li>
+</ul>
+
+<p>
+Drinkers who frequent bars that sells only beers they like.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">(SELECT name FROM drinkers)
+EXCEPT
+(SELECT drinker
+ FROM Frequents, Sells, Likes
+ WHERE Frequents.drinker=Likes.drinker AND
+       Frequents.bar=Sells.bar AND
+       Sells.beer=Likes.beer;)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-2">
+<h2 id="orgheadline29"><span class="section-number-2">6</span> 2016-09-21 Wednesday</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">6.1</span> Exercise from last time</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+The above exercise can (not surprisingly) be implemented using NOT EXISTS, but
+that's rather inefficient.  I like my EXCEPT query better.
+</p>
+
+<p>
+The EXCEPT query can be done in RA:
+</p>
+
+<p>
+\(\pi_{name} drinkers - \pi_{name} (\sigma_{Frequents.drinker=Likes.drinker \land Frequents.bar=Sells.bar \land Sells.beer=Likes.beer} (Frequents \times Sells \times Likes))\)
+</p>
+
+<p>
+And in calculus, you can use forall to quantify this:
+</p>
+
+<p>
+\(\{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
+             (\forall s) ((Sells(s) \land s[bar] = f[bar]) \to
+                     \not (\exists l) (Likes(l) \land l[drinker]=f[drinker] \land l[beer]=s[beer])))\}\)
+</p>
+
+<p>
+Or we can take this further and continue using not exists like SQL
+</p>
+
+<p>
+\(\{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
+             \not (\exists s) (\exists l) (Sells(s) \land Likes(l) \land
+                            s[bar] = f[bar] \land l[drinker]=f[drinker] \land l[beer]=s[beer]))\}\)
+</p>
+
+<p>
+These are logically equivalent, it's pretty easy to see.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">6.2</span> SQL Join Expressions</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+SQL provides (bag) joins (similar to relational algebra).
+</p>
+<ul class="org-ul">
+<li>NATURAL JOIN</li>
+<li>CROSS JOIN</li>
+<li>R JOIN S ON &lt;cond&gt; (theta join)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-3">
+<h3 id="orgheadline28"><span class="section-number-3">6.3</span> Extended Relational Algebra</h3>
+</div>
+</div>
+<div id="outline-container-orgheadline35" class="outline-2">
+<h2 id="orgheadline35"><span class="section-number-2">7</span> 2016-09-26 Monday</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+<b>DATALOG</b>
+</p>
+
+<p>
+Beer schema:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">Frequents(drinker, bar)
+Likes(drinker, beer)
+Sells(bar, beer, price)
+</pre>
+</div>
+
+<p>
+Course schema:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">Student(sid, sname, dept)
+Enroll(sid, cid, year)
+Course(cid, cname, dept)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">7.1</span> Intro to Datalog</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Datalog is a logical based language similar to DRC.
+</p>
+
+<p>
+Anatomy of a rule:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">HEAD(values) &lt;- Subgoals(a,b,c) AND MoreSubgoals(a,c,d)
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+A variable appearing in the head is <i>distinguished</i>, otherwise it is
+<i>nondistinguished</i>. This is similar to bound and unbound variables. For
+example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">Happy(d) &lt;- Frequents(d, bar) AND Likes(d, beer) AND Sells(bar, beer, p)
+</pre>
+</div>
+
+<p>
+In this example, <code>d</code> is a distinguished variable. <code>beer</code>, <code>bar</code>, and <code>p</code> are
+nondistinguished.
+</p></li>
+
+<li>Projection is achieved by simply not including variables in the head.</li>
+
+<li><p>
+Selection is achieved through conditions, like:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-datalog">CSStudents &lt;- Student(s, _, d) AND (d = "CS")
+</pre>
+</div></li>
+
+<li><p>
+Joins are used by using the same <i>nondistinguished</i> variable for the
+attributes along the join. The equivalent to \(\pi_{\text{sid}} (\text{Student}
+  \Join \text{Enroll} \Join \text{Course})\) is:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-datalog">Answer(s) &lt;- Student(s, _, d) AND Enroll(s, c, _)
+	      AND Course(c, _, d)
+</pre>
+</div>
+
+<p>
+Those are, in particular, natural joins. Theta joins can be achieved by adding
+additional things expressing our conditions, and potentially using different
+variables.
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">7.2</span> Safety of Datalog Rules</h3>
+<div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li><p>
+A rule is safe if:
+</p>
+<ol class="org-ol">
+<li>Each distinguished variable,</li>
+<li>Each variable in an arithmetic subgoal, and</li>
+<li>Each variable in a negated subgoal,</li>
+</ol>
+<p>
+also appears in a nonnegated, relational subgoal.
+</p></li>
+
+<li>Safe rules prevent infinite results.</li>
+</ul>
+
+<p>
+Some example unsafe rules:
+</p>
+<ol class="org-ol">
+<li><code>S(x) &lt;- R(y)</code> because <code>x</code> doesn't appear in a nonnegated relational subgoal.</li>
+<li><code>S(x) &lt;- R(y) AND NOT R(x)</code> for the same reason</li>
+<li><code>S(x) &lt;- R(y) AND x &lt; y</code> again</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">7.3</span> Datalog programs</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+Structure:
+</p>
+<ul class="org-ul">
+<li>A datalog program is a collection of datalog rules</li>
+<li>Predicates of rules can be either:
+<ul class="org-ul">
+<li>Extensional database (a stored table) - "EDB"</li>
+<li>Intensional database (a relation defined by a rule) - "IDB"</li>
+<li>this is similar to a SQL subquery</li>
+</ul></li>
+<li>Heads of rules can never assign to extensional tables.</li>
+<li><p>
+Multiple rules can define a single relation, and so instead of OR in datalog
+you can use multiple predicates/rules, EG:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-datalog">CEorCS(s) &lt;- Student(s, _, "CE")
+CEorCS(s) &lt;- Student(s, _, "CS")
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">7.4</span> Recursion</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+Example: EDB has <code>Par(c, p)</code>, where <code>p</code> is a parent of <code>c</code>. We define a
+generalized cousin relation:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-datalog">Sib(x,y) &lt;- Par(x,p) AND Par(y,p) AND x != y
+Cousin(x, y) &lt;- Sib(x,y)
+Cousin(x, y) &lt;- Par(x, xp) AND Par(y, yp) AND Cousin(xp, yp)
+</pre>
+</div>
+
+<p>
+Definition of recursion
+</p>
+<ul class="org-ul">
+<li>The rules form a dependency graph with nodes that are the IDB relations.</li>
+<li>A directed edge exists between the head of a rule and the IDB relations in the
+predicates.</li>
+<li>Recursion is defined when where is a cycle in the dependency graph.</li>
+</ul>
+
+<p>
+Evaluation:
+</p>
+<ul class="org-ul">
+<li>So long as there is no negation in the rules:
+<ul class="org-ul">
+<li>Naive approach:
+<ol class="org-ol">
+<li>Start with empty IDB.</li>
+<li>Apply rules to get new IDB.</li>
+<li>If the IDB changed, start again with new IDB.</li>
+<li>When the IDB no longer changes, output new result.</li>
+</ol></li>
+<li><p>
+Less naive approach:
+</p>
+<ol class="org-ol">
+<li>Start with empty IDB.</li>
+<li>Apply rules to get new IDB.</li>
+<li>Whenever a new tuple gets added to an IDB relation, evaluate all the
+rules that depended on it, for just that tuple.</li>
+</ol>
+<p>
+This approach works because each rule will only add tuples to IDB relations,
+and so we don't have to redo any work.
+</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34"><span class="section-number-3">7.5</span> Recursion in SQL</h3>
+<div class="outline-text-3" id="text-7-5">
+<p>
+SQL allows recursion too.  Thanks, Datalog!
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">WITH Sib(x,y) AS
+  SELECT p1.child, p2.child
+  FROM Par p1, Par p2
+  WHERE p1.parent = p2.parent AND
+    P1.child != p2.child
+RECURSIVE Cousin(x,y) AS
+  (SELECT * FROM Sib)
+    UNION
+  (SELECT p1.child, p2.child
+   FROM Par p1, Par p2, Cousin
+   WHERE p1.parent = Cousin.x AND
+	 p2.parent = Cousin.y;
+</pre>
+</div>
+
+<p>
+Quiz Monday: SQL + Datalog
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-09-12 Mon 20:33</p>
+<p class="date">Created: 2016-09-26 Mon 20:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
