@@ -192,22 +192,23 @@ Operators:
 - Union, Intersection, Difference
   - Have their usual meaning, but must relations must have same schema
 - Selection: picking certain rows
-  - R_1 = \sigma_C(R_2) - select tuples from R_2 according to condition C, assign
+  - \(R_1 = \sigma_C(R_2)\) - select tuples from R_2 according to condition C, assign
     them to R_1.
 - Projection: picking certain columns
-  - R_1 = \pi_L(R_2) - L is a list of attributes from the schema of R_2, here we only
-    include those tuples in R_1.
+  - \(R_1 = \pi_L(R_2)\) - L is a list of attributes from the schema of R_2, here we
+    only include those tuples in R_1.
   - Extended projection allows L to contain arithmetic on attributes, or some
     other arbitrary expressions which could even add attributes. EG:
-    \pi_{A+B\to{}C,A,B}(R_1).
+    \(\pi_{A+B\to{}C,A,B}(R_1)\).
 - Products
-  - R_3 = R_1 \times R_2 - pair each tuple of R_1 with each tuple from R_2, schema is
-    combination of attributes (rename to R_{1}.attribute if there are collisions)
+  - \(R_3 = R_1 \times R_2\) - pair each tuple of R_1 with each tuple from R_2,
+    schema is combination of attributes (rename to R_{1}.attribute if there are
+    collisions)
 - Theta Joins: (not a *basic*) operator.
-  - operator looks like bowtie, has any condition as a subscript
+  - \(\Join_{\theta}\)
   - Simply a product \times followed by a selection \sigma
 - Natural join:
-  - looks like bowtie, but no subscript
+  - looks like bowtie, but no subscript: \(\Join\)
   - performs a join on two relations, on all attributes having the same name.
   - projects out only one copy of the joined columns
   - EG: Sells(bar, beer, price), Bars(bar, addr)
@@ -218,7 +219,7 @@ Operators:
 Building RA expressions:
 - Can combine using precedence
   1. \sigma, \pi, \rho
-  2. \times, (bowtie)
+  2. \times, \(\Join\)
   3. \cap
   4. \cup, \minus
 - Grouping with parentheses
@@ -228,7 +229,7 @@ Building RA expressions:
 
 EG: find the bars that sell two different beers at the same time
 - use a self join!
-- \pi_{bar} \sigma_{beer\ne{}beer1} (Sells (bowtie) \rho_{S(bar,beer1,price)} Sells)
+- \(\pi_{bar} \sigma_{beer\ne{}beer1} (\text{Sells} \Join \rho_{S(bar,beer1,price)} \text{Sells})\)
 
 *Division Operator*
 - Useful for expressing universal quantification (e.g. Find students who
@@ -241,7 +242,7 @@ EG: find the bars that sell two different beers at the same time
 - Equivalent expression: let t be the set of attributes in R not in S, and s be
   the set of attributes of s:
 
-  R / S = \pi_t R \minus \pi_{t} (R \times S \minus R (bowtie) S )
+  \(R / S = \pi_t R \minus \pi_{t} (R \times S \minus R \Join S )\)
 
 *** Relational Algebra for Bags
 
@@ -281,14 +282,14 @@ Today:
   u are tuples over attributes A and B respectively.
 - R / S has all tuples t such that for all tuples u in S tu is in R.
 
-- Tuples that "do not qualify": \pi_A (\pi_A (R) \times S - R)
+- Tuples that "do not qualify": \(\pi_A (\pi_A (R) \times S - R)\)
   - cartesian product of all t and u tuples, minus the ones that actually exist
     in R.
-- Then, you can find the actual division: \pi_A (R) - \pi_A (\pi_A (R) \times S - R)
+- Then, you can find the actual division: \(\pi_A (R) - \pi_A (\pi_A (R) \times S - R)\)
 
 ** Tuple Relational Calculus
-Queries of the form {t | P(t)}, where P(t) is a predicate that must be satisfied
-by each tuple.
+Queries of the form \(\{t | P(t)\}\), where \(P(t)\) is a predicate that must be
+satisfied by each tuple.
 
 Predicate Calculus:
 - Variables and Constants
@@ -300,19 +301,21 @@ Predicate Calculus:
 Examples:
 - Find ID, name, dept-name, salary for instructors whose salary is greater than
   $80,000.
-  {t| t \in instructor \land t[salary] > 80000}
+  \(\{t| t \in \text{instructor} \land t[\text{salary}] > 80000\}\)
 - Same as before, but only ID output:
-  {t| (\exists s) (s \in instructor \land t[ID] = s[ID] \land s[salary] > 80000)}
+  \(\{t| (\exists s) (s \in \text{instructor} \land t[\text{ID}] = s[\text{ID}] \land s[\text{salary}] > 80000)\}\)
 
 We call the output variables free variables, and any others we introduce are
 "bounded" variables.
 
 - Find the names of all instructors whose department is in Olin building.
 
-  {t| \exists s \in instructor (t[name] = s[name] \land \exists u \in department (u[dept-name] = s[dept-name] \land u[building]="Olin"))}
+
+  \(\{t| \exists s \in \text{instructor} (t[\text{name}] = s[\text{name}] \land \exists u \in \text{department} (u[\text{dept-name}] = s[\text{dept-name}] \land u[\text{building}]=\text{"Olin"}))\}\)
 
 - B(bid, bname, color), R(sid, bid, day), S(sid, sname, rating, age)
-- Find names of sailors who've reserved a red boat: {t| (\exists s)(\exists r)(\exists b) (S(s) \land s[name]=t[1 ] \land R(r) \land B(b) \land r[sid]=s[sid] \land r[bid] = b[bid] \land b[color]="red")}
+- Find names of sailors who've reserved a red boat: \(\{t| (\exists s)(\exists r)(\exists b) (S(s) \land s[\text{name}]=t[1 ] \land R(r) \land B(b) \land r[\text{sid}]=s[\text{sid}] \land r[\text{bid}] = b[\text{bid}] \land b[\text{color}]=\text{"red"})\}\)
+
 
 ** Semi Join
 
@@ -331,14 +334,16 @@ join condition in RA?
 - It is undecidable which expressions are safe or unsafe.
 - So we call "safe" expressions ones that satisfy a set of conditions that
   guarantee safety.
-- An expression {t|P(t)} in TRC is /safe/ if every component of t appears in one
-  of the relations, tuples, or constant expressions in P(t)
+- An expression \(\{t|P(t)\}\) in TRC is /safe/ if every component of t appears
+  in one of the relations, tuples, or constant expressions in P(t)
 
 ** Division isn't always good enough
 
+#+BEGIN_SRC text
 Students(sid, sname, major)
 Courses(cid, cname, dept)
 Enroll(sid, cid, sem, year)
+#+END_SRC
 
 1. Find student id's of students who enrolled in all courses in Fall 2016.
 2. Find student id's of students who enrolled in all courses offered by their
@@ -354,19 +359,19 @@ These are my solutions before class:
 
 1. Student ID's of students who enrolled in all courses in Fall 2016:
 
-   \pi_{sid,cid} (\sigma_{sem=fall \land year=2016} Enroll) / \pi_{cid} (Courses)
+   \(\pi_{sid,cid} (\sigma_{sem=fall \land year=2016} Enroll) / \pi_{cid} (Courses)\)
 
    Calculus:
 
-   {t^{(1)} | \exists (s) (Student(s) \land t(1)=s[sid] \land
+   \(\{t^{(1)} | \exists (s) (Student(s) \land t(1)=s[sid] \land
                  (\forall c) (Course(c) \to (\exists e) (Enroll(e) \land
                                            e[sid]=s[sid] \land
                                            e[cid]=c[cid] \land
-                                           e[sem]=fall \land e[year]=2016)))}
+                                           e[sem]=fall \land e[year]=2016)))\}\)
 
 2. Student ID's of students who enrolled in all courses offered by their major:
 
-   \pi_{sid}(Students) - \pi_{sid}(\pi_{sid,cid}(Students ⨝_{major=dept} Courses) - \pi_{sid,cid} Enroll)
+   \(\pi_{sid}(Students) - \pi_{sid}(\pi_{sid,cid}(Students ⨝_{major=dept} Courses) - \pi_{sid,cid} Enroll)\)
 
 ** Domain Relational Calculus
 
@@ -375,11 +380,11 @@ The x variables are "domain variables" instead of tuples.
 
 So you can do stuff like:
 
-{<i, n, d, s> | <i, n, d, s> \in instructor \land s > 80000}
+\(\{(i, n, d, s) | (i, n, d, s) \in \text{instructor} \land s > 80000\}\)
 
 Or just output a name:
 
-{<n> | <i, n, d, s> \in instructor \land s > 80000}
+\(\{(n) | (i, n, d, s) \in instructor \land s > 80000\}\)
 
 We skipped the existential quantifier above for n, d, and s. It is more formal
 to include quantifiers for the bound variables. However a nice shortcut is to
@@ -387,7 +392,7 @@ simply stick a placeholder in the bound variables you're not going to use, and
 only use variable names for bound variables that you will put conditions or
 joins on.  An example for this:
 
-{<i> | (\exists s) (<i,\star,\star,s> \in instructor \land s > 80000)}
+\(\{(i) | (\exists s) ((i,\star,\star,s) \in \text{instructor} \land s > 80000)\}\)
 
 Pretty similar to TRC!
 
@@ -403,7 +408,7 @@ SQL NULL Values exist, and they kinda stink. Comparisons:
 - Think of TRUE=1, FALSE=0, UNKNOWN=1/2.  Then, AND=MIN, OR=MAX, NOT(x)=1-x
 
 Funny example:
-- SELECT bar FROM Sells WHERE price < 2.00 OR price >= 2.00;
+- =SELECT bar FROM Sells WHERE price < 2.00 OR price >= 2.00;=
 - in a relation containing price=NULL will not return that tuple!
 - *law of excluded middle:* p or NOT p should be TRUE, but when p is UNKNOWN,
   then p OR NOT p is UNKNOWN.
@@ -424,6 +429,7 @@ aggregations.
 
 Drinkers who frequent bars that sells only beers they like.
 
+#+BEGIN_SRC sql
 (SELECT name FROM drinkers)
 EXCEPT
 (SELECT drinker
@@ -431,6 +437,7 @@ EXCEPT
  WHERE Frequents.drinker=Likes.drinker AND
        Frequents.bar=Sells.bar AND
        Sells.beer=Likes.beer;)
+#+END_SRC
 
 * 2016-09-21 Wednesday
 
@@ -440,19 +447,19 @@ that's rather inefficient.  I like my EXCEPT query better.
 
 The EXCEPT query can be done in RA:
 
-\pi_{name} drinkers - \pi_{name} (\sigma_{Frequents.drinker=Likes.drinker \land Frequents.bar=Sells.bar \land Sells.beer=Likes.beer} (Frequents \times Sells \times Likes))
+\(\pi_{name} drinkers - \pi_{name} (\sigma_{Frequents.drinker=Likes.drinker \land Frequents.bar=Sells.bar \land Sells.beer=Likes.beer} (Frequents \times Sells \times Likes))\)
 
 And in calculus, you can use forall to quantify this:
 
-{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
+\(\{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
              (\forall s) ((Sells(s) \land s[bar] = f[bar]) \to
-                     \not (\exists l) (Likes(l) \land l[drinker]=f[drinker] \land l[beer]=s[beer])))}
+                     \not (\exists l) (Likes(l) \land l[drinker]=f[drinker] \land l[beer]=s[beer])))\}\)
 
 Or we can take this further and continue using not exists like SQL
 
-{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
+\(\{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
              \not (\exists s) (\exists l) (Sells(s) \land Likes(l) \land
-                            s[bar] = f[bar] \land l[drinker]=f[drinker] \land l[beer]=s[beer]))}
+                            s[bar] = f[bar] \land l[drinker]=f[drinker] \land l[beer]=s[beer]))\}\)
 
 These are logically equivalent, it's pretty easy to see.
 
@@ -464,3 +471,149 @@ SQL provides (bag) joins (similar to relational algebra).
 - R JOIN S ON <cond> (theta join)
 
 ** Extended Relational Algebra
+* 2016-09-26 Monday
+
+*DATALOG*
+
+Beer schema:
+
+#+BEGIN_SRC text
+Frequents(drinker, bar)
+Likes(drinker, beer)
+Sells(bar, beer, price)
+#+END_SRC
+
+Course schema:
+
+#+BEGIN_SRC text
+Student(sid, sname, dept)
+Enroll(sid, cid, year)
+Course(cid, cname, dept)
+#+END_SRC
+
+** Intro to Datalog
+
+Datalog is a logical based language similar to DRC.
+
+Anatomy of a rule:
+
+#+BEGIN_SRC text
+HEAD(values) <- Subgoals(a,b,c) AND MoreSubgoals(a,c,d)
+#+END_SRC
+
+- A variable appearing in the head is /distinguished/, otherwise it is
+  /nondistinguished/. This is similar to bound and unbound variables. For
+  example:
+
+  #+BEGIN_SRC text
+  Happy(d) <- Frequents(d, bar) AND Likes(d, beer) AND Sells(bar, beer, p)
+  #+END_SRC
+
+  In this example, =d= is a distinguished variable. =beer=, =bar=, and =p= are
+  nondistinguished.
+
+- Projection is achieved by simply not including variables in the head.
+
+- Selection is achieved through conditions, like:
+
+  #+BEGIN_SRC datalog
+  CSStudents <- Student(s, _, d) AND (d = "CS")
+  #+END_SRC
+
+- Joins are used by using the same /nondistinguished/ variable for the
+  attributes along the join. The equivalent to \(\pi_{\text{sid}} (\text{Student}
+  \Join \text{Enroll} \Join \text{Course})\) is:
+
+  #+BEGIN_SRC datalog
+  Answer(s) <- Student(s, _, d) AND Enroll(s, c, _)
+                AND Course(c, _, d)
+  #+END_SRC
+
+  Those are, in particular, natural joins. Theta joins can be achieved by adding
+  additional things expressing our conditions, and potentially using different
+  variables.
+
+** Safety of Datalog Rules
+
+- A rule is safe if:
+  1. Each distinguished variable,
+  2. Each variable in an arithmetic subgoal, and
+  3. Each variable in a negated subgoal,
+  also appears in a nonnegated, relational subgoal.
+
+- Safe rules prevent infinite results.
+
+Some example unsafe rules:
+1. =S(x) <- R(y)= because =x= doesn't appear in a nonnegated relational subgoal.
+2. =S(x) <- R(y) AND NOT R(x)= for the same reason
+3. =S(x) <- R(y) AND x < y= again
+
+** Datalog programs
+
+Structure:
+- A datalog program is a collection of datalog rules
+- Predicates of rules can be either:
+  - Extensional database (a stored table) - "EDB"
+  - Intensional database (a relation defined by a rule) - "IDB"
+  - this is similar to a SQL subquery
+- Heads of rules can never assign to extensional tables.
+- Multiple rules can define a single relation, and so instead of OR in datalog
+  you can use multiple predicates/rules, EG:
+
+  #+BEGIN_SRC datalog
+  CEorCS(s) <- Student(s, _, "CE")
+  CEorCS(s) <- Student(s, _, "CS")
+  #+END_SRC
+
+** Recursion
+
+Example: EDB has =Par(c, p)=, where =p= is a parent of =c=. We define a
+generalized cousin relation:
+
+#+begin_src datalog
+Sib(x,y) <- Par(x,p) AND Par(y,p) AND x != y
+Cousin(x, y) <- Sib(x,y)
+Cousin(x, y) <- Par(x, xp) AND Par(y, yp) AND Cousin(xp, yp)
+#+end_src
+
+Definition of recursion
+- The rules form a dependency graph with nodes that are the IDB relations.
+- A directed edge exists between the head of a rule and the IDB relations in the
+  predicates.
+- Recursion is defined when where is a cycle in the dependency graph.
+
+Evaluation:
+- So long as there is no negation in the rules:
+  - Naive approach:
+    1. Start with empty IDB.
+    2. Apply rules to get new IDB.
+    3. If the IDB changed, start again with new IDB.
+    4. When the IDB no longer changes, output new result.
+  - Less naive approach:
+    1. Start with empty IDB.
+    2. Apply rules to get new IDB.
+    3. Whenever a new tuple gets added to an IDB relation, evaluate all the
+       rules that depended on it, for just that tuple.
+    This approach works because each rule will only add tuples to IDB relations,
+    and so we don't have to redo any work.
+
+** Recursion in SQL
+
+SQL allows recursion too.  Thanks, Datalog!
+
+#+begin_src sql
+WITH Sib(x,y) AS
+  SELECT p1.child, p2.child
+  FROM Par p1, Par p2
+  WHERE p1.parent = p2.parent AND
+    P1.child != p2.child
+RECURSIVE Cousin(x,y) AS
+  (SELECT * FROM Sib)
+    UNION
+  (SELECT p1.child, p2.child
+   FROM Par p1, Par p2, Cousin
+   WHERE p1.parent = Cousin.x AND
+         p2.parent = Cousin.y;
+#+end_src
+
+Quiz Monday: SQL + Datalog
