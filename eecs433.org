@@ -431,3 +431,36 @@ EXCEPT
  WHERE Frequents.drinker=Likes.drinker AND
        Frequents.bar=Sells.bar AND
        Sells.beer=Likes.beer;)
+
+* 2016-09-21 Wednesday
+
+** Exercise from last time
+The above exercise can (not surprisingly) be implemented using NOT EXISTS, but
+that's rather inefficient.  I like my EXCEPT query better.
+
+The EXCEPT query can be done in RA:
+
+\pi_{name} drinkers - \pi_{name} (\sigma_{Frequents.drinker=Likes.drinker \land Frequents.bar=Sells.bar \land Sells.beer=Likes.beer} (Frequents \times Sells \times Likes))
+
+And in calculus, you can use forall to quantify this:
+
+{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
+             (\forall s) ((Sells(s) \land s[bar] = f[bar]) \to
+                     \not (\exists l) (Likes(l) \land l[drinker]=f[drinker] \land l[beer]=s[beer])))}
+
+Or we can take this further and continue using not exists like SQL
+
+{t^{1} | (\exists f) (Frequents(f) \land f[drinker] = t[1 ] \land
+             \not (\exists s) (\exists l) (Sells(s) \land Likes(l) \land
+                            s[bar] = f[bar] \land l[drinker]=f[drinker] \land l[beer]=s[beer]))}
+
+These are logically equivalent, it's pretty easy to see.
+
+** SQL Join Expressions
+
+SQL provides (bag) joins (similar to relational algebra).
+- NATURAL JOIN
+- CROSS JOIN
+- R JOIN S ON <cond> (theta join)
+
+** Extended Relational Algebra
