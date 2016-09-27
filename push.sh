@@ -20,7 +20,7 @@ fi
 # Copy in the assorted content.
 set +e
 cp ../$REPO/*.{html,jpg,png,gif} ./
-cp -r ../assets .
+cp -r ../$REPO/assets .
 set -e
 # Add and commit changes.
 git add -A .
