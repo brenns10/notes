@@ -617,3 +617,199 @@ RECURSIVE Cousin(x,y) AS
 #+end_src
 
 Quiz Monday: SQL + Datalog
+
+* 2016-09-28 Wednesday
+Last time we discussed Datalog and recursion in SQL. Today we will discuss SQL
+recursion.
+
+** SQL Recursion
+
+*** Example 1
+EDB Schema:
+#+begin_src text
+Par(child, parent)
+#+end_src
+Find Sally's cousins, using SQL like the recursive Datalog example.
+#+begin_src sql
+WITH Sib(x,y) AS
+  SELECT p1.child, p2.child
+  FROM Par p1, Par p2
+  WHERE p1.parent = p2.parent AND
+        p1.child != p2.child;
+#+end_src
+This establishes the initial sibling table. Next we have the recursive rule:
+#+begin_src sql
+WITH ...
+RECURSIVE Cousin(x,y) AS
+  (SELECT * FROM Sib)
+      UNION
+  (SELECT p1.child, p2.child
+   FROM Par p1, Par p2, Cousin
+   WHERE p1.parent = Cousin.x AND
+         p2.parent = Cousin.y
+#+end_src
+And now we can find Sally's cousins:
+#+begin_src sql
+SELECT y
+FROM Cousin
+WHERE x="Sally";
+#+end_src
+
+*** Legal SQL Recursion
+Can't have "meaningless" recursion - SQL restricts it.  EG:
+- EDB: =P(x) = {(1)}=
+- IDB: =Q(x) <- P(x) AND NOT Q(x)=
+- Is (1) in Q(x)?
+  - It's a paradox.
+
+In order to define legal SQL recursion:
+1. Define "monotone" recursions.
+2. Define a "stratum graph" to represent connections among subqueries.
+3. Proper SQL recursions are defined in terms of the stratum graph.
+
+*Monotonicity:* If relation P is a function of relation Q (and perhaps others),
+we say P is /monotone/ in Q if inserting tuples into Q cannot cause any tuple to
+be deleted from P.
+
+#+begin_src sql
+SELECT AVG(price)
+FROM Sells
+WHERE bar = "Joe's Bar";
+#+end_src sql
+
+Not monotone, because inserting into =Sells= will change the average price,
+deleting the old one.
+
+*Stratum Graph:*
+
+- Arcs P->Q:
+  1. P is a rule head and Q is a relation in the FROM list (not of a subquery).
+  2. P is a rule head and Q is an immediate subquery of that rule.
+  3. P is a subquery, and Q is a relation in its FROM or an immediate subquery.
+- Place minus sign on arc if not monotone.
+
+*Legal Recursion:* If you can bound the number of minus signs on any path,
+ including cycles.
+
+Example from Cousin example:
+#+begin_src text
+Sib = ...
+Cousin = ( ... FROM Sib ... )
+   UNION
+   ( ... FROM Cousin ... )
+#+end_src
+
+** Datalog & SQL Exercises
+Schema:
+#+begin_src text
+Movies(title, year, length, genre, studioName, producerC#)
+Stars(movieTitle, movieYear, starName)
+MovieStar(name, address, gender, birthdate)
+MovieExec(name, cert#, address, networth)
+Stud(name, address, presC#)
+#+end_src
+
+a. Express this in English:
+   #+begin_src sql
+   SELECT M.title
+   FROM Movies M
+   GROUP BY M.title
+   HAVING COUNT(*) > 1;
+   #+end_src
+
+   This means: find titles that occur more than once.
+
+b. Express the query in part (a) without aggregation.
+
+  #+begin_src sql
+  SELECT M1.title
+  FROM Movies M1, Movies M2
+  WHERE M1.title = M2.title AND
+        M1.year != M2.year;
+  #+end_src
+
+c. Express the query in part (a) in Datalog
+
+  #+begin_src text
+  Answer(t) <- Movies(t, y1, _, _, _, _)
+               AND Movies(t, y2, _, _, _, _)
+               AND NOT y1 = y2;
+  #+end_src
+
+Express the query: Find the names of stars who star in every movie produced by
+"MGM" studios.
+
+a. In SQL
+
+   #+begin_src sql
+   SELECT ms.name
+   FROM MovieStar ms
+   WHERE NOT EXISTS (
+       SELECT *
+       FROM Movies m
+       WHERE m.studio = "MGM" AND NOT EXISTS (
+           SELECT *
+           FROM Stars s
+           WHERE s.movieTitle = m.title AND
+                 s.movieYear = m.year));
+   #+end_src
+
+b. In Datalog
+
+   #+begin_src text
+   NotInAnMGMMovie(n) <- Movies(t, y, _, _, "MGM", _) AND NOT Stars(t, y, n) AND MovieStar(n, _, _, _)
+   Answer(n) <- Stars(_, _, n) AND NOT NotInAnMGMMovie(n)
+   #+end_src
+
+   The last part (=AND MovieStar(n, _, _, _)=) ensures the safety of the
+   expression! Otherwise, =n= would have only appeared in a negated sub-goal.
+
+Now the query for "who only stars in MGM Movies", to illustrate the difference.
+
+#+begin_src text
+InNonMGMMovie(n) <- Movies(t, y, _, _, s, _) AND Stars(t, y, n) AND s != "MGM"
+Answer(n) <- Stars(_, _, n) AND NOT InNonMGMMovie(n)
+#+end_src
+
+This "only" query in SQL:
+#+begin_src sql
+SELECT name FROM MovieStar
+EXCEPT
+SELECT s.name
+FROM Stars s, Movies m
+WHERE s.movieTitle = m.title AND
+      s.movieYear = m.year AND
+      m.studioName != "MGM";
+#+end_src
+
+#+begin_src sql
+SELECT DISTINCT s.name
+FROM Stars s, Movies m
+WHERE NOT EXISTS (
+  SELECT *
+  FROM Movies m, Stars s2
+  WHERE s2.starName = s.name AND
+        s2.movieTitle = m.title AND
+        s2.movieYear = m.year AND
+        m.studioName != "MGM");
+#+end_src
+
+** SQL Aggregation Examples
+
+#+begin_src text
+Courses(cid, cname, dept, credithrs)
+Enrollment(sem, year, sid, cid)
+#+end_src
+
+Find courses with minimum number of students for each dept for Fall 2015. Output
+dept, course name, number of students
+
+#+begin_src sql
+WITH Fall2015EnrollmentCounts(cid, count) AS
+    SELECT cid, COUNT(sid)
+    FROM Enrollment
+    WHERE sem = "fall" AND year=2015
+    GROUP BY cid
+SELECT dept, cname, count
+FROM ...
+#+end_src
