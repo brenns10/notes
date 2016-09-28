@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-09-27 Tue 17:59 -->
+<!-- 2016-09-28 Wed 20:41 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>EECS 433 Notes</title>
@@ -237,6 +237,18 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline32">7.3. Datalog programs</a></li>
 <li><a href="#orgheadline33">7.4. Recursion</a></li>
 <li><a href="#orgheadline34">7.5. Recursion in SQL</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline41">8. 2016-09-28 Wednesday</a>
+<ul>
+<li><a href="#orgheadline38">8.1. SQL Recursion</a>
+<ul>
+<li><a href="#orgheadline36">8.1.1. Example 1</a></li>
+<li><a href="#orgheadline37">8.1.2. Legal SQL Recursion</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline39">8.2. Datalog &amp; SQL Exercises</a></li>
+<li><a href="#orgheadline40">8.3. SQL Aggregation Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -1296,10 +1308,283 @@ Quiz Monday: SQL + Datalog
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline41" class="outline-2">
+<h2 id="orgheadline41"><span class="section-number-2">8</span> 2016-09-28 Wednesday</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Last time we discussed Datalog and recursion in SQL. Today we will discuss SQL
+recursion.
+</p>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">8.1</span> SQL Recursion</h3>
+<div class="outline-text-3" id="text-8-1">
+</div><div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">8.1.1</span> Example 1</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<p>
+EDB Schema:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-text">Par(child, parent)
+</pre>
+</div>
+<p>
+Find Sally's cousins, using SQL like the recursive Datalog example.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sql">WITH Sib(x,y) AS
+  SELECT p1.child, p2.child
+  FROM Par p1, Par p2
+  WHERE p1.parent = p2.parent AND
+	p1.child != p2.child;
+</pre>
+</div>
+<p>
+This establishes the initial sibling table. Next we have the recursive rule:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sql">WITH ...
+RECURSIVE Cousin(x,y) AS
+  (SELECT * FROM Sib)
+      UNION
+  (SELECT p1.child, p2.child
+   FROM Par p1, Par p2, Cousin
+   WHERE p1.parent = Cousin.x AND
+	 p2.parent = Cousin.y
+</pre>
+</div>
+<p>
+And now we can find Sally's cousins:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT y
+FROM Cousin
+WHERE x="Sally";
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37"><span class="section-number-4">8.1.2</span> Legal SQL Recursion</h4>
+<div class="outline-text-4" id="text-8-1-2">
+<p>
+Can't have "meaningless" recursion - SQL restricts it.  EG:
+</p>
+<ul class="org-ul">
+<li>EDB: <code>P(x) = {(1)}</code></li>
+<li>IDB: <code>Q(x) &lt;- P(x) AND NOT Q(x)</code></li>
+<li>Is (1) in Q(x)?
+<ul class="org-ul">
+<li>It's a paradox.</li>
+</ul></li>
+</ul>
+
+<p>
+In order to define legal SQL recursion:
+</p>
+<ol class="org-ol">
+<li>Define "monotone" recursions.</li>
+<li>Define a "stratum graph" to represent connections among subqueries.</li>
+<li>Proper SQL recursions are defined in terms of the stratum graph.</li>
+</ol>
+
+<p>
+<b>Monotonicity:</b> If relation P is a function of relation Q (and perhaps others),
+we say P is <i>monotone</i> in Q if inserting tuples into Q cannot cause any tuple to
+be deleted from P.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT AVG(price)
+FROM Sells
+WHERE bar = "Joe's Bar";
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">8.2</span> Datalog &amp; SQL Exercises</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+Schema:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-text">Movies(title, year, length, genre, studioName, producerC#)
+Stars(movieTitle, movieYear, starName)
+MovieStar(name, address, gender, birthdate)
+MovieExec(name, cert#, address, networth)
+Stud(name, address, presC#)
+</pre>
+</div>
+
+<p>
+a. Express this in English:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT M.title
+FROM Movies M
+GROUP BY M.title
+HAVING COUNT(*) &gt; 1;
+</pre>
+</div>
+
+<p>
+This means: find titles that occur more than once.
+</p>
+
+<p>
+b. Express the query in part (a) without aggregation.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT M1.title
+FROM Movies M1, Movies M2
+WHERE M1.title = M2.title AND
+      M1.year != M2.year;
+</pre>
+</div>
+
+<p>
+c. Express the query in part (a) in Datalog
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">Answer(t) &lt;- Movies(t, y1, _, _, _, _)
+	     AND Movies(t, y2, _, _, _, _)
+	     AND NOT y1 = y2;
+</pre>
+</div>
+
+<p>
+Express the query: Find the names of stars who star in every movie produced by
+"MGM" studios.
+</p>
+
+<p>
+a. In SQL
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT ms.name
+FROM MovieStar ms
+WHERE NOT EXISTS (
+    SELECT *
+    FROM Movies m
+    WHERE m.studio = "MGM" AND NOT EXISTS (
+	SELECT *
+	FROM Stars s
+	WHERE s.movieTitle = m.title AND
+	      s.movieYear = m.year));
+</pre>
+</div>
+
+<p>
+b. In Datalog
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">NotInAnMGMMovie(n) &lt;- Movies(t, y, _, _, "MGM", _) AND NOT Stars(t, y, n) AND MovieStar(n, _, _, _)
+Answer(n) &lt;- Stars(_, _, n) AND NOT NotInAnMGMMovie(n)
+</pre>
+</div>
+
+<p>
+The last part (<code>AND MovieStar(n, _, _, _)</code>) ensures the safety of the
+expression! Otherwise, <code>n</code> would have only appeared in a negated sub-goal.
+</p>
+
+<p>
+Now the query for "who only stars in MGM Movies", to illustrate the difference.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-text">InNonMGMMovie(n) &lt;- Movies(t, y, _, _, s, _) AND Stars(t, y, n) AND s != "MGM"
+Answer(n) &lt;- Stars(_, _, n) AND NOT InNonMGMMovie(n)
+</pre>
+</div>
+
+<p>
+This "only" query in SQL:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT name FROM MovieStar
+EXCEPT
+SELECT s.name
+FROM Stars s, Movies m
+WHERE s.movieTitle = m.title AND
+      s.movieYear = m.year AND
+      m.studioName != "MGM";
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">SELECT DISTINCT s.name
+FROM Stars s, Movies m
+WHERE NOT EXISTS (
+  SELECT *
+  FROM Movies m, Stars s2
+  WHERE s2.starName = s.name AND
+	s2.movieTitle = m.title AND
+	s2.movieYear = m.year AND
+	m.studioName != "MGM");
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40"><span class="section-number-3">8.3</span> SQL Aggregation Examples</h3>
+<div class="outline-text-3" id="text-8-3">
+<div class="org-src-container">
+
+<pre class="src src-text">Courses(cid, cname, dept, credithrs)
+Enrollment(sem, year, sid, cid)
+</pre>
+</div>
+
+<p>
+Find courses with minimum number of students for each dept for Fall 2015. Output
+dept, course name, number of students
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">WITH Fall2015EnrollmentCounts(cid, count) AS
+    SELECT cid, COUNT(sid)
+    FROM Enrollment
+    WHERE sem = "fall" AND year=2015
+    GROUP BY cid
+SELECT dept, cname, count
+FROM ...
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-09-27 Tue 17:59</p>
+<p class="date">Created: 2016-09-28 Wed 20:41</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
