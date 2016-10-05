@@ -813,3 +813,92 @@ WITH Fall2015EnrollmentCounts(cid, count) AS
 SELECT dept, cname, count
 FROM ...
 #+end_src
+
+* 2016-10-05 Wednesday
+
+Monday was a quiz on SQL and Datalog. Today we will discuss XML and RDF.
+
+** Motivation
+
+- EG, a search for "scientists from Brisbane" does text matching, and won't
+  produce very relevant results.
+- Would be nice if information were represented online in such a way that it
+  could present semantic information about it and its relationships.
+  - The "semantic web"
+
+** Recent Approaches to Web Querying
+
+*** XML (eXtensible Markup Language)
+- A data exchange language.
+- "self describing" - schema lives with data
+- schemaless (that is, the data is guaranteed to conform to any schema)
+- Has a tree-based (definitely context-free) structure
+- Has some querying languages - XPATH
+
+*** RDF (Resource Description Framework)
+- W3C Recommendation
+- A simple, self-descriptive model
+- Can be embedded into web pages
+- Building block of *semantic web* & Linked Open Data (LOD)
+- Has query language SPARQL (similar to SQL+Datalog)
+
+** XML
+
+If you haven't seen the syntax yet, Google it.
+
+Tag names can be part of namespaces.
+- Can specify namespaces by using xmlns attribute
+- Can use additional namespaces with prefix (xmlns:prefix).
+
+** Semantic Web
+
+Goal: create a common framework for data to be shared and reused. Across
+applications, enterprise, and community boundaries.
+
+Hope: machines can use this to understand information. For a store, a machine
+could fetch a page, process the semantic information (not the markup) and
+understand that it is a store, which sells certain items. Or for a personal
+website, a computer could understand that it represents a person.
+
+** RDF
+
+Contains data of the form "subject" "relationship" "object". EG: Stephen livesIn
+Cleveland.
+
+Items are identified by URIs, but also can be literals. Relationships are also
+identified by URIs (they too are resources), and so the relationships can have
+metadata.
+
+*** n-ary relationships
+
+If you have an n-ary relationship (e.g. stephen livedIn SanFrancisco in 2016),
+you can create a new identifier and add the relationship with each of those
+items to the new identifier.
+
+*** RDF & Semantic Web
+
+This format can be used to help the "semantic web" - it is machine
+understandable, and there is no schema.
+
+There are tons of vocabularies representing relationships, and there's tons of
+datasets containing information.
+
+** SPARQL
+
+SPARQL = SPARQL Protocol and RDF Query Language
+- gotta love recursive acronyms
+
+SPARQL lets you query by looking for graph patterns
+- You can specify resource URIs, literals, and variables.
+- Queries consist of a graph pattern specification as well as a filter
+  expression.
+- For instance, you could query for movie names, which have a director whose
+  name is Stanley Kubrick and filter them by the rating being > 4.0.
+
+Syntax: (similar to SQL)
+- PREFIX
+- SELECT
+- Pattern Triples
+- FILTER
+
+Implementation - wooooo.
