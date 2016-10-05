@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-09-28 Wed 20:41 -->
+<!-- 2016-10-05 Wed 20:37 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>EECS 433 Notes</title>
@@ -249,6 +249,26 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#orgheadline39">8.2. Datalog &amp; SQL Exercises</a></li>
 <li><a href="#orgheadline40">8.3. SQL Aggregation Examples</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline52">9. 2016-10-05 Wednesday</a>
+<ul>
+<li><a href="#orgheadline42">9.1. Motivation</a></li>
+<li><a href="#orgheadline45">9.2. Recent Approaches to Web Querying</a>
+<ul>
+<li><a href="#orgheadline43">9.2.1. XML (eXtensible Markup Language)</a></li>
+<li><a href="#orgheadline44">9.2.2. RDF (Resource Description Framework)</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline46">9.3. XML</a></li>
+<li><a href="#orgheadline47">9.4. Semantic Web</a></li>
+<li><a href="#orgheadline50">9.5. RDF</a>
+<ul>
+<li><a href="#orgheadline48">9.5.1. n-ary relationships</a></li>
+<li><a href="#orgheadline49">9.5.2. RDF &amp; Semantic Web</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline51">9.6. SPARQL</a></li>
 </ul>
 </li>
 </ul>
@@ -1581,10 +1601,177 @@ FROM ...
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline52" class="outline-2">
+<h2 id="orgheadline52"><span class="section-number-2">9</span> 2016-10-05 Wednesday</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Monday was a quiz on SQL and Datalog. Today we will discuss XML and RDF.
+</p>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">9.1</span> Motivation</h3>
+<div class="outline-text-3" id="text-9-1">
+<ul class="org-ul">
+<li>EG, a search for "scientists from Brisbane" does text matching, and won't
+produce very relevant results.</li>
+<li>Would be nice if information were represented online in such a way that it
+could present semantic information about it and its relationships.
+<ul class="org-ul">
+<li>The "semantic web"</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45"><span class="section-number-3">9.2</span> Recent Approaches to Web Querying</h3>
+<div class="outline-text-3" id="text-9-2">
+</div><div id="outline-container-orgheadline43" class="outline-4">
+<h4 id="orgheadline43"><span class="section-number-4">9.2.1</span> XML (eXtensible Markup Language)</h4>
+<div class="outline-text-4" id="text-9-2-1">
+<ul class="org-ul">
+<li>A data exchange language.</li>
+<li>"self describing" - schema lives with data</li>
+<li>schemaless (that is, the data is guaranteed to conform to any schema)</li>
+<li>Has a tree-based (definitely context-free) structure</li>
+<li>Has some querying languages - XPATH</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44"><span class="section-number-4">9.2.2</span> RDF (Resource Description Framework)</h4>
+<div class="outline-text-4" id="text-9-2-2">
+<ul class="org-ul">
+<li>W3C Recommendation</li>
+<li>A simple, self-descriptive model</li>
+<li>Can be embedded into web pages</li>
+<li>Building block of <b>semantic web</b> &amp; Linked Open Data (LOD)</li>
+<li>Has query language SPARQL (similar to SQL+Datalog)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46"><span class="section-number-3">9.3</span> XML</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+If you haven't seen the syntax yet, Google it.
+</p>
+
+<p>
+Tag names can be part of namespaces.
+</p>
+<ul class="org-ul">
+<li>Can specify namespaces by using xmlns attribute</li>
+<li>Can use additional namespaces with prefix (xmlns:prefix).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline47" class="outline-3">
+<h3 id="orgheadline47"><span class="section-number-3">9.4</span> Semantic Web</h3>
+<div class="outline-text-3" id="text-9-4">
+<p>
+Goal: create a common framework for data to be shared and reused. Across
+applications, enterprise, and community boundaries.
+</p>
+
+<p>
+Hope: machines can use this to understand information. For a store, a machine
+could fetch a page, process the semantic information (not the markup) and
+understand that it is a store, which sells certain items. Or for a personal
+website, a computer could understand that it represents a person.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50"><span class="section-number-3">9.5</span> RDF</h3>
+<div class="outline-text-3" id="text-9-5">
+<p>
+Contains data of the form "subject" "relationship" "object". EG: Stephen livesIn
+Cleveland.
+</p>
+
+<p>
+Items are identified by URIs, but also can be literals. Relationships are also
+identified by URIs (they too are resources), and so the relationships can have
+metadata.
+</p>
+</div>
+
+<div id="outline-container-orgheadline48" class="outline-4">
+<h4 id="orgheadline48"><span class="section-number-4">9.5.1</span> n-ary relationships</h4>
+<div class="outline-text-4" id="text-9-5-1">
+<p>
+If you have an n-ary relationship (e.g. stephen livedIn SanFrancisco in 2016),
+you can create a new identifier and add the relationship with each of those
+items to the new identifier.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline49" class="outline-4">
+<h4 id="orgheadline49"><span class="section-number-4">9.5.2</span> RDF &amp; Semantic Web</h4>
+<div class="outline-text-4" id="text-9-5-2">
+<p>
+This format can be used to help the "semantic web" - it is machine
+understandable, and there is no schema.
+</p>
+
+<p>
+There are tons of vocabularies representing relationships, and there's tons of
+datasets containing information.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">9.6</span> SPARQL</h3>
+<div class="outline-text-3" id="text-9-6">
+<p>
+SPARQL = SPARQL Protocol and RDF Query Language
+</p>
+<ul class="org-ul">
+<li>gotta love recursive acronyms</li>
+</ul>
+
+<p>
+SPARQL lets you query by looking for graph patterns
+</p>
+<ul class="org-ul">
+<li>You can specify resource URIs, literals, and variables.</li>
+<li>Queries consist of a graph pattern specification as well as a filter
+expression.</li>
+<li>For instance, you could query for movie names, which have a director whose
+name is Stanley Kubrick and filter them by the rating being &gt; 4.0.</li>
+</ul>
+
+<p>
+Syntax: (similar to SQL)
+</p>
+<ul class="org-ul">
+<li>PREFIX</li>
+<li>SELECT</li>
+<li>Pattern Triples</li>
+<li>FILTER</li>
+</ul>
+
+<p>
+Implementation - wooooo.
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-09-28 Wed 20:41</p>
+<p class="date">Created: 2016-10-05 Wed 20:37</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
