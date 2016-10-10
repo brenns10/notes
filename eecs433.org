@@ -902,3 +902,99 @@ Syntax: (similar to SQL)
 - FILTER
 
 Implementation - wooooo.
+
+* 2016-10-10 Monday
+
+Today we'll discuss the quiz, then the project, and finally RDF querying.
+
+** Quiz
+
+Not too much to go over here. Although we did end up going through the Datalog
+portion in detail again.
+
+The midterm (Oct 17) will cover SQL, RA, TRC, Datalog, and probably RDF stuff
+too - at least everything up to today.
+
+** More RDF
+
+Last time, we got to the point where we had a naive storage design for RDF
+triples (subject, property, object): basically, a relational table with three
+columns.  You can then translate a SPARQL query (roughly) to a SQL query.
+
+Nicer implementation: RDF-3X
+- Map every string to an integer.
+- Store triples in a table using their string representations.
+- Create an exhaustive index using B+ trees. That is, one index for each
+  ordering of Subject, Property, Object: SPO, SOP, PSO, POS, OPS, OSP
+
+Review of join types:
+- nested loops (for each row of R, go through each row of S)
+- hash join (for each item in R, hash it to find location of S)
+- merge join (keep sorted, iterate through both as they match)
+
+RDF-3X achieves time efficiency for queries by having the exhaustive indices and
+then using merge joins.
+
+** Projects
+
+The purpose is to gain research skills, which includes literature surveys,
+reading papers, etc.
+
+Topic Ideas
+- Web-Based Query Interface for Querying RDF using Graph Templates
+- Natural Language Querying for RDF
+- Converting Relational Data to RDF
+- Extracting RDF triples from text
+- NoSQL systems -- comparative survey
+- Other projects
+
+Dates
+- Proposals due Oct 26 @ 3PM
+- Progress report - Nov 8 @ 5PM
+- Progress report presentation - Nov 9 in class
+- Project report due Dec 4 @ 5PM
+- Presentations - last week of classes
+
+Proposals:
+- title
+- members
+- problem definition
+- preliminary goals
+- division of labor
+- list of papers
+
+Progress Report:
+- formal problem definition
+- literature survey
+- goals
+- anticipated challenges + difficulties
+- division of work
+- preliminary timeline
+
+Final Report (~10 pages)
+- abstract, intro, definition, related work, approach used, result, evaluation,
+  conclusions.
+
+** Object Oriented Databases
+
+Differences w/ relational:
+- Relational: set of relation; relation = set of tuples
+- Object: set of classes, class = set of objects
+- Relational: tuple components are primitive (int, string, etc)
+- Object: object components may be complex (sets, tuples, etc)
+- Unique features of OODB:
+  - Inheritance hierarchy
+  - /Instance methods/
+  - Even the querying language being a programming language! (/oops/)
+
+OODB systems came out, offered way too many features, and went bankrupt.
+Relational databases integrated the best features, and became "Object-Relational
+Databases".
+
+Shortcomings of relational model:
+- User-Defined data types
+  - You can have blobs, etc, which are only handled on app level
+- Structured types
+  - no support for collections, new types, etc
+- Inheritance - no support for generalization hierarchies, etc
+-
