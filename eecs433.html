@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 2016-10-05 Wed 20:37 -->
+<!-- 2016-10-10 Mon 20:36 -->
 <meta  charset="utf-8">
 <meta  name="viewport" content="width=device-width, initial-scale=1">
 <title>EECS 433 Notes</title>
@@ -269,6 +269,14 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#orgheadline51">9.6. SPARQL</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline57">10. 2016-10-10 Monday</a>
+<ul>
+<li><a href="#orgheadline53">10.1. Quiz</a></li>
+<li><a href="#orgheadline54">10.2. More RDF</a></li>
+<li><a href="#orgheadline55">10.3. Projects</a></li>
+<li><a href="#orgheadline56">10.4. Object Oriented Databases</a></li>
 </ul>
 </li>
 </ul>
@@ -1768,10 +1776,177 @@ Implementation - wooooo.
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline57" class="outline-2">
+<h2 id="orgheadline57"><span class="section-number-2">10</span> 2016-10-10 Monday</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Today we'll discuss the quiz, then the project, and finally RDF querying.
+</p>
+</div>
+
+<div id="outline-container-orgheadline53" class="outline-3">
+<h3 id="orgheadline53"><span class="section-number-3">10.1</span> Quiz</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+Not too much to go over here. Although we did end up going through the Datalog
+portion in detail again.
+</p>
+
+<p>
+The midterm (Oct 17) will cover SQL, RA, TRC, Datalog, and probably RDF stuff
+too - at least everything up to today.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54"><span class="section-number-3">10.2</span> More RDF</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+Last time, we got to the point where we had a naive storage design for RDF
+triples (subject, property, object): basically, a relational table with three
+columns.  You can then translate a SPARQL query (roughly) to a SQL query.
+</p>
+
+<p>
+Nicer implementation: RDF-3X
+</p>
+<ul class="org-ul">
+<li>Map every string to an integer.</li>
+<li>Store triples in a table using their string representations.</li>
+<li>Create an exhaustive index using B+ trees. That is, one index for each
+ordering of Subject, Property, Object: SPO, SOP, PSO, POS, OPS, OSP</li>
+</ul>
+
+<p>
+Review of join types:
+</p>
+<ul class="org-ul">
+<li>nested loops (for each row of R, go through each row of S)</li>
+<li>hash join (for each item in R, hash it to find location of S)</li>
+<li>merge join (keep sorted, iterate through both as they match)</li>
+</ul>
+
+<p>
+RDF-3X achieves time efficiency for queries by having the exhaustive indices and
+then using merge joins.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="orgheadline55"><span class="section-number-3">10.3</span> Projects</h3>
+<div class="outline-text-3" id="text-10-3">
+<p>
+The purpose is to gain research skills, which includes literature surveys,
+reading papers, etc.
+</p>
+
+<p>
+Topic Ideas
+</p>
+<ul class="org-ul">
+<li>Web-Based Query Interface for Querying RDF using Graph Templates</li>
+<li>Natural Language Querying for RDF</li>
+<li>Converting Relational Data to RDF</li>
+<li>Extracting RDF triples from text</li>
+<li>NoSQL systems &#x2013; comparative survey</li>
+<li>Other projects</li>
+</ul>
+
+<p>
+Dates
+</p>
+<ul class="org-ul">
+<li>Proposals due Oct 26 @ 3PM</li>
+<li>Progress report - Nov 8 @ 5PM</li>
+<li>Progress report presentation - Nov 9 in class</li>
+<li>Project report due Dec 4 @ 5PM</li>
+<li>Presentations - last week of classes</li>
+</ul>
+
+<p>
+Proposals:
+</p>
+<ul class="org-ul">
+<li>title</li>
+<li>members</li>
+<li>problem definition</li>
+<li>preliminary goals</li>
+<li>division of labor</li>
+<li>list of papers</li>
+</ul>
+
+<p>
+Progress Report:
+</p>
+<ul class="org-ul">
+<li>formal problem definition</li>
+<li>literature survey</li>
+<li>goals</li>
+<li>anticipated challenges + difficulties</li>
+<li>division of work</li>
+<li>preliminary timeline</li>
+</ul>
+
+<p>
+Final Report (~10 pages)
+</p>
+<ul class="org-ul">
+<li>abstract, intro, definition, related work, approach used, result, evaluation,
+conclusions.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline56" class="outline-3">
+<h3 id="orgheadline56"><span class="section-number-3">10.4</span> Object Oriented Databases</h3>
+<div class="outline-text-3" id="text-10-4">
+<p>
+Differences w/ relational:
+</p>
+<ul class="org-ul">
+<li>Relational: set of relation; relation = set of tuples</li>
+<li>Object: set of classes, class = set of objects</li>
+<li>Relational: tuple components are primitive (int, string, etc)</li>
+<li>Object: object components may be complex (sets, tuples, etc)</li>
+<li>Unique features of OODB:
+<ul class="org-ul">
+<li>Inheritance hierarchy</li>
+<li><i>Instance methods</i></li>
+<li>Even the querying language being a programming language! (<i>oops</i>)</li>
+</ul></li>
+</ul>
+
+<p>
+OODB systems came out, offered way too many features, and went bankrupt.
+Relational databases integrated the best features, and became "Object-Relational
+Databases".
+</p>
+
+<p>
+Shortcomings of relational model:
+</p>
+<ul class="org-ul">
+<li>User-Defined data types
+<ul class="org-ul">
+<li>You can have blobs, etc, which are only handled on app level</li>
+</ul></li>
+<li>Structured types
+<ul class="org-ul">
+<li>no support for collections, new types, etc</li>
+</ul></li>
+<li>Inheritance - no support for generalization hierarchies, etc</li>
+<li></li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Stephen Brennan</p>
-<p class="date">Created: 2016-10-05 Wed 20:37</p>
+<p class="date">Created: 2016-10-10 Mon 20:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
