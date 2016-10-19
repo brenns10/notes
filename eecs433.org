@@ -998,3 +998,25 @@ Shortcomings of relational model:
   - no support for collections, new types, etc
 - Inheritance - no support for generalization hierarchies, etc
 -
+* 2016-10-19 Wednesday
+
+** Midterm
+
+We're going over Monday's midterm.  Nothing to see here.
+
+** XML
+
+Previously, we've seen relational databases, object databases, RDF.
+
+We might like to make data be more suitable for exchange on the web, aiming for:
+- being object like
+- being self-describing
+- being "schemaless". ish. kind of.
+
+Things we'll cover:
+- DTD (old way to specify schema)
+- XML Schema (newer, more complex/powerful schema specification)
+- XPath, XQuery
+- SQL/XML
+
+Proper syntax, attributes as IDs, etc.
